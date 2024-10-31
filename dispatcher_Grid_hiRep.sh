@@ -74,7 +74,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$white; printf \"Moving files to dst    : \"; \$bold;
 \$magenta; printf \'%s\'\"$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cp build_*.sh ${external_lib_dir}
+cp build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
