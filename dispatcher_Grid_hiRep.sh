@@ -83,9 +83,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 cd ${external_lib_dir}; pwd ;ls -al ${external_lib_dir}
 
 which bash;
-bash -s < ./build_dependencies.sh SwanSea/SourceCodes/external_lib;
-bash -s < ./build_Grid.sh         SwanSea/SourceCodes/external_lib;
-bash -s < ./install_Grid.sh       SwanSea/SourceCodes/external_lib;
+bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
+bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
+bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
 
 
 "
