@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     dependencies_Grid.sh                                              !"
+echo "!     build_dependencies.sh                                             !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -18,6 +18,7 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables
 sleep_time=2
+sptr="/"
 #Functions
 ProgressBar (){
     _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
@@ -143,7 +144,7 @@ case $machine_name in
     module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
 esac
 $green; printf "done.\n"; $reset_colors;
-
+grid_build_dir=$grid_dir$sptr$build_dir
 #-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
@@ -156,6 +157,7 @@ $white; printf "machine_name           : ";$red;      printf "$machine_name\n";$
 $white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";  $reset_colors;
 $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $reset_colors;
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
+$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
 #-------------------------------------------------------------------------------
 # Getting and building the dependencies

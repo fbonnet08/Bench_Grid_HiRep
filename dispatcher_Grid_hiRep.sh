@@ -90,12 +90,19 @@ bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
 
 
 "
-
+#TODO: continue with the commands here or in the ssh statement
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}
-
 #ssh -t $user_remote_host " cd ${external_lib_dir};
 # ls -al; which bash ; bash -s < ./dependencies_Grid.sh SwanSea/SourceCodes/external_lib;"
-
-
+#-------------------------------------------------------------------------------
+#End of the script
+echo
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; echo `date`; $blue;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo "-                  dispatcher_Grid_hiRep.sh Done.                       -"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+#exit
+#-------------------------------------------------------------------------------
 
 

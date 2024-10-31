@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     dependencies_Grid.sh                                              !"
+echo "!     install_Grid.sh                                                   !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -143,7 +143,7 @@ case $machine_name in
     module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
 esac
 $green; printf "done.\n"; $reset_colors;
-
+grid_build_dir=$grid_dir$sptr$build_dir
 #-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
@@ -156,14 +156,15 @@ $white; printf "machine_name           : ";$red;      printf "$machine_name\n";$
 $white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";  $reset_colors;
 $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $reset_colors;
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
+$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
 #-------------------------------------------------------------------------------
 # Building grid after the dependencies
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Grid dir and compiling: "; $bold;
-$magenta; printf "${grid_dir}\n"; $white; $reset_colors;
-cd ${grid_dir}
+$green; printf "Moving Grid build dir and compiling: "; $bold;
+$magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
+cd ${grid_build_dir}
 ls -al
 
 $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
@@ -171,8 +172,7 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 # Running the make install into the prefix directory
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Running make -k install      : "; $bold;
-$magenta; printf "${build_dir}\n"; $white; $reset_colors;
-ls -al
+$magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
 make -k install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -199,7 +199,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  build_Grid.sh Done.                                  -"
+echo "-                  install_Grid.sh Done.                                -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------
