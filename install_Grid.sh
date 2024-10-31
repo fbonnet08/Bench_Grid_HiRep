@@ -168,112 +168,30 @@ ls -al
 
 $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 
-$green; printf "Launching bootstrapper       : "; $bold;
-$magenta; printf "./bootstrap.sh\n"; $white; $reset_colors;
-./bootstrap.sh
-
-if [ -d ${build_dir} ]
-then
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build_dir}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
-else
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build_dir}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
-  mkdir -p ${build_dir}
-  printf "                       : "; $bold;
-  $green; printf "done.\n"; $reset_colors;
-fi
-
-$green; printf "Moving to build directory    : "; $bold;
+# Running the make install into the prefix directory
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Running make -k install      : "; $bold;
 $magenta; printf "${build_dir}\n"; $white; $reset_colors;
-cd build
-$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
+ls -al
+make -k install
 
-# loading the modules for compilation (only valid during the life of this script)
-# Here the idea is to use the exact same configuration on all machines, the laptop
-# configuration is just for testing purpooses and sanity checks when it all goes pear shape
-# on the cluster.
-#TODO: fix the repetition in the same cases when needed.
-$green; printf "Configuring                  : "; $bold;
-case $machine_name in
-  *"Precision-3571"*)
-    ../configure \
-    --enable-comms=mpi-auto \
-    --enable-doxygen-doc
-    ;;
-  *"tursa"*)
-    ../configure \
-    --prefix=${prefix} \
-    --enable-doxygen-doc \
-    --enable-comms=mpi \
-    --enable-simd=GPU \
-    --enable-shm=nvlink \
-    --enable-accelerator=cuda \
-    --enable-gen-simd-width=64 \
-    --disable-gparity \
-    --disable-fermion-reps \
-    --enable-Sp \
-    --enable-Nc=4 \
-    --with-lime=${prefix} \
-    --with-gmp=${prefix} \
-    --with-mpfr=${prefix} \
-    --disable-unified \
-    CXX=nvcc \
-    LDFLAGS="-cudart shared -lcublas " \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
-    ;;
-  *"sunbird"*)
-    ../configure \
-    --prefix=${prefix} \
-    --enable-doxygen-doc \
-    --enable-comms=mpi \
-    --enable-simd=GPU \
-    --enable-shm=nvlink \
-    --enable-accelerator=cuda \
-    --enable-gen-simd-width=64 \
-    --disable-gparity \
-    --disable-fermion-reps \
-    --enable-Sp \
-    --enable-Nc=4 \
-    --with-lime=${prefix} \
-    --with-gmp=${prefix} \
-    --with-mpfr=${prefix} \
-    --disable-unified \
-    CXX=nvcc \
-    LDFLAGS="-cudart shared -lcublas " \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
-    ;;
-  *"vega"*)
-    ../configure \
-    --prefix=${prefix} \
-    --enable-doxygen-doc \
-    --enable-comms=mpi \
-    --enable-simd=GPU \
-    --enable-shm=nvlink \
-    --enable-accelerator=cuda \
-    --enable-gen-simd-width=64 \
-    --disable-gparity \
-    --disable-zmobius \
-    --disable-fermion-reps \
-    --enable-Sp \
-    --enable-Nc=4 \
-    --with-lime=${prefix} \
-    --with-gmp=${prefix} \
-    --with-mpfr=${prefix} \
-    --disable-unified \
-    CXX=nvcc \
-    LDFLAGS="-cudart shared -lcublas " \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
-    ;;
-esac
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_lib_dir=${prefix}/lib
+$green; printf "Checking content of prefix library directory : "; $bold;
+$magenta; printf "${prefix_lib_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_lib_dir}
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_inc_dir=${prefix}/include
+$green; printf "Checking content of prefix include directory : "; $bold;
+$magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_inc_dir}
 
-$green; printf "Building Grid                : "; $bold;
-$yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-if [[ $machine_name =~ "Precision-3571" ]]; then
-  make -k -j16;
-else
-  make -k -j32;
-fi
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+grid_build_bench_dir=${build_dir}/benchmarks
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
+cd ${grid_build_bench_dir}
+ls -al
 
 #-------------------------------------------------------------------------------
 #End of the script
