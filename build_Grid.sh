@@ -276,19 +276,28 @@ else
 fi
 # Running the make install into the prefix directory
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Grid dir and compiling: "; $bold;
-$magenta; printf "${grid_dir}\n"; $white; $reset_colors;
+$green; printf "Running make -k install      : "; $bold;
+$magenta; printf "${build_dir}\n"; $white; $reset_colors;
 ls -al
 make -k install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+prefix_lib_dir=${prefix}/lib
+$green; printf "Checking content of prefix library directory : "; $bold;
+$magenta; printf "${prefix_lib_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_lib_dir}
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_inc_dir=${prefix}/include
+$green; printf "Checking content of prefix include directory : "; $bold;
+$magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_inc_dir}
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 grid_build_bench_dir=${build_dir}/benchmarks
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
 $magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
 cd ${grid_build_bench_dir}
 ls -al
-
-#make
 
 #-------------------------------------------------------------------------------
 #End of the script

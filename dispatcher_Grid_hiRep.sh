@@ -42,15 +42,20 @@ ssh -t $user_remote_host "
 #colors
 red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
-white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"\"
+white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"tput sgr0\"
 
-
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # First let's get the code
 cd ${source_dir} ; pwd ; ls -al ${source_dir}
 git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
-cd ./Bench_Grid_HiRep.git
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+src_fldr=./Bench_Grid_HiRep
+\$white; printf \"Directory              : \"; \$bold;
+\$magenta; printf \'%s\'\"$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
+cd ./Bench_Grid_HiRep; pwd ;ls -al ${external_lib_dir}
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${external_lib_dir} ]
 then
   \$white; printf \"Directory              : \"; \$bold;
@@ -64,16 +69,22 @@ else
   \$green; printf \"done.\n\"; \$reset_colors;
 fi
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # moving files to destination
+\$white; printf \"Moving files to dst    : \"; \$bold;
+\$magenta; printf \'%s\'\"$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+
 cp build_*.sh ${external_lib_dir}
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
-cd ${external_lib_dir};
-pwd
-ls -al ${external_lib_dir}
+\$white; printf \"Moving to directory    : \"; \$bold;
+\$magenta; printf \'%s\'\"${external_lib_dir}\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+cd ${external_lib_dir}; pwd ;ls -al ${external_lib_dir}
 
-
-
+which bash;
+bash -s < ./build_dependencies.sh SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid.sh         SwanSea/SourceCodes/external_lib;
 
 
 "
