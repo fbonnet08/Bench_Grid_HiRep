@@ -158,78 +158,8 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
 #-------------------------------------------------------------------------------
-# Getting the dependencies
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "lime-1.3.2.tar.gz\n"; $white; $reset_colors;
-
-cd ${basedir}
-wget http://usqcd-software.github.io/downloads/c-lime/lime-1.3.2.tar.gz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
-tar xzf lime-1.3.2.tar.gz
-cd lime-1.3.2
-./configure --prefix=${prefix}
-#make -j16 all install
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "gmp-6.3.0.tar.xz\n"; $white; $reset_colors;
-cd ${basedir}
-wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-tar xf gmp-6.3.0.tar.xz
-cd gmp-6.3.0
-./configure --prefix=${prefix}
-#make -j16
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
-cd ${basedir}
-wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-tar xvzf mpfr-4.2.1.tar.gz
-cd mpfr-4.2.1
-./configure --prefix=${prefix} --with-gmp=${prefix}
-#make -j16
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
+# Building grid after the dependencies
+#-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Grid dir and compiling: "; $bold;
 $magenta; printf "${grid_dir}\n"; $white; $reset_colors;
@@ -339,8 +269,17 @@ esac
 
 $green; printf "Building Grid                : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-if [[ $machine_name =~ "Precision-3571" ]]; then make -k -j16; else make -k -j32; fi
-#make
+if [[ $machine_name =~ "Precision-3571" ]]; then
+  make -k -j16;
+else
+  make -k -j32;
+fi
+# Running the make install into the prefix directory
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Grid dir and compiling: "; $bold;
+$magenta; printf "${grid_dir}\n"; $white; $reset_colors;
+ls -al
+make -k install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
@@ -349,67 +288,7 @@ $magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
 cd ${grid_build_bench_dir}
 ls -al
 
-make
-make -k install
-
-# Now compiling Sombrero
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Sombrero dir and compiling: "; $bold;
-$magenta; printf "${sombrero_dir}\n"; $white; $reset_colors;
-cd ${sombrero_dir}
-ls -al
-
-make
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
-# Now compiling BKeeper
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving BKeeper dir and compiling: "; $bold;
-$magenta; printf "${bekeeper_dir}\n"; $white; $reset_colors;
-cd ${bekeeper_dir}
-ls -al
-build=build
-./bootstrap.sh
-if [ -d ${build} ]
-then
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
-else
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
-  mkdir -p ${build}
-  printf "                       : "; $bold;
-  $green; printf "done.\n"; $reset_colors;
-fi
-
-$green; printf "Moving to build directory    : "; $bold;
-$magenta; printf "${build}\n"; $white; $reset_colors;
-cd ${build}
-$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
-
-../configure \
-  --prefix=${prefix} \
-
-make
-make install
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
-
-./Benchmark_ITT
+#make
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -417,7 +296,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  dependencies_Grid.sh Done.                           -"
+echo "-                  build_Grid.sh Done.                                  -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------

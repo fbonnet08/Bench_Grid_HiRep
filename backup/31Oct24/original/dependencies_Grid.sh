@@ -158,8 +158,201 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
 #-------------------------------------------------------------------------------
+# Getting the dependencies
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "lime-1.3.2.tar.gz\n"; $white; $reset_colors;
+
+cd ${basedir}
+wget http://usqcd-software.github.io/downloads/c-lime/lime-1.3.2.tar.gz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+tar xzf lime-1.3.2.tar.gz
+cd lime-1.3.2
+./configure --prefix=${prefix}
+#make -j16 all install
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "gmp-6.3.0.tar.xz\n"; $white; $reset_colors;
+cd ${basedir}
+wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+tar xf gmp-6.3.0.tar.xz
+cd gmp-6.3.0
+./configure --prefix=${prefix}
+#make -j16
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
+cd ${basedir}
+wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+tar xvzf mpfr-4.2.1.tar.gz
+cd mpfr-4.2.1
+./configure --prefix=${prefix} --with-gmp=${prefix}
+#make -j16
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Grid dir and compiling: "; $bold;
+$magenta; printf "${grid_dir}\n"; $white; $reset_colors;
+cd ${grid_dir}
+ls -al
+
+$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
+
+$green; printf "Launching bootstrapper       : "; $bold;
+$magenta; printf "./bootstrap.sh\n"; $white; $reset_colors;
+./bootstrap.sh
+
+if [ -d ${build_dir} ]
+then
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build_dir}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+else
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build_dir}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
+  mkdir -p ${build_dir}
+  printf "                       : "; $bold;
+  $green; printf "done.\n"; $reset_colors;
+fi
+
+$green; printf "Moving to build directory    : "; $bold;
+$magenta; printf "${build_dir}\n"; $white; $reset_colors;
+cd build
+$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
+
+# loading the modules for compilation (only valid during the life of this script)
+# Here the idea is to use the exact same configuration on all machines, the laptop
+# configuration is just for testing purpooses and sanity checks when it all goes pear shape
+# on the cluster.
+#TODO: fix the repetition in the same cases when needed.
+$green; printf "Configuring                  : "; $bold;
+case $machine_name in
+  *"Precision-3571"*)
+    ../configure \
+    --enable-comms=mpi-auto \
+    --enable-doxygen-doc
+    ;;
+  *"tursa"*)
+    ../configure \
+    --prefix=${prefix} \
+    --enable-doxygen-doc \
+    --enable-comms=mpi \
+    --enable-simd=GPU \
+    --enable-shm=nvlink \
+    --enable-accelerator=cuda \
+    --enable-gen-simd-width=64 \
+    --disable-gparity \
+    --disable-fermion-reps \
+    --enable-Sp \
+    --enable-Nc=4 \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-unified \
+    CXX=nvcc \
+    LDFLAGS="-cudart shared -lcublas " \
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    ;;
+  *"sunbird"*)
+    ../configure \
+    --prefix=${prefix} \
+    --enable-doxygen-doc \
+    --enable-comms=mpi \
+    --enable-simd=GPU \
+    --enable-shm=nvlink \
+    --enable-accelerator=cuda \
+    --enable-gen-simd-width=64 \
+    --disable-gparity \
+    --disable-fermion-reps \
+    --enable-Sp \
+    --enable-Nc=4 \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-unified \
+    CXX=nvcc \
+    LDFLAGS="-cudart shared -lcublas " \
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    ;;
+  *"vega"*)
+    ../configure \
+    --prefix=${prefix} \
+    --enable-doxygen-doc \
+    --enable-comms=mpi \
+    --enable-simd=GPU \
+    --enable-shm=nvlink \
+    --enable-accelerator=cuda \
+    --enable-gen-simd-width=64 \
+    --disable-gparity \
+    --disable-zmobius \
+    --disable-fermion-reps \
+    --enable-Sp \
+    --enable-Nc=4 \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-unified \
+    CXX=nvcc \
+    LDFLAGS="-cudart shared -lcublas " \
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    ;;
+esac
+
+$green; printf "Building Grid                : "; $bold;
+$yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
+if [[ $machine_name =~ "Precision-3571" ]]; then make -k -j16; else make -k -j32; fi
+#make
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+grid_build_bench_dir=${build_dir}/benchmarks
+$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
+cd ${grid_build_bench_dir}
+ls -al
+
+make
+make -k install
+
 # Now compiling Sombrero
-#-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Sombrero dir and compiling: "; $bold;
 $magenta; printf "${sombrero_dir}\n"; $white; $reset_colors;
@@ -213,13 +406,18 @@ do
 done
 printf "\n"
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
+
+./Benchmark_ITT
+
 #-------------------------------------------------------------------------------
 #End of the script
 echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  build_SombreroBKeeper.sh Done.                       -"
+echo "-                  dependencies_Grid.sh Done.                           -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------

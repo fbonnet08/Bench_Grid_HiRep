@@ -161,57 +161,16 @@ $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_co
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Sombrero dir and compiling: "; $bold;
-$magenta; printf "${sombrero_dir}\n"; $white; $reset_colors;
-cd ${sombrero_dir}
-ls -al
-
-make
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
 do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 done
 printf "\n"
 
-# Now compiling BKeeper
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving BKeeper dir and compiling: "; $bold;
-$magenta; printf "${bekeeper_dir}\n"; $white; $reset_colors;
-cd ${bekeeper_dir}
-ls -al
-build=build
-./bootstrap.sh
-if [ -d ${build} ]
-then
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
-else
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
-  mkdir -p ${build}
-  printf "                       : "; $bold;
-  $green; printf "done.\n"; $reset_colors;
-fi
+$green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
 
-$green; printf "Moving to build directory    : "; $bold;
-$magenta; printf "${build}\n"; $white; $reset_colors;
-cd ${build}
-$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
-
-../configure \
-  --prefix=${prefix} \
-
-make
-make install
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
+./Benchmark_ITT
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -219,7 +178,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  build_SombreroBKeeper.sh Done.                       -"
+echo "-                  dependencies_Grid.sh Done.                           -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------
