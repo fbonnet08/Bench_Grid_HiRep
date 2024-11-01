@@ -53,7 +53,7 @@ src_fldr=./Bench_Grid_HiRep
 \$white; printf \"Directory              : \"; \$bold;
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cd ./Bench_Grid_HiRep; pwd ;ls -al ${external_lib_dir}
+cd ./Bench_Grid_HiRep; pwd ;
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${external_lib_dir} ]
@@ -70,11 +70,11 @@ else
 fi
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-# moving files to destination
+# copying files to destination directory
 \$white; printf \"Moving files to dst    : \"; \$bold;
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cp build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
+cp common_main.sh build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
@@ -82,12 +82,27 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$magenta; printf \'%s\'\"${external_lib_dir}\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 cd ${external_lib_dir}; pwd ;ls -al ${external_lib_dir}
 
+# loading the modules for compilation (only valid during the life of this script)
+\$white; printf \"Module load (script)   : \"; \$bold;
+case ${remote_hostname} in
+  *\"tursa.dirac.ed.ac.uk\"*)
+    source /etc/profile.d/modules.sh ;
+    module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
+    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;;
+  *\"sunbird.swansea.ac.uk\"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
+  *\"login.vega.izum.si\"*)
+    source /etc/profile.d/modules.sh;
+    source /ceph/hpc/software/cvmfs_env.sh ;
+    module list;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
+esac
+\$green; printf \"done.\n\"; \$reset_colors;
+
 which bash;
 bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
 bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
 bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
 bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
-
 
 "
 #TODO: continue with the commands here or in the ssh statement
