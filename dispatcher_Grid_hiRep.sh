@@ -9,11 +9,11 @@ sptr="/"
 #echo           "Enter Username         : "; username="frederic"                    # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215" # read remote_hostname;
 
-echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
-echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+#echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
+#echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
 
-#echo           "Enter Username         : "; username="eufredericb"                  # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
+echo           "Enter Username         : "; username="eufredericb"                  # read username;
+echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
 
 echo
 $white; printf "username               : ";$green;  printf "$username\n";$reset_colors;
@@ -51,7 +51,7 @@ git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_fldr=./Bench_Grid_HiRep
 \$white; printf \"Directory              : \"; \$bold;
-\$magenta; printf \'%s\'\"$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+\$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
 cd ./Bench_Grid_HiRep; pwd ;ls -al ${external_lib_dir}
 
@@ -72,7 +72,7 @@ fi
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # moving files to destination
 \$white; printf \"Moving files to dst    : \"; \$bold;
-\$magenta; printf \'%s\'\"$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+\$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
 cp build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
 

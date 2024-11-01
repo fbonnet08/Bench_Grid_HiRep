@@ -45,10 +45,6 @@ else
   local_dir=${HOME}/$1
 fi
 
-#setting up the environment properly
-# Getting the common code setup and variables
-source ./common_main.sh $1;
-
 # first get the hostnames and deduce the machine_name from it.
 hostname=$(echo ${HOSTNAME});
 $white; printf "Hostname               : "; $bold;
@@ -161,86 +157,9 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
-#-------------------------------------------------------------------------------
-# Getting and building the dependencies
-#-------------------------------------------------------------------------------
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "lime-1.3.2.tar.gz\n"; $white; $reset_colors;
 
-cd ${basedir}
-wget http://usqcd-software.github.io/downloads/c-lime/lime-1.3.2.tar.gz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
 
-tar xzf lime-1.3.2.tar.gz
-cd lime-1.3.2
-./configure --prefix=${prefix}
-#make -j16 all install
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
+exit
 
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "gmp-6.3.0.tar.xz\n"; $white; $reset_colors;
-cd ${basedir}
-wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-tar xf gmp-6.3.0.tar.xz
-cd gmp-6.3.0
-./configure --prefix=${prefix}
-#make -j16
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
 
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$white; printf "Getting and compiling  : "; $bold;
-$magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
-cd ${basedir}
-wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-tar xvzf mpfr-4.2.1.tar.gz
-cd mpfr-4.2.1
-./configure --prefix=${prefix} --with-gmp=${prefix}
-#make -j16
-make
-make all install
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
-printf "\n"
-#-------------------------------------------------------------------------------
-#End of the script
-echo
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan; echo `date`; $blue;
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  build_dependencies.sh Done.                          -"
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-#exit
-#-------------------------------------------------------------------------------
+
