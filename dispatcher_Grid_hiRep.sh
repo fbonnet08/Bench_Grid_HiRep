@@ -86,9 +86,6 @@ cd ${external_lib_dir}; pwd ;ls -al ${external_lib_dir}
 \$white; printf \"Module load (script)   : \"; \$bold;
 case ${remote_hostname} in
   *\"tursa.dirac.ed.ac.uk\"*)
-    source /etc/profile.d/modules.sh ;
-    module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
-    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;;
   *\"sunbird.swansea.ac.uk\"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
   *\"login.vega.izum.si\"*)
     source /etc/profile.d/modules.sh;
@@ -100,9 +97,9 @@ esac
 
 which bash;
 bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
-bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
-bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
 
 "
 #TODO: continue with the commands here or in the ssh statement

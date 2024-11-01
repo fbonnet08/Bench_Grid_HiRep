@@ -49,6 +49,9 @@ fi
 # Getting the common code setup and variables
 source ./common_main.sh $1;
 
+exit
+
+
 # first get the hostnames and deduce the machine_name from it.
 hostname=$(echo ${HOSTNAME});
 $white; printf "Hostname               : "; $bold;

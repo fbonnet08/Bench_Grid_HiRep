@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     build_dependencies.sh                                             !"
+echo "!     common_main.sh                                                    !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -157,9 +157,6 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
-
-
-exit
 
 #-------------------------------------------------------------------------------
 #End of the script
