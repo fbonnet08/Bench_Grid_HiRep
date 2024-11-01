@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     dependencies_Grid.sh                                              !"
+echo "!     build_SombreroBKeeper.sh                                              !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"

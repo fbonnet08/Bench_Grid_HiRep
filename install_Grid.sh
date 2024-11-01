@@ -18,6 +18,7 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables
 sleep_time=2
+sptr="/"
 #Functions
 ProgressBar (){
     _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
