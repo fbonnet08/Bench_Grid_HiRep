@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     common_main.sh                                                    !"
+echo "!     dependencies_Grid.sh                                              !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -18,7 +18,6 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables
 sleep_time=2
-sptr="/"
 #Functions
 ProgressBar (){
     _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
@@ -44,6 +43,8 @@ else
   $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
+
+#setting up the environment properly
 
 # first get the hostnames and deduce the machine_name from it.
 hostname=$(echo ${HOSTNAME});
@@ -128,24 +129,21 @@ case $machine_name in
   *"Precision-3571"*)
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
-    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid
     ;;
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
-    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;
-    ;;
-  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
-    ;;
+    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;;
+  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
   *"vega"*)
-    #source /etc/profile.d/modules.sh;
-    #source /ceph/hpc/software/cvmfs_env.sh ;
-    #module list;
-    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list
-    ;;
+    source /etc/profile.d/modules.sh;
+    source /ceph/hpc/software/cvmfs_env.sh ;
+    module list;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
 esac
 $green; printf "done.\n"; $reset_colors;
-grid_build_dir=$grid_dir$sptr$build_dir
+
 #-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
@@ -158,8 +156,21 @@ $white; printf "machine_name           : ";$red;      printf "$machine_name\n";$
 $white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";  $reset_colors;
 $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $reset_colors;
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
-$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
+#-------------------------------------------------------------------------------
+# Now compiling Sombrero
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
+
+./Benchmark_ITT
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -167,9 +178,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  common_main.sh Done.                                 -"
+echo "-                  dependencies_Grid.sh Done.                           -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------
-
-

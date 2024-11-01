@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     common_main.sh                                                    !"
+echo "!     build_dependencies.sh                                             !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -44,6 +44,13 @@ else
   $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
+
+#setting up the environment properly
+# Getting the common code setup and variables
+source ./common_main.sh $1;
+
+exit
+
 
 # first get the hostnames and deduce the machine_name from it.
 hostname=$(echo ${HOSTNAME});
@@ -128,21 +135,18 @@ case $machine_name in
   *"Precision-3571"*)
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
-    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid
     ;;
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
-    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;
-    ;;
-  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
-    ;;
+    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;;
+  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
   *"vega"*)
-    #source /etc/profile.d/modules.sh;
-    #source /ceph/hpc/software/cvmfs_env.sh ;
-    #module list;
-    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list
-    ;;
+    source /etc/profile.d/modules.sh;
+    source /ceph/hpc/software/cvmfs_env.sh ;
+    module list;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
 esac
 $green; printf "done.\n"; $reset_colors;
 grid_build_dir=$grid_dir$sptr$build_dir
@@ -160,16 +164,86 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
+#-------------------------------------------------------------------------------
+# Getting and building the dependencies
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "lime-1.3.2.tar.gz\n"; $white; $reset_colors;
 
+cd ${basedir}
+wget http://usqcd-software.github.io/downloads/c-lime/lime-1.3.2.tar.gz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+tar xzf lime-1.3.2.tar.gz
+cd lime-1.3.2
+./configure --prefix=${prefix}
+#make -j16 all install
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "gmp-6.3.0.tar.xz\n"; $white; $reset_colors;
+cd ${basedir}
+wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+tar xf gmp-6.3.0.tar.xz
+cd gmp-6.3.0
+./configure --prefix=${prefix}
+#make -j16
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "Getting and compiling  : "; $bold;
+$magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
+cd ${basedir}
+wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+tar xvzf mpfr-4.2.1.tar.gz
+cd mpfr-4.2.1
+./configure --prefix=${prefix} --with-gmp=${prefix}
+#make -j16
+make
+make all install
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
 #-------------------------------------------------------------------------------
 #End of the script
 echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  common_main.sh Done.                                 -"
+echo "-                  build_dependencies.sh Done.                          -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------
-
-

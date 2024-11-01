@@ -5,7 +5,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     common_main.sh                                                    !"
+echo "!     install_Grid.sh                                                   !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
 echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
 echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
@@ -44,6 +44,8 @@ else
   $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
+
+#setting up the environment properly
 
 # first get the hostnames and deduce the machine_name from it.
 hostname=$(echo ${HOSTNAME});
@@ -128,21 +130,18 @@ case $machine_name in
   *"Precision-3571"*)
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
-    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid
     ;;
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
-    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;
-    ;;
-  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
-    ;;
+    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;;
+  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
   *"vega"*)
-    #source /etc/profile.d/modules.sh;
-    #source /ceph/hpc/software/cvmfs_env.sh ;
-    #module list;
-    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list
-    ;;
+    source /etc/profile.d/modules.sh;
+    source /ceph/hpc/software/cvmfs_env.sh ;
+    module list;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;;
 esac
 $green; printf "done.\n"; $reset_colors;
 grid_build_dir=$grid_dir$sptr$build_dir
@@ -160,6 +159,40 @@ $white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $res
 $white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
 $white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
+#-------------------------------------------------------------------------------
+# Building grid after the dependencies
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Grid build dir and compiling: "; $bold;
+$magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
+cd ${grid_build_dir}
+ls -al
+
+$magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
+
+# Running the make install into the prefix directory
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Running make -k install      : "; $bold;
+$magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
+make -k install
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_lib_dir=${prefix}/lib
+$green; printf "Checking content of prefix library directory : "; $bold;
+$magenta; printf "${prefix_lib_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_lib_dir}
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_inc_dir=${prefix}/include
+$green; printf "Checking content of prefix include directory : "; $bold;
+$magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_inc_dir}
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+grid_build_bench_dir=${build_dir}/benchmarks
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
+cd ${grid_build_bench_dir}
+ls -al
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -167,9 +200,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  common_main.sh Done.                                 -"
+echo "-                  install_Grid.sh Done.                                -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------
-
-
