@@ -49,13 +49,12 @@ fi
 hostname=$(echo ${HOSTNAME});
 $white; printf "Hostname               : "; $bold;
 $blue; printf "$hostname\n"; $white; $reset_colors;
-#TODO: add the other machines here LUMI and Leonardo
+#TODO: add other machines here or in common block code: LUMI and Leonardo module load combination and environment
 if [[ $hostname =~ "tursa" ]]; then
-  #echo "Found 'tursa' in string."
   machine_name="tursa"
   # Clearing the modules already loaded and starting fresh
   #source /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env
-
+  # TODO: may be ok to move this to the common block code
   source /etc/profile.d/modules.sh ;
   module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
   module list ;

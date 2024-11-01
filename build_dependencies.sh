@@ -44,9 +44,10 @@ else
   $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
+#-------------------------------------------------------------------------------
+# Getting the common code setup and variables, #setting up the environment properly.
+#-------------------------------------------------------------------------------
 
-#setting up the environment properly
-# Getting the common code setup and variables
 source ./common_main.sh $1;
 
 #-------------------------------------------------------------------------------
