@@ -85,7 +85,7 @@ cd ${external_lib_dir}; pwd ;ls -al ${external_lib_dir}
 # loading the modules for compilation (only valid during the life of this script)
 \$white; printf \"Module load (script)   : \"; \$bold;
 case ${remote_hostname} in
-  *\"tursa.dirac.ed.ac.uk\"*)
+  *\"tursa.dirac.ed.ac.uk\"*);;
   *\"sunbird.swansea.ac.uk\"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;;
   *\"login.vega.izum.si\"*)
     source /etc/profile.d/modules.sh;
