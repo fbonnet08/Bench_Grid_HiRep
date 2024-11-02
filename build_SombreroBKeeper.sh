@@ -65,12 +65,6 @@ $green; printf "Checking content of prefix include directory : "; $bold;
 $magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
 ls -al ${prefix_inc_dir}
 
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-grid_build_bench_dir=${build_dir}/benchmarks
-$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
-$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
-cd ${grid_build_bench_dir}
-ls -al
 #-------------------------------------------------------------------------------
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------

@@ -61,6 +61,13 @@ done
 printf "\n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+grid_build_bench_dir=${build_dir}/benchmarks
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
+cd ${grid_build_bench_dir}
+ls -al
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
 
 # TODO: create the launching procedure fr the benchmarkers: {Grid, HiRep}
