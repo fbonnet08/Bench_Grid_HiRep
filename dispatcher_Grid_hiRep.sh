@@ -88,6 +88,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
 cp common_main.sh build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
+cp clean_allbuilds.sh ${source_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
