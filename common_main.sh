@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
+scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     common_main.sh                                                    !"
+echo "!     $scrfipt_file_name                                                    !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
-echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
+echo "!     [usage]: sh common_main.sh   {Input list}                         !"
+echo "!     [example]: sh common_main.sh /data/local                          !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -122,6 +123,7 @@ else
 fi
 
 # loading the modules for compilation (only valid during the life of this script)
+# TODO: may be moved the dispatcher but remains machine dependent now, later.
 $white; printf "Module load (script)   : "; $bold;
 case $machine_name in
   *"Precision-3571"*)

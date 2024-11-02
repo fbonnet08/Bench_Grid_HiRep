@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
+scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     install_Grid.sh                                                   !"
+echo "!     $scrfipt_file_name                                                   !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
-echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
+echo "!     [usage]: sh install_Grid.sh   {Input list}                        !"
+echo "!     [example]: sh install_Grid.sh /data/local                         !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -66,24 +67,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Running make -k install      : "; $bold;
 $magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
 make -k install
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-prefix_lib_dir=${prefix}/lib
-$green; printf "Checking content of prefix library directory : "; $bold;
-$magenta; printf "${prefix_lib_dir}\n"; $white; $reset_colors;
-ls -al ${prefix_lib_dir}
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-prefix_inc_dir=${prefix}/include
-$green; printf "Checking content of prefix include directory : "; $bold;
-$magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
-ls -al ${prefix_inc_dir}
-
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-grid_build_bench_dir=${build_dir}/benchmarks
-$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
-$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
-cd ${grid_build_bench_dir}
-ls -al
 
 #-------------------------------------------------------------------------------
 #End of the script

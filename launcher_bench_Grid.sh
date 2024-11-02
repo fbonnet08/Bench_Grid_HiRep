@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
+scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     dependencies_Grid.sh                                              !"
+echo "!     $scrfipt_file_name                                            !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
-echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
+echo "!     [usage]: launcher_bench_Grid.sh   {Input list}                    !"
+echo "!     [example]: launcher_bench_Grid.sh /data/local                     !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -62,6 +63,8 @@ printf "\n"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
 
+# TODO: create the launching procedure fr the benchmarkers: {Grid, HiRep}
+
 ./Benchmark_ITT
 
 #-------------------------------------------------------------------------------
@@ -70,7 +73,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  dependencies_Grid.sh Done.                           -"
+echo "-                  launcher_bench_Grid.sh Done.                         -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------

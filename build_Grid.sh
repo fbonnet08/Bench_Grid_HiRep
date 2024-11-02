@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
+scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     build_Grid.sh                                              !"
+echo "!     $scrfipt_file_name                                                     !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
-echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
+echo "!     [usage]: sh build_Grid.sh   {Input list}                          !"
+echo "!     [example]: sh build_Grid.sh /data/local                           !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;

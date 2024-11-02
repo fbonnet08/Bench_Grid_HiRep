@@ -1,4 +1,17 @@
 #!/usr/bin/bash
+set -eu
+scrfipt_file_name=$(basename "$0")
+tput bold;
+echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
+echo "!                                                                       !"
+echo "!     Code to dispatch the codes to remote clusters.                    !"
+echo "!     $scrfipt_file_name                                          !"
+echo "!     [Author]: Frederic Bonnet October 2024                            !"
+echo "!     [usage]: sh dispatcher_Grid_hiRep.sh                              !"
+echo "!     [example]: sh dispatcher_Grid_hiRep.sh                            !"
+echo "!                                                                       !"
+echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
+tput sgr0;
 #colors
 red="tput setaf 1"  ;green="tput setaf 2"  ;yellow="tput setaf 3"
 blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"

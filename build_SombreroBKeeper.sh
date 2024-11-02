@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
+scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     build_SombreroBKeeper.sh                                              !"
+echo "!     $scrfipt_file_name                                          !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dependencies_Grid.sh   {Input list}                   !"
-echo "!     [example]: sh dependencies_Grid.sh /data/local                    !"
+echo "!     [usage]: sh build_SombreroBKeeper.sh   {Input list}               !"
+echo "!     [example]: sh build_SombreroBKeeper.sh /data/local                !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -51,6 +52,26 @@ fi
 source ./common_main.sh $1;
 
 #-------------------------------------------------------------------------------
+# Checking if the libraries have been installed properly
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_lib_dir=${prefix}/lib
+$green; printf "Checking content of prefix library directory : "; $bold;
+$magenta; printf "${prefix_lib_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_lib_dir}
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+prefix_inc_dir=${prefix}/include
+$green; printf "Checking content of prefix include directory : "; $bold;
+$magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
+ls -al ${prefix_inc_dir}
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+grid_build_bench_dir=${build_dir}/benchmarks
+$green; printf "Moving Grid/build/benchmark dir and compiling: "; $bold;
+$magenta; printf "${grid_build_bench_dir}\n"; $white; $reset_colors;
+cd ${grid_build_bench_dir}
+ls -al
+#-------------------------------------------------------------------------------
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -59,6 +80,8 @@ $magenta; printf "${sombrero_dir}\n"; $white; $reset_colors;
 cd ${sombrero_dir}
 ls -al
 
+$green; printf "Building Sombrero            : "; $bold;
+$yellow; printf " ... \n"; $white; $reset_colors;
 make
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -95,8 +118,22 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 
 ../configure \
   --prefix=${prefix} \
+  --with-grid=${prefix} \
+  CXX=nvcc \
+  CXXFLAGS="-std=c++17 -x cu"
 
-make
+make -j32
+
+$green; printf "Building BKeeper             : "; $bold;
+$yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
+if [[ $machine_name =~ "Precision-3571" ]]; then
+  make -k -j16;
+else
+  make -k -j32;
+fi
+
+$green; printf "Installing BKeeper           : "; $bold;
+$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
 make install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
