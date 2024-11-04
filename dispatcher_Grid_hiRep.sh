@@ -22,11 +22,11 @@ sptr="/"
 #echo           "Enter Username         : "; username="frederic"                    # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215" # read remote_hostname;
 
-echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
-echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+#echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
+#echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
 
-#echo           "Enter Username         : "; username="eufredericb"                  # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
+echo           "Enter Username         : "; username="eufredericb"                  # read username;
+echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
 
 echo
 $white; printf "username               : ";$green;  printf "$username\n";$reset_colors;
@@ -110,6 +110,7 @@ esac
 \$green; printf \"done.\n\"; \$reset_colors;
 
 which bash;
+bash -s < ./build_Hirep_LLR_SP.sh    SwanSea/SourceCodes/external_lib;
 bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
 bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
 bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;

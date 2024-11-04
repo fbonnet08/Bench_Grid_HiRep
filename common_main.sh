@@ -93,6 +93,7 @@ sourcecode_dir=${HOME}/SwanSea/SourceCodes
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bekeeper_dir=${sourcecode_dir}/BKeeper
 Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
+Hirep_LLR_SP_HMC_dir=${sourcecode_dir}/Hirep_LLR_SP/HMC
 HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 grid_dir=${sourcecode_dir}/Grid-Main/Grid
 basedir=${local_dir}/grid_bench_202410
@@ -154,14 +155,20 @@ $red  ; printf "Directory structure    : ";
 $cyan ; printf "$(basename \"$0\")\n"; $green;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
-$white; printf "hostname               : ";$red;      printf "$hostname\n";$reset_colors;
-$white; printf "machine_name           : ";$red;      printf "$machine_name\n";$reset_colors;
-$white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";  $reset_colors;
-$white; printf "base Directory         : ";$blue;     printf "$basedir\n";  $reset_colors;
-$white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";      $reset_colors;
-$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";      $reset_colors;
-$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";   $reset_colors;
-
+$white; printf "hostname               : ";$red;      printf "$hostname\n";             $reset_colors;
+$white; printf "machine_name           : ";$red;      printf "$machine_name\n";         $reset_colors;
+$white; printf "build_dir              : ";$blue;     printf "$build_dir\n";            $reset_colors;
+$white; printf "sourcecode_dir         : ";$green;    printf "$sourcecode_dir\n";       $reset_colors;
+$white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";               $reset_colors;
+$white; printf "base Directory         : ";$blue;     printf "$basedir\n";              $reset_colors;
+$white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";             $reset_colors;
+$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";       $reset_colors;
+$white; printf "Hirep_LLR_SP directory : ";$yellow;   printf "$Hirep_LLR_SP_dir\n";     $reset_colors;
+$white; printf "Hirep_LLR_SP_HMC dir   : ";$green;    printf "$Hirep_LLR_SP_HMC_dir\n"; $reset_colors;
+$white; printf "HiRep_Cuda directory   : ";$green;    printf "$HiRep_Cuda_dir\n";       $reset_colors;
+$white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n";         $reset_colors;
+$white; printf "BKeeper directory      : ";$cyan;     printf "$bekeeper_dir\n";         $reset_colors;
+$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
 #-------------------------------------------------------------------------------
 #End of the script
 echo
