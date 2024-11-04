@@ -113,6 +113,8 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 ../configure \
   --prefix=${prefix} \
   --with-grid=${prefix} \
+  --enable-su2fund \
+  --disable-all \
   CXX=nvcc \
   CXXFLAGS="-std=c++17 -x cu"
 
