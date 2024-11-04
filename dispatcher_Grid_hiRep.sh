@@ -92,8 +92,6 @@ else
   \$green; printf \"done.\n\"; \$reset_colors;
 fi
 
-exit
-
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # copying files to destination directory
 \$white; printf \"Moving files to dst    : \"; \$bold;
