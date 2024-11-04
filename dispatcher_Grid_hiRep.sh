@@ -61,20 +61,22 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # First let's get the code
 cd ${source_dir} ; pwd ; ls -al ${source_dir}
 
-if [ -d Bench_Grid_HiRep ]
-then
-  git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
-else
- cd ./Bench_Grid_HiRep
- git pull
- cd ..
-fi
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_fldr=./Bench_Grid_HiRep
 \$white; printf \"Directory              : \"; \$bold;
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cd ./Bench_Grid_HiRep; pwd ;
+if [ -d \$src_fldr ]
+then
+ cd ./Bench_Grid_HiRep
+ git pull
+ cd ..
+else
+  git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
+fi
+
+cd \$src_fldr;
+pwd ;
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${external_lib_dir} ]
@@ -89,6 +91,8 @@ else
   printf \"                       : \"; \$bold;
   \$green; printf \"done.\n\"; \$reset_colors;
 fi
+
+exit
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # copying files to destination directory
