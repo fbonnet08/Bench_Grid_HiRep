@@ -22,11 +22,11 @@ sptr="/"
 #echo           "Enter Username         : "; username="frederic"                    # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215" # read remote_hostname;
 
-#echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
+echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
 
-echo           "Enter Username         : "; username="eufredericb"                  # read username;
-echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
+#echo           "Enter Username         : "; username="eufredericb"                  # read username;
+#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
 
 echo
 $white; printf "username               : ";$green;  printf "$username\n";$reset_colors;
@@ -60,7 +60,15 @@ white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"tput sgr0\"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # First let's get the code
 cd ${source_dir} ; pwd ; ls -al ${source_dir}
-git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
+
+if [ -d Bench_Grid_HiRep ]
+then
+  git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
+else
+ cd ./Bench_Grid_HiRep
+ git pull
+ cd ..
+fi
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_fldr=./Bench_Grid_HiRep
 \$white; printf \"Directory              : \"; \$bold;
@@ -87,8 +95,8 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$white; printf \"Moving files to dst    : \"; \$bold;
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cp common_main.sh build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
-cp clean_allbuilds.sh ${source_dir}
+cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
+cp -v clean_allbuilds.sh ${source_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
@@ -111,10 +119,10 @@ esac
 
 which bash;
 bash -s < ./build_Hirep_LLR_SP.sh    SwanSea/SourceCodes/external_lib;
-bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
-bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
-bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
 
 "
 #TODO: continue with the commands here or in the ssh statement
