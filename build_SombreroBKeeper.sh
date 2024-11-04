@@ -128,7 +128,7 @@ fi
 
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
-make install
+#make install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
