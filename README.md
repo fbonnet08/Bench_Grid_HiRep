@@ -49,11 +49,9 @@ have been at least developed
 Depending on the purpose the use of bash , Pyhton or C/C++/CUDA-C
 is determined
 
-* For building ```>$ sh dispatcher_Grid_hiRep.sh```, in the root
-  project.
-* For data analysis ```>$ python Bench_Grid_HiRep.py [--grid=Grid,
-  --hirep=HiRep]```
-* For C/C++ driven with GPU acceleration ```>$ cmake```
+* For building ```>$ sh dispatcher_Grid_hiRep.sh```, in the root project.
+* For data analysis ```>$ python Bench_Grid_HiRep.py [--grid=Grid, --hirep=HiRep]```
+* For C/C++ driven with GPU acceleration ```>$ cmake```.
 
 The Python or the bash may be used for complete automation
 at some point this is still under development.
