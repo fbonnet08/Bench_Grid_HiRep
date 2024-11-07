@@ -72,7 +72,9 @@ $green; printf "Launching benchmark in Grid/build/benchmark dir: "; $bold;
 
 # TODO: create the launching procedure fr the benchmarkers: {Grid, HiRep}
 
-./Benchmark_ITT
+#./Benchmark_ITT
+
+sbatch launcher_bench_Grid
 
 #-------------------------------------------------------------------------------
 #End of the script
