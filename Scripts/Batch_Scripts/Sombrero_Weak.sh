@@ -5,6 +5,7 @@
 #SBATCH --time=0-0:20
 #SBATCH --ntasks-per-node=32
 #SBATCH --partition=cpu
+#SBATCH --qos=standard
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
