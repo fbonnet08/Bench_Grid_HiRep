@@ -1,9 +1,10 @@
 #!/bin/bash
 #
+#SBATCH --nodes=1
 #SBATCH --ntasks=128
+#SBATCH --ntasks-per-node=32
 #SBATCH --job-name=sombrero_strong
 #SBATCH --time=0-0:20
-#SBATCH --ntasks-per-node=32
 #SBATCH --partition=cpu
 #SBATCH --qos=standard
 #-------------------------------------------------------------------------------
