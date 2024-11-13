@@ -22,4 +22,4 @@ cd $LatticeRuns_dir
 echo `pwd`
 ls -la
 
-$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
+#$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
