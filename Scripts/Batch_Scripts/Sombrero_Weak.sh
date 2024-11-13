@@ -4,7 +4,7 @@
 #SBATCH --job-name=sombrero_strong
 #SBATCH --time=0-0:20
 #SBATCH --ntasks-per-node=32
-
+#SBATCH --partition=cpu
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
