@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --ntasks=128
 #SBATCH --ntasks-per-node=32
 #SBATCH --job-name=sombrero_strong
