@@ -41,14 +41,17 @@ $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_d
 
 # Setting the external lib_dir
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-lib_dir="SwanSea/SourceCodes/external_lib";
 src_dir="SwanSea/SourceCodes"
+lib_dir="SwanSea/SourceCodes/external_lib";
+lat_run_dir="SwanSea/SourceCodes/LatticeRuns";
 #external_lib_dir=$(echo $user_remote_home_dir$sptr$lib_dir | tr -d ' ')
 chopped=$(echo "${user_remote_home_dir}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 external_lib_dir=$chopped$sptr$lib_dir
 source_dir=$chopped$sptr$src_dir
-$white; printf "external_lib_dir       : ";$yellow; printf "$external_lib_dir\n";$reset_colors;
-$white; printf "source_dir             : ";$magenta; printf "$source_dir\n";$reset_colors;
+LatticeRuns_dir=$chopped$sptr$lat_run_dir
+$white; printf "source_dir             : ";$yellow; printf "$source_dir\n";$reset_colors;
+$white; printf "external_lib_dir       : ";$magenta; printf "$external_lib_dir\n";$reset_colors;
+$white; printf "Lattice run directory  : ";$cyan; printf "$LatticeRuns_dir\n";$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 ssh -t $user_remote_host "
@@ -88,6 +91,19 @@ else
   \$blue; printf \'%s\'\"${external_lib_dir}\"; \$red;printf \" does not exist, We will create it ...\n\";
    \$white; \$reset_colors;
   mkdir -p ${external_lib_dir}
+  printf \"                       : \"; \$bold;
+  \$green; printf \"done.\n\"; \$reset_colors;
+fi
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+if [ -d ${LatticeRuns_dir} ]
+then
+  \$white; printf \"Directory              : \"; \$bold;
+  \$blue; printf \'%s\'\"${LatticeRuns_dir}\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+else
+  \$white; printf \"Directory              : \"; \$bold;
+  \$blue; printf \'%s\'\"${LatticeRuns_dir}\"; \$red;printf \" does not exist, We will create it ...\n\";
+   \$white; \$reset_colors;
+  mkdir -p ${LatticeRuns_dir}
   printf \"                       : \"; \$bold;
   \$green; printf \"done.\n\"; \$reset_colors;
 fi

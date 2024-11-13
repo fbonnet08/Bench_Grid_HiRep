@@ -12,7 +12,7 @@
 source ../../common_main.sh $1;
 
 #-------------------------------------------------------------------------------
-# Checking if the libraries have been installed properly
+# Run the make procedure
 #-------------------------------------------------------------------------------
 
 cd $SLURM_SUBMIT_DIR

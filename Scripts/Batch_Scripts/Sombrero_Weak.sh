@@ -5,6 +5,21 @@
 #SBATCH --time=0-0:20
 #SBATCH --ntasks-per-node=32
 
-cd $SLURM_SUBMIT_DIR
+#-------------------------------------------------------------------------------
+# Getting the common code setup and variables, #setting up the environment properly.
+#-------------------------------------------------------------------------------
 
-./sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
+source ../../common_main.sh $1;
+
+#-------------------------------------------------------------------------------
+# Run the Sombrero launcher from the src directory
+#-------------------------------------------------------------------------------
+
+echo $sombrero_dir
+echo $LatticeRuns_dir
+
+cd $LatticeRuns_dir
+echo `pwd`
+ls -la
+
+$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n

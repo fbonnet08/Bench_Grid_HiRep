@@ -92,6 +92,7 @@ build_dir=build
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bekeeper_dir=${sourcecode_dir}/BKeeper
+LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
 Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
 Hirep_LLR_SP_HMC_dir=${sourcecode_dir}/Hirep_LLR_SP/HMC
 HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
@@ -168,6 +169,7 @@ $white; printf "Hirep_LLR_SP_HMC dir   : ";$green;    printf "$Hirep_LLR_SP_HMC_
 $white; printf "HiRep_Cuda directory   : ";$green;    printf "$HiRep_Cuda_dir\n";       $reset_colors;
 $white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n";         $reset_colors;
 $white; printf "BKeeper directory      : ";$cyan;     printf "$bekeeper_dir\n";         $reset_colors;
+$white; printf "Lattice runs directory : ";$magenta;  printf "$LatticeRuns_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
 #-------------------------------------------------------------------------------
 #End of the script
