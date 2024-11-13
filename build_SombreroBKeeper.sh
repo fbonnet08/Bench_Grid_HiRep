@@ -126,6 +126,9 @@ else
   make -k -j32;
 fi
 
+#TODO : here replace wih a submission script
+# sbatch script_name > output.log &
+
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
 #make install
