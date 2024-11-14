@@ -21,7 +21,7 @@ module list;
 #-------------------------------------------------------------------------------
 
 # first clean up the exist build
-$machine_name="tursa"
+machine_name="tursa"
 bekeeper_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/BKeeper
 bekeeper_build_dir=$bekeeper_dir/build
 
@@ -33,8 +33,6 @@ if [ -d ${bekeeper_build_dir} ]
 then
   printf "Directory              : ";
   printf '%s'"${bekeeper_build_dir}"; printf " exist, nothing to do.\n";
-  rm -rf ./build
-  mkdir -p ${bekeeper_build_dir}
 else
   printf "Directory              : ";
   printf '%s'"${bekeeper_build_dir}"; printf " does not exist, We will create it ...\n";
