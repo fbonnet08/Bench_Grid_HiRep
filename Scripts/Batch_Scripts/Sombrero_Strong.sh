@@ -11,24 +11,30 @@
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
 
-set -eu
-source ../../common_main.sh SwanSea/SourceCodes/external_lib;
+#set -eu
+#source ../../common_main.sh SwanSea/SourceCodes/external_lib;
+module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0;
+module list;
 
 #-------------------------------------------------------------------------------
 # Run the Sombrero launcher from the src directory
 #-------------------------------------------------------------------------------
 
-echo $sombrero_dir
-echo $LatticeRuns_dir
+#echo $sombrero_dir
+#echo $LatticeRuns_dir
 
-cd $LatticeRuns_dir
+#cd $LatticeRuns_dir
 
+#echo `pwd`
+
+sombrero_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO
+LatticeRuns_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/LatticeRuns
+ls -la $sombrero_dir/sombrero.sh
+cd $sombrero_dir;
 echo `pwd`
 
-ls -la $sombrero_dir/sombrero.sh
-
 echo "SLURM_NTASKS: $SLURM_NTASKS"
-$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -s medium > strong_$n
+$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -s medium > strong_$SLURM_NTASKS
 
 
 
