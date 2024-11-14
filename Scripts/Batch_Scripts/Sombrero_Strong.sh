@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+ARGV=`basename -a $1`
 set -eu
 #SBATCH --nodes=2
 #SBATCH --ntasks=256
