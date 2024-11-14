@@ -1,5 +1,4 @@
 #!/bin/bash
-set -eu
 #SBATCH --nodes=2
 #SBATCH --ntasks=256
 #SBATCH --ntasks-per-node=128
@@ -12,6 +11,7 @@ set -eu
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
 
+set -eu
 source ../../common_main.sh SwanSea/SourceCodes/external_lib;
 
 #-------------------------------------------------------------------------------
