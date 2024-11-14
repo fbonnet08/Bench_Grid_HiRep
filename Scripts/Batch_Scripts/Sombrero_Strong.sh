@@ -25,7 +25,7 @@ cd $LatticeRuns_dir
 echo `pwd`
 ls -la
 
-cd $SLURM_SUBMIT_DIR
+#cd $SLURM_SUBMIT_DIR
 
 ./sombrero.sh -n $SLURM_NTASKS -s medium > strong_$n
 

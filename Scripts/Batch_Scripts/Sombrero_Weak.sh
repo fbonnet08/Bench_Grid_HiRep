@@ -24,4 +24,6 @@ cd $LatticeRuns_dir
 echo `pwd`
 ls -la
 
-#$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
+cd $SLURM_SUBMIT_DIR
+
+$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
