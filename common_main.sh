@@ -92,6 +92,7 @@ build_dir=build
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bekeeper_dir=${sourcecode_dir}/BKeeper
+Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
 LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
 Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
 Hirep_LLR_SP_HMC_dir=${sourcecode_dir}/Hirep_LLR_SP/HMC

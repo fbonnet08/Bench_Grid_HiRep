@@ -129,6 +129,10 @@ echo "Here now we will submit to queue the rest of compilation"
 
 #TODO : here replace wih a submission script
 # sbatch script_name > output.log &
+$green; printf "Submintting to queue         : "; $bold;
+$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
+cd ${Bench_Grid_HiRep_dir}/Scripts/Batch_Scripts
+sbatch ./Compile_BKeeper.sh > out_compile.sh &
 
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
