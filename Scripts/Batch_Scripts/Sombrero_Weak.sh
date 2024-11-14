@@ -12,7 +12,8 @@
 
 #set -eu
 #source ../../common_main.sh SwanSea/SourceCodes/external_lib;
-
+module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0;
+module list;
 #-------------------------------------------------------------------------------
 # Run the Sombrero launcher from the src directory
 #-------------------------------------------------------------------------------
@@ -29,6 +30,5 @@ echo `pwd`
 
 ls -la /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO/sombrero.sh
 
-
 echo "SLURM_NTASKS: $SLURM_NTASKS"
-/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
+/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$SLURM_NTASKS
