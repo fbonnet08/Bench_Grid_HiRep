@@ -6,7 +6,7 @@ set -eu
 #SBATCH --partition=cpu
 #SBATCH --job-name=sombrero_weak
 #SBATCH --time=0-0:20
-#SBATCH --qos=standard
+#SBATCH --qos=dev
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
