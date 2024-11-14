@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+set -eu
 #SBATCH --nodes=2
 #SBATCH --ntasks=256
 #SBATCH --ntasks-per-node=128
@@ -23,11 +24,13 @@ echo $LatticeRuns_dir
 
 cd $LatticeRuns_dir
 echo `pwd`
-ls -la
+ls -la $sombrero_dir/sombrero.sh
 
-#cd $SLURM_SUBMIT_DIR
+echo "SLURM_SUBMIT_DIR: $SLURM_SUBMIT_DIR"
+cd $SLURM_SUBMIT_DIR
 
-./sombrero.sh -n $SLURM_NTASKS -s medium > strong_$n
+echo "SLURM_NTASKS: $SLURM_NTASKS"
+$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -s medium > strong_$n
 
 
 
