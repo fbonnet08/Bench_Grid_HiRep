@@ -34,7 +34,7 @@ cd $sombrero_dir;
 echo `pwd`
 
 echo "SLURM_NTASKS: $SLURM_NTASKS"
-$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -s medium > strong_$SLURM_NTASKS
+$sombrero_dir/sombrero.sh -n $SLURM_NTASKS -s medium > $LatticeRuns_dir/strong_$SLURM_NTASKS
 
 
 
