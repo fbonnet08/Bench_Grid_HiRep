@@ -1,5 +1,4 @@
 #!/bin/bash
-ARGV=`basename -a $1`
 set -eu
 #SBATCH --nodes=2
 #SBATCH --ntasks=256
@@ -13,7 +12,7 @@ set -eu
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
 
-source ../../common_main.sh $1;
+source ../../common_main.sh SwanSea/SourceCodes/external_lib;
 
 #-------------------------------------------------------------------------------
 # Run the Sombrero launcher from the src directory
