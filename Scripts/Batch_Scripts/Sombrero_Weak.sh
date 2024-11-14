@@ -26,8 +26,5 @@ echo `pwd`
 
 ls -la $sombrero_dir/sombrero.sh
 
-#echo "SLURM_SUBMIT_DIR: $SLURM_SUBMIT_DIR"
-#cd $SLURM_SUBMIT_DIR
-
 echo "SLURM_NTASKS: $SLURM_NTASKS"
 $sombrero_dir/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$n
