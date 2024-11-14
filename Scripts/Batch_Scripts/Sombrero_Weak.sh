@@ -22,13 +22,16 @@ module list;
 #echo $LatticeRuns_dir
 
 #cd $LatticeRuns_dir
-cd /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/LatticeRuns
+#cd /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/LatticeRuns
 
-echo `pwd`
+#echo `pwd`
 
 #ls -la $sombrero_dir/sombrero.sh
-
-ls -la /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO/sombrero.sh
+sombrero_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO
+LatticeRuns_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/LatticeRuns
+ls -la $sombrero_dir/sombrero.sh
+cd $sombrero_dir;
+echo `pwd`
 
 echo "SLURM_NTASKS: $SLURM_NTASKS"
-/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Sombrero/SOMBRERO/sombrero.sh -n $SLURM_NTASKS -w -s small > weak_$SLURM_NTASKS
+./sombrero.sh -n $SLURM_NTASKS -w -s small > $LatticeRuns_dir/weak_$SLURM_NTASKS
