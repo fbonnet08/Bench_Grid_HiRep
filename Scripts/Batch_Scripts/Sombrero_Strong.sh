@@ -7,7 +7,7 @@
 #SBATCH --partition=cpu
 #SBATCH --job-name=sombrero_strong
 #SBATCH --time=0-0:20
-#SBATCH --qos=dev
+#SBATCH --qos=standard
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
