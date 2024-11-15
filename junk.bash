@@ -1,4 +1,13 @@
 
+if [[ $machine_name =~ "Precision-3571" ]]; then
+  make -k -j16;
+else
+  make -k -j32;
+fi
+
+
+
+
 #echo "SLURM_SUBMIT_DIR: $SLURM_SUBMIT_DIR"
 #cd $SLURM_SUBMIT_DIR
 

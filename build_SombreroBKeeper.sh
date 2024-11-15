@@ -121,11 +121,6 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 $green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
 echo "Here now we will submit to queue the rest of compilation"
-#if [[ $machine_name =~ "Precision-3571" ]]; then
-#  make -k -j16;
-#else
-#  make -k -j32;
-#fi
 
 #TODO : here replace wih a submission script
 # sbatch script_name > output.log &
