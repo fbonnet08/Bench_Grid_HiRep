@@ -96,10 +96,12 @@ build=build
 if [ -d ${build} ]
 then
   $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+  $blue; printf '%s'"${build}";
+  $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
 else
   $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
+  $blue; printf '%s'"${build}";
+  $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
   mkdir -p ${build}
   printf "                       : "; $bold;
   $green; printf "done.\n"; $reset_colors;
@@ -126,8 +128,10 @@ echo "Here now we will submit to queue the rest of compilation"
 # sbatch script_name > output.log &
 $green; printf "Submintting to queue         : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
-cd ${Bench_Grid_HiRep_dir}/Scripts/Batch_Scripts
-sbatch ./Compile_BKeeper.sh > out_compile.sh &
+
+cd $batch_Scripts_dir
+
+sbatch ./Compile_BKeeper.sh > out_Compile_BKeeper.log &
 
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
