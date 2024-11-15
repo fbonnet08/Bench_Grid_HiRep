@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=128
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=cpu
-#SBATCH --job-name=compile_BKeeper
+#SBATCH --job-name=complBKeeper
 #SBATCH --time=0-0:20
 #SBATCH --qos=standard
 #-------------------------------------------------------------------------------
@@ -43,8 +43,8 @@ fi
 cd $bekeeper_build_dir
 
 if [[ $machine_name =~ "Precision-3571" ]]; then
-  make -k -j16 > Bekkeper_$n.log;
+  make -k -j16 > Bekkeper_$SLURM_NTASKS.log;
 else
-  make -k -j32 > Bekkeper_$n.log;
+  make -k -j32 > Bekkeper_$SLURM_NTASKS.log;
 fi
 
