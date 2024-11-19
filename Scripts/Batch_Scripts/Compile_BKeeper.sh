@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=cpu
 #SBATCH --job-name=complBKeeper
-#SBATCH --time=5:0:0
+#SBATCH --time=15:0:0
 #SBATCH --qos=standard
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
