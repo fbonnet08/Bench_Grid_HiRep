@@ -117,8 +117,8 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
   --with-grid=${prefix} \
   --enable-su2fund \
   --disable-all \
-  CXX=nvcc \
-  CXXFLAGS="-std=c++17"
+  CXX="nvcc -std=c++17 -x cu"
+#CXXFLAGS="-std=c++17"
 
 $green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
