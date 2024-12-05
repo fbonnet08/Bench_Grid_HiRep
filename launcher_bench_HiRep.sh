@@ -5,11 +5,11 @@ scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
-echo "!     Code to launch Sombrero Strong benchmarker                        !"
+echo "!     Code to launch Sombrero Weak benchmarker                          !"
 echo "!     $scrfipt_file_name                                            !"
 echo "!     [Author]: Frederic Bonnet November 2024                           !"
-echo "!     [usage]: launcher_bench_Sombrero_Strong.sh   {Input list}         !"
-echo "!     [example]: launcher_bench_Sombrero_Strong.sh /data/local          !"
+echo "!     [usage]: launcher_bench_Sombrero_Weak.sh   {Input list}           !"
+echo "!     [example]: launcher_bench_Sombrero_Weak.sh /data/local            !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -69,13 +69,13 @@ cd ${batch_Scripts_dir}
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching Sombrero Strong benchmark dir: "; $bold;
+$green; printf "Launching Sombrero Weak benchmark dir: "; $bold;
 
 # TODO: create the automated launching for the jobs using Sombrero Strong case,
 # TODO: create loop here for the different cases.
 
-sbatch $batch_Scripts_dir/Run_Sombrero_strong.sh \
-        > $LatticeRuns_dir/out_launcher_bench_Sombrero_strong.log &
+sbatch $batch_Scripts_dir/Run_HiRep-LLR-master-cpu.sh \
+        > $LatticeRuns_dir/out_launcher_bench_HiRep-LLR-master-cpu.log &
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -83,7 +83,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  launcher_bench_Sombrero_Strong.sh Done.              -"
+echo "-                  launcher_bench_Sombrero_Weak.sh Done.                -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors
 #exit

@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1`
+ARGV=`basename -a $1 $2`
 set -eu
 scrfipt_file_name=$(basename "$0")
 tput bold;
@@ -37,19 +37,20 @@ ProgressBar (){
 # Checking the argument list
 if [ $# -ne 1 ]; then
   $white; printf "No directory specified : "; $bold;
-  $red;printf " we will use the home directory ---> \n"; $green;printf "${HOME}"; $white; $reset_colors;
+  $red;printf " we will use the home directory ---> \n"; $green;printf "${HOME}";
+  $white; $reset_colors;
   local_dir=${HOME}
 else
   $white; printf "Directory specified    : "; $bold;
-  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
+  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n";
+  $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-
+__batch_action=$2
 source ./common_main.sh $1;
-
 #-------------------------------------------------------------------------------
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------
@@ -69,10 +70,19 @@ ls -al
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Launching BKeeper benchmark dir: "; $bold;
 
-# TODO: create the automated launching for the jobs using Sombrero Strong case,
 # TODO: create loop here for the different cases.
 
-sbatch Run_BKeeper.sh > out_launcher_bench_BKeeper.log &
+case "$__batch_action" in
+  *"BKeeper_compile"*)
+      sbatch $batch_Scripts_dir/Run_BKeeper_compile.sh \
+             > $LatticeRuns_dir/out_launcher_run_BKeeper_compile.log & ;;
+  *"BKeeper_run_cpu"*)
+      sbatch $batch_Scripts_dir/Run_BKeeper_run_cpu.sh \
+             > $LatticeRuns_dir/out_launcher_run_BKeeper_run_cpu.log &;;
+  *"BKeeper_run_gpu"*)
+      sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
+             > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &;;
+esac
 
 #-------------------------------------------------------------------------------
 #End of the script

@@ -20,13 +20,11 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 sptr="/"
 # read username and echo username in terminal
 #echo           "Enter Username         : "; username="frederic"                    # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215" # read remote_hostname;
-
+#echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215"         # read remote_hostname;
 echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
 echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
-
-#echo           "Enter Username         : "; username="eufredericb"                  # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"    # read remote_hostname;
+#echo           "Enter Username         : "; username="eufredericb"                 # read username;
+#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"   # read remote_hostname;
 
 echo
 $white; printf "username               : ";$green;  printf "$username\n";$reset_colors;
@@ -136,17 +134,30 @@ esac
 \$green; printf \"done.\n\"; \$reset_colors;
 
 which bash;
-#bash -s < ./build_Hirep_LLR_SP.sh    SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_dependencies.sh    SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_Grid.sh            SwanSea/SourceCodes/external_lib;
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib BKeeper_compile;
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib BKeeper_run_cpu;
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib BKeeper_run_gpu;
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib Sombrero_weak
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib Sombrero_strong
+bash -s < ./creator_batch.sh         SwanSea/SourceCodes/external_lib HiRep-LLR-master-cpu
+
+#bash -s < ./build_Hirep_LLR_SP.sh     SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_HiRep-LLR-master.sh SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh     SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh             SwanSea/SourceCodes/external_lib;
+bash -s < ./build_SombreroBKeeper.sh  SwanSea/SourceCodes/external_lib;
+
 #bash -s < ./install_Grid.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_SombreroBKeeper.sh SwanSea/SourceCodes/external_lib;
 
-
-#bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
+#bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_compile;
+#bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;
+#bash -s < ./launcher_bench_Sombrero_Weak.sh   SwanSea/SourceCodes/external_lib;
+#bash -s < ./launcher_bench_Sombrero_Strong.sh SwanSea/SourceCodes/external_lib;
+#bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib;
 
 "
 #TODO: continue with the commands here or in the ssh statement
+#TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}
 #ssh -t $user_remote_host " cd ${external_lib_dir};
 # ls -al; which bash ; bash -s < ./dependencies_Grid.sh SwanSea/SourceCodes/external_lib;"

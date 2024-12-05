@@ -89,21 +89,29 @@ elif [[ $hostname =~ "sunbird" ]]; then
 elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
   machine_name="DESKTOP-GPI5ERK"
 
-
 fi
 
 # Setting up the directory structure for the download
 build_dir=build
+
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
-bekeeper_dir=${sourcecode_dir}/BKeeper
+bkeeper_dir=${sourcecode_dir}/BKeeper
 Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
+benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 batch_Scripts_dir=${Bench_Grid_HiRep_dir}/Scripts/Batch_Scripts
 LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
-Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
-Hirep_LLR_SP_HMC_dir=${sourcecode_dir}/Hirep_LLR_SP/HMC
+
+Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP/Hirep_LLR_SP/
+Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
+
+HiRep_LLR_master_dir=${sourcecode_dir}/HiRep-LLR-master/HiRep
+HiRep_LLR_master_HMC_dir=${HiRep_LLR_master_dir}/LLR_HMC
+
 HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
+
 grid_dir=${sourcecode_dir}/Grid-Main/Grid
+
 basedir=${local_dir}/grid_bench_202410
 prefix=${local_dir}/prefix_grid_202410
 #-------------------------------------------------------------------------------
@@ -134,25 +142,38 @@ fi
 # loading the modules for compilation (only valid during the life of this script)
 # TODO: may be moved the dispatcher but remains machine dependent now, later.
 $white; printf "Module load (script)   : "; $bold;
+module_list="#no modules on UNKNOWN machine maybe Saturn!; module list;"
 case $machine_name in
   *"Precision-3571"*)
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
     grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    module_list="#---> no modules on Precision-3571;module list;"
     ;;
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
     module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;
+    module_list="module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
-  *"sunbird"*) module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
+  *"sunbird"*)
+   module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;
+   module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
     #source /etc/profile.d/modules.sh;
     #source /ceph/hpc/software/cvmfs_env.sh ;
     #module list;
     #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list
+    module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;"
     ;;
+  *"lumi-c"*);;
+  *"lumi-g"*);;
+  *"leonardo-booster"*);;
+  *"leonardo-dcgp"*);;
+  *"DESKTOP-GPI5ERK"*)
+  module_list="#---> no modules on ${machine_name}; module list;"
+  ;;
 esac
 $green; printf "done.\n"; $reset_colors;
 grid_build_dir=$grid_dir$sptr$build_dir
@@ -175,7 +196,7 @@ $white; printf "Hirep_LLR_SP directory : ";$yellow;   printf "$Hirep_LLR_SP_dir\
 $white; printf "Hirep_LLR_SP_HMC dir   : ";$green;    printf "$Hirep_LLR_SP_HMC_dir\n"; $reset_colors;
 $white; printf "HiRep_Cuda directory   : ";$green;    printf "$HiRep_Cuda_dir\n";       $reset_colors;
 $white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n";         $reset_colors;
-$white; printf "BKeeper directory      : ";$cyan;     printf "$bekeeper_dir\n";         $reset_colors;
+$white; printf "BKeeper directory      : ";$cyan;     printf "$bkeeper_dir\n";         $reset_colors;
 $white; printf "Lattice runs directory : ";$magenta;  printf "$LatticeRuns_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
 #-------------------------------------------------------------------------------
@@ -186,6 +207,7 @@ $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo "-                  common_main.sh Done.                                 -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$reset_colors
 #exit
 #-------------------------------------------------------------------------------
 

@@ -1,4 +1,96 @@
 
+
+
+
+config_Batch_Sombrero_weak_cpu (){
+_nodes=2
+_ntasks_per_node=128
+_cpus_per_task=1
+_partition="cpu"
+_job_name="run_Sombrero_weak_$_nodes"
+_time="0:0:20"
+_qos="standard"
+}
+config_Batch_Sombrero_weak_cpu (){
+_nodes=4
+_ntasks_per_node=128
+_cpus_per_task=1
+_partition="cpu"
+_job_name="run_Sombrero_weak"
+_time="0:0:20"
+_qos="standard"
+}
+config_Batch_Sombrero_weak_cpu (){
+_nodes=8
+_ntasks_per_node=128
+_cpus_per_task=1
+_partition="cpu"
+_job_name="run_Sombrero_weak"
+_time="0:0:20"
+_qos="standard"
+}
+
+
+Batch_body_Run_Sombrero_strong (){
+ _machine_name=$1
+ _sombrero_dir=$2
+ _batch_file_out=$3
+ cat << EOF >> "$_batch_file_out"
+
+EOF
+}
+
+echo "No batch action entered: "
+/mnt/c/cygwin64/bin/read -p "thi sis is s" cont;
+
+
+
+echo "Linux:is:awesome." | (IFS=":" read -p var1 var2 var3; echo -e "$var1 \n$var2 \n$var3")
+
+
+
+Batch_body_Compile_BKeeper (){
+_machine_name=$1
+_bkeeper_dir=$2
+__batch_file_out=$3
+
+cat << EOF >> "$__batch_file_out"
+echo "# -------------------------------------------------------------------------------"
+echo "# Start of the batch body                                                        "
+echo "# -------------------------------------------------------------------------------"
+#echo "bkeeper_build_dir=\"${_bkeeper_dir}/build\""
+echo "# ------------------------------------------------------------------------------"
+echo "# Run the make procedure                                                        "
+echo "# ------------------------------------------------------------------------------"
+echo "machine_name=\"${_machine_name}\""
+echo "bkeeper_dir=$_bkeeper_dir"
+echo "bkeeper_build_dir=$bkeeper_build_dir"
+echo "# ------------------------------------------------------------------------------"
+echo "# move to the directory in BKeeper directory                                    "
+echo "# ------------------------------------------------------------------------------"
+
+echo "cd $_bkeeper_dir"
+EOF
+}
+
+echo "# ---> this works ----<"
+echo "TODO: insert the main of each case of the machines"
+echo "ls -al ${prefix}"
+
+
+
+
+$(
+case $__batch_action in
+  *"BKeeper_compile"*) $(Batch_body_Compile_BKeeper ${machine_name} ${bkeeper_dir});;
+  *"BKeeper_run"*) $(Batch_body_Run_BKeeper ${machine_name} ${bkeeper_dir});;
+esac
+)
+
+
+
+
+
 if [[ $machine_name =~ "Precision-3571" ]]; then
   make -k -j16;
 else

@@ -18,50 +18,23 @@ __job_name=$2
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-
-source ../../common_main.sh $__dir;
-
-#-------------------------------------------------------------------------------
-# Getting the common code setup and variables, #setting up the environment properly.
-#-------------------------------------------------------------------------------
 batch_file_out="samplefile.sh"
 
-ntask=1
 nodes=2
+ntask=1
 ntasks_per_node=3
 cpus_per_task=1
 partition="cpu"
 job_name=$__job_name
 time="5:0:0"
 qos="standard"
-
 #-------------------------------------------------------------------------------
-# Getting the common code setup and variables, #setting up the environment properly.
+# Getting the common code setup and variables,
+# setting up the environment properly.
 #-------------------------------------------------------------------------------
-Batch_header (){
-_nodes=$1
-_ntask=$2
-_ntasks_per_node=$3
-_cpus_per_task=$4
-_partition=$5
-_job_name=$6
-_time=$7
-_qos=$8
-echo "#!/bin/bash"
-echo "#SBATCH --nodes=$_nodes"
-echo "#SBATCH --ntasks=$_ntask"
-echo "#SBATCH --ntasks-per-node=$_ntasks_per_node"
-echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-echo "#SBATCH --partition=$_partition"
-echo "#SBATCH --job-name=$_job_name"
-echo "#SBATCH --time=$_time"
-echo "#SBATCH --qos=$_qos"
-echo "#-------------------------------------------------------------------------------"
-echo "# Getting the common code setup and variables"
-echo "#-------------------------------------------------------------------------------"
-
-echo "# hello this is the rest of the code ...."
-}
+source ../../common_main.sh $__dir;
+source ../../Scripts/Batch_Scripts/Batch_header_methods.sh
+source ../../Scripts/Batch_Scripts/Batch_body_methods.sh
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
@@ -84,8 +57,14 @@ case $job_name in
 esac
 )
 
+# shellcheck disable=SC2154
+echo "$module_list"
+
 echo "# ---> this works ----<"
 echo "TODO: insert the main of each case of the machines"
 echo "ls -al ${prefix}"
+
+$(Batch_body_Run_BKeeper ${machine_name} ${bkeeper_dir} ${batch_file_out})
+
 
 END

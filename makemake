@@ -271,6 +271,7 @@ cleanall:
 	cd ../../../; \\
 	pwd
 
+doxygen:
 robodoc:
 	@echo "Building RoBoDoc documentation."; \\
 	make check_news > doc/robodoc/.lastnews; \\
@@ -339,13 +340,11 @@ finalCmpl:
 		tput bold; \\
 		tput setaf 4; \\
 		echo "**************************************************************"; \\
-		echo "* The DataManage news:                                       *"; \\
-		echo "* Date: 23 Aug 2022                                          *"; \\
+		echo "* The Bench_Grid_HiRep news:                                 *"; \\
+		echo "* Date: 25 Nove 2024                                         *"; \\
 		echo "* Date: currently partially completed,                       *"; \\
-		echo "*       completion anticipated at latest August 2022         *"; \\
+		echo "*       completion anticipated ...                           *"; \\
 		echo "* 1.) Integration of the compilation model for Dev project   *"; \\
-		echo "* 2.) Volume reader/Writter integration IO project           *"; \\
-		echo "* 3.) VTK Volume rendering from the IO using MRC handling    *"; \\
 		echo "**************************************************************"; \\
 		tput sgr0; \\
 		echo ""; \\
@@ -366,17 +365,16 @@ check_news:
 		tput bold; \\
 		tput setaf 4; \\
 		echo "**************************************************************"; \\
-		echo "* The DataManage news:                                       *"; \\
-		echo "* Date: 23 Aug 2022                                          *"; \\
+		echo "* The Bench_Grid_HiRep news:                                 *"; \\
+		echo "* Date: 25 Nov 2024                                          *"; \\
                 echo "* New Volume insertion                                       *"; \\
-		echo "* 1.) Read/Write volumes 3D class in C++ inserted            *"; \\
+		echo "* 1.) Read/Write lattice volumes                             *"; \\
 		echo "*     Images and stacks also implemented                     *"; \\
 		echo "*                                                            *"; \\
 		echo "* Next development:                                          *"; \\
-		echo "* Date: Unser development                                    *"; \\
+		echo "* Date: User development                                     *"; \\
 		echo "*       completion anticipated at latest in a week or two    *"; \\
-		echo "* 1.) OpenGL implementation for trhe volume rendering        *"; \\
-		echo "* 2.) VTK library inssertion for 2D/3D                       *"; \\
+		echo "* 1.) OpenGL implementation ...                              *"; \\
 		echo "**************************************************************"; \\
 		tput sgr0; \\
 		echo ""; \\
@@ -388,7 +386,7 @@ wc:
 	DIRS="\$(SRCDIRS)"; \\
 	for dir in \$(SRCDIRS); \\
 	do \\
-		for ext in "*.c" "*.cpp" "*.cu" "*.h" "*.f90" "*.f" "*.for"; \\
+		for ext in "*.c" "*.cpp" "*.cu" "*.h" "*.hpp" "*.f90" "*.f" "*.for"; \\
 		do \\
 			list=\$\$list" "\$\$(find \$\$dir"/" -maxdepth 1 -name "\$\$ext"); \\
 		done; \\
@@ -400,7 +398,7 @@ tar:
 	unset list; \\
 	for dir in \$(SRCDIRS); \\
 	do \\
-		for ext in "*.c" "*.cpp" "*.cu" "*.h" "*.f90" ".t90" "*.f" "*.for" "Makefile_*" "*.par*"; \\
+		for ext in "*.c" "*.cpp" "*.cu" "*.h" "*.hpp" "*.f90" ".t90" "*.f" "*.for" "Makefile_*" "*.par*"; \\
 		do \\
 			list=\$\$list" "\$\$(find \$\$dir"/" -maxdepth 1 -name "\$\$ext"); \\
 		done; \\

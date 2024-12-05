@@ -1,0 +1,75 @@
+##############################################
+# Include methods for master Makefile 
+#
+# definitions methods and routines used in a
+# general setting for other Makefile
+#
+##############################################
+#color scheme
+define c_b_blue
+	@tput bold
+	@tput setaf 4
+	$1
+	@tput sgr0
+endef
+define c_blue
+	@tput setaf 4
+	$1
+	@tput sgr0
+endef
+define c_b_green
+	@tput bold
+	@tput setaf 2
+	$1
+	@tput sgr0
+endef
+define c_b_red
+	@tput bold
+	@tput setaf 1
+	$1
+	@tput sgr0
+endef
+define c_b_cyan
+	@tput bold
+	@tput setaf 6
+	$1
+	@tput sgr0
+endef
+define c_b_magenta
+	@tput bold
+	@tput setaf 5
+	$1
+	@tput sgr0
+endef
+
+COM_COLOR     = \033[0;94m
+#different color for diferent language
+CC_OBJ_COLOR  = \033[0;93m
+CPP_OBJ_COLOR = \033[0;96m
+CU_OBJ_COLOR  = \033[0;92m
+PTX_OUT_COLOR = \033[0;32m
+F90_OBJ_COLOR = \033[0;95m
+#status color
+CMP_OBJ_COLOR = \033[1;97m
+OK_COLOR      = \033[1;32m
+ERROR_COLOR   = \033[1;31m
+WARN_COLOR    = \033[1;33m
+NO_COLOR      = \033[m
+#return strings
+OK_STRING     = "[OK]"
+ERROR_STRING  = "[ERROR]"
+WARN_STRING   = "[WARNING]"
+COM_STRING    = "Compilation:"
+
+define return_value
+	if [ $1 -ne 0 ]; \
+	then \
+		printf "%-80b%b" "$(COM_COLOR)$(COM_STRING)$2 $(<)" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
+		break ; \
+	elif [ -s $@.log ]; \
+	then \
+	        printf "%-80b%b" "$(COM_COLOR)$(COM_STRING)$2 $(<)" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
+	else \
+		printf "%-80b%b" "$(COM_COLOR)$(COM_STRING)$2 $(<)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; \
+	fi;
+endef

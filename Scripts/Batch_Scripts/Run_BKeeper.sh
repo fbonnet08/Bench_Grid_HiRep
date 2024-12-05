@@ -22,14 +22,14 @@ module list;
 
 # first clean up the exist build
 machine_name="tursa"
-bekeeper_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/BKeeper
-bekeeper_build_dir=$bekeeper_dir/build
+bkeeper_dir=/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/BKeeper
+bkeeper_build_dir=$bkeeper_dir/build
 
 # move to the directory in BKeeper directory
 
 # TODO: need to fix the logic on the BKeeper run
 
-cd $bekeeper_dir
+cd $bkeeper_dir
 
 
-cd $bekeeper_build_dir
+cd $bkeeper_build_dir

@@ -71,8 +71,8 @@ if __name__ == "__main__":
     m.printMesgStr("System time stamp             : ", c.get_B_Yellow(), sysver)
     m.printMesgStr("Release                       : ", c.get_B_Magenta(), release)
     m.printMesgStr("Kernel                        : ", c.get_B_Cyan(), platform)
-    m.printMesgStr("Node                          : ", c.get_B_Yellow(), node)
-    m.printMesgStr("Processor type                : ", c.get_B_Red(), processor)
+    m.printMesgStr("Node                          : ", c.get_B_Magenta(), node)
+    m.printMesgStr("Processor type                : ", c.getMagenta(), processor)
     m.printMesgStr("CPU cores count               : ", c.get_B_Green(), cpu_count)
     #---------------------------------------------------------------------------
     # Some Path structure
@@ -128,11 +128,11 @@ if __name__ == "__main__":
     # [Single-Multiprocessing]
     # --------------------------------------------------------------------------
     l.createMultiprocessing_type()
-    m.printMesgStr("Multiprocessing mode          :", c.get_B_Cyan(), c.getMultiprocessing_type())
+    m.printMesgStr("Multiprocessing mode          :", c.get_B_Yellow(), c.getMultiprocessing_type())
     # --------------------------------------------------------------------------
     # [Paths-Setup]
     # --------------------------------------------------------------------------
-    m.printMesgStr("This is the main program      :", c.get_B_Magenta(), "Bench_Grid_HiRep.py")
+    m.printMesgStr("This is the main program      :", c.getCyan(), "Bench_Grid_HiRep.py")
     # --------------------------------------------------------------------------
     # [Main-code]
     # --------------------------------------------------------------------------

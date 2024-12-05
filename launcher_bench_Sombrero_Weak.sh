@@ -37,11 +37,13 @@ ProgressBar (){
 # Checking the argument list
 if [ $# -ne 1 ]; then
   $white; printf "No directory specified : "; $bold;
-  $red;printf " we will use the home directory ---> \n"; $green;printf "${HOME}"; $white; $reset_colors;
+  $red;printf " we will use the home directory ---> \n";
+  $green;printf "${HOME}"; $white; $reset_colors;
   local_dir=${HOME}
 else
   $white; printf "Directory specified    : "; $bold;
-  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
+  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n";
+  $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
 #-------------------------------------------------------------------------------
@@ -72,7 +74,8 @@ $green; printf "Launching Sombrero Weak benchmark dir: "; $bold;
 # TODO: create the automated launching for the jobs using Sombrero Strong case,
 # TODO: create loop here for the different cases.
 
-sbatch Run_Sombrero_Weak.sh > out_launcher_bench_Sombrero_Weak.log &
+sbatch $batch_Scripts_dir/Run_Sombrero_weak.sh \
+        > $LatticeRuns_dir/out_launcher_bench_Sombrero_weak.log &
 
 #-------------------------------------------------------------------------------
 #End of the script
@@ -82,5 +85,6 @@ $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo "-                  launcher_bench_Sombrero_Weak.sh Done.                -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$reset_colors
 #exit
 #-------------------------------------------------------------------------------

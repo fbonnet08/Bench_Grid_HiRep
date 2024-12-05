@@ -44,11 +44,92 @@ INFO:root:[0;96m == [[0;94mSystem time stamp             : [1;93m 10.0.19045
 INFO:root:[0;96m == [[0;94mRelease                       : [1;95m 10[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mKernel                        : [1;96m Windows-10-10.0.19045-SP0[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mNode                          : [1;93m DESKTOP-GPI5ERK[0;96m] ==[0m
-WARNING:root:[0;96m == [[0;94mProcessor type                : [1;91m Intel64 Family 6 Model 94 Stepping 3, GenuineIntel[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mProcessor type                : [1;95m Intel64 Family 6 Model 94 Stepping 3, GenuineIntel[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mCPU cores count               : [1;92m 8[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mApplication root path         :[0;96m C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mInstantiating the class       :[0;92m Command_line[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mMultiprocessing mode          :[1;96m serial[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mThis is the main program      :[1;95m Bench_Grid_HiRep.py[0;96m] ==[0m
+INFO:root:[0;96m == [[1;92mDataManage has exited with no problems.[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mReturn code: [1;92m      0[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                    python code to run the Benchmarking suite.                    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX                          XX                XXXX             X        XX   *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X               X    X                      X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X              X                            X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X  XXXXX  XX XX    XXXXX   X XX           X       XXX XX   XXX     XXXXX    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXX  X     X  XX  X  X     X  XX  X          X         XX  X    X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X XXXXXXX  X   X  X        X   X  XXXXXXX X   XXX   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X        X   X  X        X   X          X     X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X     X  X   X  X     X  X   X           X    X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX   XXXXX  XXX XXX  XXXXX  XXX XXX           XXXX  XXXXX    XXXXX   XXXXXX  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem                        : [1;92m Windows[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem time stamp             : [1;93m 10.0.19045[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mRelease                       : [1;95m 10[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mKernel                        : [1;96m Windows-10-10.0.19045-SP0[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mNode                          : [1;93m DESKTOP-GPI5ERK[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mProcessor type                : [1;95m Intel64 Family 6 Model 94 Stepping 3, GenuineIntel[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mCPU cores count               : [1;92m 8[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mApplication root path         :[0;96m C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mInstantiating the class       :[0;92m Command_line[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mMultiprocessing mode          :[1;93m serial[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mThis is the main program      :[0;96m Bench_Grid_HiRep.py[0;96m] ==[0m
+INFO:root:[0;96m == [[1;92mDataManage has exited with no problems.[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mReturn code: [1;92m      0[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                    python code to run the Benchmarking suite.                    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX                          XX                XXXX             X        XX   *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X               X    X                      X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X              X                            X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X  XXXXX  XX XX    XXXXX   X XX           X       XXX XX   XXX     XXXXX    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXX  X     X  XX  X  X     X  XX  X          X         XX  X    X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X XXXXXXX  X   X  X        X   X  XXXXXXX X   XXX   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X        X   X  X        X   X          X     X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X     X  X   X  X     X  X   X           X    X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX   XXXXX  XXX XXX  XXXXX  XXX XXX           XXXX  XXXXX    XXXXX   XXXXXX  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem                        : [1;92m Windows[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem time stamp             : [1;93m 10.0.19045[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mRelease                       : [1;95m 10[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mKernel                        : [1;96m Windows-10-10.0.19045-SP0[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mNode                          : [1;95m DESKTOP-GPI5ERK[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mProcessor type                : [1;95m Intel64 Family 6 Model 94 Stepping 3, GenuineIntel[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mCPU cores count               : [1;92m 8[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mApplication root path         :[0;96m C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mInstantiating the class       :[0;92m Command_line[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mMultiprocessing mode          :[1;93m serial[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mThis is the main program      :[0;96m Bench_Grid_HiRep.py[0;96m] ==[0m
+INFO:root:[0;96m == [[1;92mDataManage has exited with no problems.[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mReturn code: [1;92m      0[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                    python code to run the Benchmarking suite.                    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX                          XX                XXXX             X        XX   *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X               X    X                      X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X                          X              X                            X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X  XXXXX  XX XX    XXXXX   X XX           X       XXX XX   XXX     XXXXX    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXX  X     X  XX  X  X     X  XX  X          X         XX  X    X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X XXXXXXX  X   X  X        X   X  XXXXXXX X   XXX   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X        X   X  X        X   X          X     X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * X    X X     X  X   X  X     X  X   X           X    X   X        X    X    X    *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m * XXXXXX   XXXXX  XXX XXX  XXXXX  XXX XXX           XXXX  XXXXX    XXXXX   XXXXXX  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m *                                                                                  *[0;96m] ==[0m
+INFO:root:[0;96m == [[1;93m ************************************************************************************[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem                        : [1;92m Windows[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mSystem time stamp             : [1;93m 10.0.19045[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mRelease                       : [1;95m 10[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mKernel                        : [1;96m Windows-10-10.0.19045-SP0[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mNode                          : [1;95m DESKTOP-GPI5ERK[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mProcessor type                : [0;95m Intel64 Family 6 Model 94 Stepping 3, GenuineIntel[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mCPU cores count               : [1;92m 8[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mApplication root path         :[0;96m C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mInstantiating the class       :[0;92m Command_line[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mMultiprocessing mode          :[1;93m serial[0;96m] ==[0m
+INFO:root:[0;96m == [[0;94mThis is the main program      :[0;96m Bench_Grid_HiRep.py[0;96m] ==[0m
 INFO:root:[0;96m == [[1;92mDataManage has exited with no problems.[0;96m] ==[0m
 INFO:root:[0;96m == [[0;94mReturn code: [1;92m      0[0;96m] ==[0m

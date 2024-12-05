@@ -88,8 +88,8 @@ printf "\n"
 # Now compiling BKeeper
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving BKeeper dir and compiling: "; $bold;
-$magenta; printf "${bekeeper_dir}\n"; $white; $reset_colors;
-cd ${bekeeper_dir}
+$magenta; printf "${bkeeper_dir}\n"; $white; $reset_colors;
+cd ${bkeeper_dir}
 ls -al
 build=build
 ./bootstrap.sh
@@ -112,13 +112,43 @@ $magenta; printf "${build}\n"; $white; $reset_colors;
 cd ${build}
 $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 
+#--enable-su2adj [Explicitly enables compilation for SU(2) adjoint]
+#--enable-su2fund [Explicitly enables compilation for SU(2) fundamental]
+#--enable-su3fund [Explicitly enables compilation for SU(3) fundamental]
+#--enable-su4fund [Explicitly enables compilation for SU(4) fundamental]
+#--enable-su3tis  [Explicitly enables compilation for SU(3) two-index symmetric]
+#--enable-sp4tis  [Explicitly enables compilation for Sp(4) two-index symmetric]
+#--disable-all
+#--no-create
+#--no-recursion
+#--enable-all     [Enables compilation for all benchmarks not explicitly specified]
+#--enable-su4tis  [Explicitly enables compilation for SU(4) two-index symmetric]
+#--enable-su2tis  [Explicitly enables compilation for SU(2) two-index symmetric]
+#--enable-su2tias [Explicitly enables compilation for SU(2) two-index antisymmetric]
+#--enable-su3adj  [Explicitly enables compilation for SU(3) adjoint]
+#--enable-su3tias [Explicitly enables compilation for SU(3) two-index antisymmetric]
+#--enable-su4adj  [Explicitly enables compilation for SU(4) adjoint]
+#--enable-su4tias [Explicitly enables compilation for SU(4) two-index antisymmetric]
+#--enable-sp4fund [Explicitly enables compilation for Sp(4) fundamental]
+#--enable-sp4tias [Explicitly enables compilation for Sp(4) two-index antisymmetric]
+#
+#../configure --prefix=${prefix} --with-grid=${prefix} --enable-su2adj --enable-su2fund --enable-su3fund --enable-su4fund --enable-su3tis --enable-sp4tis --disable-all CXX="nvcc -std=c++17 -x cu" --no-create --no-recursion
+#
+
 ../configure \
   --prefix=${prefix} \
   --with-grid=${prefix} \
+  --enable-su2adj \
   --enable-su2fund \
+  --enable-su3fund \
+  --enable-su4fund \
+  --enable-su3tis \
+  --enable-sp4tis \
   --disable-all \
   CXX="nvcc -std=c++17 -x cu"
-#CXXFLAGS="-std=c++17"
+#  --no-create \
+#  --no-recursion
+#  CXXFLAGS="-std=c++17"
 
 $green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
