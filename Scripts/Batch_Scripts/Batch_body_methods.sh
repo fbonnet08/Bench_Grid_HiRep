@@ -58,7 +58,8 @@ Batch_body_Run_BKeeper_cpu (){
 _machine_name=$1
 _bkeeper_dir=$2
 _LatticeRuns_dir=$3
-_batch_file_out=$4
+_benchmark_input_dir=$4
+_batch_file_out=$5
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of gf the batch body
@@ -70,6 +71,7 @@ machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
 LatticeRuns_dir=$_LatticeRuns_dir
+benchmark_input_dir=$_benchmark_input_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -101,7 +103,8 @@ Batch_body_Run_BKeeper_gpu (){
 _machine_name=$1
 _bkeeper_dir=$2
 _LatticeRuns_dir=$3
-_batch_file_out=$4
+_benchmark_input_dir=$4
+_batch_file_out=$5
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of gf the batch body
@@ -113,6 +116,7 @@ machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
 LatticeRuns_dir=$_LatticeRuns_dir
+benchmark_input_dir=$_benchmark_input_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
