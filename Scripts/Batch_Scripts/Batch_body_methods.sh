@@ -5,7 +5,8 @@
 Batch_body_Compile_BKeeper (){
 _machine_name=$1
 _bkeeper_dir=$2
-_batch_file_out=$3
+_LatticeRuns_dir=$3
+_batch_file_out=$4
 #-------------------------------------------------------------------------------
 # Start of the batch body
 #-------------------------------------------------------------------------------
@@ -19,6 +20,7 @@ cat << EOF >> "$_batch_file_out"
 machine_name="${_machine_name}"
 bkeeper_dir=${_bkeeper_dir}
 bkeeper_build_dir=${_bkeeper_dir}/build
+LatticeRuns_dir=$_LatticeRuns_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -40,9 +42,9 @@ fi
 cd \$bkeeper_build_dir
 
 if [[ \$machine_name =~ "Precision-3571" || \$machine_name =~ "DESKTOP-GPI5ERK" ]]; then
-  make -k -j16 > Bkeeper_compile_\$SLURM_NTASKS.log;
+  make -k -j16 > \$LatticeRuns_dir/Bkeeper_compile_\$SLURM_NTASKS.log;
 else
-  make -k -j32 > Bkeeper_compile_\$SLURM_NTASKS.log;
+  make -k -j32 > \$LatticeRuns_dir/Bkeeper_compile_\$SLURM_NTASKS.log;
 fi
 EOF
 }
@@ -55,7 +57,8 @@ EOF
 Batch_body_Run_BKeeper_cpu (){
 _machine_name=$1
 _bkeeper_dir=$2
-_batch_file_out=$3
+_LatticeRuns_dir=$3
+_batch_file_out=$4
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of gf the batch body
@@ -66,6 +69,7 @@ cat << EOF >> "$_batch_file_out"
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
+LatticeRuns_dir=$_LatticeRuns_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -96,7 +100,8 @@ EOF
 Batch_body_Run_BKeeper_gpu (){
 _machine_name=$1
 _bkeeper_dir=$2
-_batch_file_out=$3
+_LatticeRuns_dir=$3
+_batch_file_out=$4
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of gf the batch body
@@ -107,6 +112,7 @@ cat << EOF >> "$_batch_file_out"
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
+LatticeRuns_dir=$_LatticeRuns_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------

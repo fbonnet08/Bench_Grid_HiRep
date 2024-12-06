@@ -111,13 +111,13 @@ EOF
 case "$__batch_action" in
   *"BKeeper_compile"*)
       Batch_body_Compile_BKeeper \
-      ${machine_name} ${bkeeper_dir} ${__batch_file_out} ;;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${__batch_file_out} ;;
   *"BKeeper_run_cpu"*)
       Batch_body_Run_BKeeper_cpu \
-      ${machine_name} ${bkeeper_dir} ${__batch_file_out};;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${__batch_file_out};;
   *"BKeeper_run_gpu"*)
       Batch_body_Run_BKeeper_gpu \
-      ${machine_name} ${bkeeper_dir} ${__batch_file_out};;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${__batch_file_out};;
   *"Sombrero_weak"*)
       Batch_body_Run_Sombrero_weak \
       ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} ${__batch_file_out};;
