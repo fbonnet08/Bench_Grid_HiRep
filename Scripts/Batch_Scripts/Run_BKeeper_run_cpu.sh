@@ -22,7 +22,7 @@
 #-------------------------------------------------------------------------------
 machine_name="DESKTOP-GPI5ERK"
 bkeeper_dir=/home/frederic/SwanSea/SourceCodes/BKeeper
-bkeeper_build_dir=/home/frederic/SwanSea/SourceCodes/BKeeper/build
+bkeeper_build_dir=$bkeeper_dir/build
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------

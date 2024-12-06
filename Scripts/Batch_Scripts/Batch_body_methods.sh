@@ -65,7 +65,7 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
-bkeeper_build_dir=$_bkeeper_dir/build
+bkeeper_build_dir=\$bkeeper_dir/build
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
-bkeeper_build_dir=$_bkeeper_dir/build
+bkeeper_build_dir=\$bkeeper_dir/build
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
