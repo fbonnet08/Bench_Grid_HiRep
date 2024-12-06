@@ -111,22 +111,28 @@ EOF
 case "$__batch_action" in
   *"BKeeper_compile"*)
       Batch_body_Compile_BKeeper \
-      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${__batch_file_out} ;;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out} ;;
   *"BKeeper_run_cpu"*)
       Batch_body_Run_BKeeper_cpu \
-      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} ${__batch_file_out};;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} \
+      ${__batch_file_out};;
   *"BKeeper_run_gpu"*)
       Batch_body_Run_BKeeper_gpu \
-      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} ${__batch_file_out};;
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} \
+      ${__batch_file_out};;
   *"Sombrero_weak"*)
       Batch_body_Run_Sombrero_weak \
-      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} ${__batch_file_out};;
+      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
   *"Sombrero_strong"*)
       Batch_body_Run_Sombrero_strong \
-      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} ${__batch_file_out};;
+      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
   *"HiRep-LLR-master-cpu"*)
       Batch_body_Run_HiRep-LLR-master-cpu \
-      ${machine_name} ${HiRep_LLR_master_HMC_dir} ${LatticeRuns_dir} ${__batch_file_out};;
+      ${machine_name} ${HiRep_LLR_master_HMC_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
   *"HiRep-LLR-master-gpu"*)
       #TODO: insert the method for the gpu batch script creation
       ;;

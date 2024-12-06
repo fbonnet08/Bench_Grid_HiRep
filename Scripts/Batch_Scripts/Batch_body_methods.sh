@@ -70,8 +70,8 @@ cat << EOF >> "$_batch_file_out"
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
-LatticeRuns_dir=$_LatticeRuns_dir
 benchmark_input_dir=$_benchmark_input_dir
+LatticeRuns_dir=$_LatticeRuns_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -94,6 +94,7 @@ mpirun \$bkeeper_build_dir/BKeeper \\
         --mpi 1.1.1.4 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
         > \$LatticeRuns_dir/bkeeper_run_cpu.log &
+
 EOF
 }
 ################################################################################
@@ -115,8 +116,8 @@ cat << EOF >> "$_batch_file_out"
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
-LatticeRuns_dir=$_LatticeRuns_dir
 benchmark_input_dir=$_benchmark_input_dir
+LatticeRuns_dir=$_LatticeRuns_dir
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -140,6 +141,7 @@ mpirun \$bkeeper_build_dir/BKeeper \\
         --accelerator-threads 8 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
         > \$LatticeRuns_dir/bkeeper_run_gpu.log &
+
 EOF
 }
 ################################################################################
@@ -186,6 +188,7 @@ echo "SLURM_NTASKS: \$SLURM_NTASKS"
         -w \\
         -s small \\
         > \$LatticeRuns_dir/weak_\$SLURM_NTASKS &
+
 EOF
 }
 ################################################################################
@@ -277,7 +280,7 @@ echo "SLURM_NTASKS: \$SLURM_NTASKS"
 
 srun ./llr_hmc \\
      -i ./\${HiRep_LLR_master_HMC_dir}/input_file \\
-     -o \$LatticeRuns_dir/out_llr-hmc_\${SLURM_JOB_NUM_NODES}nodes_\${SLURM_JOBID}_slurmTasks_\$SLURM_NTASKS.log
+     -o \$LatticeRuns_dir/out_llr-hmc_\${SLURM_JOB_NUM_NODES}nodes_\${SLURM_JOBID}_slurmTasks_\$SLURM_NTASKS.log &
 
 EOF
 }
