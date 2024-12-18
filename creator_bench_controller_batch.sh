@@ -393,7 +393,7 @@ EOF
     L=1
     T=1
     M=1
-    for l in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    for l in $(seq 0 `expr ${#mpi_distribution[@]} - 1`)
     do
     mpi_distr=$(printf "mpi%s" "${mpi_distribution[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
     for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
@@ -401,7 +401,7 @@ EOF
       ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
     for j in $(seq 0 `expr ${#bkeeper_lattice_size_cpu[@]} - 1`)
     do
-      lattice=$(printf "lat%s" ${bkeeper_lattice_size_cpu[$j]};)
+      lattice=$(printf "lat%s" "${bkeeper_lattice_size_cpu[$j]}";)
 
       for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_cpu[@]} - 1`)
       do
@@ -438,7 +438,7 @@ EOF
           "2:0:0"                                  \
           "standard"
 
-        # Writting the header to files
+        # Writing the header to files
         cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
 $(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
@@ -466,11 +466,12 @@ EOF
       H=$(expr $H + 1)
     done
     L=$(expr $L + 1)
-  done
-    T=$(expr $T + 1)
-  done
-    M=$(expr $M + 1)
-  done
+    done
+      T=$(expr $T + 1)
+    done
+      M=$(expr $M + 1)
+    done
+
     #-------------------------------------------------------------------------------
     # BKeeper [Large-CPU]:
     #-------------------------------------------------------------------------------
@@ -480,7 +481,7 @@ EOF
     L=1
     T=1
     M=1
-    for l in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    for l in $(seq 0 `expr ${#mpi_distribution[@]} - 1`)
     do
     mpi_distr=$(printf "mpi%s" "${mpi_distribution[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
     for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
@@ -488,7 +489,7 @@ EOF
       ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
     for j in $(seq 0 `expr ${#bkeeper_lattice_size_cpu[@]} - 1`)
     do
-      lattice=$(printf "lat%s" ${bkeeper_lattice_size_cpu[$j]};)
+      lattice=$(printf "lat%s" "${bkeeper_lattice_size_cpu[$j]}";)
 
       for i in $(seq 0 `expr ${#bkeeper_large_n_nodes_cpu[@]} - 1`)
       do
@@ -506,7 +507,7 @@ EOF
         $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
         # Creating the path in question
-        Batch_util_create_path ${__path_to_run}
+        Batch_util_create_path "${__path_to_run}"
 
         # Now creating the Batch file: __batch_file_out in __path_to_run
         $green; printf "Creating the Batch script from the methods: "; $bold;
@@ -525,7 +526,7 @@ EOF
           "2:0:0"                                  \
           "standard"
 
-        # Writting the header to files
+        # Writing the header to files
         cat << EOF > ${__path_to_run}${sptr}${__batch_file_out}
 $(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
@@ -546,7 +547,7 @@ EOF
       "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}" \
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
-      "${mpi_distribution[$l]}"                                                          \
+      "${mpi_distribution[$l]}"                                                         \
       "${__simulation_size}" "${__batch_file_construct}"
 
         # incrementing the counter
