@@ -17,9 +17,11 @@ tput sgr0;
 red="tput setaf 1"  ;green="tput setaf 2"  ;yellow="tput setaf 3"
 blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
-# Global variables
+# Global variables and fixed Unix operators
 sleep_time=2
-sptr="/"
+sptr="/";
+all="*";
+dot=".";
 #Functions
 ProgressBar (){
     _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
@@ -88,7 +90,6 @@ elif [[ $hostname =~ "sunbird" ]]; then
 
 elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
   machine_name="DESKTOP-GPI5ERK"
-
 fi
 
 # Setting up the directory structure for the download
@@ -199,6 +200,58 @@ $white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n"; 
 $white; printf "BKeeper directory      : ";$cyan;     printf "$bkeeper_dir\n";         $reset_colors;
 $white; printf "Lattice runs directory : ";$magenta;  printf "$LatticeRuns_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
+# ##############################################################################
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Other template examples based on strings
+#-------------------------------------------------------------------------------
+declare -a path_to_data_dir=(
+              "$sourcecode_dir"
+              "$sombrero_dir"
+              "$bkeeper_dir"
+              "$Bench_Grid_HiRep_dir"
+              "$benchmark_input_dir"
+              "$batch_Scripts_dir"
+              "$LatticeRuns_dir"
+              "$Hirep_LLR_SP_dir"
+              "$Hirep_LLR_SP_HMC_dir"
+              "$HiRep_LLR_master_dir"
+              "$HiRep_LLR_master_HMC_dir"
+              "$HiRep_Cuda_dir"
+              "$grid_dir"
+              "$basedir"
+              "$prefix"
+              )
+# getting the length of the strings
+max_string_array=()
+for i in $(seq 0 `expr ${#path_to_data_dir[@]} - 1`)
+do max_string_array=(${max_string_array[@]} ${#path_to_data_dir[$i]}); done
+#Initialising the max length to a either first entry of array or 80 characters
+if   [ ${#path_to_data_dir[@]} -ne 0 ]; then max_string_length=${max_string_array[0]}
+elif [ ${#path_to_data_dir[@]} -eq 0 ]; then max_string_length=80; fi
+#getting the maximum length method #1
+for n_nodes in "${max_string_array[@]}"
+do ((n_nodes > max_string_length)) && max_string_length=$n_nodes; done
+$cyan;printf "<-- Array length   --->: ";$green;printf "%i\n" ${#path_to_data_dir[@]};$white
+$cyan;printf "<-- Max length dir --->: ";$yellow;printf "%i\n" ${max_string_length};$white
+#launching the metadata extractor and plotters
+G=1
+for i in $(seq 0 `expr ${#path_to_data_dir[@]} - 1`)
+do
+    logfile=$(printf "out_launch_Bench_Grid_HiRep_path_%03d.log" $i)
+    sourcedir_in=${path_to_data_dir[$i]}
+    index=$($green;printf "%03d" $G;$cyan)
+    $cyan; printf "<-- Source dir     --->: [$index] --->: ";
+    $yellow;printf "%-${max_string_length}s" $sourcedir_in;
+    $green; printf " ---> ";$cyan;printf "$logfile\n"; $white;
+    #sh TotalDoseAnalyser.sh $sourcedir_in $targetdir_in $dateSpan_in > $logfile &
+    if [ $G -eq ${#path_to_data_dir[@]} ];then G=0; $red;printf "Waiting for procs ...\n";$white;wait;fi
+    G=$(expr $G + 1)
+done
+$cyan;printf "<-- Process done   --->: ";$green;printf "%s\n" "Continuing...";$white
+#-------------------------------------------------------------------------------
+# ##############################################################################
+#-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #End of the script
 echo

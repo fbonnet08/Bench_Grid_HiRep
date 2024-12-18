@@ -1,6 +1,343 @@
 
 
 
+permute() {
+    local input=("$@")
+    local length=${#input[@]}
+
+    #echo "Length: $length"
+
+    if (( length == 1 )); then
+        echo "${input[@]}"
+        return
+    fi
+
+    local seen=()
+    for ((i = 0; i < length; i++)); do
+        local num="${input[$i]}"
+
+        # Skip duplicates
+        if [[ " ${seen[@]} " =~ " $num " ]]; then
+            continue
+        fi
+        seen+=("$num")
+
+        # Generate sub-permutations
+        local rest=("${input[@]:0:i}" "${input[@]:i+1}")
+        for sub_perm in $(permute "${rest[@]}"); do
+            echo "$num $sub_perm"
+        done
+    done
+}
+
+
+
+
+#-------------------------------------------------------------------------------
+# Permutation with two duplicates
+#-------------------------------------------------------------------------------
+echo
+
+# Array with duplicates
+numbers=(1 1 2 3)
+
+# Function to swap two elements in the array
+swap() {
+    local temp="${numbers[$1]}"
+    numbers[$1]="${numbers[$2]}"
+    numbers[$2]="$temp"
+}
+
+# Recursive function to generate permutations
+permute() {
+    local start="$1"
+    local end="$2"
+
+    if [[ "$start" -eq "$end" ]]; then
+        echo "${numbers[@]}"
+        return
+    fi
+
+    # Use an associative array to track used elements at this level
+    declare -A used
+
+    for (( i = start; i <= end; i++ )); do
+        if [[ -n "${used[${numbers[i]}]}" ]]; then
+            continue  # Skip duplicates
+        fi
+        used[${numbers[i]}]=1
+
+        swap "$start" "$i"
+        permute "$((start + 1))" "$end"
+        swap "$start" "$i"  # Backtrack
+    done
+}
+
+# Sort the array to handle duplicates
+IFS=$'\n' numbers=($(sort -n <<<"${numbers[*]}"))
+unset IFS
+
+# Call the recursive function
+echo "\$2 --->: $((${#numbers[@]} - 1))"
+permute 0 $((${#numbers[@]} - 1))
+
+
+
+#-------------------------------------------------------------------------------
+# Permutation with two duplicates
+#-------------------------------------------------------------------------------
+
+echo
+
+# Array with duplicates
+numbers=(1 2 3 4)
+
+# Function to swap two elements in the array
+swap() {
+    local temp="${numbers[$1]}"
+    numbers[$1]="${numbers[$2]}"
+    numbers[$2]="$temp"
+}
+
+# Recursive function to generate permutations
+permute() {
+    local start="$1"
+    local end="$2"
+
+    if [[ "$start" -eq "$end" ]]; then
+        echo "${numbers[@]}"
+        return
+    fi
+
+    # Use an associative array to track used elements at this level
+    declare -A used
+
+    for (( i = start; i <= end; i++ )); do
+        if [[ -n "${used[${numbers[$i]}]}" ]]; then
+            continue  # Skip duplicate elements
+        fi
+        used[${numbers[$i]}]=1  # Mark this element as used
+
+        swap "$start" "$i"
+        permute "$((start + 1))" "$end"
+        swap "$start" "$i"  # Backtrack
+    done
+}
+
+# Sort the array to handle duplicates
+IFS=$'\n' numbers=($(sort -n <<<"${numbers[*]}"))
+unset IFS
+
+# Call the recursive function
+permute 0 $((${#numbers[@]} - 1))
+
+
+        #"${_core_count}"                           \
+        #$(expr $n_nodes * $_core_count)          \
+        # $(expr $sombrero_small_strong_n_nodes[$i] * 8)  \
+
+
+
+    # nodes * ntasks
+
+
+echo "qos          ----> $_qos"
+
+# Function defined in ./config_batch_action.sh
+case $__batch_action in
+  *"BKeeper_compile"*)      config_Batch_BKeeper_compile_cpu  ;;
+  *"BKeeper_run_cpu"*)      config_Batch_BKeeper_run_cpu      ;;
+  *"BKeeper_run_gpu"*)      config_Batch_BKeeper_run_gpu      ;;
+  *"Sombrero_weak"*)        config_Batch_Sombrero_weak_cpu    ;;
+  *"Sombrero_strong"*)      config_Batch_Sombrero_strong_cpu  ;;
+  *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
+  *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
+  *)
+    echo
+    $red; printf "The batch action is either incorrect or missing: \n";
+    $yellow; printf "[BKeeper_compile, BKeeper_run, Sombrero_weak, Sombrero_strong,";
+             printf " HiRep-LLR-master-cpu]\n";
+    $cyan; printf "[try: bash -s < ./creator_batch.sh SwanSea/SourceCodes/external_lib BKeeper_compile]\n"; $reset_colors;
+    read -p "Would you like to continue (yes/no): " continue;
+    if [[ $continue =~ "yes" || $continue =~ "Yes" ]]
+    then
+      config_Batch_default;
+    else
+      $red;printf "Exiting, try again with the correct batch action.\n"; $reset_colors;
+      echo
+      echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+      $cyan; echo `date`; $reset_colors;
+      echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+      exit;
+    fi
+    ;;
+esac
+#-------------------------------------------------------------------------------
+# Now compiling Sombrero
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "\n"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
+$magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
+cd ${batch_Scripts_dir}
+#ls -al
+
+echo "machine name ----> $machine_name"
+echo "module list  ----> $module_list"
+echo "batch action ----> $__batch_action"
+echo "batch file   ----> $__batch_file_out"
+echo "qos          ----> $_qos"
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Creating batch file for batch action: ";
+$magenta;printf "$__batch_action\n"; $white; $reset_colors;
+
+# TODO: create the automated launching for the jobs using Sombrero Strong case,
+# TODO: create loop here for the different cases.
+
+#sbatch Run_BKeeper.sh > out_launcher_bench_BKeeper.log &
+$green; printf "Creating the Batch script from the methods: "; $bold;
+$cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+cat << EOF > $__batch_file_out
+$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(
+case $__batch_action in
+  *"BKeeper"*)              echo "#---> this is a BKeeper job run"              ;;
+  *"Sombrero_weak"*)        echo "#---> this is a Sombrero_weak job run"        ;;
+  *"Sombrero_strong"*)      echo "#---> this is a Sombrero_strong job run"      ;;
+  *"HiRep-LLR-master-cpu"*) echo "#---> this is a HiRep-LLR-master-cpu job run" ;;
+  *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run" ;;
+esac
+)
+
+$module_list
+
+EOF
+
+case "$__batch_action" in
+  *"BKeeper_compile"*)
+      Batch_body_Compile_BKeeper \
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out} ;;
+  *"BKeeper_run_cpu"*)
+      Batch_body_Run_BKeeper_cpu \
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} \
+      ${__batch_file_out};;
+  *"BKeeper_run_gpu"*)
+      Batch_body_Run_BKeeper_gpu \
+      ${machine_name} ${bkeeper_dir} ${LatticeRuns_dir} ${benchmark_input_dir} \
+      ${__batch_file_out};;
+  *"Sombrero_weak"*)
+      Batch_body_Run_Sombrero_weak \
+      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
+  *"Sombrero_strong"*)
+      Batch_body_Run_Sombrero_strong \
+      ${machine_name} ${sombrero_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
+  *"HiRep-LLR-master-cpu"*)
+      Batch_body_Run_HiRep-LLR-master-cpu \
+      ${machine_name} ${HiRep_LLR_master_HMC_dir} ${LatticeRuns_dir} \
+      ${__batch_file_out};;
+  *"HiRep-LLR-master-gpu"*)
+      #TODO: insert the method for the gpu batch script creation
+      ;;
+esac
+
+
+
+
+
+echo "core_count --->: $_core_count"
+echo "mem_total  --->: $_mem_total"
+echo "gpu_count  --->: $_gpu_count"
+
+
+
+# Global variables
+#-------------------------------------------------------------------------------
+# Getting the common code setup and variables, #setting up the environment properly.
+#-------------------------------------------------------------------------------
+# Overall config file
+source ./common_main.sh $1;
+# System config file to get information from the node
+source ./config_system.sh;
+# The config for the batch_action needs information from the system_config call
+source ./config_batch_action.sh
+# The Batch content creators methods
+source ./Scripts/Batch_Scripts/Batch_header_methods.sh
+source ./Scripts/Batch_Scripts/Batch_body_methods.sh
+# Batch file out constructor variable
+
+
+
+
+
+    if [ -d ${__path_to_run} ]
+    then
+      $white; printf "Directory              : "; $bold;
+      $blue; printf '%s'"${__path_to_run}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+    else
+      $white; printf "Directory              : "; $bold;
+      $blue; printf '%s'"${__path_to_run}"; $red;printf " does not exist, We will create it ...\n";
+      $white; $reset_colors;
+      mkdir -p ${__path_to_run}
+      printf "                       : "; $bold;
+      $green; printf "done.\n"; $reset_colors;
+    fi
+
+
+
+__batch_action= #$2
+
+# constructing the files and directory structure
+H=1
+L=1
+for j in $(seq 0 `expr ${#bkeeper_lattice_size_cpu[@]} - 1`)
+do
+  lattice=$(printf "lat%s" ${bkeeper_lattice_size_cpu[$j]};)
+
+  for i in $(seq 0 `expr ${#bkeeper_large_n_nodes[@]} - 1`)
+  do
+    cnt=$(printf "%03d" $H)
+    index=$(printf "%03d" $i)
+    n_nodes=$(printf "nodes%03d" ${bkeeper_large_n_nodes[$i]};)
+    # Orchetstrating the file construction
+    __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${lattice}")
+    __batch_file_out=$(printf "${__batch_file_construct}.sh")
+    __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+
+    #$cyan;printf "bkeeper_large_n_nodes[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+    $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
+    if [ -d ${__path_to_run} ]
+    then
+      $white; printf "Directory              : "; $bold;
+      $blue; printf '%s'"${__path_to_run}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+    else
+      $white; printf "Directory              : "; $bold;
+      $blue; printf '%s'"${__path_to_run}"; $red;printf " does not exist, We will create it ...\n";
+      $white; $reset_colors;
+      mkdir -p ${__path_to_run}
+      printf "                       : "; $bold;
+      $green; printf "done.\n"; $reset_colors;
+    fi
+
+    # incrementing the counter
+    H=$(expr $H + 1)
+  done
+  L=$(expr $L + 1)
+done
+
+
+
 
 config_Batch_Sombrero_weak_cpu (){
 _nodes=2

@@ -78,8 +78,45 @@ information. The information is then stored in data structures which
 can then be passed around in the code for extraction and
 exploitation.
 
+The Benches
+-------------
+
+<u>SOMBRERO:</u>
+- Small, strong scaling, nodes=1, 2, 3, 4, 6, 8, 12
+- Large, strong scaling; small/large, weak scaling, nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
+- In all cases, fill entire node
+
+<u>BKeeper CPU:</u>
+- --grid 24.24.24.32, 1 node, vary ntasks per node, set threads per task to fill node
+- --grid 24.24.24.32, 1 node, fix optimal ntasks per node and threads per task, vary --mpi argument. \
+    (From this we can identify what pattern of MPI filling optimises performance. \
+    This is typically going 1.1.1.2, 1.1.1.4, until we run out of factors, \
+    and then going to 1.1.2.N, etc., but this should be verified)
+- --grid 24.24.24.32, use a sensible --mpi and ntasks-per-node, nodes=1, 2, 3, 4, 6, 8, 12, 16
+- --grid 64.64.64.96, use a sensible --mpi and ntasks-per-node, nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
+- --grid 24.24.24.{number of MPI ranks} --mpi 1.1.2.{number of MPI ranks/2}, nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
+
+<u>BKeeper GPU:</u>\
+Note when running BKeeper in parallel on GPU that a wrapper script is needed to place processes on the correct device.
+This will vary from machine to machine; an example for Tursa is attached
+- --grid 24.24.24.32, use a sensible --mpi from above, one task per GPU, nodes=1, 2, 3, 4, 6, 8, 12, 16
+- --grid 64.64.64.96, use a sensible --mpi from above, one task per GPU, nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
+- --grid 24.24.24.{number of MPI ranks} --mpi 1.1.2.{number of MPI ranks/2}, nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
+- --grid 48.48.48.64 --mpi 1.1.1.4, scan GPU clock frequency
+
+<u>Grid GPU:</u> \
+tests/sp2n/Test_hmc_Sp_WF_2_Fund_3_2AS.cc, using a thermalised starting configuration
+- --grid 32.32.32.64, use a sensible --mpi, one task per GPU, nodes=1, 2, 4, 8, 16, 32
+
+<u>HiRep LLR HMC CPU:</u>
+- Weak scaling, 1 rank per replica, number of replicas = total number of CPU cores (varies with platform),\
+    nodes=1, 2, 3, 4
+- Strong scaling, number of CPU cores per node = number of replicas; \
+    total number of CPU cores = number of replicas * number of domains per replica, nodes=1, 2, 3, 4, 6, 8
+
+On EuroHPC machines we absolutely need to get the latter two tests done so that we can prepare a convincing application. On other machines we only need SOMBRERO and BKeeper.
+
 Documentation
 ---------------
 Right now the code is not documented but will be later once it matures
 a little
-

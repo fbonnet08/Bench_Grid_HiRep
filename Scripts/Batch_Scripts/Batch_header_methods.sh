@@ -13,8 +13,8 @@ _time=$7
 _qos=$8
 echo "#!/bin/bash"
 echo "#SBATCH --nodes=$_nodes"
-echo "#SBATCH --ntasks=$_ntask"
-echo "#SBATCH --ntasks-per-node=$_ntasks_per_node"
+#echo "#SBATCH --ntasks=$_ntask"
+echo "#SBATCH --ntasks-per-node=$_ntasks_per_node    # nodes * ntasks"
 echo "#SBATCH --cpus-per-task=$_cpus_per_task"
 echo "#SBATCH --partition=$_partition"
 echo "#SBATCH --job-name=$_job_name"

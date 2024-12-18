@@ -1,17 +1,20 @@
 #!/bin/bash
 #SBATCH --nodes=2
-#SBATCH --ntasks=128
-#SBATCH --ntasks-per-node=128
+#SBATCH --ntasks-per-node=128    # nodes * ntasks
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=cpu
 #SBATCH --job-name=compile_BKeeper
 #SBATCH --time=15:0:0
 #SBATCH --qos=standard
+#SBATCH --output=%x.%j_compile_BKeeper.out
+#SBATCH --error=%x.%j_compile_BKeeper.err
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables
 #-------------------------------------------------------------------------------
 #---> this is a BKeeper job run
+
 #---> no modules on DESKTOP-GPI5ERK; module list;
+
 #-------------------------------------------------------------------------------
 # Start of the batch body
 #-------------------------------------------------------------------------------
@@ -21,6 +24,8 @@
 machine_name="DESKTOP-GPI5ERK"
 bkeeper_dir=/home/frederic/SwanSea/SourceCodes/BKeeper
 bkeeper_build_dir=/home/frederic/SwanSea/SourceCodes/BKeeper/build
+LatticeRuns_dir=/home/frederic/SwanSea/SourceCodes/LatticeRuns
+job_name=compile_BKeeper
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
@@ -42,7 +47,7 @@ fi
 cd $bkeeper_build_dir
 
 if [[ $machine_name =~ "Precision-3571" || $machine_name =~ "DESKTOP-GPI5ERK" ]]; then
-  make -k -j16 > Bkeeper_compile_$SLURM_NTASKS.log;
+  make -k -j16 > $LatticeRuns_dir/$job_name/Bkeeper_compile_$SLURM_NTASKS.log;
 else
-  make -k -j32 > Bkeeper_compile_$SLURM_NTASKS.log;
+  make -k -j32 > $LatticeRuns_dir/$job_name/Bkeeper_compile_$SLURM_NTASKS.log;
 fi
