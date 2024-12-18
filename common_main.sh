@@ -90,6 +90,9 @@ elif [[ $hostname =~ "sunbird" ]]; then
 
 elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
   machine_name="DESKTOP-GPI5ERK"
+else
+  #TODO: need to fix propagation machine_name when system is not defined
+  machine_name="Other-Linux-Distribution"
 fi
 
 # Setting up the directory structure for the download
