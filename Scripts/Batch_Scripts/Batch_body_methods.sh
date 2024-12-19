@@ -53,7 +53,7 @@ else
   printf "                       : "; printf "done.\n";
 fi
 
-echo `pwd`
+echo "$PWD"
 
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
@@ -119,7 +119,7 @@ else
   printf "                       : "; printf "done.\n";
 fi
 
-echo `pwd`
+echo "$PWD"
 
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
