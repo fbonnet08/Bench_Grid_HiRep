@@ -1,14 +1,15 @@
 #!/usr/bin/bash
+ARGV=`basename -a $1 $2`
 set -eu
 scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
-echo "!     Code to dispatch the codes to remote clusters.                    !"
-echo "!     $scrfipt_file_name                                          !"
-echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh dispatcher_Grid_hiRep.sh                              !"
-echo "!     [example]: sh dispatcher_Grid_hiRep.sh                            !"
+echo "!  Code to dispatch the codes to remote clusters.                       !"
+echo "!  $scrfipt_file_name                                          !"
+echo "!  [Author]: Frederic Bonnet October 2024                               !"
+echo "!  [usage]: sh dispatcher_Grid_hiRep.sh {username} {remote_hostname}    !"
+echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 tursa.dirac.ed.ac.uk !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -21,8 +22,12 @@ sptr="/"
 # read username and echo username in terminal
 #echo           "Enter Username         : "; username="frederic"                    # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215"         # read remote_hostname;
-echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
-echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+#echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
+#echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+
+echo           "Enter Username         : "; username=$1                             # read username;
+echo           "Enter remote hostname  : "; remote_hostname=$2                      # read remote_hostname;
+
 #echo           "Enter Username         : "; username="eufredericb"                 # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"   # read remote_hostname;
 
