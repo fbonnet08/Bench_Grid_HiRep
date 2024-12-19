@@ -111,8 +111,8 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$white; printf \"Moving files to dst    : \"; \$bold;
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
-cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh ${external_lib_dir}
-cp -v clean_allbuilds.sh ${source_dir}
+cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh creator_bench_*.sh ${external_lib_dir}
+cp -rv clean_allbuilds.sh config_*.sh ./Scripts ${external_lib_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
