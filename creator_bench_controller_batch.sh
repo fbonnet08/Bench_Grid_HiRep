@@ -118,7 +118,8 @@ case "$__batch_action" in
       __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
       #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
       #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
@@ -162,7 +163,7 @@ EOF
       # Now let's get the body in for the batch file
       Batch_body_Run_Sombrero_weak \
       "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -189,13 +190,14 @@ EOF
       __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
       #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
       #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
-      Batch_util_create_path ${__path_to_run}
+      Batch_util_create_path "${__path_to_run}"
 
       # Now creating the Batch file: __batch_file_out in __path_to_run
       $green; printf "Creating the Batch script from the methods: "; $bold;
@@ -233,7 +235,7 @@ EOF
       # Now let's get the body in for the batch file
       Batch_body_Run_Sombrero_weak \
       "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -261,7 +263,8 @@ EOF
       __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
       #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
       #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
@@ -305,7 +308,7 @@ EOF
       # Constructing the rest of the batch file body
       Batch_body_Run_Sombrero_strong \
       "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -331,7 +334,8 @@ EOF
       __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
       #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+      __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
       #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
@@ -375,7 +379,7 @@ EOF
       # Constructing the rest of the batch file body
       Batch_body_Run_Sombrero_strong \
       "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -413,7 +417,8 @@ EOF
         __mpi_distr_FileTag=$(printf "${mpi_distr}")
         __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
         __batch_file_out=$(printf "${__batch_file_construct}.sh")
-        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+        #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
         #$cyan;printf "bkeeper_small_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
         $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
@@ -460,7 +465,7 @@ EOF
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
       "${mpi_distribution[$l]}"                                                         \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -501,7 +506,7 @@ EOF
         __mpi_distr_FileTag=$(printf "${mpi_distr}")
         __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
         __batch_file_out=$(printf "${__batch_file_construct}.sh")
-        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
         #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
         $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
@@ -548,7 +553,7 @@ EOF
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
       "${mpi_distribution[$l]}"                                                         \
-      "${__simulation_size}" "${__batch_file_construct}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
 
         # incrementing the counter
         H=$(expr $H + 1)

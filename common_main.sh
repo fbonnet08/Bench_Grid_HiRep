@@ -22,7 +22,14 @@ sleep_time=2
 sptr="/";
 all="*";
 dot=".";
-#Functions
+#-------------------------------------------------------------------------------
+# Getting the common code setup and variables, #setting up the environment properly.
+#-------------------------------------------------------------------------------
+# The Batch content creators methods
+source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
 ProgressBar (){
     _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
     _progress=$(awk -vp=$_percent 'BEGIN{printf "%i", p*4/10}')
@@ -99,6 +106,7 @@ fi
 build_dir=build
 
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
+Batch_util_create_path "${sourcecode_dir}"
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bkeeper_dir=${sourcecode_dir}/BKeeper
 Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep

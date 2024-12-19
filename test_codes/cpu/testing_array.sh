@@ -299,7 +299,7 @@ do
     $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
     # Creating the path in question
-    Batch_util_create_path ${__path_to_run}
+    Batch_util_create_path "${__path_to_run}"
 
     # incrementing the counter
     H=$(expr $H + 1)

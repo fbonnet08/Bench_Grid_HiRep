@@ -84,6 +84,10 @@ case "$__batch_action" in
              > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &;;
 esac
 
+# TODO: the find function of the batch*.sh files into the target_runs.txt file
+# TODO: find "$PWD" -name "*.sh" > target_runs.txt
+# TODO: ls -R1 "$PWD" |grep ".sh"|tr ":" "\n"
+
 #-------------------------------------------------------------------------------
 #End of the script
 echo

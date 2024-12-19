@@ -10,10 +10,11 @@
 declare -a ntasks_per_node=(1 2 4 8 16 32 64 128 256)
 declare -a mpi_permutation=(1 1 2 3)
 declare -a mpi_distribution=(
-"1.1.1.2" )
-# "1.1.1.8" "2.1.1.8" "8.1.1.8" "8.1.2.8" "8.1.8.8"
-#"1.1.2.8" "8.1.2.1" "1.8.2.1" "1.1.8.2" "4.4.1.1" "4.1.4.1"
-#"4.1.1.4" "1.4.1.4" "1.1.4.4" "2.2.2.2"
+"1.1.1.2"
+)
+#"1.1.1.8" "1.8.2.1" "1.1.8.2" "1.1.2.8"
+#"1.4.1.4" "1.1.4.4" "2.1.1.8" "2.2.2.2" "4.4.1.1"
+#"4.1.4.1" "4.1.1.4" "8.1.1.8" "8.1.2.8" "8.1.8.8" "8.1.2.1"
 #)
 #"1.1.2.3"
 #-------------------------------------------------------------------------------
@@ -22,10 +23,10 @@ declare -a mpi_distribution=(
 # In all cases, fill entire node
 #Small, strong scaling, n_nodes=1, 2, 3, 4, 6, 8, 12
 #Large, strong scaling; small/large, weak scaling, n_nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
-declare -a sombrero_small_weak_n_nodes=(1 2 3 4 6 8 12 16 24 32)
-declare -a sombrero_large_weak_n_nodes=(1 2 3 4 6 8 12 16 24 32)
-declare -a sombrero_small_strong_n_nodes=(1 2 3 4 6 8 12)
-declare -a sombrero_large_strong_n_nodes=(1 2 3 4 6 8 12 16 24 32)
+declare -a sombrero_small_weak_n_nodes=(1 2 4 6 8 12 16 24 32)
+declare -a sombrero_large_weak_n_nodes=(1 2 4 6 8 12 16 24 32)
+declare -a sombrero_small_strong_n_nodes=(1 2 4 6 8 12)
+declare -a sombrero_large_strong_n_nodes=(1 2 4 6 8 12 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # BKeeper CPU:
@@ -34,8 +35,8 @@ declare -a sombrero_large_strong_n_nodes=(1 2 3 4 6 8 12 16 24 32)
 #--grid 64.64.64.96, use a sensible --mpi and ntasks-per-node, n_nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
 #--grid 24.24.24.{number of MPI ranks} --mpi 1.1.2.{number of MPI ranks/2}, n_nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
 declare -a bkeeper_lattice_size_cpu=("24.24.24.32" "32.32.32.64" "64.64.64.96")
-declare -a bkeeper_small_n_nodes_cpu=(1 2 3 4 6 8 12 16)
-declare -a bkeeper_large_n_nodes_cpu=(1 2 3 4 6 8 12 16 24 32)
+declare -a bkeeper_small_n_nodes_cpu=(1 2 4 6 8 12 16)
+declare -a bkeeper_large_n_nodes_cpu=(1 2 4 6 8 12 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # BKeeper GPU:
@@ -48,8 +49,8 @@ declare -a bkeeper_lattice_size_gpu=("24.24.24.32" "32.32.32.64" "64.64.64.96")
 declare -a bkeeper_mpi_gpu=("24.24.24.32" "32.32.32.64" "64.64.64.96")
 declare -a bkeeper_lattice_size_clock_gpu=("48.48.48.64")
 declare -a bkeeper_mpi_clock_gpu=("1.1.1.4")
-declare -a bkeeper_small_n_nodes_gpu=(1 2 3 4 6 8 12 16)
-declare -a bkeeper_large_n_nodes_gpu=(1 2 3 4 6 8 12 16 24 32)
+declare -a bkeeper_small_n_nodes_gpu=(1 2 4 6 8 12 16)
+declare -a bkeeper_large_n_nodes_gpu=(1 2 4 6 8 12 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # Grid GPU:

@@ -9,6 +9,8 @@ _LatticeRuns_dir=$3
 _batch_file_out=$4
 _simulation_size=$5
 _batch_file_construct=$6
+_prefix=$7
+_path_to_run=$8
 # TODO: insert the difference between small, medium and large
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
@@ -21,6 +23,8 @@ machine_name="$_machine_name"
 sombrero_dir=$_sombrero_dir
 LatticeRuns_dir=$_LatticeRuns_dir
 job_name=$_batch_file_construct
+prefix=$_prefix
+path_to_run=$_path_to_run
 #-------------------------------------------------------------------------------
 # move to the directory in Sombrero directory
 #-------------------------------------------------------------------------------
@@ -38,15 +42,27 @@ else
   exit
 fi
 
+if [ -d \${path_to_run} ]
+then
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
+else
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
+  mkdir -p \${path_to_run}
+  printf "                       : "; printf "done.\n";
+fi
+
 echo `pwd`
 
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
+slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -w \\
         -s $_simulation_size \\
-        > \$LatticeRuns_dir/\$job_name/weak_\$SLURM_NTASKS &
+        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
 
 EOF
 }
@@ -60,6 +76,8 @@ _LatticeRuns_dir=$3
 _batch_file_out=$4
 _simulation_size=$5
 _batch_file_construct=$6
+_prefix=$7
+_path_to_run=$8
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -71,6 +89,8 @@ machine_name="$_machine_name"
 sombrero_dir=$_sombrero_dir
 LatticeRuns_dir=$_LatticeRuns_dir
 job_name=$_batch_file_construct
+prefix=$_prefix
+path_to_run=$_path_to_run
 #-------------------------------------------------------------------------------
 # move to the directory in Sombrero directory
 #-------------------------------------------------------------------------------
@@ -88,14 +108,26 @@ else
   exit
 fi
 
+if [ -d \${path_to_run} ]
+then
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
+else
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
+  mkdir -p \${path_to_run}
+  printf "                       : "; printf "done.\n";
+fi
+
 echo `pwd`
 
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
+slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -s $_simulation_size \\
-        > \$LatticeRuns_dir/\$job_name/strong_\$SLURM_NTASKS &
+        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
 
 EOF
 }
@@ -166,12 +198,14 @@ _lattice_size_cpu=$6
 _mpi_distribution=$7
 _simulation_size=$8
 _batch_file_construct=$9
+_prefix=${10}
+_path_to_run=${11}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-# Start of gf the batch body
+# Start of the batch body
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-# Run the make procedure
+# The path structure
 #-------------------------------------------------------------------------------
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
@@ -179,19 +213,27 @@ bkeeper_build_dir=\$bkeeper_dir/build
 benchmark_input_dir=$_benchmark_input_dir
 LatticeRuns_dir=$_LatticeRuns_dir
 job_name=$_batch_file_construct
+prefix=$_prefix
+path_to_run=$_path_to_run
+#-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
+export PREFIX_HOME=\$prefix
+export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
 cd \$bkeeper_build_dir
 
-if [ -d \${LatticeRuns_dir} ]
+if [ -d \${path_to_run} ]
 then
   printf "Directory              : ";
-  printf '%s'"\${LatticeRuns_dir}"; printf " exist, nothing to do.\n";
+  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
 else
   printf "Directory              : ";
-  printf '%s'"\${LatticeRuns_dir}";printf " doesn't exist, will create it...\n";
-  mkdir -p \${LatticeRuns_dir}
+  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
+  mkdir -p \${path_to_run}
   printf "                       : "; printf "done.\n";
 fi
 
@@ -199,7 +241,7 @@ mpirun \$bkeeper_build_dir/BKeeper \\
         --grid $_lattice_size_cpu \\
         --mpi $_mpi_distribution \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
-        > \$LatticeRuns_dir/\$job_name/bkeeper_run_cpu.log &
+        > \$path_to_run/bkeeper_run_cpu.log &
 
 EOF
 }
@@ -217,12 +259,14 @@ _lattice_size_cpu=$6
 _mpi_distribution=$7
 _simulation_size=$8
 _batch_file_construct=$9
+_prefix=${10}
+_path_to_run=${11}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-# Start of gf the batch body
+# Start of the batch body
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-# Run the make procedure
+# The path structure
 #-------------------------------------------------------------------------------
 machine_name="$_machine_name"
 bkeeper_dir=$_bkeeper_dir
@@ -230,19 +274,27 @@ bkeeper_build_dir=\$bkeeper_dir/build
 benchmark_input_dir=$_benchmark_input_dir
 LatticeRuns_dir=$_LatticeRuns_dir
 job_name=$_batch_file_construct
+prefix=$_prefix
+path_to_run=$_path_to_run
+#-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
+export PREFIX_HOME=\$prefix
+export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 # move to the directory in BKeeper directory
 #-------------------------------------------------------------------------------
 cd \$bkeeper_build_dir
 
-if [ -d \${LatticeRuns_dir} ]
+if [ -d \${path_to_run} ]
 then
   printf "Directory              : ";
-  printf '%s'"\${LatticeRuns_dir}"; printf " exist, nothing to do.\n";
+  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
 else
   printf "Directory              : ";
-  printf '%s'"\${LatticeRuns_dir}";printf " doesn't exist, will create it...\n";
-  mkdir -p \${LatticeRuns_dir}
+  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
+  mkdir -p \${path_to_run}
   printf "                       : "; printf "done.\n";
 fi
 
@@ -251,7 +303,7 @@ mpirun \$bkeeper_build_dir/BKeeper \\
         --mpi $_mpi_distribution \\
         --accelerator-threads 8 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
-        > \$LatticeRuns_dir/\$job_name/bkeeper_run_gpu.log &
+        > \$path_to_run/bkeeper_run_gpu.log &
 
 EOF
 }
