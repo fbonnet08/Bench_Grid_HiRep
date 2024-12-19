@@ -30,16 +30,16 @@ path_to_run=$_path_to_run
 #-------------------------------------------------------------------------------
 cd \$sombrero_dir;
 
-if [ -f ./\${sombrero_dir}/sombrero.sh ]
+if [ -f \${sombrero_dir}/sombrero.sh ]
 then
   printf "File                   : ";
-  printf '%s'"./\${sombrero_dir}/sombrero.sh"; printf " exist, let's submit.\n";
-  ls -la ./\$sombrero_dir/sombrero.sh
+  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " exist, let's submit.\n";
+  ls -la \$sombrero_dir/sombrero.sh
 else
   printf "Directory              : ";
-  printf '%s'"./\${sombrero_dir}/sombrero.sh"; printf " does not exist, exiting ...\n";
+  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " does not exist, exiting ...\n";
   printf "                       : "; printf "done.\n";
-  exit
+  #exit
 fi
 
 if [ -d \${path_to_run} ]
@@ -96,16 +96,16 @@ path_to_run=$_path_to_run
 #-------------------------------------------------------------------------------
 cd \$sombrero_dir;
 
-if [ -f ./\${sombrero_dir}/sombrero.sh ]
+if [ -f \${sombrero_dir}/sombrero.sh ]
 then
   printf "File                   : ";
-  printf '%s'"./\${sombrero_dir}/sombrero.sh"; printf " exist, let's submit.\n";
-  ls -la ./\$sombrero_dir/sombrero.sh
+  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " exist, let's submit.\n";
+  ls -la \$sombrero_dir/sombrero.sh
 else
   printf "Directory              : ";
-  printf '%s'"./\${sombrero_dir}/sombrero.sh"; printf " does not exist, exiting ...\n";
+  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " does not exist, exiting ...\n";
   printf "                       : "; printf "done.\n";
-  exit
+  #exit
 fi
 
 if [ -d \${path_to_run} ]
