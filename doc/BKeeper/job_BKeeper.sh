@@ -50,7 +50,7 @@ export GRID_ALLOC_NCACHE_HUGE=0
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 Batch_util_create_path "${sourcecode_dir}"
 bkeeper_dir=${sourcecode_dir}/BKeeper
-bkeeper_build_dir=$bkeeper_dir/build
+bkeeper_build_dir=${bkeeper_dir}/build
 Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
 benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #-------------------------------------------------------------------------------
