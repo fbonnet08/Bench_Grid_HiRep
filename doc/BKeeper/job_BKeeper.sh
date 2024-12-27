@@ -49,14 +49,13 @@ export GRID_ALLOC_NCACHE_HUGE=0
 
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 Batch_util_create_path "${sourcecode_dir}"
-sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bkeeper_dir=${sourcecode_dir}/BKeeper
+bkeeper_build_dir=$bkeeper_dir/build
 Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
 benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #-------------------------------------------------------------------------------
 # Path structure
 #-------------------------------------------------------------------------------
-basedir=${sourcecode_dir}/grid_bench_202410
 prefix=${sourcecode_dir}/prefix_grid_202410
 #-------------------------------------------------------------------------------
 # Export path and library paths
@@ -73,7 +72,7 @@ mpirun -np $SLURM_NTASKS \
  --map-by numa \
  -x LD_LIBRARY_PATH \
  --bind-to none \
- $wrapper_script "${bkeeper_dir}"/BKeeper  \
+ $wrapper_script "${bkeeper_build_dir}"/BKeeper  \
  "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
  --grid 48.48.48.96 \
  --mpi 1.2.2.4 \
