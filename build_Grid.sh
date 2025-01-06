@@ -95,6 +95,33 @@ case $machine_name in
     --enable-comms=mpi-auto \
     --enable-doxygen-doc
     ;;
+  *"desktop-dpr4gpr"*)
+    #../configure --prefix=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --enable-doxygen-doc --enable-comms=mpi-auto --enable-Sp  --enable-Nc=4 --with-lime=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-gmp=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-mpfr=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-openssl=/usr/lib/x86_64-linux-gnu/ --includedir=/usr/include/x86_64-linux-gnu/mpi  --disable-unified
+    #../configure --prefix=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --enable-doxygen-doc --enable-comms=mpi-auto --with-lime=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-gmp=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-mpfr=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-openssl=/usr/lib/x86_64-linux-gnu/ --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/openmpi --includedir=/usr/include/x86_64-linux-gnu/ --includedir=/usr/lib/x86_64-linux-gnu/lapack
+    #../configure --prefix=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --enable-doxygen-doc --enable-comms=mpi-auto --enable-Sp --with-lime=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-gmp=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-mpfr=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-openssl=/usr/lib/x86_64-linux-gnu/ --with-hdf5=/usr/lib/x86_64-linux-gnu/hdf5/openmpi --includedir=/usr/include/x86_64-linux-gnu/ --includedir=/usr/lib/x86_64-linux-gnu/lapack
+    ../configure \
+    --prefix=${prefix} \
+    --enable-doxygen-doc \
+    --enable-comms=mpi-auto \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --with-openssl=/usr/lib/x86_64-linux-gnu/ \
+    --includedir=/usr/include/x86_64-linux-gnu/mpi \
+    --disable-unified
+    ;;
+  *"DESKTOP-GPI5ERK"*)
+    ../configure \
+    --prefix=${prefix} \
+    --enable-doxygen-doc \
+    --enable-comms=mpi-auto \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --with-openssl=/usr/lib/x86_64-linux-gnu/ \
+    --includedir=/usr/include/x86_64-linux-gnu/mpi \
+    --disable-unified
+    ;;
   *"tursa"*)
     ../configure \
     --prefix=${prefix} \
