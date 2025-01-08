@@ -65,13 +65,13 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
-wrapper_script=gpu-mpi-wrapper-new.sh
+wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new.sh
 # run! #########################################################################
 mpirun -np $SLURM_NTASKS \
  --map-by numa \
  -x LD_LIBRARY_PATH \
  --bind-to none \
- $wrapper_script "${bkeeper_build_dir}"/BKeeper  \
+ "$wrapper_script" "${bkeeper_build_dir}"/BKeeper  \
  "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
  --grid 48.48.48.96 \
  --mpi 1.2.2.4 \
