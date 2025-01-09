@@ -151,17 +151,17 @@ robodoc:
 check:
 	@echo "Running building in check scenarios for simple models."; \
         export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
         python ./checks/simple_LibTests/report.py --use_gpu=$(use_gpu) --bench_gpu=$(bench_gpu) --fix_gpu=$(fix_gpu) --set_gpu=$(set_gpu) --help=$(help)
 bench:
 	@echo "Running building in check scenarios for simple models."; \
         export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
         python3 ./checks/simple_LibTests/bench.py --use_gpu=$(use_gpu) --bench_gpu=$(bench_gpu) --fix_gpu=$(fix_gpu) --set_gpu=$(set_gpu) --help=$(help)
 check_help:
 	@echo "Running building in check scenarios for simple models."; \
         export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
         python ./checks/simple_LibTests/report.py --help
 check_cpu:
 	@echo "moving to directory: ./checks/simple_LibTests/cpu_test_code and compiling check codes..."; \
@@ -176,7 +176,7 @@ check_gpu:
         pwd; \
         make; \
         export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
         python ./check_gpu.py --use_gpu=$(use_gpu) --set_gpu=$(set_gpu); \
         cd ../../../
 clean_check_cpu:
