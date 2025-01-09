@@ -4,3 +4,11 @@
 
 #include <iostream>
 #include "testing_Grid.hpp"
+
+int main(int argc, char **argv) {
+
+    std::cout << "Hello This is a testcode for the testing the libGrid.a library.\n";
+
+
+}
+
