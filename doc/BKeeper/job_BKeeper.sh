@@ -55,13 +55,17 @@ benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #-------------------------------------------------------------------------------
 # Path structure
 #-------------------------------------------------------------------------------
-prefix=${sourcecode_dir}/prefix_grid_202410
+prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
 # Export path and library paths
 #-------------------------------------------------------------------------------
 #Extending the library path
 export PREFIX_HOME=$prefix
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
