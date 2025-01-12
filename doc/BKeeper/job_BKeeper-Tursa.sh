@@ -65,7 +65,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
-wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new.sh
+wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
 # run! #########################################################################
 mpirun -np $SLURM_NTASKS \
  --map-by numa \
