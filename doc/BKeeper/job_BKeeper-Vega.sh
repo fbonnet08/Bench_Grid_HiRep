@@ -2,9 +2,10 @@
 # shellcheck disable=SC1091,SC2050,SC2170
 
 ## This set of slurm settings assumes that the AMD chips are using bios setting NPS4 (4 mpi taks per socket).
+###SBATCH --qos=standard
+####SBATCH -A eufredericb
 
 #SBATCH -J TESTJOB
-#SBATCH -A dp208
 #SBATCH -t 1:00:00
 #SBATCH --nodes=4
 #SBATCH --ntasks-per-node=4
@@ -13,16 +14,17 @@
 #SBATCH --gres=gpu:4
 #SBATCH --output=log/%x.%j.out
 #SBATCH --error=log/%x.%j.err
-#SBATCH --qos=standard
 #SBATCH --no-requeue
 
 set -e
 # Set up ENV
-module load gcc/9.3.0
-module load cuda/11.4.1
-module load openmpi/4.1.1-cuda11.4.1
-source /home/y07/shared/grid/env/production/env-base.sh
-source /home/y07/shared/grid/env/production/env-gpu.sh
+module purge;
+module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
+module load FFTW/3.3.10-GCC-12.3.0;
+module list;
+
+#source /home/y07/shared/grid/env/production/env-base.sh
+#source /home/y07/shared/grid/env/production/env-gpu.sh
 
 # check some versions
 ucx_info -v
@@ -31,7 +33,10 @@ which mpirun
 
 export OMP_NUM_THREADS=8
 export OMPI_MCA_btl=^uct,openib
-export OMPI_MCA_pml=ucx 
+export OMPI_MCA_pml=ucx
+
+export OMPI_MCA_osc="ucx".
+
 export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
 export UCX_RNDV_THRESH=16384
 export UCX_RNDV_SCHEME=put_zcopy
@@ -55,7 +60,7 @@ benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #-------------------------------------------------------------------------------
 # Path structure
 #-------------------------------------------------------------------------------
-prefix=${sourcecode_dir}/prefix_grid_202410
+prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
 # Export path and library paths
 #-------------------------------------------------------------------------------
@@ -65,7 +70,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
-wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
+wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
 # run! #########################################################################
 mpirun -np $SLURM_NTASKS \
  --map-by numa \
