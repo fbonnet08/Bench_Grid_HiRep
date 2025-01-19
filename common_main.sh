@@ -92,7 +92,7 @@ elif [[ $hostname =~ "sunbird" ]]; then
   machine_name="sunbird"
   # Clearing the modules already loaded and starting fresh
   $white; printf "Purging the modules    : "; $bold;
-  module purge
+  #module purge
   $green; printf "done.\n"; $reset_colors;
 
 elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
@@ -169,7 +169,7 @@ case $machine_name in
     module_list="module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
   *"sunbird"*)
-   module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;
+   #module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;
    module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
