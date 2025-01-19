@@ -83,13 +83,15 @@ elif [[ $hostname =~ "vega" ]]; then
   $yellow; printf "${machine_name}\n"; $reset_colors;
 
   # Clearing the modules already loaded and starting fresh
-  $white; printf "Purging the modules    : "; $bold;
+  $white; printf "__Init_Default_Modules : "; $bold;
   __Init_Default_Modules=${__Init_Default_Modules:-}
-  $green; printf "done.\n"; $reset_colors;
+  $green; printf "done. Next sourcing the profiles ...\n"; $reset_colors;
 
   source /etc/profile.d/modules.sh;
   source /ceph/hpc/software/cvmfs_env.sh;
   module list
+  $white; printf "                       : "; $bold;
+  $green; printf "done.\n"; $reset_colors;
 
 elif [[ $hostname =~ "sunbird" ]]; then
   machine_name="sunbird"
@@ -185,6 +187,8 @@ case $machine_name in
     module list;
     module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;
     module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;"
+    $white; printf "String --> module_list : "; $bold;
+    $magenta; printf "${module_list}\n"; $reset_colors;
     ;;
   *"lumi-c"*);;
   *"lumi-g"*);;
