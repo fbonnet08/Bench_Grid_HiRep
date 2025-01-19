@@ -97,6 +97,10 @@ elif [[ $hostname =~ "sunbird" ]]; then
 
 elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
   machine_name="DESKTOP-GPI5ERK"
+
+elif [[ $hostname =~ "desktop-dpr4gpr" ]]; then
+  machine_name="desktop-dpr4gpr"
+
 else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
@@ -184,8 +188,11 @@ case $machine_name in
   *"leonardo-booster"*);;
   *"leonardo-dcgp"*);;
   *"DESKTOP-GPI5ERK"*)
-  module_list="#---> no modules on ${machine_name}; module list;"
-  ;;
+    module_list="#---> no modules on ${machine_name}; module list;"
+    ;;
+  *"desktop-dpr4gpr"*)
+    module_list="#---> no modules on ${machine_name}; module list;"
+    ;;
 esac
 $green; printf "done.\n"; $reset_colors;
 grid_build_dir=$grid_dir$sptr$build_dir

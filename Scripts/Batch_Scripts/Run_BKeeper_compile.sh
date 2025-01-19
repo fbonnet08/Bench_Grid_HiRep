@@ -46,7 +46,7 @@ fi
 
 cd $bkeeper_build_dir
 
-if [[ $machine_name =~ "Precision-3571" || $machine_name =~ "DESKTOP-GPI5ERK" ]]; then
+if [[ $machine_name =~ "Precision-3571" || $machine_name =~ "DESKTOP-GPI5ERK" || $machine_name =~ "desktop-dpr4gpr" ]]; then
   make -k -j16 > $LatticeRuns_dir/$job_name/Bkeeper_compile_$SLURM_NTASKS.log;
 else
   make -k -j32 > $LatticeRuns_dir/$job_name/Bkeeper_compile_$SLURM_NTASKS.log;
