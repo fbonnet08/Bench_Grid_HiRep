@@ -51,7 +51,7 @@ if [ $# -ne 1 ]; then
   local_dir=${HOME}
 else
   $white; printf "Directory specified    : "; $bold;
-  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
+  $blue; printf '%s'"${1} ---> "; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
 
@@ -78,6 +78,9 @@ elif [[ $hostname =~ "Precision-3571" ]]; then
   machine_name="Precision-3571"
 elif [[ $hostname =~ "vega" ]]; then
   machine_name="vega"
+
+  $white; printf "machine name           : "; $bold;
+  $yellow; printf "${machine_name}\n"; $reset_colors;
 
   # Clearing the modules already loaded and starting fresh
   $white; printf "Purging the modules    : "; $bold;
@@ -177,10 +180,10 @@ case $machine_name in
    module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
-    #source /etc/profile.d/modules.sh;
-    #source /ceph/hpc/software/cvmfs_env.sh ;
-    #module list;
-    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list
+    source /etc/profile.d/modules.sh;
+    source /ceph/hpc/software/cvmfs_env.sh ;
+    module list;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;
     module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0; module list;"
     ;;
   *"lumi-c"*);;

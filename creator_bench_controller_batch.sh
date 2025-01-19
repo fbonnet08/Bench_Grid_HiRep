@@ -6,7 +6,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to create the batch script                                   !"
-echo "!     $scrfipt_file_name                                            !"
+echo "!     $scrfipt_file_name                                                !"
 echo "!     [Author]: Frederic Bonnet November 2024                           !"
 echo "!     [usage]: creator_bench_controller_batch.sh   {Input list}         !"
 echo "!     [example]: creator_bench_controller_batch.sh /data/local          !"

@@ -22,7 +22,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 
 #bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
-sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
+#sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
 sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
 
 #-------------------------------------------------------------------------------

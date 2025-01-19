@@ -6,7 +6,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to create the batch script                                   !"
-echo "!     $scrfipt_file_name                                            !"
+echo "!     $scrfipt_file_name                                                !"
 echo "!     [Author]: Frederic Bonnet November 2024                           !"
 echo "!     [usage]: creator_bench_all_batchs.sh   {Input list}               !"
 echo "!     [ex]: creator_bench_all_batchs.sh SwanSea/SourceCodes/external_lib!"

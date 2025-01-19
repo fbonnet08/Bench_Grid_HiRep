@@ -6,7 +6,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!  Code to dispatch the codes to remote clusters.                       !"
-echo "!  $scrfipt_file_name                                            !"
+echo "!  $scrfipt_file_name                                             !"
 echo "!  [Author]: Frederic Bonnet October 2024                               !"
 echo "!  [usage]: sh dispatcher_Grid_hiRep.sh {username} {remote_hostname}    !"
 echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 tursa.dirac.ed.ac.uk !"
@@ -117,7 +117,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
 
 cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh creator_bench_*.sh ${external_lib_dir}
-cp -rv clean_allbuilds.sh config_*.sh ./Scripts ${external_lib_dir}
+cp -rv clean_all_builds.sh config_*.sh ./Scripts ${external_lib_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
