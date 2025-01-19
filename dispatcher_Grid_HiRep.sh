@@ -6,7 +6,7 @@ tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!  Code to dispatch the codes to remote clusters.                       !"
-echo "!  $scrfipt_file_name                                          !"
+echo "!  $scrfipt_file_name                                            !"
 echo "!  [Author]: Frederic Bonnet October 2024                               !"
 echo "!  [usage]: sh dispatcher_Grid_hiRep.sh {username} {remote_hostname}    !"
 echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 tursa.dirac.ed.ac.uk !"
