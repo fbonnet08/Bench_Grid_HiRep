@@ -182,12 +182,12 @@ case $machine_name in
    module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
-    source /etc/profile.d/modules.sh;
-    source /ceph/hpc/software/cvmfs_env.sh ;
+    #source /etc/profile.d/modules.sh;
+    #source /ceph/hpc/software/cvmfs_env.sh ;
     module list;
-    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
-    module load FFTW/3.3.10-GCC-12.3.0;
-    module list;
+    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
+    #module load FFTW/3.3.10-GCC-12.3.0;
+    #module list;
     module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0; module list;"
     $white; printf "String --> module_list : "; $bold;
     $magenta; printf "${module_list}\n"; $reset_colors;
