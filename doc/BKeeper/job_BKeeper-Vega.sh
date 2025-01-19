@@ -32,21 +32,25 @@ nvcc --version
 which mpirun
 
 export OMP_NUM_THREADS=8
-export OMPI_MCA_btl=^uct,openib
-export OMPI_MCA_pml=ucx
+#export OMPI_MCA_btl=^uct,openib
+#export OMPI_MCA_pml=ucx
 
-export OMPI_MCA_osc="ucx".
+#export OMPI_MCA_osc="ucx".
 
-export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
-export UCX_RNDV_THRESH=16384
-export UCX_RNDV_SCHEME=put_zcopy
-export UCX_IB_GPU_DIRECT_RDMA=yes
-export UCX_MEMTYPE_CACHE=n
+#export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+#export UCX_RNDV_THRESH=16384
+#export UCX_RNDV_SCHEME=put_zcopy
+#export UCX_IB_GPU_DIRECT_RDMA=yes
+#export UCX_MEMTYPE_CACHE=n
 
-export OMPI_MCA_io=romio321
-export OMPI_MCA_btl_openib_allow_ib=true
-export OMPI_MCA_btl_openib_device_type=infiniband
-export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+#export OMPI_MCA_io=romio321
+#export OMPI_MCA_btl_openib_allow_ib=true
+#export OMPI_MCA_btl_openib_device_type=infiniband
+#export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+
+export UCX_TLS=self,sm,rc,ud
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
 
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
@@ -72,6 +76,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 #-------------------------------------------------------------------------------
 wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
 # run! #########################################################################
+# --mca pml ucx
 mpirun -np $SLURM_NTASKS \
  --map-by numa \
  -x LD_LIBRARY_PATH \
