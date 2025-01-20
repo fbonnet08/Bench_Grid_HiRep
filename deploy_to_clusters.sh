@@ -19,11 +19,11 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 sptr="/"
 #-------------------------------------------------------------------------------
 # Deploying to clusters
+# bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
-
-#bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
-sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
+#sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
+sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi
 
 #-------------------------------------------------------------------------------
 #End of the script

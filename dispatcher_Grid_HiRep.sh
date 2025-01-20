@@ -39,7 +39,7 @@ user_remote_host=${username}"@"${remote_hostname}
 $white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
 printf "\n"
 # Getting the remote home dir from the remote (brutal way of doing this)
-user_remote_home_dir=$(ssh -t ${user_remote_host} "cd ~/; pwd -P")
+user_remote_home_dir=$(ssh -t "${user_remote_host}" "cd ~/; pwd -P")
 $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_dir\n";$reset_colors;
 
 # Setting the external lib_dir
@@ -57,12 +57,25 @@ $white; printf "external_lib_dir       : ";$magenta; printf "$external_lib_dir\n
 $white; printf "Lattice run directory  : ";$cyan; printf "$LatticeRuns_dir\n";$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-ssh -t $user_remote_host "
+ssh -t "$user_remote_host" "
 #colors
 red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
 white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"tput sgr0\"
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+if [ -d ${source_dir} ]
+then
+  \$white; printf \"Directory              : \"; \$bold;
+  \$blue; printf \'%s\'\"${source_dir}\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
+else
+  \$white; printf \"Directory              : \"; \$bold;
+  \$blue; printf \'%s\'\"${source_dir}\"; \$red;printf \" does not exist, We will create it ...\n\";
+   \$white; \$reset_colors;
+  mkdir -p ${source_dir}
+  printf \"                       : \"; \$bold;
+  \$green; printf \"done.\n\"; \$reset_colors;
+fi
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # First let's get the code
 cd ${source_dir} ; pwd ; ls -al ${source_dir}
@@ -141,6 +154,10 @@ case ${remote_hostname} in
     module load FFTW/3.3.10-GCC-12.3.0;
     module list;
     ;;
+  *\"lumi.csc.fi\"*)
+    module load cray-mpich/8.1.29 gcc/12.2.0;
+    module list;
+    ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;
 
@@ -150,7 +167,9 @@ bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+
+bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+
 #bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
