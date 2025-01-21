@@ -171,17 +171,17 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-#bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
+bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
 bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
+bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_compile;
 #bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;

@@ -38,11 +38,13 @@ ProgressBar (){
 # Checking the argument list
 if [ $# -ne 1 ]; then
   $white; printf "No directory specified : "; $bold;
-  $red;printf " we will use the home directory ---> \n"; $green;printf "${HOME}"; $white; $reset_colors;
+  $red;printf " we will use the home directory ---> \n"; $green;printf "${HOME}";
+  $white; $reset_colors;
   local_dir=${HOME}
 else
   $white; printf "Directory specified    : "; $bold;
-  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n"; $white; $reset_colors;
+  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n";
+  $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
 #-------------------------------------------------------------------------------

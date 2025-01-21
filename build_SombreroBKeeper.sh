@@ -94,7 +94,7 @@ ls -al
 
 $green; printf "Building Sombrero            : "; $bold;
 $yellow; printf " ... \n"; $white; $reset_colors;
-make
+make -k
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
@@ -156,6 +156,21 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 #../configure --prefix=${prefix} --with-grid=${prefix} --enable-su2adj --enable-su2fund --enable-su3fund --enable-su4fund --enable-su3tis --enable-sp4tis --disable-all CXX="nvcc -std=c++17 -x cu" --no-create --no-recursion
 #
 
+if [[ $machine_name =~ "lumi" ]]; then
+../configure \
+  --prefix=${prefix} \
+  --with-grid=${prefix} \
+  --enable-su2adj \
+  --enable-su2fund \
+  --enable-su3fund \
+  --enable-su4fund \
+  --enable-su3tis \
+  --enable-sp4tis \
+  --disable-all \
+  CXX=hipcc MPICXX=mpicxx \
+  CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
+  LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp"
+else
 ../configure \
   --prefix=${prefix} \
   --with-grid=${prefix} \
@@ -170,19 +185,31 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 #  --no-create \
 #  --no-recursion
 #  CXXFLAGS="-std=c++17"
+fi
 
 $green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-echo "Here now we will submit to queue the rest of compilation"
 
-#TODO : here replace wih a submission script
+# TODO: ----------------------------------------------------------------------------
+# TODO: Replace the standard building mecanism with the battch script already created
+
+$green; printf "Building Grid                : "; $bold;
+$yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
+if [[ $machine_name =~ "Precision-3571"  ||
+      $machine_name =~ "DESKTOP-GPI5ERK" ||
+      $machine_name =~ "desktop-dpr4gpr" ]]; then
+  make -k -j16;
+else
+  make -k -j32;
+fi
+# TODO: ----------------------------------------------------------------------------
+#echo "Here now we will submit to queue the rest of compilation"
 # sbatch script_name > output.log &
-$green; printf "Submintting to queue         : "; $bold;
-$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
-
-cd $batch_Scripts_dir
-
-sbatch ./Compile_BKeeper.sh > out_Compile_BKeeper.log &
+#$green; printf "Submitting to queue         : "; $bold;
+#$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
+#cd $batch_Scripts_dir
+#sbatch ./Compile_BKeeper.sh > out_Compile_BKeeper.log &
+# TODO: ----------------------------------------------------------------------------
 
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;

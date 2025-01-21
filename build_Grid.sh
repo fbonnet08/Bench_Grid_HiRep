@@ -219,7 +219,9 @@ esac
 
 $green; printf "Building Grid                : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-if [[ $machine_name =~ "Precision-3571" ]]; then
+if [[ $machine_name =~ "Precision-3571"  ||
+      $machine_name =~ "DESKTOP-GPI5ERK" ||
+      $machine_name =~ "desktop-dpr4gpr" ]]; then
   make -k -j16;
 else
   make -k -j32;
