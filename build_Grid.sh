@@ -58,7 +58,7 @@ source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 # TODO: ------------------------------------------------------------------------
 # TODO: finish this bit
 # TODO: ------------------------------------------------------------------------
-src_fldr=./Grid-UCL-ARC
+src_fldr="${sourcecode_dir}"/Grid-UCL-ARC
 
 Git_Clone_project "${src_fldr}" "https://github.com/UCL-ARC/Grid.git"
 

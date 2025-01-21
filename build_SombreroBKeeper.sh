@@ -72,7 +72,7 @@ ls -al ${prefix_inc_dir}
 # TODO: ------------------------------------------------------------------------
 # TODO: finish this bit
 # TODO: ------------------------------------------------------------------------
-src_fldr=./Sombrero
+src_fldr="${sourcecode_dir}"/Sombrero
 
 Git_Clone_project "${src_fldr}" "https://github.com/sa2c/SOMBRERO"
 
