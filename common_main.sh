@@ -106,6 +106,9 @@ elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
 elif [[ $hostname =~ "desktop-dpr4gpr" ]]; then
   machine_name="desktop-dpr4gpr"
 
+elif [[ $hostname =~ "uan" ]]; then
+  machine_name="lumi"
+
 else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
@@ -131,7 +134,8 @@ HiRep_LLR_master_HMC_dir=${HiRep_LLR_master_dir}/LLR_HMC
 
 HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 
-grid_dir=${sourcecode_dir}/Grid-Main/Grid
+#grid_dir=${sourcecode_dir}/Grid-Main/Grid
+grid_dir=${sourcecode_dir}/Grid-UCL-ARC/Grid
 
 basedir=${local_dir}/grid_bench_202410
 prefix=${local_dir}/prefix_grid_202410
@@ -174,7 +178,8 @@ case $machine_name in
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
-    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;
+    module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0;
+    module list;
     module_list="module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
   *"sunbird"*)
@@ -189,11 +194,11 @@ case $machine_name in
     #module load FFTW/3.3.10-GCC-12.3.0;
     #module list;
     module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0; module list;"
-    $white; printf "String --> module_list : "; $bold;
-    $magenta; printf "${module_list}\n"; $reset_colors;
     ;;
-  *"lumi-c"*);;
-  *"lumi-g"*);;
+  *"lumi"*)
+    module list;
+    module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
+    ;;
   *"leonardo-booster"*);;
   *"leonardo-dcgp"*);;
   *"DESKTOP-GPI5ERK"*)
@@ -203,6 +208,8 @@ case $machine_name in
     module_list="#---> no modules on ${machine_name}; module list;"
     ;;
 esac
+$white; printf "String --> module_list : "; $bold;
+$magenta; printf "${module_list}\n"; $reset_colors;
 $green; printf "done.\n"; $reset_colors;
 grid_build_dir=$grid_dir$sptr$build_dir
 #-------------------------------------------------------------------------------

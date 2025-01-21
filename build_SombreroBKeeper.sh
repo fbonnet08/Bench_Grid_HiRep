@@ -50,6 +50,7 @@ fi
 #-------------------------------------------------------------------------------
 
 source ./common_main.sh $1;
+source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 
 #-------------------------------------------------------------------------------
 # Checking if the libraries have been installed properly
@@ -64,6 +65,20 @@ prefix_inc_dir=${prefix}/include
 $green; printf "Checking content of prefix include directory : "; $bold;
 $magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
 ls -al ${prefix_inc_dir}
+
+#-------------------------------------------------------------------------------
+# First pulling the code from GitHub
+#-------------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+# TODO: finish this bit
+# TODO: ------------------------------------------------------------------------
+src_fldr=./Sombrero
+
+Git_Clone_project "${src_fldr}" "https://github.com/sa2c/SOMBRERO"
+
+pwd ;
+# TODO: ------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # Now compiling Sombrero

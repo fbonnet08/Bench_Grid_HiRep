@@ -1,6 +1,6 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
-# Getting the common code setup and variables, #setting up the environment properly.
+# Method to creat an arbitrary directory
 #-------------------------------------------------------------------------------
 Batch_util_create_path (){
 _path_to_run=$1
@@ -17,5 +17,33 @@ if [ -d ${_path_to_run} ]
     printf "                       : "; $bold;
     $green; printf "done.\n"; $reset_colors;
 fi
-
 }
+#-------------------------------------------------------------------------------
+# Cloning method from a given repository
+#-------------------------------------------------------------------------------
+Git_Clone_project (){
+_src_fldr=$1
+_repo=$2
+#-------------------------------------------------------------------------------
+if [ -d $_src_fldr ]
+then
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+
+  cd "$grid_dir"
+  git pull
+  cd ..
+else
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n";
+  $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  Batch_util_create_path "${_src_fldr}"
+  cd "$_src_fldr"
+  git clone "$_repo"
+fi
+}
+#-------------------------------------------------------------------------------
+# Insert next method here ...
+#-------------------------------------------------------------------------------

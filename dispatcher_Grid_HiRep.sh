@@ -82,15 +82,17 @@ cd ${source_dir} ; pwd ; ls -al ${source_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_fldr=./Bench_Grid_HiRep
-\$white; printf \"Directory              : \"; \$bold;
-\$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, nothing to do.\n\"; \$white; \$reset_colors;
-
 if [ -d \$src_fldr ]
 then
- cd ./Bench_Grid_HiRep
- git pull
- cd ..
+  \$white; printf \"Project                : \"; \$bold;
+  \$magenta; printf \'%s\'\"\$src_fldr\"; \$green; printf \" exist, we will update it with a pull.\n\"; \$white; \$reset_colors;
+
+  cd ./Bench_Grid_HiRep
+  git pull
+  cd ..
 else
+  \$white; printf \"Project                : \"; \$bold;
+  \$magenta; printf \'%s\'\"\$src_fldr\"; \$red; printf \" does not exist, we will clone from GitHub.\n\"; \$white; \$reset_colors;
   git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
 fi
 
@@ -163,15 +165,15 @@ esac
 
 which bash;
 
-bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
+#bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+##bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
+bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
 

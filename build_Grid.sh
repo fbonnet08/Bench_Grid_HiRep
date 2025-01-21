@@ -50,7 +50,21 @@ fi
 #-------------------------------------------------------------------------------
 
 source ./common_main.sh $1;
+source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 
+#-------------------------------------------------------------------------------
+# First pulling the code from GitHub
+#-------------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+# TODO: finish this bit
+# TODO: ------------------------------------------------------------------------
+src_fldr=./Grid-UCL-ARC
+
+Git_Clone_project "${src_fldr}" "https://github.com/UCL-ARC/Grid.git"
+
+pwd ;
+# TODO: ------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 # Building grid after the dependencies
 #-------------------------------------------------------------------------------
@@ -66,17 +80,8 @@ $green; printf "Launching bootstrapper       : "; $bold;
 $magenta; printf "./bootstrap.sh\n"; $white; $reset_colors;
 ./bootstrap.sh
 
-if [ -d ${build_dir} ]
-then
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build_dir}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
-else
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build_dir}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
-  mkdir -p ${build_dir}
-  printf "                       : "; $bold;
-  $green; printf "done.\n"; $reset_colors;
-fi
+# Creating the build directory build_dir variable is loacted in ./common_main.sh file
+Batch_util_create_path "${build_dir}"
 
 $green; printf "Moving to build directory    : "; $bold;
 $magenta; printf "${build_dir}\n"; $white; $reset_colors;
@@ -185,6 +190,10 @@ case $machine_name in
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas " \
     CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    ;;
+  *"lumi"*)
+    # TODO insert the configuration for the
+    echo " INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
     ;;
 esac
 

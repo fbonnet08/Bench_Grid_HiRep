@@ -1,4 +1,77 @@
 
+# TODO: ------------------------------------------------------------------------
+# TODO: finish this bit
+# TODO: ------------------------------------------------------------------------
+src_fldr=./Sombrero
+
+Git_Clone_project "${src_fldr}" "https://github.com/UCL-ARC/Grid.git"
+
+
+if [ -d $src_fldr ]
+then
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+
+  cd "$grid_dir"
+  git pull
+  cd ..
+else
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n";
+  $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  Batch_util_create_path "${src_fldr}"
+  cd "$src_fldr"
+  git clone https://github.com/sa2c/SOMBRERO
+fi
+
+pwd ;
+# TODO: ------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+
+
+
+
+# TODO: ------------------------------------------------------------------------
+# TODO: finish this bit
+# TODO: ------------------------------------------------------------------------
+src_fldr=./Grid-UCL-ARC
+if [ -d $src_fldr ]
+then
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$src_fldr"; $green; printf " exist, we will update it with a pull.\n"; $white; $reset_colors;
+
+  cd "$grid_dir"
+  git pull
+  cd ..
+else
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n"; $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  Batch_util_create_path "${src_fldr}"
+  cd "$src_fldr"
+  git clone https://github.com/UCL-ARC/Grid.git
+fi
+
+pwd ;
+# TODO: ------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+
+
+
+
+if [ -d ${build_dir} ]
+then
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build_dir}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+else
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build_dir}"; $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
+  mkdir -p ${build_dir}
+  printf "                       : "; $bold;
+  $green; printf "done.\n"; $reset_colors;
+fi
 
 
 permute() {
