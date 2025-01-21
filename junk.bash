@@ -1,4 +1,45 @@
 
+
+if [ -d ${build} ]
+then
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build}";
+  $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+else
+  $white; printf "Directory              : "; $bold;
+  $blue; printf '%s'"${build}";
+  $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
+  mkdir -p ${build}
+  printf "                       : "; $bold;
+  $green; printf "done.\n"; $reset_colors;
+fi
+
+
+
+
+
+    ../configure \
+    --prefix=${prefix} \
+    --enable-comms=mpi-auto \
+    --enable-unified=no \
+    --enable-shm=nvlink \
+    --enable-accelerator=hip \
+    --enable-gen-simd-width=64 \
+    --enable-simd=GPU \
+    --enable-accelerator-cshift \
+    --with-lime=$CLIME \
+    --with-gmp=$GMP \
+    --with-mpfr=$MPFR \
+    --with-fftw=$FFTW_DIR/.. \
+    --disable-fermion-reps \
+    --disable-gparity \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
+    LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp"
+
+
+
+
 # TODO: ------------------------------------------------------------------------
 # TODO: finish this bit
 # TODO: ------------------------------------------------------------------------

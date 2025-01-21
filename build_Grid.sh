@@ -80,7 +80,7 @@ $green; printf "Launching bootstrapper       : "; $bold;
 $magenta; printf "./bootstrap.sh\n"; $white; $reset_colors;
 ./bootstrap.sh
 
-# Creating the build directory build_dir variable is loacted in ./common_main.sh file
+# Creating the build directory build_dir variable is located in ./common_main.sh file
 Batch_util_create_path "${build_dir}"
 
 $green; printf "Moving to build directory    : "; $bold;
@@ -193,7 +193,27 @@ case $machine_name in
     ;;
   *"lumi"*)
     # TODO insert the configuration for the
-    echo " INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
+    echo "INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
+
+    #--with-fftw=$FFTW_DIR/.. \
+    ../configure \
+    --prefix=${prefix} \
+    --enable-comms=mpi-auto \
+    --enable-unified=no \
+    --enable-shm=nvlink \
+    --enable-accelerator=hip \
+    --enable-gen-simd-width=64 \
+    --enable-simd=GPU \
+    --enable-accelerator-cshift \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-fermion-reps \
+    --disable-gparity \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
+    LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp"
+
     ;;
 esac
 

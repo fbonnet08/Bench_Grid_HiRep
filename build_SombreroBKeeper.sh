@@ -67,7 +67,7 @@ $magenta; printf "${prefix_inc_dir}\n"; $white; $reset_colors;
 ls -al ${prefix_inc_dir}
 
 #-------------------------------------------------------------------------------
-# First pulling the code from GitHub
+# First pulling the Sombrero code from GitHub
 #-------------------------------------------------------------------------------
 # TODO: ------------------------------------------------------------------------
 # TODO: finish this bit
@@ -79,7 +79,10 @@ Git_Clone_project "${src_fldr}" "https://github.com/sa2c/SOMBRERO"
 pwd ;
 # TODO: ------------------------------------------------------------------------
 # TODO: ------------------------------------------------------------------------
-
+#-------------------------------------------------------------------------------
+# Putting and overwriting MkFlags into SOMBRERO ./Make folder
+#-------------------------------------------------------------------------------
+cp -v "${benchmark_input_dir}"/Sombrero/MkFlags  "${sombrero_dir}"/Make/MkFlags
 #-------------------------------------------------------------------------------
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------
@@ -99,8 +102,22 @@ do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 done
 printf "\n"
+#-------------------------------------------------------------------------------
+# First pulling the BKeeper code from GitHub
+#-------------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+# TODO: finish this bit
+# TODO: ------------------------------------------------------------------------
+src_fldr="${sourcecode_dir}"
 
+Git_Clone_project "${src_fldr}" "https://github.com/RChrHill/BKeeper"
+
+pwd ;
+# TODO: ------------------------------------------------------------------------
+# TODO: ------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Now compiling BKeeper
+#-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving BKeeper dir and compiling: "; $bold;
 $magenta; printf "${bkeeper_dir}\n"; $white; $reset_colors;
@@ -108,19 +125,8 @@ cd ${bkeeper_dir}
 ls -al
 build=build
 ./bootstrap.sh
-if [ -d ${build} ]
-then
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}";
-  $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
-else
-  $white; printf "Directory              : "; $bold;
-  $blue; printf '%s'"${build}";
-  $red;printf " does not exist, We will create it ...\n"; $white; $reset_colors;
-  mkdir -p ${build}
-  printf "                       : "; $bold;
-  $green; printf "done.\n"; $reset_colors;
-fi
+# Creating the build directory build_dir variable is located in ./common_main.sh file
+Batch_util_create_path "${build}"
 
 $green; printf "Moving to build directory    : "; $bold;
 $magenta; printf "${build}\n"; $white; $reset_colors;
