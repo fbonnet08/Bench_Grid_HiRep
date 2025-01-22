@@ -45,5 +45,19 @@ else
 fi
 }
 #-------------------------------------------------------------------------------
+# Cloning BKeeper into ~/Swansea/SourceCodes directory...
+#-------------------------------------------------------------------------------
+Git_Clone_project_BKeeper (){
+_src_fldr=$1
+_repo=$2
+#-------------------------------------------------------------------------------
+  cd "$_src_fldr"
+  $white; printf "Cloning                : "; $bold;
+  $magenta; printf '%s'"$_repo"; $red; printf " from GitHub into ---> "; $yellow; printf "${_src_fldr}\n";
+  $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  git clone "$_repo"
+}
+#-------------------------------------------------------------------------------
 # Insert next method here ...
 #-------------------------------------------------------------------------------

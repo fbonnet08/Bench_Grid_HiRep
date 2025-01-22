@@ -24,7 +24,7 @@ sptr="/"
 #sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
 #sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
 
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  bonnetfr  lumi.csc.fi" &
 
 #-------------------------------------------------------------------------------
 #End of the script
