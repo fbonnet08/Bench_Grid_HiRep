@@ -194,7 +194,6 @@ case $machine_name in
   *"lumi"*)
     # TODO insert the configuration for the
     echo "INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
-
     #--with-fftw=$FFTW_DIR/.. \
     ../configure \
     --prefix=${prefix} \
@@ -213,7 +212,6 @@ case $machine_name in
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
     LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp"
-
     ;;
 esac
 
