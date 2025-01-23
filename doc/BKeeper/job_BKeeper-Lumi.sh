@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --account=project_465001614
 #SBATCH -t 1:00:00
-#SBATCH --job-name=TESTJOB   # Job name
+#SBATCH --job-name=TEST-JOB      # Job name
 #SBATCH --output=log/%x.%j.out
 #SBATCH --error=log/%x.%j.err
 #SBATCH --partition=standard-g  # partition name
