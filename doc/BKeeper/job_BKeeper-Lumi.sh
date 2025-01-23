@@ -1,17 +1,14 @@
 #!/bin/bash -l
-#SBATCH --account=project_465001614
-#SBATCH -t 1:00:00
-#SBATCH --job-name=TEST-JOB      # Job name
+#SBATCH --job-name=TEST-JOB            # Job name
 #SBATCH --output=log/%x.%j.out
 #SBATCH --error=log/%x.%j.err
-#SBATCH --partition=standard-g  # partition name
-#SBATCH --nodes=4               # Total number of nodes
-#SBATCH --ntasks-per-node=8     # 8 MPI ranks per node, 16 total (2x8)
-#SBATCH --cpus-per-task=8
-#SBATCH --gpus-per-node=8       # Allocate one gpu per MPI rank
-#SBATCH --gres=gpu:8            # asking for 8 gpus
-#SBATCH --time=1-12:00:00       # Run time (d-hh:mm:ss)
-#SBATCH --no-requeue
+#SBATCH --time=1-12:00:00              # Run time (d-hh:mm:ss)
+#SBATCH --partition=standard-g         # partition name
+#SBATCH --nodes=2                      # Total number of nodes
+#SBATCH --ntasks-per-node=8            # 8 MPI ranks per node, 16 total (2x8)
+#SBATCH --gpus-per-node=8              # Allocate one gpu per MPI rank
+#SBATCH --time=1-12:00:00              # Run time (d-hh:mm:ss)
+#SBATCH --account=project_465001614
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
 #-------------------------------------------------------------------------------
