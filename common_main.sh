@@ -190,7 +190,7 @@ case $machine_name in
     module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
     ;;
   *"leonardo"*)
-    module list;
+    #module list;
     module_list="module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
     ;;
 esac
