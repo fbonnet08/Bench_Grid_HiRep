@@ -168,7 +168,7 @@ if [[ $machine_name =~ "lumi" ]]; then
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
-elif [[ $machine_name =~ "lumi" ]]; then
+elif [[ $machine_name =~ "leonardo" ]]; then
   ../configure \
     --prefix=${prefix} \
     --with-grid=${prefix} \
