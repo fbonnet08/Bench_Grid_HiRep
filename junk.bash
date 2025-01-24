@@ -1,4 +1,22 @@
 
+# TODO insert the configuration for the
+    echo "INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
+
+
+
+
+  # Clearing the modules already loaded and starting fresh
+  $white; printf "Purging the modules    : "; $bold;
+  #module purge
+  $green; printf "done.\n"; $reset_colors;
+
+
+
+#source /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env
+  # TODO: may be ok to move this to the common block code
+
+
+
 
 if [ -d ${build} ]
 then

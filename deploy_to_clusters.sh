@@ -1,10 +1,10 @@
 #!/usr/bin/bash
-scrfipt_file_name=$(basename "$0")
+script_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!  Code to deploy to various clusters remotely.                         !"
-echo "!  $scrfipt_file_name                                                !"
+echo "!  $script_file_name                                                !"
 echo "!  [Author]: Frederic Bonnet January 2025                               !"
 echo "!  [usage]: sh deploy_to_clusters.sh                                    !"
 echo "!  [example]: sh deploy_to_clusters.sh                                  !"
@@ -23,7 +23,15 @@ sptr="/"
 #-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
 #sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
-sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi
+#sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi
+
+step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
+step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
+eval "$(ssh-agent)"
+step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
+step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
+
+sh ./dispatcher_Grid_hiRep.sh    fbonnet0            login.leonardo.cineca.it
 
 #-------------------------------------------------------------------------------
 #End of the script

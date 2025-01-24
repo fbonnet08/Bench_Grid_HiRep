@@ -60,24 +60,21 @@ hostname=$(echo ${HOSTNAME});
 $white; printf "Hostname               : "; $bold;
 $blue; printf "$hostname\n"; $white; $reset_colors;
 #TODO: add other machines here or in common block code: LUMI and Leonardo module load combination and environment
-if [[ $hostname =~ "tursa" ]]; then
-  machine_name="tursa"
+if [[ $hostname =~ "tursa" ]];             then machine_name="tursa"
+
   # Clearing the modules already loaded and starting fresh
-  #source /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env
-  # TODO: may be ok to move this to the common block code
   source /etc/profile.d/modules.sh ;
   module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
   module list ;
-
   $white; printf "Purging the modules    : "; $bold;
   module purge
+  $green; printf "done.\n"; $reset_colors;
   module list
 
-  $green; printf "done.\n"; $reset_colors;
-elif [[ $hostname =~ "Precision-3571" ]]; then
-  machine_name="Precision-3571"
-elif [[ $hostname =~ "vega" ]]; then
-  machine_name="vega"
+elif [[ $hostname =~ "Precision-3571" ]];  then machine_name="Precision-3571"
+elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then machine_name="DESKTOP-GPI5ERK"
+elif [[ $hostname =~ "desktop-dpr4gpr" ]]; then machine_name="desktop-dpr4gpr"
+elif [[ $hostname =~ "vega" ]];            then machine_name="vega"
 
   $white; printf "machine name           : "; $bold;
   $yellow; printf "${machine_name}\n"; $reset_colors;
@@ -93,22 +90,9 @@ elif [[ $hostname =~ "vega" ]]; then
   $white; printf "                       : "; $bold;
   $green; printf "done.\n"; $reset_colors;
 
-elif [[ $hostname =~ "sunbird" ]]; then
-  machine_name="sunbird"
-  # Clearing the modules already loaded and starting fresh
-  $white; printf "Purging the modules    : "; $bold;
-  #module purge
-  $green; printf "done.\n"; $reset_colors;
-
-elif [[ $hostname =~ "DESKTOP-GPI5ERK" ]]; then
-  machine_name="DESKTOP-GPI5ERK"
-
-elif [[ $hostname =~ "desktop-dpr4gpr" ]]; then
-  machine_name="desktop-dpr4gpr"
-
-elif [[ $hostname =~ "uan" ]]; then
-  machine_name="lumi"
-
+elif [[ $hostname =~ "sunbird" ]];         then machine_name="sunbird"
+elif [[ $hostname =~ "uan" ]];             then machine_name="lumi"
+elif [[ $hostname =~ "leonardo" ]];        then machine_name="leonardo"
 else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
@@ -175,6 +159,12 @@ case $machine_name in
     grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
     module_list="#---> no modules on Precision-3571;module list;"
     ;;
+  *"DESKTOP-GPI5ERK"*)
+    module_list="#---> no modules on ${machine_name}; module list;"
+    ;;
+  *"desktop-dpr4gpr"*)
+    module_list="#---> no modules on ${machine_name}; module list;"
+    ;;
   *"tursa"*)
     source /etc/profile.d/modules.sh ;
     module load /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env ;
@@ -199,13 +189,9 @@ case $machine_name in
     module list;
     module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
     ;;
-  *"leonardo-booster"*);;
-  *"leonardo-dcgp"*);;
-  *"DESKTOP-GPI5ERK"*)
-    module_list="#---> no modules on ${machine_name}; module list;"
-    ;;
-  *"desktop-dpr4gpr"*)
-    module_list="#---> no modules on ${machine_name}; module list;"
+  *"leonardo"*)
+    module list;
+    module_list="module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;

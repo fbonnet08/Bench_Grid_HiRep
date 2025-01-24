@@ -161,6 +161,13 @@ case ${remote_hostname} in
     module load cray-mpich cray-fftw;
     module list;
     ;;
+  *\"login.leonardo.cineca.it\"*)
+    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+    module list;
+    #[Linux][13:58:17] fbonnet0@login05:~() =>$ echo \$HOSTNAME
+    #login05.leonardo.local
+    #[Linux][13:58:22] fbonnet0@login05:~() =>$
+    ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
