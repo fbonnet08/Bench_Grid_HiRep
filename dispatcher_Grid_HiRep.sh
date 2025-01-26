@@ -165,7 +165,7 @@ case ${remote_hostname} in
     source  /etc/profile.d/modules.sh
     module list;
 
-    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--nvhpc--23.11 hdf5
+    module load nvhpc/23.11 fftw hdf5
     module list;
 
     # Getting the WarpX environment before it gets converted as a module
