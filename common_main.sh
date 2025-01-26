@@ -110,6 +110,8 @@ benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 batch_Scripts_dir=${Bench_Grid_HiRep_dir}/Scripts/Batch_Scripts
 LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
 
+LeonardoInstallerWarpX_dir="${batch_Scripts_dir}"/LeonardoInstallerWarpX
+
 Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP/Hirep_LLR_SP/
 Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
 

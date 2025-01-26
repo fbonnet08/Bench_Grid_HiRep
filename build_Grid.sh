@@ -217,7 +217,7 @@ case $machine_name in
     --enable-comms=mpi-auto \
     --enable-unified=no \
     --enable-shm=nvlink \
-    --enable-accelerator=hip \
+    --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
     --enable-accelerator-cshift \
@@ -226,9 +226,9 @@ case $machine_name in
     --with-mpfr=${prefix} \
     --disable-fermion-reps \
     --disable-gparity \
-    CXX=hipcc MPICXX=mpicxx \
-    CXXFLAGS="-fPIC -std=c++17" \
-    LDFLAGS=""
+   CXX=nvcc \
+   LDFLAGS="-cudart shared -lcublas" \
+   CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
     ;;
 esac
 

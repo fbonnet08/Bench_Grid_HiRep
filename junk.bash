@@ -1,16 +1,15 @@
 
+[Linux][13:58:17] fbonnet0@login05:~() =>$ echo \$HOSTNAME
+login05.leonardo.local
+[Linux][13:58:22] fbonnet0@login05:~() =>$
+
 # TODO insert the configuration for the
     echo "INSERT THE CONFIGURATION STEP FOR GRID ON A CRAY MACHINE HERE .... "
-
-
-
 
   # Clearing the modules already loaded and starting fresh
   $white; printf "Purging the modules    : "; $bold;
   #module purge
   $green; printf "done.\n"; $reset_colors;
-
-
 
 #source /mnt/lustre/tursafs1/home/y07/shared/tursa-modules/setup-env
   # TODO: may be ok to move this to the common block code

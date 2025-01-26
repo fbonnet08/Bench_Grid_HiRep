@@ -177,10 +177,8 @@ elif [[ $machine_name =~ "leonardo" ]]; then
     --enable-su3fund \
     --enable-su4fund \
     --enable-su3tis \
-    --enable-sp4tis \
     --disable-all \
-    CXX=nvcc MPICXX=mpicxx \
-    CXXFLAGS="-std=c++17"
+    CXX="nvcc -std=c++17 -x cu"
 else
   ../configure \
     --prefix=${prefix} \

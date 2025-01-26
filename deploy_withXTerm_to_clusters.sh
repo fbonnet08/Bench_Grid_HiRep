@@ -8,6 +8,7 @@ echo "!  $scrfipt_file_name                                                !"
 echo "!  [Author]: Frederic Bonnet January 2025                               !"
 echo "!  [usage]: sh deploy_withXTerm_to_clusters.sh                          !"
 echo "!  [example]: sh deploy_withXTerm_to_clusters.sh                        !"
+echo "!  [comment]: One need to put his/her username for each machine         !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -21,10 +22,19 @@ sptr="/"
 # Deploying to clusters
 # bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
+# TODO: put the username as input in the ARGV=`basename -a $1` at later stage
+#-------------------------------------------------------------------------------
+# [Sunbird]
+#-------------------------------------------------------------------------------
 #xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  sunbird.swansea.ac.uk" &
 #xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb        login.vega.izum.si" &
+#-------------------------------------------------------------------------------
+# [Lumi]
+#-------------------------------------------------------------------------------
 #xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  bonnetfr           lumi.csc.fi" &
-
+#-------------------------------------------------------------------------------
+# [Leonardo]: Authentication  procedure.
+#-------------------------------------------------------------------------------
 xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  fbonnet0           login.leonardo.cineca.it" &
 
 #-------------------------------------------------------------------------------

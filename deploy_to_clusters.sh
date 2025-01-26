@@ -8,6 +8,7 @@ echo "!  $script_file_name                                                !"
 echo "!  [Author]: Frederic Bonnet January 2025                               !"
 echo "!  [usage]: sh deploy_to_clusters.sh                                    !"
 echo "!  [example]: sh deploy_to_clusters.sh                                  !"
+echo "!  [comment]: One need to put his/her username for each machine         !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -21,10 +22,22 @@ sptr="/"
 # Deploying to clusters
 # bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
+# TODO: put the username as input in the ARGV=`basename -a $1` at later stage
+#-------------------------------------------------------------------------------
+# [Sunbird]
+#-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
+#-------------------------------------------------------------------------------
+# [Vega]
+#-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
+#-------------------------------------------------------------------------------
+# [Lumi]
+#-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi
-
+#-------------------------------------------------------------------------------
+# [Leonardo]: Authentication  procedure.
+#-------------------------------------------------------------------------------
 step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 eval "$(ssh-agent)"
