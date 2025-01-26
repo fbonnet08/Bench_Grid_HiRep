@@ -74,8 +74,8 @@ printf "\n"
 # Making the link between external_lib/WarpX <----> $HOME/src/warpx and
 #-------------------------------------------------------------------------------
 $white; printf "Creating Sym link      : "; $bold;
-$magenta; printf "ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX "
-                       " "${HOME}"/src/warpx\n"; $white; $reset_colors;
+$magenta; printf "ln -s ${HOME}/${_external_lib_dir}/grid_bench_202410/WarpX ";
+          printf " ${HOME}/src/warpx\n"; $white; $reset_colors;
 ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX \
       "${HOME}"/src/warpx
 #-------------------------------------------------------------------------------
@@ -83,8 +83,8 @@ ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX \
 #-------------------------------------------------------------------------------
 # Copying the leonardo profile to external_lib dir
 $white; printf "Copying profile        : "; $bold;
-$magenta; printf "cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example "
-                     " "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
+$magenta; printf "cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example ";
+          printf "${HOME}/${_external_lib_dir}/leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
 cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example \
     "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile
 
