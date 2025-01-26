@@ -163,10 +163,14 @@ case ${remote_hostname} in
     ;;
   *\"login.leonardo.cineca.it\"*)
     source  /etc/profile.d/modules.sh
-    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+
     module list;
     # Getting the WarpX environment before it gets converted as a module
     bash -s < ./build_WarpX_leonardo.sh        SwanSea/SourceCodes/external_lib;
+
+    module list;
+    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+    module list;
 
     ;;
 esac
@@ -180,17 +184,17 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
+#bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_compile;
 #bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;
