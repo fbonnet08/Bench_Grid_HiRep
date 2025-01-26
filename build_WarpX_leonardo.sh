@@ -73,16 +73,24 @@ printf "\n"
 #-------------------------------------------------------------------------------
 # Making the link between external_lib/WarpX <----> $HOME/src/warpx and
 #-------------------------------------------------------------------------------
+$white; printf "Creating Sym link      : "; $bold;
+$magenta; printf "ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX "
+                       " "${HOME}"/src/warpx\n"; $white; $reset_colors;
 ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX \
       "${HOME}"/src/warpx
 #-------------------------------------------------------------------------------
 # Setting up the WarpX environment WarpX and then compiling the all of the codes
 #-------------------------------------------------------------------------------
 # Copying the leonardo profile to external_lib dir
+$white; printf "Copying profile        : "; $bold;
+$magenta; printf "cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example "
+                     " "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
 cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example \
     "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile
 
 # Sourcecing the leonardo_gpu_warpx.profile
+$white; printf "Sourcing the profile   : "; $bold;
+$magenta; printf "leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
 source "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile
 
 # Finally, since Leonardo does not yet provide software modules for some of

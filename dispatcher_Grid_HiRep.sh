@@ -165,13 +165,14 @@ case ${remote_hostname} in
     source  /etc/profile.d/modules.sh
     module list;
 
-    module load nvhpc fftw hdf5
-    module list;
-
     # Getting the WarpX environment before it gets converted as a module
     bash -s < ./build_WarpX_leonardo.sh        SwanSea/SourceCodes/external_lib;
 
-   \$white; printf \"Module list after WarpX: \n\"; \$white; \$reset_colors;
+    module purge;
+    source  /etc/profile.d/modules.sh
+    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+
+    \$white; printf \"Module list after WarpX: \n\"; \$white; \$reset_colors;
     module list;
 
     ;;
@@ -182,7 +183,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 which bash;
 CURRENT_DIR=\$(echo \`pwd\`)
 \$white; printf \"Current path b4 scripts: \"; \$bold;
-\$magenta; printf \'%s\'\"\$CURRENT_DIR\"; \$white; \$reset_colors;
+\$magenta; printf \'%s\'\"\$CURRENT_DIR\n\"; \$white; \$reset_colors;
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
