@@ -163,13 +163,15 @@ case ${remote_hostname} in
     ;;
   *\"login.leonardo.cineca.it\"*)
     source  /etc/profile.d/modules.sh
-
     module list;
+
+    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--nvhpc--23.11 hdf5
+    module list;
+
     # Getting the WarpX environment before it gets converted as a module
     bash -s < ./build_WarpX_leonardo.sh        SwanSea/SourceCodes/external_lib;
 
-    module list;
-    module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+   \$white; printf \"Module list after WarpX: \n\"; \$white; \$reset_colors;
     module list;
 
     ;;
