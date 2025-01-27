@@ -106,7 +106,7 @@ source "${HOME}"/sw/venvs/warpx/bin/activate
 #-------------------------------------------------------------------------------
 # Compiling via cmake the code WarpX from ln -s direcotory ~./src/warpx
 #-------------------------------------------------------------------------------
-cd $HOME/src/warpx
+cd "${HOME}"/src/warpx
 rm -rf build_gpu
 
 #cmake -S . -B build_gpu -DWarpX_COMPUTE=CUDA -DWarpX_PSATD=ON -DWarpX_QED_TABLE_GEN=ON -DWarpX_DIMS="1;2;RZ;3"
@@ -120,7 +120,7 @@ cmake --build build_gpu -j 32
 #-------------------------------------------------------------------------------
 # Compiling via cmake the code WarpX from ln -s direcotory ~./src/warpx
 #-------------------------------------------------------------------------------
-cd $HOME/src/warpx
+cd "${HOME}"/src/warpx
 rm -rf build_gpu_py
 
 #cmake -S . -B build_gpu_py -DWarpX_COMPUTE=CUDA -DWarpX_PSATD=ON -DWarpX_QED_TABLE_GEN=ON -DWarpX_PYTHON=ON -DWarpX_APP=OFF -DWarpX_DIMS="1;2;RZ;3"
