@@ -188,7 +188,6 @@ else
     --enable-su3fund \
     --enable-su4fund \
     --enable-su3tis \
-    --enable-sp4tis \
     --disable-all \
     CXX="nvcc -std=c++17 -x cu"
     #  --no-create \

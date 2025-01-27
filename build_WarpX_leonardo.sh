@@ -104,7 +104,7 @@ bash "${LeonardoInstallerWarpX_dir}"/install_gpu_dependencies.sh
 #-------------------------------------------------------------------------------
 source "${HOME}"/sw/venvs/warpx/bin/activate
 #-------------------------------------------------------------------------------
-# Compiling via cmake the code WarpX from ln -s direcotory ~./src/warpx
+# Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
 #-------------------------------------------------------------------------------
 cd "${HOME}"/src/warpx
 rm -rf build_gpu
@@ -118,7 +118,7 @@ cmake -S . -B build_gpu \
 # 16
 cmake --build build_gpu -j 32
 #-------------------------------------------------------------------------------
-# Compiling via cmake the code WarpX from ln -s direcotory ~./src/warpx
+# Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
 #-------------------------------------------------------------------------------
 cd "${HOME}"/src/warpx
 rm -rf build_gpu_py
