@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1 $2`
 set -eu
-scrfipt_file_name=$(basename "$0")
+script_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!  Code to dispatch the codes to remote clusters.                       !"
-echo "!  $scrfipt_file_name                                             !"
+echo "!  $script_file_name                                             !"
 echo "!  [Author]: Frederic Bonnet October 2024                               !"
 echo "!  [usage]: sh dispatcher_Grid_hiRep.sh {username} {remote_hostname}    !"
 echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 tursa.dirac.ed.ac.uk !"
@@ -166,7 +166,7 @@ case ${remote_hostname} in
     module list;
 
     # Getting the WarpX environment before it gets converted as a module
-    bash -s < ./build_WarpX_leonardo.sh        SwanSea/SourceCodes/external_lib;
+    #bash -s < ./build_WarpX_leonardo.sh        SwanSea/SourceCodes/external_lib;
 
     module purge;
     source  /etc/profile.d/modules.sh
@@ -187,17 +187,17 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-#bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
+bash -s < ./creator_bench_all_batchs.sh        SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
 #bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-#bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
+bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_compile;
 #bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;

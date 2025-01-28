@@ -5,11 +5,11 @@ script_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
-echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     $script_file_name                                             !"
-echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh build_WarpX_leonardo.sh   {Input list}                !"
-echo "!     [example]: sh build_WarpX_leonardo.sh {...}/SourceCodes/external_lib                   !"
+echo "!  Code to load modules and prepare the base dependencies for grid      !"
+echo "!  $script_file_name                                                !"
+echo "!  [Author]: Frederic Bonnet January 2025                               !"
+echo "!  [usage]: sh build_WarpX_leonardo.sh   {Input list}                   !"
+echo "!  [example]: sh build_WarpX_leonardo.sh {...}/SourceCodes/external_lib !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -75,7 +75,9 @@ printf "\n"
 #-------------------------------------------------------------------------------
 $white; printf "Creating Sym link      : "; $bold;
 $magenta; printf "ln -s ${HOME}/${_external_lib_dir}/grid_bench_202410/WarpX ";
-          printf " ${HOME}/src/warpx\n"; $white; $reset_colors;
+          printf " ${HOME}/src/warpx\n";
+$white; $reset_colors;
+
 ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX \
       "${HOME}"/src/warpx
 #-------------------------------------------------------------------------------
@@ -84,15 +86,20 @@ ln -s "${HOME}"/"${_external_lib_dir}"/grid_bench_202410/WarpX \
 # Copying the leonardo profile to external_lib dir
 $white; printf "Copying profile        : "; $bold;
 $magenta; printf "cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example ";
-          printf "${HOME}/${_external_lib_dir}/leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
+          printf "${HOME}/${_external_lib_dir}/leonardo_gpu_warpx.profile\n";
+$white; $reset_colors;
+
 cp ./WarpX/Tools/machines/leonardo-cineca/leonardo_gpu_warpx.profile.example \
     "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile
-
-# Sourcecing the leonardo_gpu_warpx.profile
+#-------------------------------------------------------------------------------
+# Executing the leonardo_gpu_warpx.profile
+#-------------------------------------------------------------------------------
 $white; printf "Sourcing the profile   : "; $bold;
 $magenta; printf "leonardo_gpu_warpx.profile\n"; $white; $reset_colors;
 source "${HOME}"/"${_external_lib_dir}"/leonardo_gpu_warpx.profile
-
+#-------------------------------------------------------------------------------
+# Installing the package and creating the dependencies
+#-------------------------------------------------------------------------------
 # Finally, since Leonardo does not yet provide software modules for some of
 # our dependencies, install them once:
 # Here we are using the same script as original minus LibEnsemble optional
@@ -104,7 +111,7 @@ bash "${LeonardoInstallerWarpX_dir}"/install_gpu_dependencies.sh
 #-------------------------------------------------------------------------------
 source "${HOME}"/sw/venvs/warpx/bin/activate
 #-------------------------------------------------------------------------------
-# Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
+# [build_gpu]: Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
 #-------------------------------------------------------------------------------
 cd "${HOME}"/src/warpx
 rm -rf build_gpu
@@ -118,7 +125,7 @@ cmake -S . -B build_gpu \
 # 16
 cmake --build build_gpu -j 32
 #-------------------------------------------------------------------------------
-# Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
+# [build_gpu_py]: Compiling via cmake the code WarpX from ln -s directory ~./src/warpx
 #-------------------------------------------------------------------------------
 cd "${HOME}"/src/warpx
 rm -rf build_gpu_py
@@ -134,7 +141,7 @@ cmake -S . -B build_gpu_py \
 # 16
 cmake --build build_gpu_py -j 32 --target pip_install
 #-------------------------------------------------------------------------------
-# Compiling the code WarpX from ln -s directory ~./src/warpx
+# [Printing]: Printing information on screen after completion
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $white;   printf "Now, you can submit Leonardo compute jobs:\n"
@@ -154,6 +161,9 @@ do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 done
 printf "\n"
+#-------------------------------------------------------------------------------
+# [Finishing]
+#-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 #End of the script
 echo
