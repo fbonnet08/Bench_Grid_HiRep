@@ -589,8 +589,8 @@ EOF
 
       for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_gpu[@]} - 1`)
       do
-        cnt=$(printf "%03d" $H)
-        index=$(printf "%03d" $i)
+        cnt=$(printf "%03d" "$H")
+        index=$(printf "%03d" "$i")
         n_nodes=$(printf "nodes%03d" "${bkeeper_small_n_nodes_gpu[$i]}";)
         # Orchestrating the file construction
         #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")
