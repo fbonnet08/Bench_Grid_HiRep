@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name=TEST-JOB            # Job name
-#SBATCH --output=log/%x.%j.out
-#SBATCH --error=log/%x.%j.err
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
 #SBATCH --time=00:30:00                # Run time (d-hh:mm:ss)
 #SBATCH --partition=boost_usr_prod
 #SBATCH --nodes=2                      # Total number of nodes
@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
 #-------------------------------------------------------------------------------
-module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
+module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
 module list;
 
 nvcc --version
@@ -53,18 +53,31 @@ prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #Extending the library path
 export PREFIX_HOME=$prefix
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+export MY_CUDA_HOME=$CUDA_HOME
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MY_CUDA_HOME/lib64
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
-#wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Lumi.sh
+ls -al "${bkeeper_build_dir}"/BKeeper
+ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
+#-------------------------------------------------------------------------------
+# The wrapper file
+#-------------------------------------------------------------------------------
+wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.sh
 # run! #########################################################################
 # --mca pml ucx
+#   --mpi 1.2.2.4 \
+#  --map-by numa \
+#  -x LD_LIBRARY_PATH \
+#  --bind-to none \
+#  "$wrapper_script"
 srun \
   "${bkeeper_build_dir}"/BKeeper  \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
   --grid 48.48.48.96 \
-  --mpi 1.2.2.4 \
-  --accelerator-threads 8 \
+  --mpi 1.2.2.2 \
+  --accelerator-threads "$OMP_NUM_THREADS" \
   --shm 8192 \
   --device-mem 23000 \
   --log Error,Warning,Message

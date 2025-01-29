@@ -193,7 +193,7 @@ case $machine_name in
     ;;
   *"leonardo"*)
     #module list;
-    module_list="module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
+    module_list="module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;
