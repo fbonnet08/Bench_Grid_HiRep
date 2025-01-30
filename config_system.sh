@@ -47,8 +47,9 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
-  _core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
-  _core_count=$(echo "$_core_count" | sed 's/^ *//; s/ *$//')
+  _core_count=$(echo "$_core_count*2"|bc);
+  #_core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  #_core_count=$(echo "$_core_count" | sed 's/^ *//; s/ *$//')
 
   $white; printf "From /proc/cpuinfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
@@ -65,6 +66,7 @@ get_system_config_clusters_nvidia_Vega-GPU (){
     echo "lspci could be found"
     _gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
     #_gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
+    if [[ $_gpu_count -eq 0 ]]; then _gpu_count=${_max_gpu_count}; fi;
 
     $white; printf "lspci                  : "; $bold;
     $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
