@@ -27,7 +27,7 @@ __batch_action=$3
 # Overall config file
 source ./common_main.sh "$__external_lib_dir";
 # System config file to get information from the node
-#source ./config_system.sh "$__project_account" "$machine_name";
+source ./config_system.sh "$__project_account" "$machine_name";
 # The config for the batch_action needs information from the system_config call
 source ./config_Run_Batchs.sh
 source ./config_batch_action.sh
@@ -72,12 +72,13 @@ esac
 #-------------------------------------------------------------------------------
 # Now marking a sleep_time pause and printing variables to screen
 #-------------------------------------------------------------------------------
-#echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-#for i in $(seq 0 $sleep_time)
-#do
-#  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-#done
-#printf "Moving on ... \n"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+for i in $(seq 0 $sleep_time)
+do
+  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+done
+printf "Moving on ... \n"
+
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
 $magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
