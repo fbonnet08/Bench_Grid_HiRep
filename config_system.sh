@@ -46,13 +46,13 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
   # CPU stuff
-  #_core_count=$(grep -c ^processor /proc/cpuinfo)
-  _core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+  #_core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
   $white; printf "From /proc/cpuinfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
   $yellow; printf "${_core_count}\n"; $reset_colors;
-  #_mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
-  _mem_total=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  #_mem_total=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
   $white; printf "From /proc/meminfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
   $yellow; printf "${_mem_total}\n"; $reset_colors;
@@ -61,8 +61,8 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   if command -v lspci 2>&1 >/dev/null
   then
     echo "lspci could be found"
-    #_gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
-    _gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
+    _gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
+    #_gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
 
     $white; printf "lspci                  : "; $bold;
     $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
@@ -73,8 +73,8 @@ get_system_config_clusters_nvidia_Vega-GPU (){
     echo "lspci could not be found let's try nvidia-smi"
     #_gpu_count=$(nvidia-smi |grep NVIDIA|wc -l)
     # TODO: MUST CORRECT ACCOUNT_NAME DETAILS FOR EACH MACHINE HERE NOW ONLY LEONARDO
-    _gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
-    _gpu_count=$(expr $_gpu_count - 1)
+    #_gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(expr $_gpu_count - 1)
 
     $white; printf "nvidia-smi             : "; $bold;
     $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
