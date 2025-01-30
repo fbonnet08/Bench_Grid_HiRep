@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1 $2`
+ARGV=`basename -a $1 $2 $3`
 set -eu
 script_file_name=$(basename "$0")
 tput bold;
@@ -8,8 +8,8 @@ echo "!                                                                       !"
 echo "!  Code to dispatch the codes to remote clusters.                       !"
 echo "!  $script_file_name                                             !"
 echo "!  [Author]: Frederic Bonnet October 2024                               !"
-echo "!  [usage]: sh dispatcher_Grid_hiRep.sh {username} {remote_hostname}    !"
-echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 tursa.dirac.ed.ac.uk !"
+echo "!  [usage]:   sh dispatcher_Grid_hiRep.sh {username} {acc} {hostname}   !"
+echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 dp208 tursa.dirac.ed.ac.uk !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -26,7 +26,8 @@ sptr="/"
 #echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
 
 echo           "Enter Username         : "; username=$1                             # read username;
-echo           "Enter remote hostname  : "; remote_hostname=$2                      # read remote_hostname;
+echo           "Project Account        : "; project_account=$2                              # read account project;
+echo           "Remote hostname        : "; remote_hostname=$3                      # read remote_hostname;
 
 #echo           "Enter Username         : "; username="eufredericb"                 # read username;
 #echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"   # read remote_hostname;
@@ -62,6 +63,10 @@ ssh -t "$user_remote_host" "
 red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
 white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"tput sgr0\"
+
+echo           \"Enter Username         : \"; _username=${username}
+echo           \"Project Account        : \"; _project_account=${project_account}
+echo           \"Remote hostname        : \"; _remote_hostname=${remote_hostname}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${source_dir} ]

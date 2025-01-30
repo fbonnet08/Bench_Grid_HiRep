@@ -2,14 +2,15 @@
 #SBATCH --job-name=TEST-JOB            # Job name
 #SBATCH --output=%x.%j.out
 #SBATCH --error=%x.%j.err
-#SBATCH --time=01:00:00                # Run time (d-hh:mm:ss)
+#SBATCH --time=00:30:00                # Run time (d-hh:mm:ss)
 #SBATCH --partition=boost_usr_prod
 #SBATCH --mem=494000
-#SBATCH --nodes=4                      # Total number of nodes
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=8
-#SBATCH --gres=gpu:4
-#SBATCH --gpus-per-node=4
+#SBATCH --nodes=1                      # Total number of nodes
+#SBATCH --cpus-per-task=4
+#SBATCH --ntasks-per-node=1
+#SBATCH --gres=gpu:1
+#SBATCH --gpus-per-node=1
+#SBATCH --gpus-per-task=1
 #SBATCH --account=EUHPC_B17_015
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
@@ -81,8 +82,8 @@ mpirun -np $SLURM_NTASKS \
   --bind-to none \
   "$wrapper_script" "${bkeeper_build_dir}"/BKeeper  \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
-  --grid 48.48.48.96 \
-  --mpi 1.2.2.4 \
+  --grid 12.12.12.32 \
+  --mpi 1.1.1.1 \
   --accelerator-threads "$OMP_NUM_THREADS" \
   --shm 8192 \
   --device-mem 23000 \

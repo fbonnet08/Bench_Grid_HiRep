@@ -20,21 +20,23 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 sptr="/"
 #-------------------------------------------------------------------------------
 # Deploying to clusters
-# bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
-# TODO: put the username as input in the ARGV=`basename -a $1` at later stage
 #-------------------------------------------------------------------------------
 # [Sunbird]
 #-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_hiRep.sh    s.frederic.bonnet   sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
+# [Tursa]
+#-------------------------------------------------------------------------------
+sh ./dispatcher_Grid_hiRep.sh  sdc-bonn2  dp208  sunbird.swansea.ac.uk
+#-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh    eufredericb         login.vega.izum.si
+sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh    bonnetfr            lumi.csc.fi
+sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
@@ -44,7 +46,7 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-sh ./dispatcher_Grid_hiRep.sh    fbonnet0            login.leonardo.cineca.it
+sh ./dispatcher_Grid_hiRep.sh  fbonnet0  EUHPC_B17_015  login.leonardo.cineca.it
 
 #-------------------------------------------------------------------------------
 #End of the script

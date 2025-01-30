@@ -2,14 +2,15 @@
 #SBATCH --job-name=TEST-JOB            # Job name
 #SBATCH --output=%x.%j.out
 #SBATCH --error=%x.%j.err
-#SBATCH --time=01:00:00                # Run time (d-hh:mm:ss)
+#SBATCH --time=00:30:00                # Run time (d-hh:mm:ss)
 #SBATCH --partition=boost_usr_prod
 #SBATCH --mem=494000
-#SBATCH --nodes=4                      # Total number of nodes
-#SBATCH --ntasks-per-node=4
+#SBATCH --nodes=1                      # Total number of nodes
 #SBATCH --cpus-per-task=8
+#SBATCH --ntasks-per-node=4
 #SBATCH --gres=gpu:4
 #SBATCH --gpus-per-node=4
+#SBATCH --gpus-per-task=1
 #SBATCH --account=EUHPC_B17_015
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
@@ -26,6 +27,7 @@ which mpirun
 # OpenMP
 export OMP_NUM_THREADS=8
 # MPI
+export MPICH_GPU_SUPPORT_ENABLED=1
 export OMPI_MCA_btl=^uct,openib
 export OMPI_MCA_pml=ucx
 export OMPI_MCA_io=romio321
@@ -63,6 +65,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 
 export MY_CUDA_HOME=$CUDA_HOME
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MY_CUDA_HOME/lib64
+
+
+echo ${LD_LIBRARY_PATH}
+ldd "${bkeeper_build_dir}"/BKeeper
+
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
@@ -75,14 +82,15 @@ wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.
 # run! #########################################################################
 # --mca pml ucx
 #   --mpi 1.2.2.4 \
+printf "SLURM_NTASKS --->: $SLURM_NTASKS\n"
 mpirun -np $SLURM_NTASKS \
   --map-by numa \
   -x LD_LIBRARY_PATH \
   --bind-to none \
   "$wrapper_script" "${bkeeper_build_dir}"/BKeeper  \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
-  --grid 48.48.48.96 \
-  --mpi 1.2.2.4 \
+  --grid 32.32.32.64 \
+  --mpi 2.2.2.2 \
   --accelerator-threads "$OMP_NUM_THREADS" \
   --shm 8192 \
   --device-mem 23000 \
@@ -99,7 +107,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # srun --account=EUHPC_B17_015 --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:4 --pty bash
 ##SBATCH --ntasks-per-socket=4
 ##SBATCH --mem=494000
-#export MPICH_GPU_SUPPORT_ENABLED=1
 #export UCX_TLS=self,sm,rc,ud
 #export OMPI_MCA_PML="ucx"
 #export OMPI_MCA_osc="ucx"
