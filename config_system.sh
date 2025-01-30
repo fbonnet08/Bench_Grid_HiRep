@@ -48,6 +48,8 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   # CPU stuff
   #_core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  _core_count=$(( _core_count + 0 ))
+
   $white; printf "From /proc/cpuinfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
   $yellow; printf "${_core_count}\n"; $reset_colors;
