@@ -1,3 +1,10 @@
+echo           "Enter Username         : "; username="frederic"                    # read username;
+echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215"         # read remote_hostname;
+echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
+echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+echo           "Enter Username         : "; username="eufredericb"                 # read username;
+echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"   # read remote_hostname;
+
 
 module load nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--nvhpc--23.11 hdf5
 

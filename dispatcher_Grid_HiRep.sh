@@ -9,7 +9,7 @@ echo "!  Code to dispatch the codes to remote clusters.                       !"
 echo "!  $script_file_name                                             !"
 echo "!  [Author]: Frederic Bonnet October 2024                               !"
 echo "!  [usage]:   sh dispatcher_Grid_hiRep.sh {username} {acc} {hostname}   !"
-echo "!  [example]: sh dispatcher_Grid_hiRep.sh dc-bonn2 dp208 tursa.dirac.ed.ac.uk !"
+echo "!  [example]: sh dispatcher_Grid_hiRep.sh $1 $2 $3 !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -19,22 +19,19 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables
 sptr="/"
-# read username and echo username in terminal
-#echo           "Enter Username         : "; username="frederic"                    # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215"         # read remote_hostname;
-#echo           "Enter Username         : "; username="dc-bonn2"                    # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="tursa.dirac.ed.ac.uk" # read remote_hostname;
+# Store the username, project_account and remote_hostname
+username=$1                 # username;
+project_account=$2          # account project;
+remote_hostname=$3          # remote_hostname;
 
-echo           "Enter Username         : "; username=$1                             # read username;
-echo           "Project Account        : "; project_account=$2                              # read account project;
-echo           "Remote hostname        : "; remote_hostname=$3                      # read remote_hostname;
-
-#echo           "Enter Username         : "; username="eufredericb"                 # read username;
-#echo           "Enter remote hostname  : "; remote_hostname="login.vega.izum.si"   # read remote_hostname;
+echo           "Username               : $username";
+echo           "Project Account        : $project_account";
+echo           "Remote hostname        : $remote_hostname";
 
 echo
-$white; printf "username               : ";$green;  printf "$username\n";$reset_colors;
-$white; printf "remote hostname        : ";$yellow; printf "$remote_hostname\n";$reset_colors;
+$white; printf "Username               : ";$green;  printf "$username\n";$reset_colors;
+$white; printf "Project Account        : ";$magenta;printf "$project_account\n";$reset_colors;
+$white; printf "Remote hostname        : ";$yellow; printf "$remote_hostname\n";$reset_colors;
 
 user_remote_host=${username}"@"${remote_hostname}
 $white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
