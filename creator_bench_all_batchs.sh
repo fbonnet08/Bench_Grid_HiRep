@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1`
+ARGV=`basename -a $1 $2`
 set -eu
 script_file_name=$(basename "$0")
 tput bold;
@@ -21,11 +21,12 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Creating the case batch file
 #-------------------------------------------------------------------------------
 __external_lib_dir=$1   #SwanSea/SourceCodes/external_lib
+__project_account=$2   #SwanSea/SourceCodes/external_lib
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" Sombrero_weak
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" Sombrero_strong
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_run_cpu;
 
-bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_run_gpu;
+bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
 
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" HiRep-LLR-master-cpu
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_compile;

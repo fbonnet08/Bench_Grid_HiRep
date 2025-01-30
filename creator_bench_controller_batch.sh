@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1 $2`
+ARGV=`basename -a $1 $2 $3`
 set -eu
 script_file_name=$(basename "$0")
 tput bold;
@@ -21,12 +21,13 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-__external_lib_dir=$1
-__batch_action=$2
+__project_account=$1
+__external_lib_dir=$2
+__batch_action=$3
 # Overall config file
-source ./common_main.sh $1;
+source ./common_main.sh "$__external_lib_dir";
 # System config file to get information from the node
-source ./config_system.sh "$machine_name";
+source ./config_system.sh "$__project_account" "$machine_name";
 # The config for the batch_action needs information from the system_config call
 source ./config_Run_Batchs.sh
 source ./config_batch_action.sh
@@ -46,7 +47,7 @@ case $__batch_action in
   *"BKeeper_run_gpu"*)      config_Batch_BKeeper_run_gpu      ;; # to avoid incomplete fields and blank variable
   *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
   *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
-  *"BKeeper_compile"*)      bash -s < ./creator_bench_case_batch.sh  "$__external_lib_dir" "$__batch_action";  ;;
+  *"BKeeper_compile"*)      bash -s < ./creator_bench_case_batch.sh "$__project_account" "$__external_lib_dir" "$__batch_action"; ;;
   *)
     echo
     $red; printf "The batch action is either incorrect or missing: \n";
