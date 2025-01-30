@@ -78,7 +78,6 @@ esac
 #  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 #done
 #printf "Moving on ... \n"
-
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
 $magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
