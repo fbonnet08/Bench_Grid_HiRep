@@ -75,7 +75,7 @@ esac
 #echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #for i in $(seq 0 $sleep_time)
 #do
-  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
+#  $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 #done
 #printf "Moving on ... \n"
 
