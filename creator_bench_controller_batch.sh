@@ -72,11 +72,11 @@ esac
 #-------------------------------------------------------------------------------
 # Now marking a sleep_time pause and printing variables to screen
 #-------------------------------------------------------------------------------
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-for i in $(seq 0 $sleep_time)
-do
+#echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+#for i in $(seq 0 $sleep_time)
+#do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
-done
+#done
 #printf "Moving on ... \n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
