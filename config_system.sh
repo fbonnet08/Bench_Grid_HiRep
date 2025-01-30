@@ -42,7 +42,6 @@ get_system_config_local_nvidia (){
 }
 
 get_system_config_clusters_nvidia_Vega-GPU (){
-  # TODO: MUST CORRECT ACCOUNT_NAME --account= DETAILS FOR EACH MACHINE HERE NOW ONLY LEONARDO
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
   # CPU stuff
@@ -77,7 +76,6 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   then
     echo "lspci could not be found let's try nvidia-smi"
     #_gpu_count=$(nvidia-smi |grep NVIDIA|wc -l)
-    # TODO: MUST CORRECT ACCOUNT_NAME DETAILS FOR EACH MACHINE HERE NOW ONLY LEONARDO
     #_gpu_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
     #_gpu_count=$(expr $_gpu_count - 1)
 

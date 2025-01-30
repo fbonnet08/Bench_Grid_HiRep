@@ -1,0 +1,13 @@
+
+Currently Loaded Modules:
+  1) craype-x86-rome                        9) cray-libsci/24.03.0
+  2) libfabric/1.15.2.0                    10) PrgEnv-cray/8.5.0
+  3) craype-network-ofi                    11) ModuleLabel/label   (S)
+  4) perftools-base/24.03.0                12) lumi-tools/24.05    (S)
+  5) xpmem/2.8.2-1.0_5.1__g84a27a5.shasta  13) init-lumi/0.2       (S)
+  6) cce/17.0.1                            14) cray-mpich/8.1.29
+  7) craype/2.7.31.11                      15) cray-fftw/3.3.10.7
+  8) cray-dsmml/0.3.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
