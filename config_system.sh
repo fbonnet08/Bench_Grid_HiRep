@@ -46,10 +46,25 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
   # CPU stuff
-  #_core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+
+  if (( _core_count )); then
+      echo "_core_count behaves like an integer."
+  else
+      echo "_core_count is not a valid integer."
+  fi
+
+
   _core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
   #_core_count=$(( _core_count + 0 ))
   _core_count=$(echo "$_core_count" | sed 's/^ *//; s/ *$//')
+
+  if (( _core_count )); then
+    echo "_core_count behaves like an integer."
+  else
+    echo "_core_count is not a valid integer."
+  fi
+
 
   $white; printf "From /proc/cpuinfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
