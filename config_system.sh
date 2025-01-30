@@ -55,7 +55,8 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
   $yellow; printf "${_core_count}\n"; $reset_colors;
   _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
-  _mem_total=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(echo "$_mem_total*2"|bc);
+  #_mem_total=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
   $white; printf "From /proc/meminfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
   $yellow; printf "${_mem_total}\n"; $reset_colors;
