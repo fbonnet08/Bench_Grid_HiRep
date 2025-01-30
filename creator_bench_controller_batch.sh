@@ -571,6 +571,91 @@ EOF
     #-------------------------------------------------------------------------------
 
     # TODO: continue from here ..............
+    __simulation_size="small"
+    # constructing the files and directory structure
+    H=1
+    L=1
+    T=1
+    M=1
+    for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
+    do
+    mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+    for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    do
+      ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
+    for j in $(seq 0 `expr ${#bkeeper_lattice_size_gpu[@]} - 1`)
+    do
+      lattice=$(printf "lat%s" "${bkeeper_lattice_size_gpu[$j]}";)
+
+      for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_gpu[@]} - 1`)
+      do
+        cnt=$(printf "%03d" "$H")
+        index=$(printf "%03d" "$i")
+        n_nodes=$(printf "nodes%03d" "${bkeeper_small_n_nodes_gpu[$i]}";)
+        # Orchestrating the file construction
+        #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")
+        __mpi_distr_FileTag=$(printf "${mpi_distr}")
+        __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
+        __batch_file_out=$(printf "${__batch_file_construct}.sh")
+        #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
+
+        #$cyan;printf "bkeeper_small_n_nodes_gpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+        $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
+        # Creating the path in question
+        Batch_util_create_path "${__path_to_run}"
+
+        # Now creating the Batch file: __batch_file_out in __path_to_run
+        $green; printf "Creating the Batch script from the methods: "; $bold;
+        $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+        # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+        #ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
+        ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+        config_Batch_with_input_from_system_config \
+          "${bkeeper_small_n_nodes_gpu[$i]}"       \
+          "${_core_count}"                         \
+          "$ntasks_per_node"                       \
+          1                                        \
+          "cpu"                                    \
+          "${__batch_file_construct}"              \
+          "2:0:0"                                  \
+          "standard"
+
+        # Writing the header to files
+        cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
+$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(
+          case $__batch_action in
+            *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"Sombrero_strong"*)      echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"BKeeper"*)              echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"HiRep-LLR-master-cpu"*) echo "#---> this is a HiRep-LLR-master-cpu job run"       ;;
+            *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run"       ;;
+          esac
+    )
+
+$module_list
+
+EOF
+      # Constructing the rest of the batch file body
+      Batch_body_Run_BKeeper_gpu                                                        \
+      "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}" \
+      "${__path_to_run}${sptr}${__batch_file_out}"                                      \
+      "${bkeeper_lattice_size_cpu[$j]}"                                                 \
+      "${bkeeper_mpi_clock_gpu[$l]}"                                                    \
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
+
+      # incrementing the counter
+      H=$(expr $H + 1)
+    done
+    L=$(expr $L + 1)
+    done
+      T=$(expr $T + 1)
+    done
+      M=$(expr $M + 1)
+    done
 
 
 
