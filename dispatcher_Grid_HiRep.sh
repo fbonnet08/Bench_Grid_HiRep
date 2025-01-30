@@ -61,9 +61,13 @@ red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
 white=\"tput setaf 7\";bold=\"\"               ;reset_colors=\"tput sgr0\"
 
-echo           \"Enter Username         : \"; _username=${username}
-echo           \"Project Account        : \"; _project_account=${project_account}
-echo           \"Remote hostname        : \"; _remote_hostname=${remote_hostname}
+_username=${username}
+_project_account=${project_account}
+_remote_hostname=${remote_hostname}
+
+echo           \"Enter Username  (ssh)  : \$_username\";
+echo           \"Project Account (ssh)  : \$_project_account\";
+echo           \"Remote hostname (ssh)  : \$_remote_hostname\";
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${source_dir} ]

@@ -26,7 +26,7 @@ __batch_action=$2
 # Overall config file
 source ./common_main.sh $1;
 # System config file to get information from the node
-source ./config_system.sh;
+source ./config_system.sh "$machine_name";
 # The config for the batch_action needs information from the system_config call
 source ./config_Run_Batchs.sh
 source ./config_batch_action.sh

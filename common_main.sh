@@ -1,15 +1,15 @@
 #!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
-scrfipt_file_name=$(basename "$0")
+script_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
-echo "!     $scrfipt_file_name                                                    !"
+echo "!     $script_file_name                                                    !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh common_main.sh   {Input list}                         !"
-echo "!     [example]: sh common_main.sh /data/local                          !"
+echo "!     [usage]: sh common_main.sh   {external_lib_dir}                   !"
+echo "!     [example]: sh common_main.sh SwanSea/SourceCodes/external_lib     !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -219,7 +219,7 @@ $white; printf "Hirep_LLR_SP directory : ";$yellow;   printf "$Hirep_LLR_SP_dir\
 $white; printf "Hirep_LLR_SP_HMC dir   : ";$green;    printf "$Hirep_LLR_SP_HMC_dir\n"; $reset_colors;
 $white; printf "HiRep_Cuda directory   : ";$green;    printf "$HiRep_Cuda_dir\n";       $reset_colors;
 $white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n";         $reset_colors;
-$white; printf "BKeeper directory      : ";$cyan;     printf "$bkeeper_dir\n";         $reset_colors;
+$white; printf "BKeeper directory      : ";$cyan;     printf "$bkeeper_dir\n";          $reset_colors;
 $white; printf "Lattice runs directory : ";$magenta;  printf "$LatticeRuns_dir\n";      $reset_colors;
 $cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
 # ##############################################################################
