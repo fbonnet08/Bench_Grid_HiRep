@@ -46,8 +46,8 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
   # CPU stuff
-  _core_count=$(grep -c ^processor /proc/cpuinfo)
-  #_core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  #_core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(srun --partition=gpu --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
   $white; printf "From /proc/cpuinfo     : "; $bold;
   $cyan; printf "Node srun cmd --> _core_count : "; $bold;
   $yellow; printf "${_core_count}\n"; $reset_colors;
