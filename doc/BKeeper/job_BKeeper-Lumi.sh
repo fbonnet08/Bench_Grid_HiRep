@@ -2,12 +2,11 @@
 #SBATCH --job-name=TEST-JOB            # Job name
 #SBATCH --output=log/%x.%j.out
 #SBATCH --error=log/%x.%j.err
-#SBATCH --time=1-12:00:00              # Run time (d-hh:mm:ss)
+#SBATCH --time=01:00:00                # Run time (d-hh:mm:ss) 1-12:00:00
 #SBATCH --partition=standard-g         # partition name
 #SBATCH --nodes=2                      # Total number of nodes
 #SBATCH --ntasks-per-node=8            # 8 MPI ranks per node, 16 total (2x8)
 #SBATCH --gpus-per-node=8              # Allocate one gpu per MPI rank
-#SBATCH --time=1-12:00:00              # Run time (d-hh:mm:ss)
 #SBATCH --account=project_465001614
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
@@ -15,7 +14,10 @@
 module load cray-mpich cray-fftw
 module list;
 
+# check some versions
+#ucx_info -v
 hipcc --version
+#which mpirun
 #-------------------------------------------------------------------------------
 # Path structure
 #-------------------------------------------------------------------------------
@@ -29,18 +31,33 @@ prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
 # Export variables for the run
 #-------------------------------------------------------------------------------
-export UCX_TLS=self,sm,rc,ud
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export MPICH_GPU_SUPPORT_ENABLED=1
 export OMPI_MCA_PML="ucx"
 export OMPI_MCA_osc="ucx"
-
+# UCX
+export UCX_TLS=self,sm,rc,ud
+# GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
-
-export OMP_NUM_THREADS=8
-export MPICH_GPU_SUPPORT_ENABLED=1
+#-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
 export PREFIX_HOME=$prefix
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+ls -al "${bkeeper_build_dir}"/BKeeper
+ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------

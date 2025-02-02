@@ -1,4 +1,27 @@
 
+# shellcheck disable=SC1091,SC2050,SC2170
+
+## This set of slurm settings assumes that the AMD chips are using bios setting NPS4 (4 mpi taks per socket).
+
+#SBATCH --no-requeue
+#SBATCH --no-requeue
+
+##SBATCH --mem=494000
+
+## shellcheck disable=SC1091,SC2050,SC2170
+### This set of slurm settings assumes that the AMD chips are using bios setting NPS4 (4 mpi taks per socket).
+###SBATCH --qos=standard
+
+
+#source /home/y07/shared/grid/env/production/env-base.sh
+#source /home/y07/shared/grid/env/production/env-gpu.sh
+
+
+#-------------------------------------------------------------------------------
+# Path structure
+#-------------------------------------------------------------------------------
+prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
+
   if (( _core_count )); then
       echo "_core_count behaves like an integer."
   else

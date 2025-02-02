@@ -2,9 +2,8 @@
 #SBATCH --job-name=TEST-JOB            # Job name
 #SBATCH --output=%x.%j.out
 #SBATCH --error=%x.%j.err
-#SBATCH --time=01:00:00                # Run time (d-hh:mm:ss)
+#SBATCH --time=01:00:00                # Run time (d-hh:mm:ss) 1-12:00:00
 #SBATCH --partition=boost_usr_prod
-#SBATCH --mem=494000
 #SBATCH --nodes=4                      # Total number of nodes
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=8
@@ -17,9 +16,20 @@
 module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
 module list;
 
+# check some versions
 ucx_info -v
 nvcc --version
 which mpirun
+#-------------------------------------------------------------------------------
+# Path structure
+#-------------------------------------------------------------------------------
+sourcecode_dir=${HOME}/SwanSea/SourceCodes
+bkeeper_dir=${sourcecode_dir}/BKeeper
+bkeeper_build_dir=${bkeeper_dir}/build
+Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
+benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
+#Extending the library path
+prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
 # Variable exports
 #-------------------------------------------------------------------------------
@@ -43,18 +53,6 @@ export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
 #-------------------------------------------------------------------------------
-# Path structure
-#-------------------------------------------------------------------------------
-sourcecode_dir=${HOME}/SwanSea/SourceCodes
-bkeeper_dir=${sourcecode_dir}/BKeeper
-bkeeper_build_dir=${bkeeper_dir}/build
-Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
-benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
-#-------------------------------------------------------------------------------
-# Path structure
-#-------------------------------------------------------------------------------
-prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
-#-------------------------------------------------------------------------------
 # Export path and library paths
 #-------------------------------------------------------------------------------
 #Extending the library path
@@ -63,6 +61,10 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
 
 export MY_CUDA_HOME=$CUDA_HOME
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MY_CUDA_HOME/lib64
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------

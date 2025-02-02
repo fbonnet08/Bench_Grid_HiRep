@@ -6,11 +6,23 @@ ARGV=`basename -a $1 $2`
 __project_account=$1
 __machine_name=$2
 
-#if [[ -v "$_username" ]];        then echo "Enter Username         : $_username"; fi
-if [[ -v "$__project_account" ]]; then echo "Project Account  (sys) : $__project_account"; fi
-if [[ -v "$__machine_name" ]];    then echo "Machine name (cfg_sys) : $__machine_name"; fi
-#if [[ -v "$_remote_hostname" ]]; then echo "Remote hostname        : $_remote_hostname"; fi
+case $machine_name in
+  *"Precision-3571"*)  target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";;;
+  *"DESKTOP-GPI5ERK"*) target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+  *"desktop-dpr4gpr"*) target_partition_gpu="desktop-dpr4gpr";      target_partition_cpu="desktop-dpr4gpr"; ;;
+  *"tursa"*)           target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+  *"sunbird"*)         target_partition_gpu="accel_ai";             target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+  *"vega"*)            target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+  *"lumi"*)            target_partition_gpu="standard-g";           target_partition_cpu="standard-c"; ;;
+  *"leonardo"*)        target_partition_gpu="boost_usr_prod";       target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+esac
 
+#if [[ -v "$_username" ]];        then echo "Enter Username         : $_username"; fi
+#if [[ -v "$_remote_hostname" ]]; then echo "Remote hostname        : $_remote_hostname"; fi
+if [[ -v "$__project_account" ]];    then echo "Project Account  (sys) : $__project_account"; fi
+if [[ -v "$__machine_name" ]];       then echo "Machine name (cfg_sys) : $__machine_name"; fi
+if [[ -v "$target_partition_gpu" ]]; then echo "Target partition (GPU) : $target_partition_gpu"; fi
+if [[ -v "$target_partition_cpu" ]]; then echo "Target partition (CPU) : $target_partition_cpu"; fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables,
 # setting up the environment properly.

@@ -14,6 +14,8 @@ _job_name=$6
 _time=$7
 _qos=$8
 }
+
+
 config_Batch_default (){
 _nodes=2
 _ntask=128

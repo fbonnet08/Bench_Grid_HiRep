@@ -570,8 +570,11 @@ EOF
     # BKeeper [Small-GPU]:
     #-------------------------------------------------------------------------------
 
+
+
     # TODO: continue from here ..............
     __simulation_size="small"
+    __accelerator="gpu"
     # constructing the files and directory structure
     H=1
     L=1
@@ -618,7 +621,7 @@ EOF
           "${_core_count}"                         \
           "$ntasks_per_node"                       \
           1                                        \
-          "cpu"                                    \
+          "$target_partition_gpu"                  \
           "${__batch_file_construct}"              \
           "2:0:0"                                  \
           "standard"
@@ -657,25 +660,7 @@ EOF
       M=$(expr $M + 1)
     done
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   echo "__project_account: $__project_account"
 
 
 
