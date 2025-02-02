@@ -6,8 +6,6 @@
 #SBATCH --partition=standard-g         # partition name
 #SBATCH --nodes=4                      # 2 Total number of nodes
 #SBATCH --ntasks-per-node=8            # 8 MPI ranks per node, 16 total (2x8)
-#SBATCH --cpus-per-task=16
-#SBATCH --gres=gpu:8
 #SBATCH --gpus-per-node=8              # Allocate one gpu per MPI rank
 #SBATCH --account=project_465001614
 #-------------------------------------------------------------------------------
@@ -105,4 +103,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Interactive session run
 #-------------------------------------------------------------------------------
 # srun --account=project_465001614 --partition=dev-g --time=00:30:00 --nodes=1 --gres=gpu:8 --pty bash
+##SBATCH --cpus-per-task=16
+###SBATCH --gres=gpu:8
 #-------------------------------------------------------------------------------
