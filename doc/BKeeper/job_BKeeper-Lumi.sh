@@ -86,7 +86,7 @@ srun --cpu-bind=${CPU_BIND} \
   ./select_gpu "${bkeeper_build_dir}"/BKeeper  \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
   --grid 48.48.48.96 \
-  --mpi 1.2.2.4 \
+  --mpi 2.2.2.4 \
   --accelerator-threads "$OMP_NUM_THREADS" \
   --shm 8192 \
   --device-mem 23000 \
