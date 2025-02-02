@@ -86,7 +86,7 @@ mpirun -np $SLURM_NTASKS \
  "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
  --grid 48.48.48.96 \
  --mpi 1.2.2.4 \
- --accelerator-threads 8 \
+ --accelerator-threads "$OMP_NUM_THREADS" \
  --shm 8192 \
  --device-mem 23000 \
  --log Error,Warning,Message

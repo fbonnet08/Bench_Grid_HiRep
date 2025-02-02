@@ -4,8 +4,10 @@
 #SBATCH --error=log/%x.%j.err
 #SBATCH --time=01:00:00                # Run time (d-hh:mm:ss) 1-12:00:00
 #SBATCH --partition=standard-g         # partition name
-#SBATCH --nodes=2                      # Total number of nodes
+#SBATCH --nodes=4                      # 2 Total number of nodes
 #SBATCH --ntasks-per-node=8            # 8 MPI ranks per node, 16 total (2x8)
+#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:8
 #SBATCH --gpus-per-node=8              # Allocate one gpu per MPI rank
 #SBATCH --account=project_465001614
 #-------------------------------------------------------------------------------
@@ -85,7 +87,7 @@ srun --cpu-bind=${CPU_BIND} \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
   --grid 48.48.48.96 \
   --mpi 1.2.2.4 \
-  --accelerator-threads 8 \
+  --accelerator-threads "$OMP_NUM_THREADS" \
   --shm 8192 \
   --device-mem 23000 \
   --log Error,Warning,Message
