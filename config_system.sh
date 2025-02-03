@@ -7,7 +7,7 @@ __project_account=$1
 __machine_name=$2
 
 case $machine_name in
-  *"Precision-3571"*)  target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";;;
+  *"Precision-3571"*)  target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";;
   *"DESKTOP-GPI5ERK"*) target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK"; ;;
   *"desktop-dpr4gpr"*) target_partition_gpu="desktop-dpr4gpr";      target_partition_cpu="desktop-dpr4gpr"; ;;
   *"tursa"*)           target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK"; ;;

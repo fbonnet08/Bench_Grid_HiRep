@@ -573,8 +573,8 @@ EOF
 
 
     # TODO: continue from here ..............
-    __simulation_size="small"
     __accelerator="gpu"
+    __simulation_size="small"
     # constructing the files and directory structure
     H=1
     L=1
@@ -628,7 +628,7 @@ EOF
 
         # Writing the header to files
         cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
             *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
