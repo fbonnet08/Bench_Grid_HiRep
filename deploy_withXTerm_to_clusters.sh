@@ -26,16 +26,25 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Sunbird]
 #-------------------------------------------------------------------------------
-#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  sunbird.swansea.ac.uk" &
-#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb        login.vega.izum.si" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  scw1813   sunbird.swansea.ac.uk" &
+#-------------------------------------------------------------------------------
+# [Vega]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb        notneeded login.vega.izum.si" &
+#-------------------------------------------------------------------------------
+# [Tursa]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  dp208  tursa.dirac.ed.ac.uk" &
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  bonnetfr           lumi.csc.fi" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614   lumi.csc.fi" &
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
+: '
 xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  fbonnet0           login.leonardo.cineca.it" &
+'
 
 #-------------------------------------------------------------------------------
 #End of the script

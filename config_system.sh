@@ -77,6 +77,90 @@ get_system_config_local_nvidia (){
   fi
 }
 
+get_system_config_clusters_nvidia_Sunbird (){
+  # Default node setup
+  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  # CPU stuff
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(echo "$_core_count/4"|bc);
+  #_core_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  $white; printf "From /proc/cpuinfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _core_count : "; $bold;
+  $yellow; printf "${_core_count}\n"; $reset_colors;
+  _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(echo "$_mem_total*1"|bc);
+  #_mem_total=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  $white; printf "From /proc/meminfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
+  $yellow; printf "${_mem_total}\n"; $reset_colors;
+  # GPU stuff
+  _gpu_count=${_max_gpu_count}
+  if command -v lspci 2>&1 >/dev/null
+  then
+    echo "lspci could be found"
+    _gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
+    if [[ $_gpu_count -eq 0 ]]; then _gpu_count=${_max_gpu_count}; fi;
+    $white; printf "lspci                  : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  elif command -v nvidia-smi 2>&1 >/dev/null
+  then
+    echo "lspci could not be found let's try nvidia-smi"
+    #_gpu_count=$(nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(expr $_gpu_count - 1)
+    $white; printf "nvidia-smi             : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    _gpu_count=0
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  else
+    echo "nvidia-smi or lspci command not found"
+  fi
+}
+
+get_system_config_clusters_nvidia_Tursa (){
+  # Default node setup
+  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  # CPU stuff
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(echo "$_core_count/4"|bc);
+  #_core_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  $white; printf "From /proc/cpuinfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _core_count : "; $bold;
+  $yellow; printf "${_core_count}\n"; $reset_colors;
+  _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(echo "$_mem_total*1"|bc);
+  #_mem_total=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  $white; printf "From /proc/meminfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
+  $yellow; printf "${_mem_total}\n"; $reset_colors;
+  # GPU stuff
+  _gpu_count=${_max_gpu_count}
+  if command -v lspci 2>&1 >/dev/null
+  then
+    echo "lspci could be found"
+    _gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
+    if [[ $_gpu_count -eq 0 ]]; then _gpu_count=${_max_gpu_count}; fi;
+    $white; printf "lspci                  : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  elif command -v nvidia-smi 2>&1 >/dev/null
+  then
+    echo "lspci could not be found let's try nvidia-smi"
+    #_gpu_count=$(nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(expr $_gpu_count - 1)
+    $white; printf "nvidia-smi             : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    _gpu_count=0
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  else
+    echo "nvidia-smi or lspci command not found"
+  fi
+}
+
 get_system_config_clusters_nvidia_Vega-GPU (){
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
@@ -189,13 +273,15 @@ get_system_config_clusters_AMD_LUMI-G (){
 }
 #-------------------------------------------------------------------------------
 # Instantiating the configuration method for system
+# Right now there is code repetition for the different systems, may be fixed later
+# if needed.
 #-------------------------------------------------------------------------------
 case $machine_name in
   *"Precision-3571"*)  get_system_config_local_nvidia; ;;
   *"DESKTOP-GPI5ERK"*) get_system_config_local_nvidia; ;;
   *"desktop-dpr4gpr"*) get_system_config_local_nvidia; ;;
-  *"tursa"*)           get_system_config_clusters_nvidia; ;;
-  *"sunbird"*)         get_system_config_clusters_nvidia; ;;
+  *"sunbird"*)         get_system_config_clusters_nvidia_Sunbird; ;;
+  *"tursa"*)           get_system_config_clusters_nvidia_Tursa; ;;
   *"vega"*)            get_system_config_clusters_nvidia_Vega-GPU; ;;
   *"lumi"*)            get_system_config_clusters_AMD_LUMI-G; ;;
   *"leonardo"*)        get_system_config_clusters_nvidia_Leonardo-Booster; ;;
