@@ -21,9 +21,6 @@ Batch_header (){
 # Some default methods for initialisation.
 #-------------------------------------------------------------------------------
 echo "#!/bin/bash"
-echo "#---> Accelerator type (cpu/gpu)            : $_accelerator"
-echo "#---> Simulation size in consideration      : $_simulation_size"
-echo "#---> Machine name that we are working on is: $_machine_name"
 echo "#SBATCH --job-name=$_job_name"
 echo "#SBATCH --output=%x.%j_$_job_name.out"
 echo "#SBATCH --error=%x.%j_$_job_name.err"
@@ -56,14 +53,14 @@ then
   echo "#SBATCH --gres=gpu:4"
 fi
 # TODO: continue from here to include the logic of different systems
-# TODO: Need logic for the CPU versus GPU
-# TODO: Need logic for different systems
-# TODO: continue from here to include the logic of different systems
-# TODO : take care of the gres condition
+# TODO: fix the --ntasks-per-node=128 error and --cpus-per-task=1
+# TODO: for --ntasks-per-node remove unnecessary loop
 #echo "#SBATCH --ntasks=$_ntask"
-
 echo "#-------------------------------------------------------------------------------"
-echo "# Getting the common code setup and variables"
+echo "# Getting the common code setup and variables: "
+echo "#---> Accelerator type (cpu/gpu)             : $_accelerator"
+echo "#---> Simulation size in consideration       : $_simulation_size"
+echo "#---> Machine name that we are working on is : $_machine_name"
 echo "#-------------------------------------------------------------------------------"
 }
 

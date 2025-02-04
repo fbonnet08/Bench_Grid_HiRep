@@ -620,10 +620,10 @@ EOF
           "${bkeeper_small_n_nodes_gpu[$i]}"       \
           "${_core_count}"                         \
           "$ntasks_per_node"                       \
-          1                                        \
+          "$gpus_per_node"                         \
           "$target_partition_gpu"                  \
           "${__batch_file_construct}"              \
-          "1:0:0"                                  \
+          "01:00:00"                               \
           "$qos"
           # TODO: need to take of the time for each jobs
           # TODO: need to take care of the qos on different systems

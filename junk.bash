@@ -1,4 +1,7 @@
 
+
+declare -a path_to_data_dir=("$sourcecode_dir" "$sombrero_dir")
+
 #!/bin/bash
 ARGV=`basename -a $1 $2`
 # Get N as the upper limit from user input or set a default value
