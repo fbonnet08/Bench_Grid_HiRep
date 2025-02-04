@@ -39,7 +39,9 @@ else
   echo "##accelerator type not specified, we will default onto CPU only"
   echo "#SBATCH --cpus-per-task=$_cpus_per_task"
 fi
-echo "#SBATCH --account=$_project_account"
+
+if [[ $_machine_name != "vega" ]];
+then echo "#SBATCH --account=$_project_account"; fi
 
 # additional commands required on the following systems
 if [[ $_machine_name = "tursa" ]];

@@ -583,9 +583,9 @@ EOF
     for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
     do
     mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
-    for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
-    do
-      ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
+    #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    #do
+    #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
     for j in $(seq 0 `expr ${#bkeeper_lattice_size_gpu[@]} - 1`)
     do
       lattice=$(printf "lat%s" "${bkeeper_lattice_size_gpu[$j]}";)
@@ -598,7 +598,8 @@ EOF
         # Orchestrating the file construction
         #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")
         __mpi_distr_FileTag=$(printf "${mpi_distr}")
-        __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
+        #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
+        __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
         __batch_file_out=$(printf "${__batch_file_construct}.sh")
         #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
         __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
@@ -615,7 +616,8 @@ EOF
 
         # Here need to invoke the configuration method config_Batch_with_input_from_system_config
         #ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
-        ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+        #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+        ntasks_per_node="$gpus_per_node"
         config_Batch_with_input_from_system_config \
           "${bkeeper_small_n_nodes_gpu[$i]}"       \
           "${_core_count}"                         \
@@ -625,9 +627,7 @@ EOF
           "${__batch_file_construct}"              \
           "01:00:00"                               \
           "$qos"
-          # TODO: need to take of the time for each jobs
-          # TODO: need to take care of the qos on different systems
-          # TODO: to be inserted in config_systems.sh
+
         # Writing the header to files
         cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
 $(Batch_header ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
@@ -657,8 +657,8 @@ EOF
     done
     L=$(expr $L + 1)
     done
-      T=$(expr $T + 1)
-    done
+    #  T=$(expr $T + 1)
+    #done
       M=$(expr $M + 1)
     done
 
