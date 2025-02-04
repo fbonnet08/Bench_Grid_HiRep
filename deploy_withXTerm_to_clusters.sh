@@ -20,21 +20,23 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 sptr="/"
 #-------------------------------------------------------------------------------
 # Deploying to clusters
-# bash -s < ./dispatcher_Grid_hiRep.sh s.frederic.bonnet sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
-# TODO: put the username as input in the ARGV=`basename -a $1` at later stage
 #-------------------------------------------------------------------------------
-# [Sunbird]
+# [Precision-3571]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  frederic     notneeded  137.44.5.215" &
+#-------------------------------------------------------------------------------
+# [Sunbird] [scw1813, scw1019] TODO: Sunbird has issues with max_string_array
 #-------------------------------------------------------------------------------
 #xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  scw1813   sunbird.swansea.ac.uk" &
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb        notneeded login.vega.izum.si" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded login.vega.izum.si" &
 #-------------------------------------------------------------------------------
 # [Tursa]
 #-------------------------------------------------------------------------------
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  dp208  tursa.dirac.ed.ac.uk" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  dc-bonn2     dp208  tursa.dirac.ed.ac.uk" &
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
@@ -43,7 +45,12 @@ xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiR
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
 : '
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  fbonnet0           login.leonardo.cineca.it" &
+step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd;
+step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc;
+eval "$(ssh-agent)";
+step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc;
+step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect;
+sh ./dispatcher_Grid_hiRep.sh  fbonnet0  EUHPC_B17_015  login.leonardo.cineca.it &
 '
 
 #-------------------------------------------------------------------------------

@@ -611,7 +611,8 @@ EOF
         Batch_util_create_path "${__path_to_run}"
 
         # Now creating the Batch file: __batch_file_out in __path_to_run
-        $green; printf "Creating the Batch script from the methods: "; $bold;
+        $white; printf "                       : ";
+        $yellow; printf "Creating the Batch script from the methods: "; $bold;
         $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
         # Here need to invoke the configuration method config_Batch_with_input_from_system_config
@@ -641,16 +642,15 @@ $(
           esac
     )
 
-$module_list
-
 EOF
       # Constructing the rest of the batch file body
       Batch_body_Run_BKeeper_gpu                                                        \
-      "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}" \
+      "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
       "${bkeeper_mpi_clock_gpu[$l]}"                                                    \
-      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
+      "${module_list}"
 
       # incrementing the counter
       H=$(expr $H + 1)
