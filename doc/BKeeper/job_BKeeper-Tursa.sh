@@ -7,9 +7,9 @@
 #SBATCH --nodes=4
 #SBATCH --ntasks-per-node=4
 #SBATCH --gpus-per-node=4
+#SBATCH --account=dp208
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:4
-#SBATCH --account=dp208
 #SBATCH --qos=standard
 #-------------------------------------------------------------------------------
 # Module loads and compiler version

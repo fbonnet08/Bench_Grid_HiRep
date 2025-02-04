@@ -4,16 +4,22 @@
 #-------------------------------------------------------------------------------
 Batch_header (){
   _accelerator=$1
-  _simulation_size=$2
-  _machine_name=$3
-  _nodes=$4
-  _ntask=$5
-  _ntasks_per_node=$6
-  _cpus_per_task=$7
-  _partition=$8
-  _job_name=$9
-  _time=${10}
-  _qos=${11}
+  _project_account=$2
+  _gpus_per_node=$3
+  _accelerator=$4
+  _simulation_size=$5
+  _machine_name=$6
+  _nodes=$7
+  _ntask=$8
+  _ntasks_per_node=$9
+  _cpus_per_task=${10}
+  _partition=${11}
+  _job_name=${12}
+  _time=${13}
+  _qos=${14}
+#-------------------------------------------------------------------------------
+# Some default methods for initialisation.
+#-------------------------------------------------------------------------------
 echo "#!/bin/bash"
 echo "#---> Accelerator type (cpu/gpu)            : $_accelerator"
 echo "#---> Simulation size in consideration      : $_simulation_size"
@@ -25,12 +31,37 @@ echo "#SBATCH --time=$_time"
 echo "#SBATCH --partition=$_partition"
 echo "#SBATCH --nodes=$_nodes"
 echo "#SBATCH --ntasks-per-node=$_ntasks_per_node    # nodes * ntasks"
+if [[ $_accelerator = "cpu" ]];
+then
+    echo "## CPU only";
+elif [[ $_accelerator = "gpu" ]];
+then
+    echo "## GPU only";
+    echo "#SBATCH --gpus-per-node=$_gpus_per_node"
+else
+  echo "##accelerator type not specified, we will default onto CPU only"
+  echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+fi
+echo "#SBATCH --account=$_project_account"
 
-
-
+# additional commands required on the following systems
+if [[ $_machine_name = "tursa" ]];
+then
+  echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+  echo "#SBATCH --gres=gpu:4"
+  echo "#SBATCH --qos=$_qos"
+elif [[ $_machine_name = "leonardo" || $_machine_name = "vega" ]];
+then
+  echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+  echo "#SBATCH --gres=gpu:4"
+fi
+# TODO: continue from here to include the logic of different systems
+# TODO: Need logic for the CPU versus GPU
+# TODO: Need logic for different systems
+# TODO: continue from here to include the logic of different systems
+# TODO : take care of the gres condition
 #echo "#SBATCH --ntasks=$_ntask"
-echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-echo "#SBATCH --qos=$_qos"
+
 echo "#-------------------------------------------------------------------------------"
 echo "# Getting the common code setup and variables"
 echo "#-------------------------------------------------------------------------------"

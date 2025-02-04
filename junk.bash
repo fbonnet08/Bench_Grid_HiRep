@@ -1,4 +1,44 @@
 
+#!/bin/bash
+ARGV=`basename -a $1 $2`
+# Get N as the upper limit from user input or set a default value
+mpi_max=$1
+echo "mpi_max          --->: $mpi_max"
+nodes=$2
+echo "nodes            --->: $nodes"
+
+# Generate an array of even numbers (multiples of 2) up to N
+numbers=($(seq 2 2 "$mpi_max"))
+echo "numbers          --->: $numbers"
+
+# Get the length of the array
+len=${#numbers[@]}
+echo "len              --->: $len"
+
+
+# Generate all unique 4-number combinations
+for ((i = 1; i <= mpi_max; i++)); do
+  for ((j = 1; j <= mpi_max; j++)); do
+    for ((k = 1; k <= mpi_max; k++)); do
+      for ((l = 1; l <= mpi_max; l++)); do
+        # Calculate the product of the four numbers
+        #product=$((numbers[i] * numbers[j] * numbers[k] * numbers[l]))
+        product=$((i * j * k * l))
+        #echo "product          --->: $product"
+        # Check if the product is ≤ N
+        if ((product == nodes)); then
+          #echo "${numbers[i]}.${numbers[j]}.${numbers[k]}.${numbers[l]}"
+          echo "${i}.${j}.${k}.${l}"
+        fi
+      done
+    done
+  done
+done
+
+
+
+
+
 # shellcheck disable=SC1091,SC2050,SC2170
 
 ## This set of slurm settings assumes that the AMD chips are using bios setting NPS4 (4 mpi taks per socket).

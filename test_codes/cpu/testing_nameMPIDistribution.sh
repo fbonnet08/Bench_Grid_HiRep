@@ -24,6 +24,7 @@ tput sgr0;
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
 # TODO fix the path to the common block file at integration time
+
 source ../../common_main.sh $1;
 source ../../Scripts/Batch_Scripts/Batch_util_methods.sh;
 source ../../config_system.sh

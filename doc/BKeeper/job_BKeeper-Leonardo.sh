@@ -6,10 +6,10 @@
 #SBATCH --partition=boost_usr_prod
 #SBATCH --nodes=4                      # Total number of nodes
 #SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=8
-#SBATCH --gres=gpu:4
 #SBATCH --gpus-per-node=4
 #SBATCH --account=EUHPC_B17_015
+#SBATCH --cpus-per-task=8
+#SBATCH --gres=gpu:4
 #-------------------------------------------------------------------------------
 # Module loads and compiler version
 #-------------------------------------------------------------------------------

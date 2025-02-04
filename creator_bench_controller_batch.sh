@@ -623,12 +623,14 @@ EOF
           1                                        \
           "$target_partition_gpu"                  \
           "${__batch_file_construct}"              \
-          "2:0:0"                                  \
-          "standard"
-
+          "1:0:0"                                  \
+          "$qos"
+          # TODO: need to take of the time for each jobs
+          # TODO: need to take care of the qos on different systems
+          # TODO: to be inserted in config_systems.sh
         # Writing the header to files
         cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
             *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;

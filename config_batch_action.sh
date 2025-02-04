@@ -14,8 +14,9 @@ _job_name=$6
 _time=$7
 _qos=$8
 }
-
-
+#-------------------------------------------------------------------------------
+# Some default methods for initialisation.
+#-------------------------------------------------------------------------------
 config_Batch_default (){
 _nodes=2
 _ntask=128
@@ -26,7 +27,6 @@ _job_name="run_Sonbrero_strong"
 _time="15:0:0"
 _qos="standard"
 }
-
 config_Batch_Sombrero_weak_cpu (){
 _nodes=1
 _ntask=128

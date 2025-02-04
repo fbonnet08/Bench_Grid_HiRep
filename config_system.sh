@@ -7,14 +7,38 @@ __project_account=$1
 __machine_name=$2
 
 case $machine_name in
-  *"Precision-3571"*)  target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";;
-  *"DESKTOP-GPI5ERK"*) target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK"; ;;
-  *"desktop-dpr4gpr"*) target_partition_gpu="desktop-dpr4gpr";      target_partition_cpu="desktop-dpr4gpr"; ;;
-  *"tursa"*)           target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK"; ;;
-  *"sunbird"*)         target_partition_gpu="accel_ai";             target_partition_cpu="DESKTOP-GPI5ERK"; ;;
-  *"vega"*)            target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK"; ;;
-  *"lumi"*)            target_partition_gpu="standard-g";           target_partition_cpu="standard-c"; ;;
-  *"leonardo"*)        target_partition_gpu="boost_usr_prod";       target_partition_cpu="DESKTOP-GPI5ERK"; ;;
+  *"Precision-3571"*)
+    target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";
+    gpus_per_node=1;                             qos="normal";
+    ;;
+  *"DESKTOP-GPI5ERK"*)
+    target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK";
+    gpus_per_node=1;                             qos="normal";
+    ;;
+  *"desktop-dpr4gpr"*)
+    target_partition_gpu="desktop-dpr4gpr";      target_partition_cpu="desktop-dpr4gpr";
+    gpus_per_node=1;                             qos="normal";
+    ;;
+  *"tursa"*)
+    target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK";
+    gpus_per_node=4;                             qos="standard";
+    ;;
+  *"sunbird"*)
+    target_partition_gpu="accel_ai";             target_partition_cpu="DESKTOP-GPI5ERK";
+    gpus_per_node=4;                             qos="normal";
+    ;;
+  *"vega"*)
+    target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK";
+    gpus_per_node=4;                             qos="normal";
+    ;;
+  *"lumi"*)
+    target_partition_gpu="standard-g";           target_partition_cpu="standard-c";
+    gpus_per_node=8;                             qos="normal";
+    ;;
+  *"leonardo"*)
+    target_partition_gpu="boost_usr_prod";       target_partition_cpu="DESKTOP-GPI5ERK";
+    gpus_per_node=4;                             qos="normal";
+    ;;
 esac
 
 #if [[ -v "$_username" ]];        then echo "Enter Username         : $_username"; fi
