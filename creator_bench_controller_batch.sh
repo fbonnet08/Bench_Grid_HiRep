@@ -662,10 +662,7 @@ EOF
       M=$(expr $M + 1)
     done
 
-   echo "__project_account: $__project_account"
-
-
-
+    echo "project_account --->: $__project_account"
 
 
     #-------------------------------------------------------------------------------
@@ -681,9 +678,9 @@ EOF
       ;;
 esac
 
-echo "core_count --->: $_core_count"
-echo "mem_total  --->: $_mem_total"
-echo "gpu_count  --->: $_gpu_count"
+echo "core_count      --->: $_core_count"
+echo "mem_total       --->: $_mem_total"
+echo "gpu_count       --->: $_gpu_count"
 
 #-------------------------------------------------------------------------------
 #End of the script
