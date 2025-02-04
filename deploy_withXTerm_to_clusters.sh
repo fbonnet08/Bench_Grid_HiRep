@@ -26,7 +26,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Sunbird]
 #-------------------------------------------------------------------------------
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  scw1813   sunbird.swansea.ac.uk" &
+#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  s.frederic.bonnet  scw1813   sunbird.swansea.ac.uk" &
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
