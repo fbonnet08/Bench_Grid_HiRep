@@ -20,7 +20,7 @@ module load openmpi/4.1.1-cuda11.4.1
 source /home/y07/shared/grid/env/production/env-base.sh
 source /home/y07/shared/grid/env/production/env-gpu.sh
 
-# check some versions
+# Check some versions
 ucx_info -v
 nvcc --version
 which mpirun

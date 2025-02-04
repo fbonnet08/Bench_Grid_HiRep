@@ -14,7 +14,7 @@
 module load cray-mpich cray-fftw
 module list;
 
-# check some versions
+# Check some versions
 #ucx_info -v
 hipcc --version
 #which mpirun

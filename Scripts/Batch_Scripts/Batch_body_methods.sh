@@ -262,6 +262,7 @@ _batch_file_construct=$9
 _prefix=${10}
 _path_to_run=${11}
 _module_list=${12}
+_sourcecode_dir=${13}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -270,17 +271,55 @@ cat << EOF >> "$_batch_file_out"
 # Module loads and compiler version
 #-------------------------------------------------------------------------------
 $_module_list
+EOF
+#-------------------------------------------------------------------------------
+# Compiler queries
+#-------------------------------------------------------------------------------
+if [[ $_machine_name = "lumi" ]];
+then
+cat << EOF >> "$_batch_file_out"
+# Check some versions
+#ucx_info -v
+hipcc --version
+#which mpirun
+EOF
+elif [[ $_machine_name = "leonardo" || $_machine_name = "vega" || $_machine_name = "tursa" ]];
+then
+cat << EOF >> "$_batch_file_out"
+# Check some versions
+ucx_info -v
+nvcc --version
+which mpirun
+EOF
+fi
+#-------------------------------------------------------------------------------
+# Path structure
+#-------------------------------------------------------------------------------
+
+# TODO: CONTINUE FROM HERE ......
+# TODO: CONTINUE FROM HERE ......
+# TODO: CONTINUE FROM HERE ......
+# TODO: CONTINUE FROM HERE ......
+# TODO: CONTINUE FROM HERE ......
+
+cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # The path structure
 #-------------------------------------------------------------------------------
 machine_name="$_machine_name"
+sourcecode_dir=$_sourcecode_dir
 bkeeper_dir=$_bkeeper_dir
 bkeeper_build_dir=\$bkeeper_dir/build
+Bench_Grid_HiRep_dir=\$sourcecode_dir/Bench_Grid_HiRep
 benchmark_input_dir=$_benchmark_input_dir
-LatticeRuns_dir=$_LatticeRuns_dir
-job_name=$_batch_file_construct
+#Extending the library path
 prefix=$_prefix
+#-------------------------------------------------------------------------------
+# Job description
+#-------------------------------------------------------------------------------
+LatticeRuns_dir=$_LatticeRuns_dir
 path_to_run=$_path_to_run
+job_name=$_batch_file_construct
 #-------------------------------------------------------------------------------
 # Export path and library paths
 #-------------------------------------------------------------------------------

@@ -17,7 +17,7 @@ module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/1
 module load FFTW/3.3.10-GCC-12.3.0;
 module list;
 
-# check some versions
+# Check some versions
 ucx_info -v
 nvcc --version
 which mpirun

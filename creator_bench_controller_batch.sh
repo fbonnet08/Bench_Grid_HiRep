@@ -641,7 +641,6 @@ $(
             *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run"       ;;
           esac
     )
-
 EOF
       # Constructing the rest of the batch file body
       Batch_body_Run_BKeeper_gpu                                                        \
@@ -650,7 +649,7 @@ EOF
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
       "${bkeeper_mpi_clock_gpu[$l]}"                                                    \
       "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
-      "${module_list}"
+      "${module_list}" "${sourcecode_dir}"
 
       # incrementing the counter
       H=$(expr $H + 1)

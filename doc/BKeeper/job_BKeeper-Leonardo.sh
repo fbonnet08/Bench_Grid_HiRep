@@ -16,7 +16,7 @@
 module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5
 module list;
 
-# check some versions
+# Check some versions
 ucx_info -v
 nvcc --version
 which mpirun
