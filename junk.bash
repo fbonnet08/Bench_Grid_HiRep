@@ -1,4 +1,10 @@
 
+mpirun \$bkeeper_build_dir/BKeeper \\
+        --grid $_lattice_size_cpu \\
+        --mpi $_mpi_distribution \\
+        --accelerator-threads 8 \\
+        \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
+        > \$path_to_run/bkeeper_run_gpu.log &
 
 declare -a path_to_data_dir=("$sourcecode_dir" "$sombrero_dir")
 
@@ -37,10 +43,6 @@ for ((i = 1; i <= mpi_max; i++)); do
     done
   done
 done
-
-
-
-
 
 # shellcheck disable=SC1091,SC2050,SC2170
 

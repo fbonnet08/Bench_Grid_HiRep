@@ -569,9 +569,6 @@ EOF
     #-------------------------------------------------------------------------------
     # BKeeper [Small-GPU]:
     #-------------------------------------------------------------------------------
-
-
-
     # TODO: continue from here ..............
     __accelerator="gpu"
     __simulation_size="small"
@@ -642,7 +639,9 @@ $(
           esac
     )
 EOF
+      #-------------------------------------------------------------------------
       # Constructing the rest of the batch file body
+      #-------------------------------------------------------------------------
       Batch_body_Run_BKeeper_gpu                                                        \
       "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
@@ -660,16 +659,14 @@ EOF
     #done
       M=$(expr $M + 1)
     done
-
-    echo "project_account --->: $__project_account"
-
-
     #-------------------------------------------------------------------------------
     # BKeeper [Large-GPU]:
     #-------------------------------------------------------------------------------
-
-
-
+    # TODO: implement the large case which should be very similar to the small caes
+    __simulation_size="large"
+    # TODO: continue from here ..............
+    # TODO: continue from here ..............
+    # TODO: continue from here ..............
       ;;
   *"HiRep-LLR-master-cpu"*)
       ;;
@@ -677,6 +674,7 @@ EOF
       ;;
 esac
 
+echo "project_account --->: $__project_account"
 echo "core_count      --->: $_core_count"
 echo "mem_total       --->: $_mem_total"
 echo "gpu_count       --->: $_gpu_count"

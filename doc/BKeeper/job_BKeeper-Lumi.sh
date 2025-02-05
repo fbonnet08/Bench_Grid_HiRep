@@ -29,7 +29,22 @@ benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #Extending the library path
 prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
-# Export variables for the run
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
+export PREFIX_HOME=$prefix
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
+#-------------------------------------------------------------------------------
+# Probing the file systems and getting some info
+#-------------------------------------------------------------------------------
+ls -al "${bkeeper_build_dir}"/BKeeper
+ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
+#-------------------------------------------------------------------------------
+# Variable exports
 #-------------------------------------------------------------------------------
 # OpenMP
 export OMP_NUM_THREADS=8
@@ -43,21 +58,6 @@ export UCX_TLS=self,sm,rc,ud
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
-#-------------------------------------------------------------------------------
-# Export path and library paths
-#-------------------------------------------------------------------------------
-#Extending the library path
-export PREFIX_HOME=$prefix
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
-
-echo "$LD_LIBRARY_PATH"
-
-ls -al "$PREFIX_HOME/lib"
-#-------------------------------------------------------------------------------
-# Launching mechanism
-#-------------------------------------------------------------------------------
-ls -al "${bkeeper_build_dir}"/BKeeper
-ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
@@ -80,14 +80,16 @@ chmod +x ./select_gpu
 #-------------------------------------------------------------------------------
 # run! #########################################################################
 # --mca pml ucx
+device_mem=23000
+shm=8192
 srun --cpu-bind=${CPU_BIND} \
   ./select_gpu "${bkeeper_build_dir}"/BKeeper  \
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
   --grid 48.48.48.96 \
   --mpi 2.2.2.4 \
   --accelerator-threads "$OMP_NUM_THREADS" \
-  --shm 8192 \
-  --device-mem 23000 \
+  --shm $shm \
+  --device-mem $device_mem \
   --log Error,Warning,Message
 ################################################################################
 rm -rf ./select_gpu

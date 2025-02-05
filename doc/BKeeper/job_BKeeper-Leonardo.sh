@@ -31,6 +31,24 @@ benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 #Extending the library path
 prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
 #-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
+export PREFIX_HOME=$prefix
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+export MY_CUDA_HOME=$CUDA_HOME
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MY_CUDA_HOME/lib64
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
+#-------------------------------------------------------------------------------
+# Probing the file systems and getting some info
+#-------------------------------------------------------------------------------
+ls -al "${bkeeper_build_dir}"/BKeeper
+ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
+#-------------------------------------------------------------------------------
 # Variable exports
 #-------------------------------------------------------------------------------
 # OpenMP
@@ -53,30 +71,17 @@ export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
 #-------------------------------------------------------------------------------
-# Export path and library paths
+# Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
-#Extending the library path
-export PREFIX_HOME=$prefix
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
-
-export MY_CUDA_HOME=$CUDA_HOME
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MY_CUDA_HOME/lib64
-
-echo "$LD_LIBRARY_PATH"
-
-ls -al "$PREFIX_HOME/lib"
+wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.sh
 #-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
-ls -al "${bkeeper_build_dir}"/BKeeper
-ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
-#-------------------------------------------------------------------------------
-# The wrapper file
-#-------------------------------------------------------------------------------
-wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.sh
 # run! #########################################################################
 # --mca pml ucx
 #   --mpi 1.2.2.4 \
+device_mem=23000
+shm=8192
 mpirun -np $SLURM_NTASKS \
   --map-by numa \
   -x LD_LIBRARY_PATH \
@@ -86,8 +91,8 @@ mpirun -np $SLURM_NTASKS \
   --grid 48.48.48.96 \
   --mpi 1.2.2.4 \
   --accelerator-threads "$OMP_NUM_THREADS" \
-  --shm 8192 \
-  --device-mem 23000 \
+  --shm $shm \
+  --device-mem $device_mem \
   --log Error,Warning,Message
 ################################################################################
 #-------------------------------------------------------------------------------

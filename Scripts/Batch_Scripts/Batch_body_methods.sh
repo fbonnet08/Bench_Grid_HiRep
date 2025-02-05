@@ -271,6 +271,7 @@ cat << EOF >> "$_batch_file_out"
 # Module loads and compiler version
 #-------------------------------------------------------------------------------
 $_module_list
+
 EOF
 #-------------------------------------------------------------------------------
 # Compiler queries
@@ -295,13 +296,6 @@ fi
 #-------------------------------------------------------------------------------
 # Path structure
 #-------------------------------------------------------------------------------
-
-# TODO: CONTINUE FROM HERE ......
-# TODO: CONTINUE FROM HERE ......
-# TODO: CONTINUE FROM HERE ......
-# TODO: CONTINUE FROM HERE ......
-# TODO: CONTINUE FROM HERE ......
-
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # The path structure
@@ -314,23 +308,190 @@ Bench_Grid_HiRep_dir=\$sourcecode_dir/Bench_Grid_HiRep
 benchmark_input_dir=$_benchmark_input_dir
 #Extending the library path
 prefix=$_prefix
+EOF
+#-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Export path and library paths
+#-------------------------------------------------------------------------------
+#Extending the library path
+export PREFIX_HOME=$prefix
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+
+echo "$LD_LIBRARY_PATH"
+
+ls -al "$PREFIX_HOME/lib"
+#-------------------------------------------------------------------------------
+# Probing the file systems and getting some info
+#-------------------------------------------------------------------------------
+ls -al "${bkeeper_build_dir}"/BKeeper
+ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
+EOF
+#-------------------------------------------------------------------------------
+# Export variables for the run
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Variable exports
+#-------------------------------------------------------------------------------
+EOF
+#-------------------------------------------------------------------------------
+# Variable exports
+#-------------------------------------------------------------------------------
+if [[ $_machine_name = "lumi" ]];
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export MPICH_GPU_SUPPORT_ENABLED=1
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
+# UCX
+export UCX_TLS=self,sm,rc,ud
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
+elif [[ $_machine_name = "leonardo" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export OMPI_MCA_btl=^uct,openib
+export OMPI_MCA_pml=ucx
+export OMPI_MCA_io=romio321
+export OMPI_MCA_btl_openib_allow_ib=true
+export OMPI_MCA_btl_openib_device_type=infiniband
+export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+# UCX
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+export UCX_RNDV_THRESH=16384
+export UCX_RNDV_SCHEME=put_zcopy
+export UCX_IB_GPU_DIRECT_RDMA=yes
+export UCX_MEMTYPE_CACHE=n
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
+elif [[ $_machine_name = "vega" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+#export OMPI_MCA_btl=^uct,openib
+#export OMPI_MCA_pml=ucx
+#export OMPI_MCA_osc="ucx".
+#export OMPI_MCA_io=romio321
+#export OMPI_MCA_btl_openib_allow_ib=true
+#export OMPI_MCA_btl_openib_device_type=infiniband
+#export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
+# UCX
+export UCX_TLS=self,sm,rc,ud
+#export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+#export UCX_RNDV_THRESH=16384
+#export UCX_RNDV_SCHEME=put_zcopy
+#export UCX_IB_GPU_DIRECT_RDMA=yes
+#export UCX_MEMTYPE_CACHE=n
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
+elif [[ $_machine_name = "tursa" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export OMPI_MCA_btl=^uct,openib
+export OMPI_MCA_pml=ucx
+export OMPI_MCA_io=romio321
+export OMPI_MCA_btl_openib_allow_ib=true
+export OMPI_MCA_btl_openib_device_type=infiniband
+export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+# UCX
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+export UCX_RNDV_THRESH=16384
+export UCX_RNDV_SCHEME=put_zcopy
+export UCX_IB_GPU_DIRECT_RDMA=yes
+export UCX_MEMTYPE_CACHE=n
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
+fi
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+if [[ $_machine_name = "lumi" ]];
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+#wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Lumi.sh
+CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
+CPU_BIND="${CPU_BIND},7e0000,7e000000"
+CPU_BIND="${CPU_BIND},7e,7e00"
+CPU_BIND="${CPU_BIND},7e00000000,7e0000000000"
+
+cat << EOF > select_gpu
+#!/bin/bash
+
+export ROCR_VISIBLE_DEVICES=\$SLURM_LOCALID
+exec \$*
+\EOF
+
+chmod +x ./select_gpu
+EOF
+elif [[ $_machine_name = "leonardo" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.sh
+EOF
+elif [[ $_machine_name = "vega" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
+EOF
+elif [[ $_machine_name = "tursa" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
+EOF
+fi
 #-------------------------------------------------------------------------------
 # Job description
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Output variable.
 #-------------------------------------------------------------------------------
 LatticeRuns_dir=$_LatticeRuns_dir
 path_to_run=$_path_to_run
 job_name=$_batch_file_construct
 #-------------------------------------------------------------------------------
-# Export path and library paths
+# Checking if run directory exists, if not create it.
 #-------------------------------------------------------------------------------
-#Extending the library path
-export PREFIX_HOME=\$prefix
-export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$PREFIX_HOME/lib
-#-------------------------------------------------------------------------------
-# move to the directory in BKeeper directory
-#-------------------------------------------------------------------------------
-cd \$bkeeper_build_dir
-
 if [ -d \${path_to_run} ]
 then
   printf "Directory              : ";
@@ -341,14 +502,126 @@ else
   mkdir -p \${path_to_run}
   printf "                       : "; printf "done.\n";
 fi
-
+#-------------------------------------------------------------------------------
+# Move to the directory where to run and linking to the BKeeper directory
+#-------------------------------------------------------------------------------
+cd \${path_to_run}
+EOF
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+if [[ $_machine_name = "lumi" ]];
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+device_mem=23000
+shm=8192
+srun --cpu-bind=${CPU_BIND} \
+  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \
+  "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
+  --grid $_lattice_size_cpu \
+  --mpi $_mpi_distribution \
+  --accelerator-threads "\$OMP_NUM_THREADS" \
+  --shm \$shm \
+  --device-mem \$device_mem \
+  --log Error,Warning,Message \\
+  > \$path_to_run/bkeeper_run_gpu.log &
+################################################################################
+rm -rf ./select_gpu
+#-------------------------------------------------------------------------------
+EOF
+elif [[ $_machine_name = "tursa"    || \
+        $_machine_name = "vega"     || \
+        $_machine_name = "sunbird"  || \
+        $_machine_name = "leonardo" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+device_mem=23000
+shm=8192
+mpirun -np \$SLURM_NTASKS \\
+  --map-by numa \\
+  -x LD_LIBRARY_PATH \\
+  --bind-to none \\
+  "\$wrapper_script" "\${bkeeper_build_dir}"/BKeeper  \\
+  "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
+  --grid $_lattice_size_cpu \\
+  --mpi $_mpi_distribution \
+  --accelerator-threads "\$OMP_NUM_THREADS" \\
+  --shm \$shm \\
+  --device-mem \$device_mem \\
+  --log Error,Warning,Message \\
+  > \$path_to_run/bkeeper_run_gpu.log &
+################################################################################
+#-------------------------------------------------------------------------------
+EOF
+elif [[ $_machine_name = "Precision-3571"  || \
+        $_machine_name = "desktop-dpr4gpr" || \
+        $_machine_name = "DESKTOP-GPI5ERK" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+device_mem=23000
+shm=8192
 mpirun \$bkeeper_build_dir/BKeeper \\
         --grid $_lattice_size_cpu \\
         --mpi $_mpi_distribution \\
         --accelerator-threads 8 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
         > \$path_to_run/bkeeper_run_gpu.log &
-
+################################################################################
+#-------------------------------------------------------------------------------
+EOF
+fi
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+#End of the script
+echo
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo `date`;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo "- $_batch_file_out Done. -"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+# srun --account={account_name} --partition={partition} --time=00:30:00 --nodes=1 --gres=gpu:4 --pty bash
+##SBATCH --ntasks-per-socket=4
+##SBATCH --mem=494000
+#export MPICH_GPU_SUPPORT_ENABLED=1
+#export UCX_TLS=self,sm,rc,ud
+#export OMPI_MCA_PML="ucx"
+#export OMPI_MCA_osc="ucx"
+#-------------------------------------------------------------------------------
+EOF
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+cat << EOF >> "$_batch_file_out"
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+#-------------------------------------------------------------------------------
+# Previous command for mpirun launch.
+#-------------------------------------------------------------------------------
+mpirun \$bkeeper_build_dir/BKeeper \\
+        --grid $_lattice_size_cpu \\
+        --mpi $_mpi_distribution \\
+        --accelerator-threads 8 \\
+        \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
+        > \$path_to_run/bkeeper_run_gpu.log &
 EOF
 }
 ################################################################################
