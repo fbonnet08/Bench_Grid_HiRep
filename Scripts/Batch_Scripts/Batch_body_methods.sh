@@ -519,7 +519,7 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-srun --cpu-bind=${CPU_BIND} \
+srun --cpu-bind=\${CPU_BIND} \
   ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \
   "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
   --grid $_lattice_size_cpu \
