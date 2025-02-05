@@ -519,14 +519,14 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-srun --cpu-bind=\${CPU_BIND} \
-  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \
-  "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \
-  --grid $_lattice_size_cpu \
-  --mpi $_mpi_distribution \
-  --accelerator-threads "\$OMP_NUM_THREADS" \
-  --shm \$shm \
-  --device-mem \$device_mem \
+srun --cpu-bind=\${CPU_BIND} \\
+  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
+  "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
+  --grid $_lattice_size_cpu \\
+  --mpi $_mpi_distribution \\
+  --accelerator-threads "\$OMP_NUM_THREADS" \\
+  --shm \$shm \\
+  --device-mem \$device_mem \\
   --log Error,Warning,Message \\
   > \$path_to_run/bkeeper_run_gpu.log &
 ################################################################################
@@ -616,12 +616,14 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Previous command for mpirun launch.
 #-------------------------------------------------------------------------------
+: \'
 mpirun \$bkeeper_build_dir/BKeeper \\
         --grid $_lattice_size_cpu \\
         --mpi $_mpi_distribution \\
         --accelerator-threads 8 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
         > \$path_to_run/bkeeper_run_gpu.log &
+\'
 EOF
 }
 ################################################################################
