@@ -1,4 +1,15 @@
 
+
+      Batch_body_Run_BKeeper_gpu                                                        \
+      "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
+      "${__path_to_run}${sptr}${__batch_file_out}"                                      \
+      "${bkeeper_lattice_size_cpu[$j]}"                                                 \
+      "${bkeeper_mpi_clock_gpu[$l]}"                                                    \
+      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
+      "${module_list}" "${sourcecode_dir}"
+
+
+
 mpirun \$bkeeper_build_dir/BKeeper \\
         --grid $_lattice_size_cpu \\
         --mpi $_mpi_distribution \\

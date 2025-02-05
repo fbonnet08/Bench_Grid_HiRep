@@ -587,9 +587,32 @@ EOF
       for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_gpu[@]} - 1`)
       do
 
-      for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
-      do
-        mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+
+# Generate all unique 4-number combinations
+nodes_x_gpus_per_node=$(echo "${bkeeper_small_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
+
+K=1
+_mpi_distr=""
+for ((i = 1; i <= mpi_max; i++)); do
+  for ((j = 1; j <= mpi_max; j++)); do
+    for ((k = 1; k <= mpi_max; k++)); do
+      for ((l = 1; l <= mpi_max; l++)); do
+        # Calculate the product of the four numbers
+        product=$((i * j * k * l))
+        # Check if the product is equals to number of nodes nodes
+        if ((product == nodes_x_gpus_per_node)); then
+          _mpi_distr="${i}.${j}.${k}.${l}"
+          #echo "$_mpi_distr"
+          K=$(expr $K + 1)
+        fi
+
+
+      #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
+      #do
+
+
+        #mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+        mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
 
         cnt=$(printf "%03d" "$H")
         index=$(printf "%03d" "$i")
@@ -648,14 +671,25 @@ EOF
       "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
       "${__path_to_run}${sptr}${__batch_file_out}"                                      \
       "${bkeeper_lattice_size_cpu[$j]}"                                                 \
-      "${bkeeper_mpi_clock_gpu[$l]}"                                                    \
+      "${_mpi_distr}"                                                                   \
       "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
       "${module_list}" "${sourcecode_dir}"
 
-      # incrementing the counter
-      L=$(expr $L + 1)
 
+
+      done
     done
+  done
+done
+
+
+
+      # incrementing the counter
+      #L=$(expr $L + 1)
+
+    #done
+
+
       H=$(expr $H + 1)
     done
     #  T=$(expr $T + 1)

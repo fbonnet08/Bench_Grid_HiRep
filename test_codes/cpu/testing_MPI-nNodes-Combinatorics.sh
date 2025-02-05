@@ -38,7 +38,8 @@ echo "nodes_x_gpus_per_node  --->: $nodes_x_gpus_per_node"
 echo "--------------------------------------------------"
 
 # Generate all unique 4-number combinations
-M=1
+K=1
+_mpi_distr=""
 for ((i = 1; i <= mpi_max; i++)); do
   for ((j = 1; j <= mpi_max; j++)); do
     for ((k = 1; k <= mpi_max; k++)); do
@@ -47,15 +48,16 @@ for ((i = 1; i <= mpi_max; i++)); do
         product=$((i * j * k * l))
         # Check if the product is equals to number of nodes nodes
         if ((product == nodes_x_gpus_per_node)); then
-          echo "${i}.${j}.${k}.${l}"
-          M=$(expr $M + 1)
+          _mpi_distr="${i}.${j}.${k}.${l}"
+          echo "$_mpi_distr"
+          K=$(expr $K + 1)
         fi
       done
     done
   done
 done
 echo "--------------------------------------------------"
-echo "Number of combinations --->: $M"
+echo "Number of combinations --->: $K"
 echo "--------------------------------------------------"
 #-------------------------------------------------------------------------------
 #End of the script
