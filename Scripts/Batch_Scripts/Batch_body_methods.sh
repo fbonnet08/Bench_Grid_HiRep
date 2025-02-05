@@ -553,7 +553,7 @@ mpirun -np \$SLURM_NTASKS \\
   "\$wrapper_script" "\${bkeeper_build_dir}"/BKeeper  \\
   "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
   --grid $_lattice_size_cpu \\
-  --mpi $_mpi_distribution \
+  --mpi $_mpi_distribution \\
   --accelerator-threads "\$OMP_NUM_THREADS" \\
   --shm \$shm \\
   --device-mem \$device_mem \\
