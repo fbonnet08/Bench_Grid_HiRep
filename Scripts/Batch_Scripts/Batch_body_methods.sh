@@ -435,6 +435,7 @@ fi
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
 then
+eof_end_string="EOF"
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
@@ -450,7 +451,8 @@ cat << EOF > select_gpu
 
 export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
 exec \\\$*
-"EOF"
+\"EOF\"
+$eof_end_string
 
 chmod +x ./select_gpu
 EOF
