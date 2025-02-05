@@ -590,19 +590,20 @@ EOF
 
 # Generate all unique 4-number combinations
 nodes_x_gpus_per_node=$(echo "${bkeeper_small_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
-
+echo "nodes_x_gpus_per_node --->: $nodes_x_gpus_per_node"
+echo "gpus_per_node         --->: $gpus_per_node"
 K=1
 _mpi_distr=""
-for ((i = 1; i <= mpi_max; i++)); do
-  for ((j = 1; j <= mpi_max; j++)); do
-    for ((k = 1; k <= mpi_max; k++)); do
-      for ((l = 1; l <= mpi_max; l++)); do
+for ((ix = 1; ix <= ntasks_per_node; ix++)); do
+  for ((iy = 1; iy <= ntasks_per_node; iy++)); do
+    for ((iz = 1; iz <= ntasks_per_node; iz++)); do
+      for ((it = 1; it <= ntasks_per_node; it++)); do
         # Calculate the product of the four numbers
-        product=$((i * j * k * l))
+        product=$((ix * iy * iz * it))
         # Check if the product is equals to number of nodes nodes
         if ((product == nodes_x_gpus_per_node)); then
-          _mpi_distr="${i}.${j}.${k}.${l}"
-          #echo "$_mpi_distr"
+          _mpi_distr="${ix}.${iy}.${iz}.${it}"
+          echo "_mpi_distr --->: $_mpi_distr"
           K=$(expr $K + 1)
         fi
 
