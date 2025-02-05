@@ -605,7 +605,7 @@ for ((ix = 1; ix <= ntasks_per_node; ix++)); do
           _mpi_distr="${ix}.${iy}.${iz}.${it}"
           echo "_mpi_distr --->: $_mpi_distr"
           K=$(expr $K + 1)
-        fi
+        #fi
 
 
       #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
@@ -676,7 +676,7 @@ EOF
       "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
       "${module_list}" "${sourcecode_dir}"
 
-
+fi
 
       done
     done
