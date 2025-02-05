@@ -448,8 +448,8 @@ CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 cat << EOF > select_gpu
 #!/bin/bash
 
-export ROCR_VISIBLE_DEVICES=\\$SLURM_LOCALID
-exec \\$*
+export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
+exec \\\$*
 \EOF
 
 chmod +x ./select_gpu
