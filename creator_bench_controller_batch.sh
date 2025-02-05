@@ -596,10 +596,10 @@ echo "gpus_per_node         --->: $gpus_per_node"
 echo "ntasks_per_node       --->: $ntasks_per_node"
 K=1
 _mpi_distr=""
-for ((ix = 1; ix <= ntasks_per_node; ix++)); do
-  for ((iy = 1; iy <= ntasks_per_node; iy++)); do
-    for ((iz = 1; iz <= ntasks_per_node; iz++)); do
-      for ((it = 1; it <= ntasks_per_node; it++)); do
+for ((ix = 1; ix <= gpus_per_node; ix++)); do
+  for ((iy = 1; iy <= gpus_per_node; iy++)); do
+    for ((iz = 1; iz <= gpus_per_node; iz++)); do
+      for ((it = 1; it <= gpus_per_node; it++)); do
         # Calculate the product of the four numbers
         product=$((ix * iy * iz * it))
         echo "product --->: $product"
@@ -713,6 +713,7 @@ done
       ;;
 esac
 
+echo ""
 echo "project_account --->: $__project_account"
 echo "core_count      --->: $_core_count"
 echo "mem_total       --->: $_mem_total"
