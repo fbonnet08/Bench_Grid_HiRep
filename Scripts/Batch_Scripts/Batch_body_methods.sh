@@ -317,17 +317,17 @@ cat << EOF >> "$_batch_file_out"
 # Export path and library paths
 #-------------------------------------------------------------------------------
 #Extending the library path
-export PREFIX_HOME=$prefix
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PREFIX_HOME/lib
+export PREFIX_HOME=\$prefix
+export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$PREFIX_HOME/lib
 
-echo "$LD_LIBRARY_PATH"
+echo "\$LD_LIBRARY_PATH"
 
-ls -al "$PREFIX_HOME/lib"
+ls -al "\$PREFIX_HOME/lib"
 #-------------------------------------------------------------------------------
 # Probing the file systems and getting some info
 #-------------------------------------------------------------------------------
-ls -al "${bkeeper_build_dir}"/BKeeper
-ls -al "${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
+ls -al "\${bkeeper_build_dir}"/BKeeper
+ls -al "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml
 EOF
 #-------------------------------------------------------------------------------
 # Export variables for the run
