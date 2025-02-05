@@ -441,15 +441,15 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 #wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Lumi.sh
 CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
-CPU_BIND="${CPU_BIND},7e0000,7e000000"
-CPU_BIND="${CPU_BIND},7e,7e00"
-CPU_BIND="${CPU_BIND},7e00000000,7e0000000000"
+CPU_BIND="\${CPU_BIND},7e0000,7e000000"
+CPU_BIND="\${CPU_BIND},7e,7e00"
+CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 
 cat << EOF > select_gpu
 #!/bin/bash
 
-export ROCR_VISIBLE_DEVICES=\$SLURM_LOCALID
-exec \$*
+export ROCR_VISIBLE_DEVICES=\\$SLURM_LOCALID
+exec \\$*
 \EOF
 
 chmod +x ./select_gpu
