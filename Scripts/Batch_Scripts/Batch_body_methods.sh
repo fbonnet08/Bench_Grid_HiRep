@@ -617,14 +617,25 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Previous command for mpirun launch.
 #-------------------------------------------------------------------------------
-: \'
+: '
 mpirun \$bkeeper_build_dir/BKeeper \\
         --grid $_lattice_size_cpu \\
         --mpi $_mpi_distribution \\
         --accelerator-threads 8 \\
         \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
         > \$path_to_run/bkeeper_run_gpu.log &
-\'
+
+
+21650  spack env activate cuda12-gcc13
+21654  spack add gcc@13.3.0
+21656  spack add ucx@1.15.0+cma+cuda+dc+dm+gdrcopy+mlx5_dv+rc+rdmacm+ud+verbs+xpmem cuda_arch=80
+21657  spack add openmpi@5.0.2+cuda fabrics=ucx schedulers=slurm
+21659  spack add cuda@12.6.3
+21660  spack add gdrcopy@2.3
+21661  spack concretize
+21662  spack install
+
+'
 EOF
 }
 ################################################################################
