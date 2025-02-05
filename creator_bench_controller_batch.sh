@@ -593,6 +593,7 @@ nodes_x_gpus_per_node=$(echo "${bkeeper_small_n_nodes_gpu[$i]}*$gpus_per_node"|b
 echo ""
 echo "nodes_x_gpus_per_node --->: $nodes_x_gpus_per_node"
 echo "gpus_per_node         --->: $gpus_per_node"
+echo "ntasks_per_node       --->: $ntasks_per_node"
 K=1
 _mpi_distr=""
 for ((ix = 1; ix <= ntasks_per_node; ix++)); do
