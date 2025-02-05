@@ -600,13 +600,13 @@ for ((ix = 1; ix <= ntasks_per_node; ix++)); do
       for ((it = 1; it <= ntasks_per_node; it++)); do
         # Calculate the product of the four numbers
         product=$((ix * iy * iz * it))
+        echo "_mpi_distr --->: $_mpi_distr"
         # Check if the product is equals to number of nodes nodes
         if ((product == nodes_x_gpus_per_node)); then
           _mpi_distr="${ix}.${iy}.${iz}.${it}"
-          echo "_mpi_distr --->: $_mpi_distr"
+          echo "product --->: $product"
           K=$(expr $K + 1)
         #fi
-
 
       #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
       #do
