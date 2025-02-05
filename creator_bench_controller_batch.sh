@@ -611,7 +611,6 @@ for ((ix = 1; ix <= ntasks_per_node; ix++)); do
       #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
       #do
 
-
         #mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
         mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
 
