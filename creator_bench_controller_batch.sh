@@ -577,9 +577,6 @@ EOF
     L=1
     T=1
     M=1
-    for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
-    do
-    mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
     #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     #do
     #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
@@ -589,6 +586,11 @@ EOF
 
       for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_gpu[@]} - 1`)
       do
+
+      for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
+      do
+        mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+
         cnt=$(printf "%03d" "$H")
         index=$(printf "%03d" "$i")
         n_nodes=$(printf "nodes%03d" "${bkeeper_small_n_nodes_gpu[$i]}";)
@@ -651,9 +653,10 @@ EOF
       "${module_list}" "${sourcecode_dir}"
 
       # incrementing the counter
-      H=$(expr $H + 1)
+      L=$(expr $L + 1)
+
     done
-    L=$(expr $L + 1)
+      H=$(expr $H + 1)
     done
     #  T=$(expr $T + 1)
     #done
