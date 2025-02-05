@@ -450,7 +450,7 @@ cat << EOF > select_gpu
 
 export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
 exec \\\$*
-\EOF
+"EOF"
 
 chmod +x ./select_gpu
 EOF
