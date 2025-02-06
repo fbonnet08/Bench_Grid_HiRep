@@ -1,4 +1,70 @@
 
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+cat << EOF >> "$_batch_file_out"
+# TODO: REMOVE NEXT LINES ......
+# TODO: REMOVE NEXT LINES ......
+#-------------------------------------------------------------------------------
+# Previous command for mpirun launch.
+#-------------------------------------------------------------------------------
+: '
+mpirun \$bkeeper_build_dir/BKeeper \\
+        --grid $_lattice_size_cpu \\
+        --mpi $_mpi_distribution \\
+        --accelerator-threads 8 \\
+        \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
+        > \$path_to_run/bkeeper_run_gpu.log &
+
+
+21650  spack env activate cuda12-gcc13
+21654  spack add gcc@13.3.0
+21656  spack add ucx@1.15.0+cma+cuda+dc+dm+gdrcopy+mlx5_dv+rc+rdmacm+ud+verbs+xpmem cuda_arch=80
+21657  spack add openmpi@5.0.2+cuda fabrics=ucx schedulers=slurm
+21659  spack add cuda@12.6.3
+21660  spack add gdrcopy@2.3
+21661  spack concretize
+21662  spack install
+
+'
+EOF
+
+
+
+
+#-------------------------------------------------------------------------------
+# Job description
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Output variable.
+#-------------------------------------------------------------------------------
+LatticeRuns_dir=$_LatticeRuns_dir
+path_to_run=$_path_to_run
+job_name=$_batch_file_construct
+#-------------------------------------------------------------------------------
+# Checking if run directory exists, if not create it.
+#-------------------------------------------------------------------------------
+if [ -d \${path_to_run} ]
+then
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
+else
+  printf "Directory              : ";
+  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
+  mkdir -p \${path_to_run}
+  printf "                       : "; printf "done.\n";
+fi
+#-------------------------------------------------------------------------------
+# Move to the directory where to run and linking to the BKeeper directory
+#-------------------------------------------------------------------------------
+cd \${path_to_run}
+EOF
+
+
+
     module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
 
 

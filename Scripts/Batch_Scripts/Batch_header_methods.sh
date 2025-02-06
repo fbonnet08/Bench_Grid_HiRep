@@ -21,9 +21,9 @@ Batch_header (){
 # Some default methods for initialisation.
 #-------------------------------------------------------------------------------
 echo "#!/bin/bash"
-echo "#SBATCH --job-name=$_job_name"
-echo "#SBATCH --output=%x.%j.out"
-echo "#SBATCH --error=%x.%j.err"
+echo "#SBATCH --job-name=$_job_name    # output files for the job"
+echo "#SBATCH --output=%x.out          # %x.%j.out output file"
+echo "#SBATCH --error=%x.err           # %x.%j.err error file"
 echo "#SBATCH --time=$_time"
 echo "#SBATCH --partition=$_partition"
 echo "#SBATCH --nodes=$_nodes"

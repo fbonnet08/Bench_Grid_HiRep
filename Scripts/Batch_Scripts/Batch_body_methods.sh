@@ -481,34 +481,6 @@ wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
 EOF
 fi
 #-------------------------------------------------------------------------------
-# Job description
-#-------------------------------------------------------------------------------
-cat << EOF >> "$_batch_file_out"
-#-------------------------------------------------------------------------------
-# Output variable.
-#-------------------------------------------------------------------------------
-LatticeRuns_dir=$_LatticeRuns_dir
-path_to_run=$_path_to_run
-job_name=$_batch_file_construct
-#-------------------------------------------------------------------------------
-# Checking if run directory exists, if not create it.
-#-------------------------------------------------------------------------------
-if [ -d \${path_to_run} ]
-then
-  printf "Directory              : ";
-  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
-else
-  printf "Directory              : ";
-  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
-  mkdir -p \${path_to_run}
-  printf "                       : "; printf "done.\n";
-fi
-#-------------------------------------------------------------------------------
-# Move to the directory where to run and linking to the BKeeper directory
-#-------------------------------------------------------------------------------
-cd \${path_to_run}
-EOF
-#-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -528,10 +500,9 @@ srun --cpu-bind=\${CPU_BIND} \\
   --accelerator-threads "\$OMP_NUM_THREADS" \\
   --shm \$shm \\
   --device-mem \$device_mem \\
-  --log Error,Warning,Message \\
-  > \$path_to_run/bkeeper_run_gpu.log &
+  --log Error,Warning,Message
 ################################################################################
-rm -rf ./select_gpu
+#rm -rf ./select_gpu
 #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "tursa"    || \
@@ -557,8 +528,7 @@ mpirun -np \$SLURM_NTASKS \\
   --accelerator-threads "\$OMP_NUM_THREADS" \\
   --shm \$shm \\
   --device-mem \$device_mem \\
-  --log Error,Warning,Message \\
-  > \$path_to_run/bkeeper_run_gpu.log &
+  --log Error,Warning,Message
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
@@ -605,37 +575,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #export OMPI_MCA_PML="ucx"
 #export OMPI_MCA_osc="ucx"
 #-------------------------------------------------------------------------------
-EOF
-# TODO: REMOVE NEXT LINES ......
-# TODO: REMOVE NEXT LINES ......
-# TODO: REMOVE NEXT LINES ......
-# TODO: REMOVE NEXT LINES ......
-# TODO: REMOVE NEXT LINES ......
-cat << EOF >> "$_batch_file_out"
-# TODO: REMOVE NEXT LINES ......
-# TODO: REMOVE NEXT LINES ......
-#-------------------------------------------------------------------------------
-# Previous command for mpirun launch.
-#-------------------------------------------------------------------------------
-: '
-mpirun \$bkeeper_build_dir/BKeeper \\
-        --grid $_lattice_size_cpu \\
-        --mpi $_mpi_distribution \\
-        --accelerator-threads 8 \\
-        \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
-        > \$path_to_run/bkeeper_run_gpu.log &
-
-
-21650  spack env activate cuda12-gcc13
-21654  spack add gcc@13.3.0
-21656  spack add ucx@1.15.0+cma+cuda+dc+dm+gdrcopy+mlx5_dv+rc+rdmacm+ud+verbs+xpmem cuda_arch=80
-21657  spack add openmpi@5.0.2+cuda fabrics=ucx schedulers=slurm
-21659  spack add cuda@12.6.3
-21660  spack add gdrcopy@2.3
-21661  spack concretize
-21662  spack install
-
-'
 EOF
 }
 ################################################################################
