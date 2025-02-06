@@ -1,4 +1,8 @@
 
+
+echo "$(hostname)  --->: $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
+
+
           #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
           #fi
           #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)

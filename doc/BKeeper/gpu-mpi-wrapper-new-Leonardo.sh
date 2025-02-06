@@ -13,8 +13,9 @@ export UCX_NET_DEVICES=${netdev}
 BINDING="--interleave=$numa1"
 
 echo "BINDING      --->: $BINDING"
-echo "$(hostname)  --->: $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
-
 echo "numa command --->: numactl ${BINDING} $@"
 
+echo "$(hostname) - $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
+
 numactl ${BINDING} "$@"
+687
