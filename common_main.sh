@@ -189,7 +189,7 @@ case $machine_name in
     ;;
   *"lumi"*)
     module list;
-    module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
+    module_list="module load cray-mpich cray-fftw; module list;"
     ;;
   *"leonardo"*)
     #module list;

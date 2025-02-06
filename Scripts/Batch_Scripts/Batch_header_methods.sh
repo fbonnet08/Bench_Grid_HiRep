@@ -22,8 +22,8 @@ Batch_header (){
 #-------------------------------------------------------------------------------
 echo "#!/bin/bash"
 echo "#SBATCH --job-name=$_job_name"
-echo "#SBATCH --output=%x.%j_$_job_name.out"
-echo "#SBATCH --error=%x.%j_$_job_name.err"
+echo "#SBATCH --output=%x.%j.out"
+echo "#SBATCH --error=%x.%j.err"
 echo "#SBATCH --time=$_time"
 echo "#SBATCH --partition=$_partition"
 echo "#SBATCH --nodes=$_nodes"

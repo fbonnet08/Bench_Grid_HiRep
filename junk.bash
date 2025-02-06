@@ -1,4 +1,7 @@
 
+    module_list="module load cray-mpich/8.1.29 gcc/12.2.0; module list;"
+
+
 
       Batch_body_Run_BKeeper_gpu                                                        \
       "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
