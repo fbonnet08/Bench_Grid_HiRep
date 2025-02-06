@@ -1,4 +1,22 @@
 
+          #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
+          #fi
+          #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
+          #do
+
+          #mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+          # Orchestrating the file construction
+          #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")
+          #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
+
+
+        echo ""
+        echo "nodes_x_gpus_per_node --->: $nodes_x_gpus_per_node"
+        echo "gpus_per_node         --->: $gpus_per_node"
+        echo "ntasks_per_node       --->: $ntasks_per_node"
+
+
+
 # TODO: REMOVE NEXT LINES ......
 # TODO: REMOVE NEXT LINES ......
 # TODO: REMOVE NEXT LINES ......

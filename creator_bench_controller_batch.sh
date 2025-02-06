@@ -586,14 +586,10 @@ EOF
 
       for i in $(seq 0 `expr ${#bkeeper_small_n_nodes_gpu[@]} - 1`)
       do
+        # Generate all unique 4-number combinations
+        nodes_x_gpus_per_node=$(echo "${bkeeper_small_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
 
-
-# Generate all unique 4-number combinations
-nodes_x_gpus_per_node=$(echo "${bkeeper_small_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
-echo ""
-echo "nodes_x_gpus_per_node --->: $nodes_x_gpus_per_node"
-echo "gpus_per_node         --->: $gpus_per_node"
-echo "ntasks_per_node       --->: $ntasks_per_node"
+# Combinatorics loop over MPI distributions
 K=1
 _mpi_distr=""
 for ((ix = 1; ix <= gpus_per_node; ix++)); do
@@ -602,59 +598,47 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
       for ((it = 1; it <= gpus_per_node; it++)); do
         # Calculate the product of the four numbers
         product=$((ix * iy * iz * it))
-        echo "product --->: $product"
+        #echo "product --->: $product"
         # Check if the product is equals to number of nodes nodes
         if ((product == nodes_x_gpus_per_node)); then
           _mpi_distr="${ix}.${iy}.${iz}.${it}"
-          echo "_mpi_distr --->: $_mpi_distr"
+          #echo "_mpi_distr --->: $_mpi_distr"
           K=$(expr $K + 1)
-        #fi
+          mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
 
-      #for l in $(seq 0 `expr ${#bkeeper_mpi_clock_gpu[@]} - 1`)
-      #do
+          cnt=$(printf "%03d" "$H")
+          index=$(printf "%03d" "$i")
+          n_nodes=$(printf "nodes%03d" "${bkeeper_small_n_nodes_gpu[$i]}";)
+          __mpi_distr_FileTag=$(printf "${mpi_distr}")
+          __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_out=$(printf "${__batch_file_construct}.sh")
+          __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-        #mpi_distr=$(printf "mpi%s" "${bkeeper_mpi_clock_gpu[$l]}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
-        mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+          #$cyan;printf "bkeeper_small_n_nodes_gpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+          $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+          # Creating the path in question
+          Batch_util_create_path "${__path_to_run}"
+          # Now creating the Batch file: __batch_file_out in __path_to_run
+          $white; printf "                       : ";
+          $yellow; printf "Creating the Batch script from the methods: "; $bold;
+          $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
-        cnt=$(printf "%03d" "$H")
-        index=$(printf "%03d" "$i")
-        n_nodes=$(printf "nodes%03d" "${bkeeper_small_n_nodes_gpu[$i]}";)
-        # Orchestrating the file construction
-        #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")
-        __mpi_distr_FileTag=$(printf "${mpi_distr}")
-        #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${ntpn}_${__mpi_distr_FileTag}_${__simulation_size}")
-        __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
-        __batch_file_out=$(printf "${__batch_file_construct}.sh")
-        #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
-        __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+          #ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
+          #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          ntasks_per_node="$gpus_per_node"
+          config_Batch_with_input_from_system_config \
+            "${bkeeper_small_n_nodes_gpu[$i]}"       \
+            "${_core_count}"                         \
+            "$ntasks_per_node"                       \
+            "$gpus_per_node"                         \
+            "$target_partition_gpu"                  \
+            "${__batch_file_construct}"              \
+            "01:00:00"                               \
+            "$qos"
 
-        #$cyan;printf "bkeeper_small_n_nodes_gpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
-        $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
-
-        # Creating the path in question
-        Batch_util_create_path "${__path_to_run}"
-
-        # Now creating the Batch file: __batch_file_out in __path_to_run
-        $white; printf "                       : ";
-        $yellow; printf "Creating the Batch script from the methods: "; $bold;
-        $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
-
-        # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-        #ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
-        #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
-        ntasks_per_node="$gpus_per_node"
-        config_Batch_with_input_from_system_config \
-          "${bkeeper_small_n_nodes_gpu[$i]}"       \
-          "${_core_count}"                         \
-          "$ntasks_per_node"                       \
-          "$gpus_per_node"                         \
-          "$target_partition_gpu"                  \
-          "${__batch_file_construct}"              \
-          "01:00:00"                               \
-          "$qos"
-
-        # Writing the header to files
-        cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
+          # Writing the header to files
+          cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
 $(Batch_header ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
@@ -666,32 +650,26 @@ $(
           esac
     )
 EOF
-      #-------------------------------------------------------------------------
-      # Constructing the rest of the batch file body
-      #-------------------------------------------------------------------------
-      Batch_body_Run_BKeeper_gpu                                                        \
-      "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
-      "${__path_to_run}${sptr}${__batch_file_out}"                                      \
-      "${bkeeper_lattice_size_cpu[$j]}"                                                 \
-      "${_mpi_distr}"                                                                   \
-      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
-      "${module_list}" "${sourcecode_dir}"
+          #-------------------------------------------------------------------------
+          # Constructing the rest of the batch file body
+          #-------------------------------------------------------------------------
+          Batch_body_Run_BKeeper_gpu                                                          \
+            "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
+            "${__path_to_run}${sptr}${__batch_file_out}"                                      \
+            "${bkeeper_lattice_size_cpu[$j]}"                                                 \
+            "${_mpi_distr}"                                                                   \
+            "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
+            "${module_list}" "${sourcecode_dir}"
 
-fi
+        fi
 
       done
     done
   done
 done
-
-
-
-      # incrementing the counter
-      #L=$(expr $L + 1)
-
-    #done
-
-
+        # incrementing the counter
+        #L=$(expr $L + 1)
+      #done
       H=$(expr $H + 1)
     done
     #  T=$(expr $T + 1)
