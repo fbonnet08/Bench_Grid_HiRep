@@ -1,6 +1,6 @@
-<mxfile host="drawio-plugin" modified="2025-02-06T18:01:58.203Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="22.1.22" etag="70ZBGo17zIAkMZWKj2p-" type="embed">
+<mxfile host="drawio-plugin" modified="2025-02-06T18:34:55.013Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="22.1.22" etag="gpz342C0Ea1jfqxkjoYx" type="embed">
   <diagram id="1A0_N6WVCGxHhhMu5QUB" name="Page-1">
-    <mxGraphModel dx="988" dy="540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1729" dy="944" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -48,7 +48,7 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="9" value="update_gmhc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="9" value="update_ghmc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="200" y="640" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="10" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="7">
@@ -170,7 +170,7 @@
             <mxPoint x="-1" y="-20" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="33" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="30" target="9">
+        <mxCell id="33" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="30" target="9">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="50" y="980" as="sourcePoint" />
             <mxPoint x="190" y="1040" as="targetPoint" />
@@ -180,12 +180,12 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="35" value="For loop&lt;br&gt;i=flow[start,end]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="33">
+        <mxCell id="35" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br&gt;i=flow[start,end]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="33">
           <mxGeometry x="0.1749" y="-1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="36" value="update_gmhc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="36" value="update_ghmc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="560" y="640" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="37" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9" target="36">
@@ -368,6 +368,174 @@
               <mxPoint x="400" y="370" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="73" value="thermrobbinsmonro" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="74" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="39" target="65">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="620" as="sourcePoint" />
+            <mxPoint x="630" y="650" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="560" />
+              <mxPoint x="1000" y="560" />
+              <mxPoint x="1000" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="75" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="65" target="73">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1110" y="590" as="sourcePoint" />
+            <mxPoint x="1110" y="650" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1100" y="730" />
+              <mxPoint x="1100" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="76" value="&lt;font color=&quot;#ff66ff&quot;&gt;file:&lt;br&gt;./LibHR/Update/llr.c&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="75">
+          <mxGeometry x="-0.0202" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="77" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="73" target="73">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1160" y="980" as="sourcePoint" />
+            <mxPoint x="1429.97" y="639.97" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="840" />
+              <mxPoint x="1240" y="840" />
+              <mxPoint x="1240" y="740" />
+              <mxPoint x="1160" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="79" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;i=flow.therm[start,end]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="77">
+          <mxGeometry x="0.0003" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="80" value="newtonraphson" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="81" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="73" target="80">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1260" y="930" as="sourcePoint" />
+            <mxPoint x="1260" y="990" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1100" y="850" />
+              <mxPoint x="1100" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="82" value="&lt;font color=&quot;#ff66ff&quot;&gt;file:&lt;br&gt;./LibHR/Update/llr.c&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="81">
+          <mxGeometry x="-0.0202" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="83" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="80" target="80">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1170" y="940" as="sourcePoint" />
+            <mxPoint x="1170" y="880" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="960" />
+              <mxPoint x="1240" y="960" />
+              <mxPoint x="1240" y="860" />
+              <mxPoint x="1160" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="84" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;i=llr_var.[N_nr]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="83">
+          <mxGeometry x="0.0003" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="86" value="robbinsmonro" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1000" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="87" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="86" source="80">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1100" y="950" as="sourcePoint" />
+            <mxPoint x="1260" y="1120" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="88" value="&lt;font color=&quot;#ff66ff&quot;&gt;file:&lt;br&gt;./LibHR/Update/llr.c&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="87">
+          <mxGeometry x="-0.0202" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="89" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="86" target="86">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1170" y="1070" as="sourcePoint" />
+            <mxPoint x="1170" y="1010" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="1080" />
+              <mxPoint x="1240" y="1080" />
+              <mxPoint x="1240" y="980" />
+              <mxPoint x="1160" y="980" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="90" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;i=flow.[start,end]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="89">
+          <mxGeometry x="0.0003" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="91" value="llr_fixed_a_update" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="92" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="91" source="86">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1100" y="1060" as="sourcePoint" />
+            <mxPoint x="1260" y="1230" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93" value="&lt;font color=&quot;#ff66ff&quot;&gt;file:&lt;br&gt;./LibHR/Update/llr.c&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="92">
+          <mxGeometry x="-0.0202" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="94" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="91" target="91">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1170" y="1180" as="sourcePoint" />
+            <mxPoint x="1170" y="1120" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="1200" />
+              <mxPoint x="1240" y="1200" />
+              <mxPoint x="1240" y="1100" />
+              <mxPoint x="1160" y="1100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="95" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;i=llr_var[start,end]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="94">
+          <mxGeometry x="0.0003" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="96" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;dashed=1;strokeColor=#007FFF;" edge="1" parent="1" source="91" target="73">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1390" y="1169.97" as="sourcePoint" />
+            <mxPoint x="1390" y="1109.97" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1130" y="1220" />
+              <mxPoint x="1320" y="1220" />
+              <mxPoint x="1320" y="720" />
+              <mxPoint x="1130" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="97" value="&lt;font color=&quot;#007fff&quot;&gt;For loop&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;i=flow.[rmrestart]&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="96">
+          <mxGeometry x="0.0003" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="98" value="umbrella_swap" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="1240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="99" value="update_llr_ghmc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="1240" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
