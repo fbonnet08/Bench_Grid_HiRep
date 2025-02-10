@@ -1,0 +1,9 @@
+testcode_cpu_dataManage_code: testcode_cpu_cuda_code \
+                              testcode_cpu_cpp_code  \
+                              testcode_cpu_c_code    ;
+
+testcode_cpu_cuda_code: testing_Network.o            ;
+
+testcode_cpu_cpp_code: testing_ChronoTime.o          ;
+
+testcode_cpu_c_code:                                 ;

@@ -1,0 +1,10 @@
+utils_dataManage_code: utils_cuda_code \
+                       utils_c_code    ;
+
+utils_cuda_code: cmdLine.o             \
+                 deviceTools_gpu.o     \
+                 get_deviceQuery_gpu.o \
+                 get_systemQuery_cpu.o \
+                 timming.o             ;
+
+utils_c_code:                          ;

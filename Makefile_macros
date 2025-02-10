@@ -2,7 +2,8 @@
 
 ####### The project path #####
 
-DataManage_source=/home/frederic/Leiden/SourceCode/DataManage_project
+DataManage_source=/home/Frederic/SwanSea/SourceCodes/Bench_Grid_HiRep
+#/home/frederic/Leiden/SourceCode/DataManage_project
 #/home/frederic/Leiden/SourceCode/Simple_Restruct.projet
 
 ####### The switches #####
@@ -14,7 +15,6 @@ DOPENCV = -DOPENCV
 DOPENGL = -DOPENGL
 DGSL = -DGSL
 DQT = -DQT
-DMAGMA = -DMAGMA
 DMKL = -DMKL
 DSIMPLE_MPI = -DSIMPLE_MPI
 DBENCH = -DBENCH
@@ -38,110 +38,69 @@ GFORTRAN=gfortran
 
 ####### The CUDA and MAGMA paths #####
 
-CUDADIR=/usr/local/cuda
-
-MAGMADIR=/opt/Devel_tools/magma-1.6.1
-MAGMADIR_CONTROL=$(MAGMADIR)/control
-MAGMADIR_INCLUDE=$(MAGMADIR)/include
-
-####### The OpenCL paths #####
-
-OPT_DEV_TOOLS_NVIDIA = /opt/Devel_tools/NVIDIA_GPU_Computing_SDK
+#CUDADIR=/usr/local/cuda
+CUDADIR=/mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/
 
 ####### Set MAGMA-ADDONS={Magma version} to compile Magma addons. #####
 
-GPU_MODEL=0.0     #0: tesla arch, 1: fermi arch 
-
+GPU_MODEL=0.0     #0: tesla arch, 1: fermi arch
+GPU_SM=sm_52
+GPUS_HMEM=520
 ####### Modules and objects directories. #####
 
 OBJDIR=obj/GFORTgpu
 MODDIR=obj/GFORTgpu
+DataManage_source_inc=$(DataManage_source)/include
 
 ##############
 # C compiler.#
 ##############
-#                      -I $(DataManage_source)/src/include/relionImports           \
-#                      -I $(DataManage_source)/src/include/relionImports           \
-#                      -I $(DataManage_source)                                     \
-#                      -I $(DataManage_source)                                     \
-
 CC=$(CCCOMP)
-CFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -O -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMAGMA
+CFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -O -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL
 CCLIB=$(CC) $(CFLAGS) -I $(MODDIR)                                                \
-                      -I $(OPT_DEV_TOOLS_NVIDIA)/OpenCL/common/inc/               \
-                      -I $(OPT_DEV_TOOLS_NVIDIA)/shared/inc/                      \
+                      -I $(DataManage_source_inc)                                 \
                       -I $(CUDADIR)/include/                                      \
                       -I $(CUDADIR)/src                                           \
-                      -I $(MAGMADIR_INCLUDE)                                      \
-                      -I $(MAGMADIR_CONTROL)                                      \
                       -I $(MPIDIR_INCLUDE)                                        \
                       -I $(DataManage_source)/src/include                         \
-	              -I $(DataManage_source)/cuda/include/dataManage
+                      -I $(DataManage_source)/cuda/include/dataManage
 
 ################
 # C++ compiler.#
 ################
-QT_INC= -I. -isystem $(LINUX_INC)/qt5                 \
-            -isystem $(LINUX_INC)/qt5/QtPrintSupport  \
-            -isystem $(LINUX_INC)/qt5/QtWidgets       \
-            -isystem $(LINUX_INC)/qt5/QtGui           \
-            -isystem $(LINUX_INC)/qt5/QtCore          \
-            -I $(LINUX_LIB)/qt5/mkspecs/linux-g++-64
-
-OPTION_QT= -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB \
-           -DQT_GUI_LIB -DQT_CORE_LIB
-
 CPP=$(GCC) -std=c++11
-CPPFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMAGMA -DGL_GLEXT_PROTOTYPES \
-         $(OPTION_QT) 
+CPPFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DGL_GLEXT_PROTOTYPES
+
 CPPCLIB=$(CPP) $(CPPFLAGS) -I $(MODDIR)                                                \
-                           -I $(OPT_DEV_TOOLS_NVIDIA)/OpenCL/common/inc/               \
-                           -I $(OPT_DEV_TOOLS_NVIDIA)/shared/inc/                      \
+                           -I $(DataManage_source_inc)                                 \
+                           -I $(LINUX_INC)                                             \
                            -I $(CUDADIR)/include/                                      \
                            -I $(CUDADIR)/src                                           \
-                           -I $(MAGMADIR_INCLUDE)                                      \
-                           -I $(MAGMADIR_CONTROL)                                      \
                            -I $(MPIDIR_INCLUDE)                                        \
-                           -I $(DataManage_source)/src/include                         \
-                           -I $(DataManage_source)/src/include/relionImports           \
-                           -I $(DataManage_source)/src/include/OpenGL                  \
-                           -I $(DataManage_source)/cuda/include/dataManage
-                           #$(QT_INC)
+                           -I $(DataManage_source)/src/include
 
 #################
 # CUDA compiler.#
 #################
-
 #ifeq ($(GPU_MODEL),0.0)
 #	PUSHMEM_GPU= -arch sm_13 -DGPUSHMEM=130 -gencode arch=compute_13,code=compute_13 -gencode arch=compute_10,code=compute_10
 #else
 #PUSHMEM_GPU= -arch sm_20 -DGPUSHMEM=200 -gencode arch=compute_20,code=compute_20
-PUSHMEM_GPU= -arch sm_35 -DGPUSHMEM=350 -gencode arch=compute_35,code=compute_35
+PUSHMEM_GPU= -arch $(GPU_SM) -DGPUSHMEM=$(GPUS_HMEM) -gencode arch=compute_52,code=compute_52
 #endif
 
-NVCC=$(CUDADIR)/bin/nvcc -std=c++11
-NVCCFLAGS= --ptxas-options=-v $(PUSHMEM_GPU) -O3 -DADD_ -DBENCH -DCUDA -DMAGMA -DOPENCV -DOPENGL -DGSL
+#NVCC=$(CUDADIR)/bin/nvcc -std=c++14
+NVCC=$(CUDADIR)/bin/nvcc.exe -std=c++11 -allow-unsupported-compiler
+NVCCFLAGS= --ptxas-options=-v $(PUSHMEM_GPU) -O3 -DADD_ -DBENCH -DCUDA -DOPENCV -DOPENGL -DGSL
 NVCCFLAGS += -D_FORCE_INLINES -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS)
-NVCCCLIB=$(NVCC) $(NVCCFLAGS) -I $(MODDIR)                                                 \
-                                -I $(CUDADIR)/include                                      \
-                                -I $(MAGMADIR_INCLUDE)                                     \
-                                -I $(MAGMADIR_CONTROL)                                     \
-                                -I $(DataManage_source)/src/include                        \
-                                -I $(DataManage_source)/src/include/relionImports          \
-                                -I $(DataManage_source)/src/include/OpenGL                 \
-                                -I $(DataManage_source)/cuda/include/dataManage
-
-#-I $(DataManage_source)/src/deepLearning/FreeImage/include \
-#                                -I $(DataManage_source)/src/simple_gpu/cuda/cub            \
-#                                -I $(DataManage_source)/include/cuda                       \
-#                                -I $(DataManage_source)/include                            \
-#                                -I $(DataManage_source)/include/simple
-
+NVCCCLIB=$(NVCC) $(NVCCFLAGS) -I $(MODDIR)                                             \
+                              -I $(DataManage_source_inc)                              \
+                              -I $(CUDADIR)/include                                    \
+                              -I $(DataManage_source)/src/include
 
 #######################
 # Fortran 77 compiler.#
 #######################
-
 F77C=$(GFORTRAN)
 F77FLAGS=-O3 -cpp
 F77CLIB=$(F77C) $(F77FLAGS)
@@ -149,34 +108,27 @@ F77CLIB=$(F77C) $(F77FLAGS)
 #######################
 # Fortran 90 compiler.#
 #######################
-
-# $(DLIB)
 F90C=$(GFORTRAN)
-F90FLAGS=-ffree-form -cpp -fno-second-underscore -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMAGMA -DMKL -DSIMPLE_MPI
-F90FLAGS77=-ffixed-form -cpp -fPIC -fno-second-underscore -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMAGMA -DMKL -DSIMPLE_MPI
+F90FLAGS=-ffree-form -cpp -fno-second-underscore -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMKL -DSIMPLE_MPI
+F90FLAGS77=-ffixed-form -cpp -fPIC -fno-second-underscore -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DMKL -DSIMPLE_MPI
 F90CLIB=$(F90C) $(F90FLAGS) -I .                                   \
                             -I $(MODDIR)                           \
                             -J $(MODDIR)                           \
                             -I $(MPIDIR_INCLUDE)                   \
-                            -I $(MAGMADIR_INCLUDE)                 \
-                            -I $(MAGMADIR_CONTROL)                 \
-                            -I $(DataManage_source)/include/simple
+                            -I $(DataManage_source)/include
 
 
 F90CLIB77=$(F90C) $(F90FLAGS77) -I .                                   \
                                 -I $(MODDIR)                           \
                                 -J $(MODDIR)                           \
                                 -I $(MPIDIR_INCLUDE)                   \
-                                -I $(MAGMADIR_INCLUDE)                 \
-                                -I $(MAGMADIR_CONTROL)                 \
-                                -I $(DataManage_source)/include/simple
+                                -I $(DataManage_source)/include
 
 F90POST=
 
 #######################
 # MPIF90 compiler.    #
 #######################
-
 MPIF90C=$(MPIFORTRAN)
 MPIF90FLAGS=-ffree-form -cpp -fno-second-underscore -O3 -DLINUX -DBENCH
 MPIF90FLAGS77=-ffixed-form -cpp -fPIC -fno-second-underscore -O3 -DLINUX -DBENCH
@@ -184,13 +136,13 @@ MPIF90CLIB=$(MPIF90C) $(MPIF90FLAGS) -I .                             \
                                -I $(MODDIR)                           \
                                -J $(MODDIR)                           \
                                -I $(MPIDIR_INCLUDE)                   \
-                               -I $(DataManage_source)/include/simple
+                               -I $(DataManage_source)/include
 
 MPIF90CLIB77=$(MPIF90C) $(MPIF90FLAGS77) -I .                            \
                                   -I $(MODDIR)                           \
                                   -J $(MODDIR)                           \
                                   -I $(MPIDIR_INCLUDE)                   \
-                                  -I $(DataManage_source)/include/simple
+                                  -I $(DataManage_source)/include
 
 MPIF90POST=
 

@@ -654,6 +654,7 @@ EOF
           # Constructing the rest of the batch file body
           #-------------------------------------------------------------------------
           Batch_body_Run_BKeeper_gpu                                                          \
+
             "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
             "${__path_to_run}${sptr}${__batch_file_out}"                                      \
             "${bkeeper_lattice_size_cpu[$j]}"                                                 \
