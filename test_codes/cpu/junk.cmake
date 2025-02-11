@@ -1,4 +1,30 @@
 
+
+
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fPIC --ptxas-options=-v")
+
+
+
+
+find_path(CUFFT_INCLUDE_DIR cufft.h PATH_SUFFIXES include PATHS ${FIND_CUDA_PATHS} NO_CACHE)
+find_path(CUFFTXT_INCLUDE_DIR cufftXt.h PATH_SUFFIXES include PATHS ${FIND_CUDA_PATHS})
+find_path(GRID_INCLUDE_DIR Grid.h PATH_SUFFIXES Grid PATHS ${GRID_DIR})
+cmake_print_variables(CUFFT_INCLUDE_DIR)
+cmake_print_variables(CUFFTXT_INCLUDE_DIR)
+cmake_print_variables(GRID_INCLUDE_DIR)
+
+
+
+include_directories(${CUFFT_INCLUDE_DIR})
+
+
+
+
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${CUFFT_LIBRARY} ${CUDA_LIBRARY} ${CUDART_LIBRARY} ${GRID_LIBRARY})
+
+
+
+
         include/Sockets.cuh
         include/Network.cuh
         include/Adapters.cuh

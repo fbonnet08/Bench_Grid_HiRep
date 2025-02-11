@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.30)
 include(CMakePrintHelpers)
 
+set(CUDA_PATHS C:/Program Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2)
+cmake_print_variables(CUDA_PATHS)
+
+set(CUDA_BIN_PATHS C:/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/bin/)
+cmake_print_variables(CUDA_BIN_PATHS)
+set(CUDA_INCLUDE_PATHS C:/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/include)
+cmake_print_variables(CUDA_INCLUDE_PATHS)
+
+set(CMAKE_CUDA_HOST_COMPILER "${CUDA_BIN_PATHS}")
 
 project(Bench_Grid_HiRep CUDA)
 
@@ -46,5 +55,25 @@ set(SOURCE_FILES
 add_executable(Bench_Grid_HiRep main.cu ${SOURCE_FILES} )
 
 
+find_library(CUFFT_LIBRARY NAMES cufft PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+find_library(CUDA_LIBRARY NAMES cuda PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+find_library(CUDART_LIBRARY NAMES cuda cudart PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+cmake_print_variables(CUFFT_LIBRARY)
+cmake_print_variables(CUDA_LIBRARY)
+cmake_print_variables(CUDART_LIBRARY)
+
+set(GRID_DIR C:/cygwin64/home/Frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid)
+set(GRID_INCLUDE_DIR C:/cygwin64/home/Frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid/Grid)
+
+include_directories(${GRID_DIR})
+include_directories(${GRID_INCLUDE_DIR})
+
+find_library(GRID_LIBRARY NAMES Grid PATH_SUFFIXES build/Grid PATHS ${GRID_DIR})
+
+cmake_print_variables(GRID_DIR)
+cmake_print_variables(GRID_INCLUDE_DIR)
+cmake_print_variables(GRID_LIBRARY)
+
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${CUFFT_LIBRARY} ${CUDA_LIBRARY} ${CUDART_LIBRARY} ${GRID_LIBRARY})
 
 set_target_properties(Bench_Grid_HiRep PROPERTIES CUDA_SEPARABLE_COMPILATION ON)

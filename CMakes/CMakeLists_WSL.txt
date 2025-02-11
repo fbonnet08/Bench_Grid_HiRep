@@ -1,0 +1,84 @@
+cmake_minimum_required(VERSION 3.25)
+include(CMakePrintHelpers)
+
+include(CMakePrintHelpers)
+# /mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/bin/nvcc.exe
+set(CUDA_PATHS /mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2)
+cmake_print_variables(CUDA_PATHS)
+
+set(CUDA_BIN_PATHS /mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/bin/)
+cmake_print_variables(CUDA_BIN_PATHS)
+set(CUDA_INCLUDE_PATHS /mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/include)
+cmake_print_variables(CUDA_INCLUDE_PATHS)
+
+set(CMAKE_CUDA_HOST_COMPILER "${CUDA_BIN_PATHS}")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fPIC --ptxas-options=-v")
+
+project(Bench_Grid_HiRep CUDA)
+
+set(CMAKE_CUDA_STANDARD 17)
+
+add_definitions(-DLINUX -DCUDA)
+
+set(SOURCE_FILES
+        include/dataDeviceManag.cuh
+        include/Exception.cuh
+        include/common.cuh
+        include/GetPID.h
+        include/common_krnl.cuh
+        include/carte_mesh_3D.cuh
+        include/cuAtomics.cuh
+        include/timming.cuh
+        include/get_deviceQuery_gpu.cuh
+        include/get_systemQuery_cpu.cuh
+        include/cmdLine.cuh
+        include/resmap_Sizes.cuh
+        include/common_Helpr_gpu.cuh
+        include/deviceTools_gpu.cuh
+        include/testing_unitTest.cuh
+        utils/cmdLine.cu
+        utils/deviceTools_gpu.cu
+        utils/get_deviceQuery_gpu.cu
+        utils/get_systemQuery_cpu.cu
+        utils/timming.cu
+        src/GetPID.cpp
+        src/carte_mesh_3D.cu
+        src/dataDeviceManag.cu
+        src/resmap_Sizes.cu
+        src/common_Helpr_gpu.cu
+        src/common_krnl_gpu.cu
+        test_codes/cpu/testing_ChronoTime.cpp
+        test_codes/gpu/cuda/testing_unitTest.cu
+        test_codes/cpu/testing_Network.cu
+        test_codes/cpu/testing_Network.cuh
+        global.cu
+        global.cuh
+)
+
+add_executable(Bench_Grid_HiRep main.cu ${SOURCE_FILES} )
+
+
+find_library(CUFFT_LIBRARY NAMES cufft PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+find_library(CUDA_LIBRARY NAMES cuda PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+find_library(CUDART_LIBRARY NAMES cuda cudart PATH_SUFFIXES lib/x64 PATHS ${CUDA_PATHS})
+cmake_print_variables(CUFFT_LIBRARY)
+cmake_print_variables(CUDA_LIBRARY)
+cmake_print_variables(CUDART_LIBRARY)
+
+set(GRID_DIR C:/cygwin64/home/Frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid)
+set(GRID_INCLUDE_DIR C:/cygwin64/home/Frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid/Grid)
+set(WSL_INCLUDE_DIR \\\\wsl.localhost/Debian/usr/include )
+
+include_directories(${GRID_DIR})
+include_directories(${GRID_INCLUDE_DIR})
+
+find_library(GRID_LIBRARY NAMES Grid PATH_SUFFIXES build/Grid PATHS ${GRID_DIR})
+
+cmake_print_variables(GRID_DIR)
+cmake_print_variables(GRID_INCLUDE_DIR)
+cmake_print_variables(GRID_LIBRARY)
+cmake_print_variables(WSL_INCLUDE_DIR)
+
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${CUFFT_LIBRARY} ${CUDA_LIBRARY} ${CUDART_LIBRARY} ${GRID_LIBRARY})
+
+set_target_properties(Bench_Grid_HiRep PROPERTIES CUDA_SEPARABLE_COMPILATION ON)

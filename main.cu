@@ -1,12 +1,9 @@
 //System includes
 #include <iostream>
-//Time related includes
-//#include <time.h>
 #include <chrono>
 
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
-//#include <cuda_device_runtime_api.h>
 #include <cufftXt.h>
 #include <cufft.h>
 #include <cuda.h>
@@ -14,19 +11,18 @@
 // Global include
 #include "global.cuh"
 // Other application include
-//#include "include/common.cuh"
 #include "include/GetPID.h"
 #include "include/carte_mesh_3D.cuh"
 #include "include/dataDeviceManag.cuh"
 #include "include/resmap_Sizes.cuh"
 #include "include/cuAtomics.cuh"
-//#include "include/get_systemQuery_cpu.cuh"
 #include "include/cmdLine.cuh"
-//#include "include/get_deviceQuery_gpu.cuh"
 #include "include/deviceTools_gpu.cuh"
-//#include "include/common_krnl.cuh"
-//#include "include/testing_unitTest.cuh"
 #include "include/cuAtomics.cuh"
+// Now let's bring Grid into the project
+//#include "Grid/Grid.h"
+//#include <Grid/Grid.h>
+
 /* TODO: need to put this enum structure in the correct place */
 static const char *_cuFFTGetErrorEnum(cufftResult error) {
     switch (error) {
@@ -70,13 +66,12 @@ const int GPU_N_MIN = 1;
 //////////////////////////////////////////////////////////////////////////////
 // Main code
 // //////////////////////////////////////////////////////////////////////////////
-
 int main(int argc, char *argv[]) {
     int rc = RC_SUCCESS;
     /* commands line flags */
     bool benchmark = checkCmdLineFlag(argc,(const char **)argv,"benchmark") != 0;
     if (checkCmdLineFlag(argc, (const char **)argv, "help")) {
-        std::cout<<"TODO: insert the documentnation..."<<std::endl;//displayUsage(program, __FUNCTION__, __FILE__);
+        std::cout<<"TODO: insert the documentation..."<<std::endl;//displayUsage(program, __FUNCTION__, __FILE__);
         std::cout<<"Try running without the --help flag."<<std::endl;//displayUsage(program, __FUNCTION__, __FILE__);
         exit(rc);
     }
@@ -93,39 +88,30 @@ int main(int argc, char *argv[]) {
             p_UnitTest_o->testing_system_cpu(p_SystemQuery_cpu_o, s_systemDetails);}
         if (s_unitTest->launch_unitTest_deviceDetails == 1) {
             p_UnitTest_o->testing_system_gpu(p_SystemQuery_gpu_o, p_DeviceTools_gpu_o, s_Devices, s_device_details);}
-        if (s_unitTest->launch_unitTest_networks == 1) {
-            //p_UnitTest_o->testing_Network(p_network_o, p_sockets_o, s_network_struct, s_socket_struct);
-            }
     }
-    /* initialising the systemDetails data structure */
     /* initialising the data structure kernel_calc */
     p_global_o->_initialize_kernel(s_kernel);
     /* initialising the data structure debug_gpu */
     p_global_o->_initialize_debug(s_debug_gpu);
+    /* initialising the systemDetails data structure */
     p_global_o->_initialize_systemDetails(s_systemDetails);
-    /* initialising the deviceDeatils data structure */
+    /* initialising the deviceDetails data structure */
     p_global_o->_initialize_deviceDetails(s_device_details);
-    /* initialising the deviceDeatils data structure */
+    /* initialising the deviceDetails data structure */
     p_global_o->_initialize_Devices(s_Devices);
     /* initialising the network data structure */
     p_global_o->_initialize_machine_struct(s_machine_struct);
-    /* TODO: remove this call later
-    p_global_o->_initialize_IPAddresses_struct(s_IPAddresses_struct);
-    p_global_o->_initialize_adapters_struct(s_adapters_struct);
-    p_global_o->_initialize_socket_struct(s_socket_struct);
-    p_global_o->_initialize_network_struct(s_network_struct);
-    */
     /* populating systemDetails data structure */
-    rc = p_SystemQuery_cpu_o->get_Number_CPU_cores(0, s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-    rc = p_SystemQuery_cpu_o->get_memorySize_host(0, s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+    rc = p_SystemQuery_cpu_o->get_Number_CPU_cores     (0, s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+    rc = p_SystemQuery_cpu_o->get_memorySize_host      (0, s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
     rc = p_SystemQuery_cpu_o->get_available_memory_host(0, s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-    rc = p_SystemQuery_gpu_o->_initialize(s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-    rc = p_global_o->get_deviceDetails_struct(s_device_details->best_devID, s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-    rc = p_global_o->get_Devices_struct(s_Devices); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+    rc = p_SystemQuery_gpu_o->_initialize              (s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+    rc =          p_global_o->get_deviceDetails_struct (s_device_details->best_devID, s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+    rc =          p_global_o->get_Devices_struct       (s_Devices); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
     if (s_debug_gpu->debug_high_i == 1) {
         if (s_debug_gpu->debug_high_s_systemDetails_i == 1) rc = p_UnitTest_o->print_systemDetails_data_structure(s_systemDetails); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-        if (s_debug_gpu->debug_high_s_Devices_i == 1) rc = p_UnitTest_o->print_Devices_data_structure(s_Devices); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
-        if (s_debug_gpu->debug_high_device_details_i == 1) rc = p_UnitTest_o->print_deviceDetails_data_structure(s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+        if (s_debug_gpu->debug_high_s_Devices_i == 1      ) rc = p_UnitTest_o->print_Devices_data_structure      (s_Devices); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
+        if (s_debug_gpu->debug_high_device_details_i == 1 ) rc = p_UnitTest_o->print_deviceDetails_data_structure(s_device_details); if (rc!=RC_SUCCESS) {rc = RC_WARNING;}
     }
     //TODO: remove the debug_write = 1 statement once te network structure is finished ...
     if (s_debug_gpu->debug_write_i == 1 ){
@@ -282,6 +268,9 @@ int main(int argc, char *argv[]) {
         rc = get_error_fft123D_gpu(cufft_err,__LINE__,__FILE__,__FUNCTION__);}
 
     } //TODO: remove the debug_write = 1 statement once te network structure is finished ...
+
+
+
 
 
 

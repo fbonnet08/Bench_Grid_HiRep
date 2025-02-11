@@ -13,9 +13,9 @@
 
 //#include "../../include/Exception.cuh"
 //#include "../../include/resmap_Sizes.cuh"
-#include "../../global.cuh"
+#include "../../../global.cuh"
 
-#include "../../include/testing_unitTest.cuh"
+#include "../../../include/testing_unitTest.cuh"
 
 //#include "../../include/deviceTools_gpu.cuh"
 //#include "../../include/get_deviceQuery_gpu.cuh"

@@ -1,4 +1,20 @@
 
+//#include "include/common.cuh"
+//#include "include/get_systemQuery_cpu.cuh"
+//#include "include/get_deviceQuery_gpu.cuh"
+//#include "include/common_krnl.cuh"
+//#include "include/testing_unitTest.cuh"
+
+//Time related includes
+//#include <time.h>
+
+
+if (s_unitTest->launch_unitTest_networks == 1) {
+//p_UnitTest_o->testing_Network(p_network_o, p_sockets_o, s_network_struct, s_socket_struct);
+}
+
+
+//#include <cuda_device_runtime_api.h>
 
 
 /*

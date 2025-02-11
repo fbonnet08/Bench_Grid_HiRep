@@ -37,6 +37,7 @@ Requirements
     - psycopg2 (PostGreSQL access)
     - psycopg[binaries]
     - pyodbc (SQL access)
+    - tqdm
     - selenium (automated testing on websites)
 
 How to use it
@@ -70,6 +71,27 @@ The cuda tool kit is used for handling some of the computationally expansive
 tasks and may be removed later if not needed at all. At the moment
 it stays. Some basic kernels and testcode has been developed and
 inserted and may be removed later as I see fits.
+
+The project a both a CMake and Make file based project. The CMake is based
+in the windows version v-3.30 with std=c++17
+running on cuda-12.2 and in the Linux on CMake version 3.25 with Cuda-12.6.
+
+In the the folder CMakes there are several possible configuration for the CMakeList.txt
+file. One needs to copy the appropriate version into CMakeList.txt in the root of the project.
+The WSL version is yet to be final. The default CMakeList.txt file does not contain the library links
+necessary for the a CUDA successful build.
+
+In Powershell in teh root of the project, this can be compiled using:
+
+``
+& 'C:\Users\Frederic\AppData\Local\Programs\CLion Nova\bin\cmake\win\x64\bin\cmake.exe' -DCMAKE_BUILD_TYPE=Debug -G 'Unix Makefiles' -DMAKE_CUDA_COMPILER='C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\bin\nvcc.exe' -DPython_EXECUTABLE='C:/Program Files/Python312/python.exe' -DPython3_EXECUTABLE='C:/Program Files/Python312/python.exe' -S C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep -B C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep\cmake-build-debug-visual-studio
+``
+
+For example, the correct paths need to be inserted.
+
+For Windows with CUDA one needs: ``add_definitions(-DWINDOWS -DCUDA)``.
+
+For Linux with no Cuda, one would then need: ``add_definitions(-DLINUX)``.
 
 Certain functionalities
 ------------------------
