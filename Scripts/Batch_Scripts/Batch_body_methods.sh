@@ -462,6 +462,7 @@ cat << EOF >> "$_batch_file_out"
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Leonardo.sh
+chmod a+x \${wrapper_script}
 EOF
 elif [[ $_machine_name = "vega" ]]
 then
@@ -470,6 +471,7 @@ cat << EOF >> "$_batch_file_out"
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
+chmod a+x \${wrapper_script}
 EOF
 elif [[ $_machine_name = "tursa" ]]
 then
@@ -478,6 +480,7 @@ cat << EOF >> "$_batch_file_out"
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
+chmod a+x \${wrapper_script}
 EOF
 fi
 #-------------------------------------------------------------------------------
