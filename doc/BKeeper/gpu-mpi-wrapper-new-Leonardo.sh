@@ -9,7 +9,7 @@ echo "netdev       --->: $netdev"
 
 export CUDA_VISIBLE_DEVICES=$OMPI_COMM_WORLD_LOCAL_RANK
 export UCX_NET_DEVICES=${netdev}
-BINDING="--interleave=$numa1"
+BINDING="--cpunodebind=0"
 
 echo "BINDING      --->: $BINDING"
 echo "numa command --->: numactl ${BINDING} $@"

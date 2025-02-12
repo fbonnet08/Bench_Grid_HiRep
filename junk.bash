@@ -1,4 +1,8 @@
 
+BINDING="--interleave=$numa1"
+
+
+
 
 echo "$(hostname)  --->: $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
 

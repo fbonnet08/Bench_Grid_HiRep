@@ -1,0 +1,198 @@
+HIP version: 6.0.32831-204d35d16
+AMD clang version 17.0.0 (https://github.com/RadeonOpenCompute/llvm-project roc-6.0.3 24012 af27734ed982b52a9f1be0f035ac91726fc697e4)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /opt/rocm-6.0.3/llvm/bin
+Configuration file: /opt/rocm-6.0.3/lib/llvm/bin/clang++.cfg
+/opt/cray/pe/papi/7.1.0.1/lib64:/opt/cray/libfabric/1.15.2.0/lib64:/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib:/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410/lib
+total 103160
+drwxrwx--- 3 bonnetfr pepr_bonnetfr      4096 Jan 22 02:52 .
+drwxrwx--- 6 bonnetfr pepr_bonnetfr      4096 Jan 22 02:31 ..
+-rw-r--r-- 1 bonnetfr pepr_bonnetfr   1260234 Jan 22 02:31 libgmp.a
+-rwxr-xr-x 1 bonnetfr pepr_bonnetfr       970 Jan 22 02:31 libgmp.la
+lrwxrwxrwx 1 bonnetfr pepr_bonnetfr        16 Jan 22 02:31 libgmp.so -> libgmp.so.10.5.0
+lrwxrwxrwx 1 bonnetfr pepr_bonnetfr        16 Jan 22 02:31 libgmp.so.10 -> libgmp.so.10.5.0
+-rwxr-xr-x 1 bonnetfr pepr_bonnetfr    546296 Jan 22 02:31 libgmp.so.10.5.0
+-rw-r--r-- 1 bonnetfr pepr_bonnetfr 101066914 Jan 22 02:52 libGrid.a
+-rw-r--r-- 1 bonnetfr pepr_bonnetfr     64194 Jan 22 02:28 liblime.a
+-rw-r--r-- 1 bonnetfr pepr_bonnetfr   1213406 Jan 22 02:34 libmpfr.a
+-rwxr-xr-x 1 bonnetfr pepr_bonnetfr      1157 Jan 22 02:34 libmpfr.la
+lrwxrwxrwx 1 bonnetfr pepr_bonnetfr        16 Jan 22 02:34 libmpfr.so -> libmpfr.so.6.2.1
+lrwxrwxrwx 1 bonnetfr pepr_bonnetfr        16 Jan 22 02:34 libmpfr.so.6 -> libmpfr.so.6.2.1
+-rwxr-xr-x 1 bonnetfr pepr_bonnetfr   1449232 Jan 22 02:34 libmpfr.so.6.2.1
+drwxrwx--- 2 bonnetfr pepr_bonnetfr      4096 Jan 22 02:34 pkgconfig
+-rwxrwx--- 1 bonnetfr pepr_bonnetfr 44433152 Jan 22 16:09 /users/bonnetfr/SwanSea/SourceCodes/BKeeper/build/BKeeper
+-rwxrwx--- 1 bonnetfr pepr_bonnetfr 324 Jan 22 02:27 /users/bonnetfr/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml
+world_rank 0 has 1 devices
+AcceleratorHipInit: ========================
+AcceleratorHipInit: Device Number    : 0
+AcceleratorHipInit: ========================
+AcceleratorHipInit: Device identifier: AMD Instinct MI250X
+AcceleratorHipInit:   totalGlobalMem: 68702699520 
+AcceleratorHipInit:   isMultiGpuBoard: 0 
+AcceleratorHipInit:   warpSize: 64 
+AcceleratorHipInit: using default device 
+AcceleratorHipInit: assume user or srun sets ROCR_VISIBLE_DEVICES and numa binding 
+AcceleratorHipInit: Configure options --enable-setdevice=no 
+local rank 0 device 0 bus id: 0000:c1:00.0
+AcceleratorHipInit: ================================================
+SharedMemoryMpi:  World communicator of size 16
+SharedMemoryMpi:  Node  communicator of size 8
+0SharedMemoryMpi:  SharedMemoryMPI.cc acceleratorAllocDevice 8589934592bytes at 0x14f0db800000 - 14f2db7fffff for comms buffers 
+Setting up IPC
+
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|_ |  |  |  |  |  |  |  |  |  |  |  | _|__
+__|_                                    _|__
+__|_   GGGG    RRRR    III    DDDD      _|__
+__|_  G        R   R    I     D   D     _|__
+__|_  G        R   R    I     D    D    _|__
+__|_  G  GG    RRRR     I     D    D    _|__
+__|_  G   G    R  R     I     D   D     _|__
+__|_   GGGG    R   R   III    DDDD      _|__
+__|_                                    _|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+
+
+Copyright (C) 2015 Peter Boyle, Azusa Yamaguchi, Guido Cossu, Antonin Portelli and other authors
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+Current Grid git commit hash=5a4f9bf2e35787e39e4f87c37d8acd0c56fa49c9: (HEAD -> develop, origin/develop, origin/HEAD) clean
+
+Grid    : Message  : ================================================ 
+Grid    : Message  : MPI is initialised and logging filters activated 
+Grid    : Message  : ================================================ 
+Grid    : Message  : This rank is running on host nid005643
+Grid    : Message  : Requested 8589934592 byte stencil comms buffers 
+Grid    : Message  : MemoryManager Cache 24117248000 bytes 
+Grid    : Message  : MemoryManager::Init() setting up
+Grid    : Message  : MemoryManager::Init() cache pool for recent host   allocations: SMALL 16 LARGE 2 HUGE 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent device allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent shared allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() Non unified: Caching accelerator data in dedicated memory
+Grid    : Message  : MemoryManager::Init() Using hipMalloc
+Grid    : Message  : 0.108000 s : Lattice dimensions: [24 24 24 32]
+Grid    : Message  : 0.116000 s : MPI decomposition:  [4 1 2 2]
+BKeeper : Message  : 0.134000 s : ########################################################
+BKeeper : Message  : 0.135000 s : # Setting up BKeeper with 50 iterations and m=0.100000 #
+BKeeper : Message  : 0.136000 s : ########################################################
+BKeeper : Message  : 0.138000 s : ###########################################
+BKeeper : Message  : 0.139000 s : # Performing benchmark for SU(2), adjoint #
+BKeeper : Message  : 0.140000 s : ###########################################
+Grid    : Message  : 0.142000 s : Creating Lattice...
+Grid    : Message  : 0.512400 s : Created Grid:
+Grid    : Message  : 0.512800 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.512900 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.513000 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.513100 s : 	Local Dimensions   : [6 24 12 16]
+Grid    : Message  : 0.513200 s : 	Reduced Dimensions : [6 24 6 8]
+Grid    : Message  : 0.513300 s : 	Outer strides      : [1 6 144 864]
+Grid    : Message  : 0.513400 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.513500 s : 	iSites             : 4
+Grid    : Message  : 0.513600 s : 	oSites             : 6912
+Grid    : Message  : 0.513700 s : 	lSites             : 27648
+Grid    : Message  : 0.513800 s : 	gSites             : 442368
+Grid    : Message  : 0.513900 s : 	Nd                 : 4
+BKeeper : Message  : 0.586100 s : Creating gauge...
+BKeeper : Message  : 0.698510 s : Creating Fermion Action...
+BKeeper : Message  : 0.123941 s : Creating point source...
+BKeeper : Message  : 0.129484 s : Running CG...
+Grid    : Message  : 0.272225 s : ConjugateGradient Converged on iteration 51	Computed residual 0.000507377221	True residual 0.000507377221	Target 1e-10
+Grid    : Message  : 0.272243 s : Time breakdown 
+Grid    : Message  : 0.272245 s : 	Elapsed    0.049573 s
+Grid    : Message  : 0.272247 s : 	Matrix     0.037584 s
+Grid    : Message  : 0.272249 s : 	Linalg     0.011913 s
+Grid    : Message  : 0.272250 s : 	Inner      0.005219 s
+Grid    : Message  : 0.272251 s : 	AxpyNorm   0.004020 s
+Grid    : Message  : 0.272252 s : 	LinearComb 0.002622 s
+BKeeper : Result   : 0.272459 s : CG Run Time (s): 0.148524
+BKeeper : Result   : 0.272475 s : FlOp/S (GFlOp/s):   1359.73565
+BKeeper : Result   : 0.272477 s : Comms  (MB):     184.025088
+BKeeper : Result   : 0.272479 s : Memory (GB):     69.231542
+BKeeper : Message  : 0.277937 s : ###############################################
+BKeeper : Message  : 0.277941 s : # Performing benchmark for SU(2), fundamental #
+BKeeper : Message  : 0.277942 s : ###############################################
+Grid    : Message  : 0.277944 s : Creating Lattice...
+Grid    : Message  : 0.279459 s : Created Grid:
+Grid    : Message  : 0.279463 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.279465 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.279467 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.279468 s : 	Local Dimensions   : [6 24 12 16]
+Grid    : Message  : 0.279469 s : 	Reduced Dimensions : [6 24 6 8]
+Grid    : Message  : 0.279470 s : 	Outer strides      : [1 6 144 864]
+Grid    : Message  : 0.279471 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.279472 s : 	iSites             : 4
+Grid    : Message  : 0.279473 s : 	oSites             : 6912
+Grid    : Message  : 0.279474 s : 	lSites             : 27648
+Grid    : Message  : 0.279475 s : 	gSites             : 442368
+Grid    : Message  : 0.279476 s : 	Nd                 : 4
+BKeeper : Message  : 0.280048 s : Creating gauge...
+BKeeper : Message  : 0.339020 s : Creating Fermion Action...
+BKeeper : Message  : 0.363636 s : Creating point source...
+BKeeper : Message  : 0.367152 s : Running CG...
+Grid    : Message  : 0.402131 s : ConjugateGradient Converged on iteration 51	Computed residual 0.000507377221	True residual 0.000507377221	Target 1e-10
+Grid    : Message  : 0.402145 s : Time breakdown 
+Grid    : Message  : 0.402147 s : 	Elapsed    0.030955 s
+Grid    : Message  : 0.402149 s : 	Matrix     0.020076 s
+Grid    : Message  : 0.402150 s : 	Linalg     0.010803 s
+Grid    : Message  : 0.402151 s : 	Inner      0.005257 s
+Grid    : Message  : 0.402152 s : 	AxpyNorm   0.003695 s
+Grid    : Message  : 0.402153 s : 	LinearComb 0.001800 s
+BKeeper : Result   : 0.402297 s : CG Run Time (s): 0.038668
+BKeeper : Result   : 0.402302 s : FlOp/S (GFlOp/s):   2613.57256
+BKeeper : Result   : 0.402305 s : Comms  (MB):     122.683392
+BKeeper : Result   : 0.402307 s : Memory (GB):     35.8065108
+BKeeper : Message  : 0.404362 s : ###############################################
+BKeeper : Message  : 0.404366 s : # Performing benchmark for SU(3), fundamental #
+BKeeper : Message  : 0.404367 s : ###############################################
+Grid    : Message  : 0.404369 s : Creating Lattice...
+Grid    : Message  : 0.404987 s : Created Grid:
+Grid    : Message  : 0.404991 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.404993 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.404994 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.404995 s : 	Local Dimensions   : [6 24 12 16]
+Grid    : Message  : 0.404996 s : 	Reduced Dimensions : [6 24 6 8]
+Grid    : Message  : 0.404997 s : 	Outer strides      : [1 6 144 864]
+Grid    : Message  : 0.404998 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.404999 s : 	iSites             : 4
+Grid    : Message  : 0.405000 s : 	oSites             : 6912
+Grid    : Message  : 0.405001 s : 	lSites             : 27648
+Grid    : Message  : 0.405002 s : 	gSites             : 442368
+Grid    : Message  : 0.405003 s : 	Nd                 : 4
+BKeeper : Message  : 0.405540 s : Creating gauge...
+BKeeper : Message  : 0.413651 s : Creating Fermion Action...
+BKeeper : Message  : 0.457670 s : Creating point source...
+BKeeper : Message  : 0.459809 s : Running CG...
+Grid    : Message  : 0.572606 s : ConjugateGradient Converged on iteration 51	Computed residual 0.000507377221	True residual 0.000507377221	Target 1e-10
+Grid    : Message  : 0.572623 s : Time breakdown 
+Grid    : Message  : 0.572625 s : 	Elapsed    0.044748 s
+Grid    : Message  : 0.572627 s : 	Matrix     0.033122 s
+Grid    : Message  : 0.572628 s : 	Linalg     0.011554 s
+Grid    : Message  : 0.572629 s : 	Inner      0.004845 s
+Grid    : Message  : 0.572630 s : 	AxpyNorm   0.003993 s
+Grid    : Message  : 0.572631 s : 	LinearComb 0.002656 s
+BKeeper : Result   : 0.573393 s : CG Run Time (s): 0.115727
+BKeeper : Result   : 0.573399 s : FlOp/S (GFlOp/s):   1745.08436
+BKeeper : Result   : 0.573402 s : Comms  (MB):     184.025088
+BKeeper : Result   : 0.573404 s : Memory (GB):     69.231542
+BKeeper : Message  : 0.578301 s : ###############################################
+BKeeper : Message  : 0.578305 s : # Performing benchmark for Sp(4), fundamental #
+BKeeper : Message  : 0.578306 s : ###############################################
+BKeeper was not compiled for Sp(4), Fundamental
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Wed 12 Feb 2025 01:04:56 AM EET
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- /users/bonnetfr/SwanSea/SourceCodes/LatticeRuns/BKeeper_run_gpu/small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes002_mpi04-01-02-02_small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes002_mpi04-01-02-02_small.sh Done. -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
