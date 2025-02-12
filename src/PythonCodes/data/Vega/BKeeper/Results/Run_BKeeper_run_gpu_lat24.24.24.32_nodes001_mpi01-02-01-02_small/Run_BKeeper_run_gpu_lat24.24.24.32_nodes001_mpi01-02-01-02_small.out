@@ -1,0 +1,266 @@
+# Library version: 1.15.0
+# Library path: /cvmfs/sling.si/modules/el7/software/UCX/1.15.0-GCCcore-12.3.0/lib/libucs.so.0
+# API headers version: 1.15.0
+# Git branch '', revision 348d14f
+# Configured with: --disable-logging --disable-debug --disable-assertions --disable-params-check --prefix=/cvmfs/sling.si/modules/el7/software/UCX/1.15.0-GCCcore-12.3.0 --with-mlx5-dv --with-dc --with-rc --with-ud --enable-optimizations --enable-cma --enable-mt --with-verbs--without-java --without-go --disable-doxygen-doc --enable-debug
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Fri_Sep__8_19:17:24_PDT_2023
+Cuda compilation tools, release 12.3, V12.3.52
+Build cuda_12.3.r12.3/compiler.33281558_0
+/cvmfs/sling.si/modules/el7/software/OpenMPI/4.1.5-GCC-12.3.0/bin/mpirun
+/cvmfs/sling.si/modules/el7/software/FFTW/3.3.10-GCC-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/UCX/1.15.0-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/OpenMPI/4.1.5-GCC-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/UCC/1.2.0-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/PMIx/4.2.4-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/libfabric/1.18.0-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/libevent/2.1.12-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/OpenSSL/1.1/lib:/cvmfs/sling.si/modules/el7/software/hwloc/2.9.1-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/libpciaccess/0.17-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/libxml2/2.11.4-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/XZ/5.4.2-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/numactl/2.0.16-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/binutils/2.40-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/zlib/1.2.13-GCCcore-12.3.0/lib:/cvmfs/sling.si/modules/el7/software/GCCcore/12.3.0/lib64:/cvmfs/sling.si/modules/el7/software/CUDA/12.3.0/nvvm/lib64:/cvmfs/sling.si/modules/el7/software/CUDA/12.3.0/extras/CUPTI/lib64:/cvmfs/sling.si/modules/el7/software/CUDA/12.3.0/lib::/usr/local/cuda-10.2/lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib:/ceph/hpc/home/eufredericb/SwanSea/SourceCodes/external_lib/prefix_grid_202410/lib:/ceph/hpc/home/eufredericb/SwanSea/SourceCodes/external_lib/prefix_grid_202410/lib
+total 66381
+drwxr-xr-x 3 eufredericb eufredericb       13 Jan 16 13:24 .
+drwxr-xr-x 6 eufredericb eufredericb        4 Nov  4 19:39 ..
+-rw-r--r-- 1 eufredericb eufredericb  1321250 Nov  4 19:39 libgmp.a
+-rwxr-xr-x 1 eufredericb eufredericb      981 Nov  4 19:39 libgmp.la
+lrwxrwxrwx 1 eufredericb eufredericb       16 Nov  4 19:39 libgmp.so -> libgmp.so.10.5.0
+lrwxrwxrwx 1 eufredericb eufredericb       16 Nov  4 19:39 libgmp.so.10 -> libgmp.so.10.5.0
+-rwxr-xr-x 1 eufredericb eufredericb   549544 Nov  4 19:39 libgmp.so.10.5.0
+-rw-r--r-- 1 eufredericb eufredericb 63337134 Jan 16 13:24 libGrid.a
+-rw-r--r-- 1 eufredericb eufredericb    64802 Nov  4 19:36 liblime.a
+-rw-r--r-- 1 eufredericb eufredericb  1242878 Nov  4 19:40 libmpfr.a
+-rwxr-xr-x 1 eufredericb eufredericb     1177 Nov  4 19:40 libmpfr.la
+lrwxrwxrwx 1 eufredericb eufredericb       16 Nov  4 19:40 libmpfr.so -> libmpfr.so.6.2.1
+lrwxrwxrwx 1 eufredericb eufredericb       16 Nov  4 19:40 libmpfr.so.6 -> libmpfr.so.6.2.1
+-rwxr-xr-x 1 eufredericb eufredericb  1451528 Nov  4 19:40 libmpfr.so.6.2.1
+drwxr-xr-x 2 eufredericb eufredericb        2 Nov  4 19:40 pkgconfig
+-rwxrwxr-x 1 eufredericb eufredericb 103388088 Jan 16 15:36 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/BKeeper/build/BKeeper
+-rwxrwxr-x 1 eufredericb eufredericb 324 Jan 15 12:14 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml
+lrank        --->: 0
+numa1        --->: 3
+numa2        --->: 2
+netdev       --->: 0
+BINDING      --->: --interleave=3,2
+numa command --->: numactl --interleave=3,2 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/BKeeper/build/BKeeper /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml --grid 24.24.24.32 --mpi 1.2.1.2 --accelerator-threads 8 --shm 8192 --device-mem 23000 --log Error,Warning,Message
+lrank        --->: 3
+numa1        --->: 5
+numa2        --->: 4
+netdev       --->: 1
+BINDING      --->: --interleave=5,4
+numa command --->: numactl --interleave=5,4 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/BKeeper/build/BKeeper /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml --grid 24.24.24.32 --mpi 1.2.1.2 --accelerator-threads 8 --shm 8192 --device-mem 23000 --log Error,Warning,Message
+lrank        --->: 2
+numa1        --->: 7
+numa2        --->: 6
+netdev       --->: 1
+BINDING      --->: --interleave=7,6
+numa command --->: numactl --interleave=7,6 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/BKeeper/build/BKeeper /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml --grid 24.24.24.32 --mpi 1.2.1.2 --accelerator-threads 8 --shm 8192 --device-mem 23000 --log Error,Warning,Message
+gn53 - 0 device=0 binding=--interleave=3,2
+gn53 - 3 device=3 binding=--interleave=5,4
+lrank        --->: 1
+numa1        --->: 1
+numa2        --->: 0
+netdev       --->: 0
+BINDING      --->: --interleave=1,0
+numa command --->: numactl --interleave=1,0 /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/BKeeper/build/BKeeper /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml --grid 24.24.24.32 --mpi 1.2.1.2 --accelerator-threads 8 --shm 8192 --device-mem 23000 --log Error,Warning,Message
+gn53 - 2 device=2 binding=--interleave=7,6
+gn53 - 1 device=1 binding=--interleave=1,0
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit[0]: ========================
+AcceleratorCudaInit[0]: Device Number    : 0
+AcceleratorCudaInit[0]: ========================
+AcceleratorCudaInit[0]: Device identifier: NVIDIA A100-SXM4-40GB
+AcceleratorCudaInit[0]:   totalGlobalMem: 42409000960 
+AcceleratorCudaInit[0]:   managedMemory: 1 
+AcceleratorCudaInit[0]:   isMultiGpuBoard: 0 
+AcceleratorCudaInit[0]:   warpSize: 32 
+AcceleratorCudaInit[0]:   pciBusID: 3 
+AcceleratorCudaInit[0]:   pciDeviceID: 0 
+AcceleratorCudaInit[0]: maxGridSize (2147483647,65535,65535)
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+AcceleratorCudaInit: ================================================
+AcceleratorCudaInit: ================================================
+AcceleratorCudaInit: ================================================
+local rank 0 device 0 bus id: 0000:03:00.0
+AcceleratorCudaInit: ================================================
+[1739381186.048126] [gn53:3505356:0]     ucp_context.c:1081 UCX  WARN  network device '1' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.055884] [gn53:3505357:0]     ucp_context.c:1081 UCX  WARN  network device '0' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.136722] [gn53:3505352:0]     ucp_context.c:1081 UCX  WARN  network device '0' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.155505] [gn53:3505353:0]     ucp_context.c:1081 UCX  WARN  network device '1' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.218110] [gn53:3505356:0]     ucp_context.c:1081 UCX  WARN  network device '1' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.220110] [gn53:3505352:0]     ucp_context.c:1081 UCX  WARN  network device '0' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.220172] [gn53:3505353:0]     ucp_context.c:1081 UCX  WARN  network device '1' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+[1739381186.230108] [gn53:3505357:0]     ucp_context.c:1081 UCX  WARN  network device '0' is not available, please use one or more of: 'enp226s0f0'(tcp), 'ib0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_1:1'(ib)
+SharedMemoryMpi:  World communicator of size 4
+SharedMemoryMpi:  Node  communicator of size 4
+0SharedMemoryMpi:  SharedMemoryMPI.cc acceleratorAllocDevice 8589934592bytes at 0x7f82a0000000 - 7f849fffffff for comms buffers 
+Setting up IPC
+
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|_ |  |  |  |  |  |  |  |  |  |  |  | _|__
+__|_                                    _|__
+__|_   GGGG    RRRR    III    DDDD      _|__
+__|_  G        R   R    I     D   D     _|__
+__|_  G        R   R    I     D    D    _|__
+__|_  G  GG    RRRR     I     D    D    _|__
+__|_  G   G    R  R     I     D   D     _|__
+__|_   GGGG    R   R   III    DDDD      _|__
+__|_                                    _|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+
+
+Copyright (C) 2015 Peter Boyle, Azusa Yamaguchi, Guido Cossu, Antonin Portelli and other authors
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+Current Grid git commit hash=ee4046fe9240ad733f6fc8d0dd109bb00a3755af: (HEAD -> develop, origin/develop, origin/HEAD) clean
+
+Grid    : Message  : ================================================ 
+Grid    : Message  : MPI is initialised and logging filters activated 
+Grid    : Message  : ================================================ 
+Grid    : Message  : This rank is running on host gn53
+Grid    : Message  : Requested 8589934592 byte stencil comms buffers 
+Grid    : Message  : MemoryManager Cache 24117248000 bytes 
+Grid    : Message  : MemoryManager::Init() setting up
+Grid    : Message  : MemoryManager::Init() cache pool for recent host   allocations: SMALL 16 LARGE 2 HUGE 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent device allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent shared allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() Non unified: Caching accelerator data in dedicated memory
+Grid    : Message  : MemoryManager::Init() Using cudaMalloc
+Grid    : Message  : 0.129000 s : Lattice dimensions: [24 24 24 32]
+Grid    : Message  : 0.146000 s : MPI decomposition:  [1 2 1 2]
+BKeeper : Message  : 0.160000 s : ########################################################
+BKeeper : Message  : 0.162000 s : # Setting up BKeeper with 50 iterations and m=0.100000 #
+BKeeper : Message  : 0.163000 s : ########################################################
+BKeeper : Message  : 0.167000 s : ###########################################
+BKeeper : Message  : 0.170000 s : # Performing benchmark for SU(2), adjoint #
+BKeeper : Message  : 0.172000 s : ###########################################
+Grid    : Message  : 0.178000 s : Creating Lattice...
+Grid    : Message  : 0.284500 s : Created Grid:
+Grid    : Message  : 0.285200 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.285500 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.285700 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.286000 s : 	Local Dimensions   : [24 12 24 16]
+Grid    : Message  : 0.286200 s : 	Reduced Dimensions : [24 12 12 8]
+Grid    : Message  : 0.286400 s : 	Outer strides      : [1 24 288 3456]
+Grid    : Message  : 0.286700 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.286900 s : 	iSites             : 4
+Grid    : Message  : 0.287200 s : 	oSites             : 27648
+Grid    : Message  : 0.287400 s : 	lSites             : 110592
+Grid    : Message  : 0.287700 s : 	gSites             : 442368
+Grid    : Message  : 0.287900 s : 	Nd                 : 4
+BKeeper : Message  : 0.415300 s : Creating gauge...
+BKeeper : Message  : 0.966920 s : Creating Fermion Action...
+BKeeper : Message  : 0.597925 s : Creating point source...
+BKeeper : Message  : 0.609835 s : Running CG...
+Grid    : Message  : 0.871526 s : ConjugateGradient Converged on iteration 51	Computed residual 0.00050075515	True residual 0.00050075515	Target 1e-10
+Grid    : Message  : 0.871566 s : Time breakdown 
+Grid    : Message  : 0.871567 s : 	Elapsed    0.218762 s
+Grid    : Message  : 0.871569 s : 	Matrix     0.202905 s
+Grid    : Message  : 0.871570 s : 	Linalg     0.015777 s
+Grid    : Message  : 0.871572 s : 	Inner      0.005166 s
+Grid    : Message  : 0.871573 s : 	AxpyNorm   0.004823 s
+Grid    : Message  : 0.871574 s : 	LinearComb 0.005737 s
+BKeeper : Result   : 0.873643 s : CG Run Time (s): 0.275718
+BKeeper : Result   : 0.873650 s : FlOp/S (GFlOp/s):   732.463525
+BKeeper : Result   : 0.873652 s : Comms  (MB):     184.025088
+BKeeper : Result   : 0.873654 s : Memory (GB):     65.1846553
+BKeeper : Message  : 0.896286 s : ###############################################
+BKeeper : Message  : 0.896298 s : # Performing benchmark for SU(2), fundamental #
+BKeeper : Message  : 0.896299 s : ###############################################
+Grid    : Message  : 0.896307 s : Creating Lattice...
+Grid    : Message  : 0.896940 s : Created Grid:
+Grid    : Message  : 0.896945 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.896948 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.896950 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.896952 s : 	Local Dimensions   : [24 12 24 16]
+Grid    : Message  : 0.896954 s : 	Reduced Dimensions : [24 12 12 8]
+Grid    : Message  : 0.896955 s : 	Outer strides      : [1 24 288 3456]
+Grid    : Message  : 0.896956 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.896957 s : 	iSites             : 4
+Grid    : Message  : 0.896958 s : 	oSites             : 27648
+Grid    : Message  : 0.896960 s : 	lSites             : 110592
+Grid    : Message  : 0.896961 s : 	gSites             : 442368
+Grid    : Message  : 0.896965 s : 	Nd                 : 4
+BKeeper : Message  : 0.897746 s : Creating gauge...
+BKeeper : Message  : 0.946449 s : Creating Fermion Action...
+BKeeper : Message  : 1.339131 s : Creating point source...
+BKeeper : Message  : 1.348266 s : Running CG...
+Grid    : Message  : 1.575694 s : ConjugateGradient Converged on iteration 51	Computed residual 0.00050075515	True residual 0.00050075515	Target 1e-10
+Grid    : Message  : 1.575730 s : Time breakdown 
+Grid    : Message  : 1.575732 s : 	Elapsed    0.170876 s
+Grid    : Message  : 1.575734 s : 	Matrix     0.157705 s
+Grid    : Message  : 1.575736 s : 	Linalg     0.013093 s
+Grid    : Message  : 1.575738 s : 	Inner      0.004161 s
+Grid    : Message  : 1.575739 s : 	AxpyNorm   0.004737 s
+Grid    : Message  : 1.575741 s : 	LinearComb 0.004141 s
+BKeeper : Result   : 1.577755 s : CG Run Time (s): 0.238634
+BKeeper : Result   : 1.577763 s : FlOp/S (GFlOp/s):   423.500523
+BKeeper : Result   : 1.577766 s : Comms  (MB):     122.683392
+BKeeper : Result   : 1.577768 s : Memory (GB):     33.2890562
+BKeeper : Message  : 1.592264 s : ###############################################
+BKeeper : Message  : 1.592276 s : # Performing benchmark for SU(3), fundamental #
+BKeeper : Message  : 1.592278 s : ###############################################
+Grid    : Message  : 1.592290 s : Creating Lattice...
+Grid    : Message  : 1.597407 s : Created Grid:
+Grid    : Message  : 1.597415 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 1.597419 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 1.597422 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 1.597425 s : 	Local Dimensions   : [24 12 24 16]
+Grid    : Message  : 1.597428 s : 	Reduced Dimensions : [24 12 12 8]
+Grid    : Message  : 1.597431 s : 	Outer strides      : [1 24 288 3456]
+Grid    : Message  : 1.597434 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 1.597437 s : 	iSites             : 4
+Grid    : Message  : 1.597448 s : 	oSites             : 27648
+Grid    : Message  : 1.597453 s : 	lSites             : 110592
+Grid    : Message  : 1.597457 s : 	gSites             : 442368
+Grid    : Message  : 1.597459 s : 	Nd                 : 4
+BKeeper : Message  : 1.598622 s : Creating gauge...
+BKeeper : Message  : 1.628409 s : Creating Fermion Action...
+BKeeper : Message  : 2.133349 s : Creating point source...
+BKeeper : Message  : 2.139409 s : Running CG...
+Grid    : Message  : 2.430252 s : ConjugateGradient Converged on iteration 51	Computed residual 0.00050075515	True residual 0.00050075515	Target 1e-10
+Grid    : Message  : 2.430290 s : Time breakdown 
+Grid    : Message  : 2.430292 s : 	Elapsed    0.253238 s
+Grid    : Message  : 2.430294 s : 	Matrix     0.236070 s
+Grid    : Message  : 2.430296 s : 	Linalg     0.017079 s
+Grid    : Message  : 2.430298 s : 	Inner      0.005513 s
+Grid    : Message  : 2.430300 s : 	AxpyNorm   0.005586 s
+Grid    : Message  : 2.430302 s : 	LinearComb 0.005928 s
+BKeeper : Result   : 2.432490 s : CG Run Time (s): 0.29915
+BKeeper : Result   : 2.432499 s : FlOp/S (GFlOp/s):   675.090685
+BKeeper : Result   : 2.432502 s : Comms  (MB):     184.025088
+BKeeper : Result   : 2.432504 s : Memory (GB):     65.1846553
+BKeeper : Message  : 2.461110 s : ###############################################
+BKeeper : Message  : 2.461131 s : # Performing benchmark for Sp(4), fundamental #
+BKeeper : Message  : 2.461133 s : ###############################################
+BKeeper was not compiled for Sp(4), Fundamental
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Wed Feb 12 18:16:29 CET 2025
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- /ceph/hpc/home/eufredericb/SwanSea/SourceCodes/LatticeRuns/BKeeper_run_gpu/small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes001_mpi01-02-01-02_small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes001_mpi01-02-01-02_small.sh Done. -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
