@@ -1,12 +1,38 @@
 
-//#include "include/common.cuh"
-//#include "include/get_systemQuery_cpu.cuh"
-//#include "include/get_deviceQuery_gpu.cuh"
-//#include "include/common_krnl.cuh"
-//#include "include/testing_unitTest.cuh"
+
+
+
+namespace_Network::Network *p_network_o = new namespace_Network::Network(s_network_struct);
+
+IPAddresses_struct *s_IPAddresses_struct = (struct IPAddresses_struct*)malloc(sizeof(IPAddresses_struct));
+adapters_struct *s_adapters_struct =  (struct adapters_struct*)malloc(sizeof(adapters_struct));
+socket_struct *s_socket_struct =  (struct socket_struct*)malloc(sizeof(socket_struct));
+network_struct *s_network_struct =  (struct network_struct*)malloc(sizeof(network_struct));
+
+namespace_Network::Socket *p_sockets_o = new namespace_Network::Socket(s_socket_struct);
+namespace_Network::Network *p_network_o = new namespace_Network::Network(
+  s_machine_struct,
+  s_IPAddresses_struct,
+  s_adapters_struct,
+  s_socket_struct,
+  s_network_struct);
+
+
+rc = _initialize_IPAddresses_struct(s_IPAddresses_struct); if (rc != RC_SUCCESS) {rc = RC_WARNING;}
+rc = _initialize_adapters_struct(s_adapters_struct);         if (rc != RC_SUCCESS) {rc = RC_WARNING;}
+rc = _initialize_socket_struct(s_socket_struct);               if (rc != RC_SUCCESS) {rc = RC_WARNING;}
+rc = _initialize_network_struct(s_network_struct);           if (rc != RC_SUCCESS) {rc = RC_WARNING;}
+
+
+
+#include "include/common.cuh"
+#include "include/get_systemQuery_cpu.cuh"
+#include "include/get_deviceQuery_gpu.cuh"
+#include "include/common_krnl.cuh"
+#include "include/testing_unitTest.cuh"
 
 //Time related includes
-//#include <time.h>
+#include <time.h>
 
 
 if (s_unitTest->launch_unitTest_networks == 1) {

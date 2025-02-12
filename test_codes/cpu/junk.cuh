@@ -1,3 +1,14 @@
+
+#include "include/get_deviceQuery_gpu.cuh"
+#include "include/deviceTools_gpu.cuh"
+
+extern network_struct* s_network_struct;
+extern socket_struct* s_socket_struct;
+extern IPAddresses_struct* s_IPAddresses_struct;
+extern adapters_struct* s_adapters_struct;
+extern namespace_Network::Socket* p_sockets_o;
+extern namespace_Network::Network* p_network_o;
+
 //
 // Created by Frederic on 12/14/2023.
 //

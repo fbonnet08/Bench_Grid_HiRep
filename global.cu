@@ -7,9 +7,17 @@
 #include "global.cuh"
 
 // Global variable declarations
-int Vx_o = 10;                //!<Volume size in x direction.
-int Vy_o = 10;                //!<Volume size in y direction.
-int Vz_o = 10;                //!<Volume size in z direction.
+// Volume variables
+int Vx_o = 24;                //!<Volume size in x direction.
+int Vy_o = 24;                //!<Volume size in y direction.
+int Vz_o = 24;                //!<Volume size in z direction.
+int Vt_o = 32;                //!<Volume size in t direction.
+// Lattice variables.
+int mu_o = 4;                 //!<Direction index.
+int nc_o = 3;                 //!<Representation and color 3 --> SU(3).
+int nd_o = 4;                 //!<Dirac index.
+int nf_o = 3;                 //!<Flavour index.
+// Bases details
 int nBases_o;            //!<Number of basis for the steerable filters
 // Allocating the data structure
 kernel_calc *s_kernel  = (struct kernel_calc*)malloc(sizeof(struct kernel_calc));
@@ -22,28 +30,10 @@ resources_avail *s_resources_avail = (struct resources_avail*)malloc(sizeof(stru
 systemDetails *s_systemDetails = (struct systemDetails*)malloc(sizeof(struct systemDetails));
 /* network structures */
 machine_struct *s_machine_struct = (struct machine_struct*)malloc(sizeof(machine_struct));
-
-//IPAddresses_struct *s_IPAddresses_struct = (struct IPAddresses_struct*)malloc(sizeof(IPAddresses_struct));
-//adapters_struct *s_adapters_struct =  (struct adapters_struct*)malloc(sizeof(adapters_struct));
-//socket_struct *s_socket_struct =  (struct socket_struct*)malloc(sizeof(socket_struct));
-//network_struct *s_network_struct =  (struct network_struct*)malloc(sizeof(network_struct));
-
 /* unite tests structure */
 unitTest *s_unitTest = (struct unitTest*)malloc(sizeof(struct unitTest));
 // Instantiating the class objects pointers
-//namespace_Network::Network *p_network_o = new namespace_Network::Network(s_network_struct);
 global *p_global_o = new global();
-
-/*
-namespace_Network::Socket *p_sockets_o = new namespace_Network::Socket(s_socket_struct);
-namespace_Network::Network *p_network_o = new namespace_Network::Network(
-  s_machine_struct,
-  s_IPAddresses_struct,
-  s_adapters_struct,
-  s_socket_struct,
-  s_network_struct);
-*/
-
 namespace_System_cpu::SystemQuery_cpu *p_SystemQuery_cpu_o = new namespace_System_cpu::SystemQuery_cpu();
 namespace_System_gpu::SystemQuery_gpu *p_SystemQuery_gpu_o = new namespace_System_gpu::SystemQuery_gpu();
 namespace_System_gpu::DeviceTools_gpu *p_DeviceTools_gpu_o = new namespace_System_gpu::DeviceTools_gpu();
@@ -70,10 +60,6 @@ int global::_initialize() {
   rc = _initialize_systemDetails(s_systemDetails);           if (rc != RC_SUCCESS) {rc = RC_WARNING;}
   /* network data structure initialisation */
   rc = _initialize_machine_struct(s_machine_struct);            if (rc != RC_SUCCESS) {rc = RC_WARNING;}
-  //rc = _initialize_IPAddresses_struct(s_IPAddresses_struct); if (rc != RC_SUCCESS) {rc = RC_WARNING;}
-  //rc = _initialize_adapters_struct(s_adapters_struct);         if (rc != RC_SUCCESS) {rc = RC_WARNING;}
-  //rc = _initialize_socket_struct(s_socket_struct);               if (rc != RC_SUCCESS) {rc = RC_WARNING;}
-  //rc = _initialize_network_struct(s_network_struct);           if (rc != RC_SUCCESS) {rc = RC_WARNING;}
   /* unit test data structure initialisation */
   rc = _initialize_unitTest(s_unitTest);                     if (rc != RC_SUCCESS) {rc = RC_WARNING;}
   return rc;

@@ -40,12 +40,12 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
+#sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
 # Code block comment for now as the main focus is going to be LUMI for just now
-: '
+#: '
 step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 eval "$(ssh-agent)"
@@ -53,7 +53,7 @@ step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
 sh ./dispatcher_Grid_hiRep.sh  fbonnet0  EUHPC_B17_015  login.leonardo.cineca.it
-'
+#'
 #-------------------------------------------------------------------------------
 #End of the script
 echo
