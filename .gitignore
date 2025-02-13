@@ -70,7 +70,8 @@ local.properties
 *.ilk
 *.pdb
 .idea/
-cmake-build-debug/
+./src/PythonCodes/Jupyter-NoteBooks/LLR-Bench_Grid_HiRep_Notebookscmake-build-debug/.idea
+./src/PythonCodes/Jupyter-NoteBooks/LLR-Bench_Grid_HiRep_Notebookscmake-build-debug/venv
 cmake-build-debug-cygwin/
 cmake-build-debug-mingw/
 cmake-build-debug-visual-studio/
