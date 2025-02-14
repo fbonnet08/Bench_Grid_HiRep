@@ -9,6 +9,7 @@ Contributors:
 Usage:
     Bench_Grid_HiRep.py [--grid=GRID]
                         [--hirep=HIREP]
+                        [--bkeeper_action=BKEEPER_ACTION]
 
 NOTE: select and option
 
@@ -20,12 +21,14 @@ Arguments: Either choose the --scan_number or the retention tim --RT
         default is serial:
         python Bench_Grid_HiRep.py --grid
         python Bench_Grid_HiRep.py --hirep
+        python Bench_Grid_HiRep.py --bkeeper_action=[BKeeper_run_cpu, BKeeper_run_gpu]
 
 Options:
-    --grid=GRID               raw file to be analysed
-    --hirep=HIREP             scan number in the raw file
-    --help -h                 Show this help message and exit.
-    --version                 Show version.
+    --grid=GRID                      Grid switch to parse and analyse
+    --hirep=HIREP                    HiRep switch to parse and analyse results
+    --bkeeper_action=BKEEPER_ACTION  BKeeper switch to parse and analyse
+    --help -h                        Show this help message and exit.
+    --version                        Show version.
 """
 # system imports
 import os
@@ -136,8 +139,19 @@ if __name__ == "__main__":
     # --------------------------------------------------------------------------
     # [Main-code]
     # --------------------------------------------------------------------------
-    # TODO: insert the main code here.
-    # ---------------------------------------------------------------------------
+    if args['--grid']:
+        l.createGrid()
+        m.printMesgStr("Grid analysis                 :", c.getYellow(), c.getGrid())
+    if args['--hirep']:
+        l.createHiRep()
+        m.printMesgStr("HiRep analysis                :", c.getYellow(), c.getHiRep())
+    if args['--bkeeper_action']:
+        l.createBKeeperAction()
+        m.printMesgStr("BKeeper action and analysis   :", c.getYellow(), c.getBKeeperAction())
+        # TODO: insert the main code here.
+
+
+# ---------------------------------------------------------------------------
     # [Final] overall return code
     # ---------------------------------------------------------------------------
     # Final exit statements

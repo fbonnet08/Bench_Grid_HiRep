@@ -1,6 +1,6 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
-# Method to creat an arbitrary directory
+# Method to create an arbitrary directory
 #-------------------------------------------------------------------------------
 Batch_util_create_path (){
 _path_to_run=$1
@@ -8,7 +8,8 @@ _path_to_run=$1
 if [ -d "${_path_to_run}" ]
   then
     $white; printf "Directory              : "; $bold;
-    $blue; printf '%s'"${_path_to_run}"; $green; printf " exist, nothing to do.\n"; $white; $reset_colors;
+    $blue; printf '%s'"${_path_to_run}"; $green; printf " exist, nothing to do.\n";
+    $white; $reset_colors;
   else
     $white; printf "Directory              : "; $bold;
     $blue; printf '%s'"${_path_to_run}"; $red;printf " does not exist, We will create it ...\n";
@@ -16,6 +17,30 @@ if [ -d "${_path_to_run}" ]
     mkdir -p "${_path_to_run}"
     printf "                       : "; $bold;
     $green; printf "done.\n"; $reset_colors;
+fi
+}
+#-------------------------------------------------------------------------------
+# Method to check if file exists
+#-------------------------------------------------------------------------------
+file_exists (){
+_input_filename=$1
+#-------------------------------------------------------------------------------
+file_exists="no"
+if [ -f "${_input_filename}" ]
+  then
+    $white; printf "File                   : "; $bold;
+    $yellow; printf '%s'"${_input_filename}"; $green; printf " --->: exist.\n";
+    $white; $reset_colors;
+    file_exists="yes"
+    printf "      file_exists ---->: "; $bold;
+    $green; printf "$file_exists.\n"; $reset_colors;
+  else
+    $white; printf "File                   : "; $bold;
+    $yellow; printf '%s'"${_input_filename}"; $red;printf " --->: does not exist.\n";
+    $white; $reset_colors;
+    file_exists="no"
+    printf "      file_exists ---->: "; $bold;
+    $red; printf "$file_exists.\n"; $reset_colors;
 fi
 }
 #-------------------------------------------------------------------------------

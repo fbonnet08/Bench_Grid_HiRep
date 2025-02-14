@@ -261,12 +261,19 @@ class DataManage_common:
         self.file_basename = "file_basename"
         self.jsontargetdir = "./"
         self.quantum_computing = "no"
+
+        # [Bench_Grid_HiRep]
+        self.bkeeper_action = "set action=[BKeeper_run_cpu, BKeeper_run_gpu]"
+        self.grid = "no"
+        self.HiRep = "no"
+
         # Machine learning parameters
         self.machine_learning = "no"
         self.batch_size = 64
         self.num_classes = 10
         self.learning_rate = 0.01
         self.num_epochs = 50
+        # Bench_Grid_HiRep
 
         # Mass specytroscopy parameters
         self.scan_number = 1
@@ -320,6 +327,10 @@ class DataManage_common:
         self.logMolRefAnt_DB_GUI = "molrefant_DB_GUIs.log"
 
         self.logQuantumComputing = "quantumComputing.log"
+
+        self.logBKeeperAction    = "bkeeperAction.log"
+        self.logGrid             = "grid.log"
+        self.logHiRep            = "hirep.log"
 
         self.logGatan_PC_K3_fileMover = "gatan_PC_K3_fileMover.log"
         self.logGatan_PC_K3_gainRefMover = "gatan_PC_K3_gainRefMover.log"
@@ -501,7 +512,6 @@ class DataManage_common:
         self.insert_into_web_marker = insert_into_web_marker
     def setInsert_into_web(self, insert_into_web):
         self.insert_into_web = insert_into_web
-
 
     #useGpu = self.use_gpu.get() alreday done with setUse_gpu
     def setUse_gpu(self, use_gpu):
@@ -991,8 +1001,41 @@ class DataManage_common:
         self.logfilename_testing = logfilename_testing
 
     #---------------------------------------------------------------------------
+    # [Bench_Grid_HiRep]
+    def setLogBKeeperAction(self, log_bKeeper_action):
+        self.logBKeeperAction = log_bKeeper_action
+    def setLogGrid(self, log_grid):
+        self.logGrid = log_grid
+    def setLogHiRep(self, log_hirep):
+        self.logHiRep = log_hirep
+
+    #--bkeeper_action=BKEEPER_ACTION
+    def setBKeeperAction(self, bkeeper_action):
+        self.bkeeper_action = bkeeper_action
+    #--grid=GRID
+    def setGrid(self, grid):
+        self.grid = grid
+    #--hirep=HIREP
+    def setHiRep(self, hirep):
+        self.HiRep = hirep
+
+    #---------------------------------------------------------------------------
     # [Getters]: methods
     #---------------------------------------------------------------------------
+    #---------------------------------------------------------------------------
+    # [Bench_Grid_HiRep]
+    def getLogBKeeperAction(self): return self.logBKeeperAction
+    def getLogGrid(self): return self.logGrid
+    def getLogHiRep(self):  return self.logHiRep
+    #--bkeeper_action=BKEEPER_ACTION
+    def getBKeeperAction(self):
+        return self.bkeeper_action
+    #--grid=GRID
+    def getGrid(self):
+        return self.grid
+    #--hirep=HIREP
+    def getHiRep(self):
+        return self.HiRep
 
     #log filename for DataManageApp
     def getLogfileName(self):

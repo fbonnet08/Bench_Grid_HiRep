@@ -19,6 +19,7 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables and fixed Unix operators
 sleep_time=2
+max_number_submitted_batch_scripts=5
 sptr="/";
 all="*";
 dot=".";
@@ -97,8 +98,8 @@ else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
 fi
-
-# Setting up the directory structure for the download
+#-------------------------------------------------------------------------------
+#[Path-structure] Setting up the directory structure for the download
 build_dir=build
 
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
@@ -122,7 +123,14 @@ HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 
 #grid_dir=${sourcecode_dir}/Grid-Main/Grid
 grid_dir=${sourcecode_dir}/Grid-UCL-ARC/Grid
+#-------------------------------------------------------------------------------
+#[Run-Structure] Setting up the target file name structure
+target_BKeeper_run_gpu_batch_files="target_BKeeper_run_gpu_batch_files.sh"
+target_BKeeper_run_cpu_batch_files="target_BKeeper_run_cpu_batch_files.sh"
 
+
+#-------------------------------------------------------------------------------
+#[Build-Structure] Setting up the directory structure for the download
 basedir=${local_dir}/grid_bench_202410
 prefix=${local_dir}/prefix_grid_202410
 #-------------------------------------------------------------------------------

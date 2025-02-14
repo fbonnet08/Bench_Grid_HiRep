@@ -87,6 +87,42 @@ class Command_line:
     #---------------------------------------------------------------------------
     #General command for args
     #---------------------------------------------------------------------------
+    # --grid=GRID
+    def createGrid(self):
+        __func__ = sys._getframe().f_code.co_name
+        #--grid=GRID
+        if self.args['--grid'] == "yes":
+            GRID = "yes"
+        elif self.args['--grid'] == "no":
+            GRID = "no"
+        else:
+            GRID = self.c.getGrid()
+        self.c.setGrid(GRID)
+
+    # --hirep=HIREP
+    def createHiRep(self):
+        __func__ = sys._getframe().f_code.co_name
+        #--hirep=HIREP
+        if self.args['--hirep'] == "yes":
+            HIREP = "yes"
+        elif self.args['--hirep'] == "no":
+            HIREP = "no"
+        else:
+            HIREP = self.c.getHiRep()
+        self.c.setHiRep(HIREP)
+
+    # --bkeeper_action=[BKeeper_run_cpu, BKeeper_run_gpu]
+    def createBKeeperAction(self):
+        __func__ = sys._getframe().f_code.co_name
+        #--bkeeper_action=[BKeeper_run_cpu, BKeeper_run_gpu]
+        if self.args['--bkeeper_action'] == "BKeeper_run_cpu":
+            BKEEPER_ACTION = "BKeeper_run_cpu"
+        elif self.args['--bkeeper_action'] == "BKeeper_run_gpu":
+            BKEEPER_ACTION = "BKeeper_run_gpu"
+        else:
+            BKEEPER_ACTION = self.c.getBKeeperAction()
+        self.c.setBKeeperAction(BKEEPER_ACTION)
+
     # --insert_into_web=INSERT_INTO_WEB
     def createInsert_into_web(self):
         __func__ = sys._getframe().f_code.co_name

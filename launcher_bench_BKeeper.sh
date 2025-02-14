@@ -17,23 +17,6 @@ tput sgr0;
 red="tput setaf 1"  ;green="tput setaf 2"  ;yellow="tput setaf 3"
 blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
-# Global variables
-sleep_time=2
-#Functions
-ProgressBar (){
-    _percent=$(awk -vp=$1 -vq=$2 'BEGIN{printf "%0.2f", p*100/q*100/100}')
-    _progress=$(awk -vp=$_percent 'BEGIN{printf "%i", p*4/10}')
-    _remainder=$(awk -vp=$_progress 'BEGIN{printf "%i", 40-p}')
-    _completed=$(printf "%${_progress}s" )
-    _left=$(printf "%${_remainder}s"  )
-    printf "\rProgress : [-$_completed#$_left-] ";tput setaf 4; tput bold; printf "[= ";
-    tput sgr0; tput setaf 6; printf "$1";
-    tput sgr0; tput setaf 4; tput bold;printf " <---> ";
-    tput sgr0; tput setaf 6; tput bold;printf "(secs)";
-    tput sgr0; tput setaf 2; tput bold; printf " ${_percent}%%"
-    tput setaf 4; tput bold; printf " =]"
-    tput sgr0
-}
 # Checking the argument list
 if [ $# -ne 1 ]; then
   $white; printf "No directory specified : "; $bold;
@@ -46,11 +29,16 @@ else
   $white; $reset_colors;
   local_dir=${HOME}/$1
 fi
+# Global variables
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
+__external_lib_dir=$1
 __batch_action=$2
-source ./common_main.sh $1;
+# Overall config file
+source ./common_main.sh "$__external_lib_dir";
+# The Batch content creators methods
+source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #-------------------------------------------------------------------------------
 # Now compiling Sombrero
 #-------------------------------------------------------------------------------
@@ -62,28 +50,66 @@ done
 printf "\n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
-$magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
-cd ${batch_Scripts_dir}
+$green; printf "Screening the directory and moving to it: "; $bold;
+$magenta; printf "${LatticeRuns_dir}\n"; $white; $reset_colors;
+cd ${LatticeRuns_dir}
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching BKeeper benchmark dir: "; $bold;
-
-# TODO: create loop here for the different cases.
+$green; printf "Launching BKeeper benchmark dir:\n"; $white; $reset_colors;
 
 case "$__batch_action" in
   *"BKeeper_compile"*)
       sbatch $batch_Scripts_dir/Run_BKeeper_compile.sh \
-             > $LatticeRuns_dir/out_launcher_run_BKeeper_compile.log & ;;
+              > $LatticeRuns_dir/out_launcher_run_BKeeper_compile.log &
+      ;;
   *"BKeeper_run_cpu"*)
-      sbatch $batch_Scripts_dir/Run_BKeeper_run_cpu.sh \
-             > $LatticeRuns_dir/out_launcher_run_BKeeper_run_cpu.log &;;
+      ;;
   *"BKeeper_run_gpu"*)
-      sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
-             > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &;;
+      #sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
+      #        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
+      target_file="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_batch_files}"
+      find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*small.sh" \
+              > "$target_file"
+      ;;
 esac
+#-------------------------------------------------------------------------------
+# Check if target file exists first
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Check if target file exists first:\n"; $white; $reset_colors;
+file_exists "${target_file}"
+#-------------------------------------------------------------------------------
+# Launching batch scripts from the Screening directory
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Launching batch scripts from the Screening directory:\n";
+$white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; printf "Maximum number of submitted batch scripts: "; $bold;
+$magenta; printf "${max_number_submitted_batch_scripts}\n"; $white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; printf "Reading in target file: "; $bold;
+$yellow; printf "${target_file}\n";  $white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo ""
 
+# TODO: create loop here for the different cases.
+# TODO: need to fix the file reading of the target_file
+H=1
+for i in $(seq 0 `expr ${max_number_submitted_batch_scripts} - 1`)
+do
+
+  # TODO: fix the logic here on the file screening and use method
+  # TODO: file_exists "${__input_filename}"
+  #
+
+  echo " i ------>: $i ------> H ------>: $H"
+
+  H=$(expr $H + 1)
+done
+
+# TODO: #find $targetdir_in$sptr$run_folder_in -maxdepth 1 -name "$all$stat_ext"  | xargs --replace=@ cat @
 # TODO: the find function of the batch*.sh files into the target_runs.txt file
 # TODO: find "$PWD" -name "*.sh" > target_runs.txt
 # TODO: ls -R1 "$PWD" |grep ".sh"|tr ":" "\n"

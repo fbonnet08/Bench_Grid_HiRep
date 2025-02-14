@@ -1,4 +1,11 @@
 
+bash -s < ./launcher_bench_BKeeper.sh   SwanSea/SourceCodes/external_lib BKeeper_compile;
+
+
+sbatch $batch_Scripts_dir/Run_BKeeper_run_cpu.sh \
+       > $LatticeRuns_dir/out_launcher_run_BKeeper_run_cpu.log &
+
+
 BINDING="--interleave=$numa1"
 
 
