@@ -1,0 +1,291 @@
+# Library version: 1.15.0
+# Library path: /mnt/lustre/tursafs1/apps/basestack/cuda-12.3/ucx/1.15.0-cuda12.3/lib/libucs.so.0
+# API headers version: 1.15.0
+# Git branch '', revision 
+# Configured with: --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --disable-dependency-tracking --prefix=/mnt/lustre/tursafs1/apps/basestack/cuda-12.3/ucx/1.15.0-cuda12.3 --enable-devel-headers --enable-examples --enable-optimizations --with-gdrcopy=/mnt/lustre/tursafs1/apps/gdrcopy/2.5.1/bin/ —with-verbs --disable-logging --disable-debug --disable-assertions --enable-mt --enable-cma --with-knem=/opt/knem-1.1.4.90mlnx2/ --with-rdmacm --without-rocm --without-ugni --without-java --enable-compiler-opt=3 --with-cuda=/usr/local/cuda --without-cm --without-ugni --with-rc --with-ud --with-dc --with-mlx5-dv --with-dm --enable-mt
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Wed_Nov_22_10:17:15_PST_2023
+Cuda compilation tools, release 12.3, V12.3.107
+Build cuda_12.3.r12.3/compiler.33567101_0
+/mnt/lustre/tursafs1/apps/basestack/cuda-12.3/openmpi/4.1.5-cuda12.3-slurm/bin/mpirun
+/mnt/lustre/tursafs1/apps/gcc/9.3.0/lib64:/mnt/lustre/tursafs1/apps/basestack/cuda-12.3/ucx/1.15.0-cuda12.3/lib:/mnt/lustre/tursafs1/apps/basestack/cuda-12.3/openmpi/4.1.5-cuda12.3-slurm/lib:/mnt/lustre/tursafs1/apps/cuda/12.3/lib64/:/home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/external_lib/prefix_grid_202410/lib
+total 2022332
+drwxr-sr-x 3 dc-bonn2 dp208       4096 Nov  4 19:17 .
+drwxr-sr-x 6 dc-bonn2 dp208       4096 Nov  4 18:38 ..
+-rw-r--r-- 1 dc-bonn2 dp208 2065356478 Nov  4 19:17 libGrid.a
+-rw-r--r-- 1 dc-bonn2 dp208    1313674 Nov  4 18:38 libgmp.a
+-rwxr-xr-x 1 dc-bonn2 dp208        981 Nov  4 18:38 libgmp.la
+lrwxrwxrwx 1 dc-bonn2 dp208         16 Nov  4 18:38 libgmp.so -> libgmp.so.10.5.0
+lrwxrwxrwx 1 dc-bonn2 dp208         16 Nov  4 18:38 libgmp.so.10 -> libgmp.so.10.5.0
+-rwxr-xr-x 1 dc-bonn2 dp208     550520 Nov  4 18:38 libgmp.so.10.5.0
+-rw-r--r-- 1 dc-bonn2 dp208      83490 Nov  4 18:35 liblime.a
+-rw-r--r-- 1 dc-bonn2 dp208    1241206 Nov  4 18:40 libmpfr.a
+-rwxr-xr-x 1 dc-bonn2 dp208       1197 Nov  4 18:40 libmpfr.la
+lrwxrwxrwx 1 dc-bonn2 dp208         16 Nov  4 18:40 libmpfr.so -> libmpfr.so.6.2.1
+lrwxrwxrwx 1 dc-bonn2 dp208         16 Nov  4 18:40 libmpfr.so.6 -> libmpfr.so.6.2.1
+-rwxr-xr-x 1 dc-bonn2 dp208    2285032 Nov  4 18:40 libmpfr.so.6.2.1
+drwxr-sr-x 2 dc-bonn2 dp208       4096 Nov  4 18:40 pkgconfig
+-rwxr-xr-x 1 dc-bonn2 dp208 370728624 Dec  5 15:44 /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/BKeeper/build/BKeeper
+-rwxr-xr-x 1 dc-bonn2 dp208 324 Feb  4 12:03 /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/Bench_Grid_HiRep/benchmarks/BKeeper/input_BKeeper.xml
+tu-c0r7n24 - 3 device=3 binding=--interleave=3
+tu-c0r7n24 - 1 device=1 binding=--interleave=1
+tu-c0r7n24 - 2 device=2 binding=--interleave=2
+tu-c0r7n24 - 0 device=0 binding=--interleave=0
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit[0]: ========================
+AcceleratorCudaInit[0]: Device Number    : 0
+AcceleratorCudaInit[0]: ========================
+AcceleratorCudaInit[0]: Device identifier: NVIDIA A100-SXM4-80GB
+AcceleratorCudaInit[0]:   totalGlobalMem: 85097971712 
+AcceleratorCudaInit[0]:   managedMemory: 1 
+AcceleratorCudaInit[0]:   isMultiGpuBoard: 0 
+AcceleratorCudaInit[0]:   warpSize: 32 
+AcceleratorCudaInit[0]:   pciBusID: 3 
+AcceleratorCudaInit[0]:   pciDeviceID: 0 
+AcceleratorCudaInit[0]: maxGridSize (2147483647,65535,65535)
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+OPENMPI detected
+AcceleratorCudaInit: using default device 
+AcceleratorCudaInit: assume user either uses
+AcceleratorCudaInit: a) IBM jsrun, or 
+AcceleratorCudaInit: b) invokes through a wrapping script to set CUDA_VISIBLE_DEVICES, UCX_NET_DEVICES, and numa binding 
+AcceleratorCudaInit: Configure options --enable-setdevice=no 
+AcceleratorCudaInit: ================================================
+local rank 0 device 0 bus id: 0000:03:00.0
+AcceleratorCudaInit: ================================================
+AcceleratorCudaInit: ================================================
+AcceleratorCudaInit: ================================================
+SharedMemoryMpi:  World communicator of size 4
+SharedMemoryMpi:  Node  communicator of size 4
+0SharedMemoryMpi:  SharedMemoryMPI.cc acceleratorAllocDevice 8589934592bytes at 0x14c200000000 - 14c3ffffffff for comms buffers 
+Setting up IPC
+
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|_ |  |  |  |  |  |  |  |  |  |  |  | _|__
+__|_                                    _|__
+__|_   GGGG    RRRR    III    DDDD      _|__
+__|_  G        R   R    I     D   D     _|__
+__|_  G        R   R    I     D    D    _|__
+__|_  G  GG    RRRR     I     D    D    _|__
+__|_  G   G    R  R     I     D   D     _|__
+__|_   GGGG    R   R   III    DDDD      _|__
+__|_                                    _|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+__|__|__|__|__|__|__|__|__|__|__|__|__|__|__
+  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+
+
+Copyright (C) 2015 Peter Boyle, Azusa Yamaguchi, Guido Cossu, Antonin Portelli and other authors
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+Current Grid git commit hash=557fa483ffbfac8eabd4011cbd2da0dabdadfe79: (HEAD) clean
+
+Grid    : Message  : ================================================ 
+Grid    : Message  : MPI is initialised and logging filters activated 
+Grid    : Message  : ================================================ 
+Grid    : Message  : This rank is running on host tu-c0r7n24
+Grid    : Message  : Requested 8589934592 byte stencil comms buffers 
+Grid    : Message  : MemoryManager Cache 24117248000 bytes 
+Grid    : Message  : MemoryManager::Init() setting up
+Grid    : Message  : MemoryManager::Init() cache pool for recent host   allocations: SMALL 16 LARGE 2 HUGE 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent device allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() cache pool for recent shared allocations: SMALL 16 LARGE 2 Huge 0
+Grid    : Message  : MemoryManager::Init() Non unified: Caching accelerator data in dedicated memory
+Grid    : Message  : MemoryManager::Init() Using cudaMalloc
+Grid    : Message  : 0.761500 s : Lattice dimensions: [24 24 24 32]
+Grid    : Message  : 0.765100 s : MPI decomposition:  [1 1 1 4]
+BKeeper : Message  : 0.766200 s : ###########################################
+BKeeper : Message  : 0.766700 s : # Performing benchmark for SU(2), adjoint #
+BKeeper : Message  : 0.767000 s : ###########################################
+Grid    : Message  : 0.768800 s : Creating Lattice...
+Grid    : Message  : 0.638030 s : Created Grid:
+Grid    : Message  : 0.638110 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 0.638130 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 0.638150 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 0.638170 s : 	Local Dimensions   : [24 24 24 8]
+Grid    : Message  : 0.638190 s : 	Reduced Dimensions : [24 24 12 4]
+Grid    : Message  : 0.638210 s : 	Outer strides      : [1 24 576 6912]
+Grid    : Message  : 0.638230 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 0.638250 s : 	iSites             : 4
+Grid    : Message  : 0.638280 s : 	oSites             : 27648
+Grid    : Message  : 0.638300 s : 	lSites             : 110592
+Grid    : Message  : 0.638330 s : 	gSites             : 442368
+Grid    : Message  : 0.638350 s : 	Nd                 : 4
+BKeeper : Message  : 0.642070 s : Creating gauge...
+BKeeper : Message  : 0.139979 s : Creating Fermion Action...
+BKeeper : Message  : 0.386067 s : Creating point source...
+BKeeper : Message  : 0.391782 s : Running CG...
+Grid    : Message  : 0.907352 s : FixedIterConjugateGradient: Iteration 500 residual 7.93698606e-26 target 1e-10
+Grid    : Message  : 1.335786 s : FixedIterConjugateGradient: Iteration 1000 residual 5.01430418e-55 target 1e-10
+Grid    : Message  : 1.759714 s : FixedIterConjugateGradient: Iteration 1500 residual 3.59525691e-84 target 1e-10
+Grid    : Message  : 2.186928 s : FixedIterConjugateGradient: Iteration 2000 residual 4.44957158e-114 target 1e-10
+Grid    : Message  : 2.617325 s : FixedIterConjugateGradient: Iteration 2500 residual 4.54159648e-141 target 1e-10
+Grid    : Message  : 3.476700 s : FixedIterConjugateGradient: Iteration 3000 residual 1.29607993e-161 target 1e-10
+Grid    : Message  : 3.477896 s : FixedIterConjugateGradient: Iteration 3500 residual 1.11137937e-161 target 1e-10
+Grid    : Message  : 3.908213 s : FixedIterConjugateGradient: Iteration 4000 residual 1.04256627e-161 target 1e-10
+Grid    : Message  : 4.338486 s : FixedIterConjugateGradient: Iteration 4500 residual 9.94047932e-162 target 1e-10
+Grid    : Message  : 4.768694 s : FixedIterConjugateGradient: Iteration 5000 residual 9.68878076e-162 target 1e-10
+Grid    : Message  : 5.198935 s : FixedIterConjugateGradient: Iteration 5500 residual 9.43036671e-162 target 1e-10
+Grid    : Message  : 5.629138 s : FixedIterConjugateGradient: Iteration 6000 residual 9.1646691e-162 target 1e-10
+Grid    : Message  : 6.592230 s : FixedIterConjugateGradient: Iteration 6500 residual 9.1646691e-162 target 1e-10
+Grid    : Message  : 6.489359 s : FixedIterConjugateGradient: Iteration 7000 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 6.919361 s : FixedIterConjugateGradient: Iteration 7500 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 7.349663 s : FixedIterConjugateGradient: Iteration 8000 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 7.779773 s : FixedIterConjugateGradient: Iteration 8500 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 8.209933 s : FixedIterConjugateGradient: Iteration 9000 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 8.640043 s : FixedIterConjugateGradient: Iteration 9500 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 9.700560 s : FixedIterConjugateGradient: Iteration 10000 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 9.709710 s : ConjugateGradient Converged on iteration 10001	Computed residual 8.60870762e-162	True residual 1.07948535e-15	Target 1e-10
+Grid    : Message  : 9.709800 s : Time breakdown 
+Grid    : Message  : 9.709820 s : 	Elapsed    8.615404 s
+Grid    : Message  : 9.709840 s : 	Matrix     5.910517 s
+Grid    : Message  : 9.709860 s : 	Linalg     2.690633 s
+Grid    : Message  : 9.709880 s : 	Inner      0.836825 s
+Grid    : Message  : 9.709900 s : 	AxpyNorm   0.883697 s
+Grid    : Message  : 9.709910 s : 	LinearComb 0.958924 s
+BKeeper : Result   : 9.733710 s : CG Run Time (s): 8.687309
+BKeeper : Result   : 9.733800 s : FlOp/S (GFlOp/s):   4388.67872
+BKeeper : Result   : 9.733820 s : Comms  (MB):     35396.5179
+BKeeper : Result   : 9.733840 s : Memory (GB):     12969.5023
+BKeeper : Message  : 9.762450 s : ###############################################
+BKeeper : Message  : 9.762510 s : # Performing benchmark for SU(2), fundamental #
+BKeeper : Message  : 9.762520 s : ###############################################
+Grid    : Message  : 9.762590 s : Creating Lattice...
+Grid    : Message  : 9.765150 s : Created Grid:
+Grid    : Message  : 9.765210 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 9.765230 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 9.765250 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 9.765270 s : 	Local Dimensions   : [24 24 24 8]
+Grid    : Message  : 9.765290 s : 	Reduced Dimensions : [24 24 12 4]
+Grid    : Message  : 9.765310 s : 	Outer strides      : [1 24 576 6912]
+Grid    : Message  : 9.765330 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 9.765350 s : 	iSites             : 4
+Grid    : Message  : 9.765360 s : 	oSites             : 27648
+Grid    : Message  : 9.765380 s : 	lSites             : 110592
+Grid    : Message  : 9.765390 s : 	gSites             : 442368
+Grid    : Message  : 9.765400 s : 	Nd                 : 4
+BKeeper : Message  : 9.768160 s : Creating gauge...
+BKeeper : Message  : 9.110974 s : Creating Fermion Action...
+BKeeper : Message  : 9.293857 s : Creating point source...
+BKeeper : Message  : 9.312505 s : Running CG...
+Grid    : Message  : 9.650182 s : FixedIterConjugateGradient: Iteration 500 residual 6.94810335e-26 target 1e-10
+Grid    : Message  : 9.960879 s : FixedIterConjugateGradient: Iteration 1000 residual 2.53209565e-54 target 1e-10
+Grid    : Message  : 10.271695 s : FixedIterConjugateGradient: Iteration 1500 residual 1.20756997e-84 target 1e-10
+Grid    : Message  : 10.584068 s : FixedIterConjugateGradient: Iteration 2000 residual 5.4194046e-114 target 1e-10
+Grid    : Message  : 10.898498 s : FixedIterConjugateGradient: Iteration 2500 residual 2.15154117e-142 target 1e-10
+Grid    : Message  : 11.213237 s : FixedIterConjugateGradient: Iteration 3000 residual 1.04256627e-161 target 1e-10
+Grid    : Message  : 11.527743 s : FixedIterConjugateGradient: Iteration 3500 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 11.842422 s : FixedIterConjugateGradient: Iteration 4000 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 12.156998 s : FixedIterConjugateGradient: Iteration 4500 residual 8.31680169e-162 target 1e-10
+Grid    : Message  : 12.471675 s : FixedIterConjugateGradient: Iteration 5000 residual 8.01427064e-162 target 1e-10
+Grid    : Message  : 12.786323 s : FixedIterConjugateGradient: Iteration 5500 residual 8.01427064e-162 target 1e-10
+Grid    : Message  : 13.101175 s : FixedIterConjugateGradient: Iteration 6000 residual 7.69986217e-162 target 1e-10
+Grid    : Message  : 13.415884 s : FixedIterConjugateGradient: Iteration 6500 residual 7.69986217e-162 target 1e-10
+Grid    : Message  : 13.730749 s : FixedIterConjugateGradient: Iteration 7000 residual 7.69986217e-162 target 1e-10
+Grid    : Message  : 14.454590 s : FixedIterConjugateGradient: Iteration 7500 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 14.360125 s : FixedIterConjugateGradient: Iteration 8000 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 14.674655 s : FixedIterConjugateGradient: Iteration 8500 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 14.989204 s : FixedIterConjugateGradient: Iteration 9000 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 15.303912 s : FixedIterConjugateGradient: Iteration 9500 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 15.618522 s : FixedIterConjugateGradient: Iteration 10000 residual 7.37205677e-162 target 1e-10
+Grid    : Message  : 15.619250 s : ConjugateGradient Converged on iteration 10001	Computed residual 7.37205677e-162	True residual 1.15196883e-15	Target 1e-10
+Grid    : Message  : 15.619259 s : Time breakdown 
+Grid    : Message  : 15.619260 s : 	Elapsed    6.288886 s
+Grid    : Message  : 15.619262 s : 	Matrix     4.264566 s
+Grid    : Message  : 15.619263 s : 	Linalg     2.010361 s
+Grid    : Message  : 15.619265 s : 	Inner      0.609380 s
+Grid    : Message  : 15.619267 s : 	AxpyNorm   0.736194 s
+Grid    : Message  : 15.619271 s : 	LinearComb 0.653525 s
+BKeeper : Result   : 15.621482 s : CG Run Time (s): 6.327654
+BKeeper : Result   : 15.621490 s : FlOp/S (GFlOp/s):   3015.42961
+BKeeper : Result   : 15.621493 s : Comms  (MB):     23597.6786
+BKeeper : Result   : 15.621495 s : Memory (GB):     6652.53143
+BKeeper : Message  : 15.623902 s : ###############################################
+BKeeper : Message  : 15.623908 s : # Performing benchmark for SU(3), fundamental #
+BKeeper : Message  : 15.623909 s : ###############################################
+Grid    : Message  : 15.623920 s : Creating Lattice...
+Grid    : Message  : 15.624193 s : Created Grid:
+Grid    : Message  : 15.624197 s : 	Full Dimensions    : [24 24 24 32]
+Grid    : Message  : 15.624199 s : 	SIMD layout        : [1 1 2 2]
+Grid    : Message  : 15.624201 s : 	Global Dimensions  : [24 24 24 32]
+Grid    : Message  : 15.624203 s : 	Local Dimensions   : [24 24 24 8]
+Grid    : Message  : 15.624205 s : 	Reduced Dimensions : [24 24 12 4]
+Grid    : Message  : 15.624207 s : 	Outer strides      : [1 24 576 6912]
+Grid    : Message  : 15.624209 s : 	Inner strides      : [1 1 1 2]
+Grid    : Message  : 15.624211 s : 	iSites             : 4
+Grid    : Message  : 15.624212 s : 	oSites             : 27648
+Grid    : Message  : 15.624213 s : 	lSites             : 110592
+Grid    : Message  : 15.624214 s : 	gSites             : 442368
+Grid    : Message  : 15.624215 s : 	Nd                 : 4
+BKeeper : Message  : 15.624549 s : Creating gauge...
+BKeeper : Message  : 15.663593 s : Creating Fermion Action...
+BKeeper : Message  : 15.926623 s : Creating point source...
+BKeeper : Message  : 15.937610 s : Running CG...
+Grid    : Message  : 16.383647 s : FixedIterConjugateGradient: Iteration 500 residual 7.93698606e-26 target 1e-10
+Grid    : Message  : 16.815880 s : FixedIterConjugateGradient: Iteration 1000 residual 5.01430418e-55 target 1e-10
+Grid    : Message  : 17.250740 s : FixedIterConjugateGradient: Iteration 1500 residual 3.59525691e-84 target 1e-10
+Grid    : Message  : 17.687489 s : FixedIterConjugateGradient: Iteration 2000 residual 4.44957158e-114 target 1e-10
+Grid    : Message  : 18.124333 s : FixedIterConjugateGradient: Iteration 2500 residual 4.54159648e-141 target 1e-10
+Grid    : Message  : 18.561229 s : FixedIterConjugateGradient: Iteration 3000 residual 1.29607993e-161 target 1e-10
+Grid    : Message  : 18.998144 s : FixedIterConjugateGradient: Iteration 3500 residual 1.11137937e-161 target 1e-10
+Grid    : Message  : 19.434405 s : FixedIterConjugateGradient: Iteration 4000 residual 1.04256627e-161 target 1e-10
+Grid    : Message  : 19.870433 s : FixedIterConjugateGradient: Iteration 4500 residual 9.94047932e-162 target 1e-10
+Grid    : Message  : 20.306518 s : FixedIterConjugateGradient: Iteration 5000 residual 9.68878076e-162 target 1e-10
+Grid    : Message  : 20.742427 s : FixedIterConjugateGradient: Iteration 5500 residual 9.43036671e-162 target 1e-10
+Grid    : Message  : 21.178236 s : FixedIterConjugateGradient: Iteration 6000 residual 9.1646691e-162 target 1e-10
+Grid    : Message  : 21.614252 s : FixedIterConjugateGradient: Iteration 6500 residual 9.1646691e-162 target 1e-10
+Grid    : Message  : 22.500950 s : FixedIterConjugateGradient: Iteration 7000 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 22.486084 s : FixedIterConjugateGradient: Iteration 7500 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 22.922117 s : FixedIterConjugateGradient: Iteration 8000 residual 8.891035e-162 target 1e-10
+Grid    : Message  : 23.358218 s : FixedIterConjugateGradient: Iteration 8500 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 23.795704 s : FixedIterConjugateGradient: Iteration 9000 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 24.232708 s : FixedIterConjugateGradient: Iteration 9500 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 24.669754 s : FixedIterConjugateGradient: Iteration 10000 residual 8.60870762e-162 target 1e-10
+Grid    : Message  : 24.670687 s : ConjugateGradient Converged on iteration 10001	Computed residual 8.60870762e-162	True residual 1.07948535e-15	Target 1e-10
+Grid    : Message  : 24.670696 s : Time breakdown 
+Grid    : Message  : 24.670698 s : 	Elapsed    8.718853 s
+Grid    : Message  : 24.670700 s : 	Matrix     5.957386 s
+Grid    : Message  : 24.670702 s : 	Linalg     2.747295 s
+Grid    : Message  : 24.670703 s : 	Inner      0.830082 s
+Grid    : Message  : 24.670705 s : 	AxpyNorm   0.934441 s
+Grid    : Message  : 24.670706 s : 	LinearComb 0.971529 s
+BKeeper : Result   : 24.673026 s : CG Run Time (s): 8.746423
+BKeeper : Result   : 24.673033 s : FlOp/S (GFlOp/s):   4359.01718
+BKeeper : Result   : 24.673035 s : Comms  (MB):     35396.5179
+BKeeper : Result   : 24.673037 s : Memory (GB):     12969.5023
+BKeeper : Message  : 24.676062 s : ###############################################
+BKeeper : Message  : 24.676068 s : # Performing benchmark for Sp(4), fundamental #
+BKeeper : Message  : 24.676069 s : ###############################################
+BKeeper was not compiled for Sp(4), Fundamental
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Wed Feb 12 10:11:05 GMT 2025
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- /home/dp208/dp208/dc-bonn2/SwanSea/SourceCodes/LatticeRuns/BKeeper_run_gpu/small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes001_mpi01-01-01-04_small/Run_BKeeper_run_gpu_lat24.24.24.32_nodes001_mpi01-01-01-04_small.sh Done. -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
