@@ -99,7 +99,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo ""
 
 declare -a target_batch_file_array=()
-N=1
+N=0
 while read line
 do
     file_exists "${line}"
@@ -122,9 +122,9 @@ for i in $(seq 0 `expr ${#target_batch_file_array[@]} - 1`)
 do
   index_i=$(printf "%04d" "$i")
   index_H=$(printf "%04d" "$H")
-  $cyan; printf "#------>: i #------>: "; $green;  printf "$index_i";
-  $cyan; printf "#------>: H #------>: "; $yellow; printf "$index_H";
-  $cyan; printf "#------>: F #------>: "; $red;    printf "${target_batch_file_array[i]}";
+  $cyan; printf "#------>: i #------>: "; $green;   printf "${index_i} ";
+  $cyan; printf "#------>: H #------>: "; $magenta; printf "${index_H} ";
+  $cyan; printf "#------>: F #------>: "; $red;     printf "${target_batch_file_array[i]}";
   $cyan; printf "\n"; $white; $reset_colors;
 
   file_exists "${target_batch_file_array[i]}"
