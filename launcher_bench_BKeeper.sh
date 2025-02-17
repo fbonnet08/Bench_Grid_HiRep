@@ -133,7 +133,13 @@ do
   then
     printf "                       : "; $bold;
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
-  elif [ "$file_exists" = 'no' ];  then echo "NO  ---> sbatch NO GO";     fi;
+    # Submitting the batch script to the slurm queue.
+    sbatch "${target_batch_file_array[i]}" &
+  elif [ "$file_exists" = 'no' ]
+  then
+    printf "                       : "; $bold;
+    $white; printf "NO  ---> sbatch NO GO.\n"; $reset_colors;
+  fi;
 
   H=$(expr $H + 1)
 done
