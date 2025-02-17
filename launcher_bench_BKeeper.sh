@@ -129,6 +129,9 @@ do
 
   file_exists "${target_batch_file_array[i]}"
 
+  if [ "$file_exists" = 'yes' ]; then echo "YES ---> sbatch go for it"; fi;
+  if [ "$file_exists" = 'no' ];  then echo "NO  ---> sbatch NO GO";     fi;
+
   H=$(expr $H + 1)
 done
 
