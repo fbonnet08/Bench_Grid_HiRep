@@ -122,7 +122,6 @@ case "$__batch_action" in
       #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
@@ -194,7 +193,6 @@ EOF
       #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
@@ -267,7 +265,6 @@ EOF
       #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
@@ -338,7 +335,6 @@ EOF
       #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
       $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
@@ -508,7 +504,6 @@ EOF
         __batch_file_out=$(printf "${__batch_file_construct}.sh")
         __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-        #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
         $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
         # Creating the path in question
@@ -614,8 +609,8 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-          #$cyan;printf "bkeeper_small_n_nodes_gpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
           $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
           # Creating the path in question
           Batch_util_create_path "${__path_to_run}"
           # Now creating the Batch file: __batch_file_out in __path_to_run
@@ -639,7 +634,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
 
           # Writing the header to files
           cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
             *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
@@ -694,10 +689,10 @@ done
     do
       lattice=$(printf "lat%s" "${bkeeper_large_lattice_size_gpu[$j]}";)
 
-      for i in $(seq 0 `expr ${#bkeeper_large_n_nodes_cpu[@]} - 1`)
+      for i in $(seq 0 `expr ${#bkeeper_large_n_nodes_gpu[@]} - 1`)
       do
         # Generate all unique 4-number combinations
-        nodes_x_gpus_per_node=$(echo "${bkeeper_large_n_nodes_cpu[$i]}*$gpus_per_node"|bc);
+        nodes_x_gpus_per_node=$(echo "${bkeeper_large_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
 
 # Combinatorics loop over MPI distributions
 K=1
@@ -718,13 +713,12 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
 
           cnt=$(printf "%03d" "$H")
           index=$(printf "%03d" "$i")
-          n_nodes=$(printf "nodes%03d" "${bkeeper_large_n_nodes_cpu[$i]}";)
+          n_nodes=$(printf "nodes%03d" "${bkeeper_large_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
           __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-          #$cyan;printf "bkeeper_large_n_nodes_cpu[$index] : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
           $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
           # Creating the path in question
           Batch_util_create_path "${__path_to_run}"
@@ -734,11 +728,11 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
           # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-          #ntasks_per_node=$(expr ${bkeeper_large_n_nodes_cpu[$i]} \* ${_core_count})
+          #ntasks_per_node=$(expr ${bkeeper_large_n_nodes_gpu[$i]} \* ${_core_count})
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
-            "${bkeeper_large_n_nodes_cpu[$i]}"       \
+            "${bkeeper_large_n_nodes_gpu[$i]}"       \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
             "$gpus_per_node"                         \
@@ -749,7 +743,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
 
           # Writing the header to files
           cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
             *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;

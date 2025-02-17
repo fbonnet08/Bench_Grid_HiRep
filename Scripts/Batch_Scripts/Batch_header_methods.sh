@@ -3,27 +3,29 @@
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
 Batch_header (){
-  _accelerator=$1
-  _project_account=$2
-  _gpus_per_node=$3
-  _accelerator=$4
-  _simulation_size=$5
-  _machine_name=$6
-  _nodes=$7
-  _ntask=$8
-  _ntasks_per_node=$9
-  _cpus_per_task=${10}
-  _partition=${11}
-  _job_name=${12}
-  _time=${13}
-  _qos=${14}
+  _path_to_run=$1
+  _accelerator=$2
+  _project_account=$3
+  _gpus_per_node=$4
+  _accelerator=$5
+  _simulation_size=$6
+  _machine_name=$7
+  _nodes=$8
+  _ntask=$9
+  _ntasks_per_node=${10}
+  _cpus_per_task=${11}
+  _partition=${12}
+  _job_name=${13}
+  _time=${14}
+  _qos=${15}
 #-------------------------------------------------------------------------------
 # Some default methods for initialisation.
+#    %x.%j.out output file
 #-------------------------------------------------------------------------------
 echo "#!/bin/bash"
-echo "#SBATCH --job-name=$_job_name    # output files for the job"
-echo "#SBATCH --output=%x.out          # %x.%j.out output file"
-echo "#SBATCH --error=%x.err           # %x.%j.err error file"
+echo "#SBATCH --job-name=$_job_name"
+echo "#SBATCH --output=$_path_to_run/%x.out"
+echo "#SBATCH --error=$_path_to_run/%x.err"
 echo "#SBATCH --time=$_time"
 echo "#SBATCH --partition=$_partition"
 echo "#SBATCH --nodes=$_nodes"
@@ -91,4 +93,3 @@ $reset_colors
 #- Conf update
 #- LLR HMC controller instantiated from the the LLR class
 #- Try to understand the
-

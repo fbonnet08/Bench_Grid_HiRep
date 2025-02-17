@@ -134,7 +134,7 @@ do
     printf "                       : "; $bold;
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
     # Submitting the batch script to the slurm queue.
-    sbatch "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
+    #sbatch "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
   elif [ "$file_exists" = 'no' ]
   then
     printf "                       : "; $bold;
