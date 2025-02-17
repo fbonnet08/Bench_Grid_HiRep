@@ -94,7 +94,7 @@ $cyan; printf "Maximum number of submitted batch scripts: "; $bold;
 $magenta; printf "${max_number_submitted_batch_scripts}\n"; $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; printf "Reading in target file: "; $bold;
-$yellow; printf "${target_file}\n";  $white; $reset_colors;
+$yellow; printf "${target_file}\n"; $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo ""
 
@@ -111,7 +111,7 @@ do
 done < "$target_file"
 
 $cyan; printf "Read in from target   : "; $bold;
-$yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n";  $white; $reset_colors;
+$yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n"; $white; $reset_colors;
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Now looping through the target batch file array:\n";
@@ -122,8 +122,12 @@ for i in $(seq 0 `expr ${#target_batch_file_array[@]} - 1`)
 do
   index_i=$(printf "%04d" "$i")
   index_H=$(printf "%04d" "$H")
-  printf " i ------>: $index_i ------>: H ------>: $index_H ------>: "
-  printf "${target_batch_file_array[i]}\n"
+  $cyan; printf "------>: i ------>: "; $green;  printf "$index_i";
+  $cyan; printf "------>: H ------>: "; $yellow; printf "$index_H";
+  $cyan; printf "------>: F ------>: "; $red;    printf "${target_batch_file_array[i]}";
+  $cyan; printf "\n"; $white; $reset_colors;
+
+  file_exists "${target_batch_file_array[i]}"
 
   H=$(expr $H + 1)
 done
