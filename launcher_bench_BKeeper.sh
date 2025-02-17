@@ -68,7 +68,11 @@ case "$__batch_action" in
   *"BKeeper_run_gpu"*)
       #sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
       #        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
-      target_file="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_batch_files}"
+      # TODO: need to fix the simulation size and pass it into the argument list?
+      simulation_size="small"
+
+      target_file="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_small_batch_files}"
+
       find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*small.sh" \
               > "$target_file"
       ;;
@@ -94,25 +98,34 @@ $yellow; printf "${target_file}\n";  $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo ""
 
-# TODO: create loop here for the different cases.
-# TODO: need to fix the file reading of the target_file
-H=1
-for i in $(seq 0 `expr ${max_number_submitted_batch_scripts} - 1`)
+declare -a target_batch_file_array=()
+N=1
+while read line
 do
+    file_exists "${line}"
 
-  # TODO: fix the logic here on the file screening and use method
-  # TODO: file_exists "${__input_filename}"
-  #
+    target_batch_file_array+=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
 
-  echo " i ------>: $i ------> H ------>: $H"
+    N=$(expr $N + 1)
+done < "$target_file"
+
+$cyan; printf "Read in from target   : "; $bold;
+$yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n";  $white; $reset_colors;
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Now looping through the target batch file array:\n";
+$white; $reset_colors;
+
+H=1
+for i in $(seq 0 `expr ${#target_batch_file_array[@]} - 1`)
+do
+  index_i=$(printf "%04d" "$i")
+  index_H=$(printf "%04d" "$H")
+  printf " i ------>: $index_i ------>: H ------>: $index_H ------>: "
+  printf "${target_batch_file_array[i]}\n"
 
   H=$(expr $H + 1)
 done
-
-# TODO: #find $targetdir_in$sptr$run_folder_in -maxdepth 1 -name "$all$stat_ext"  | xargs --replace=@ cat @
-# TODO: the find function of the batch*.sh files into the target_runs.txt file
-# TODO: find "$PWD" -name "*.sh" > target_runs.txt
-# TODO: ls -R1 "$PWD" |grep ".sh"|tr ":" "\n"
 
 #-------------------------------------------------------------------------------
 #End of the script

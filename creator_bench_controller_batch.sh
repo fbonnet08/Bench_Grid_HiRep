@@ -183,8 +183,8 @@ EOF
     #do
     for i in $(seq 0 `expr ${#sombrero_large_weak_n_nodes[@]} - 1`)
     do
-      cnt=$(printf "%03d" $H)
-      index=$(printf "%03d" $i)
+      cnt=$(printf "%03d" "$H")
+      index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_large_weak_n_nodes[$i]}";)
       #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
@@ -256,8 +256,8 @@ EOF
     #do
     for i in $(seq 0 `expr ${#sombrero_small_strong_n_nodes[@]} - 1`)
     do
-      cnt=$(printf "%03d" $H)
-      index=$(printf "%03d" $i)
+      cnt=$(printf "%03d" "$H")
+      index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_small_strong_n_nodes[$i]}";)
       #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
@@ -327,8 +327,8 @@ EOF
     #do
     for i in $(seq 0 `expr ${#sombrero_large_strong_n_nodes[@]} - 1`)
     do
-      cnt=$(printf "%03d" $H)
-      index=$(printf "%03d" $i)
+      cnt=$(printf "%03d" "$H")
+      index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_large_strong_n_nodes[$i]}";)
       #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
@@ -498,8 +498,8 @@ EOF
 
       for i in $(seq 0 `expr ${#bkeeper_large_n_nodes_cpu[@]} - 1`)
       do
-        cnt=$(printf "%03d" $H)
-        index=$(printf "%03d" $i)
+        cnt=$(printf "%03d" "$H")
+        index=$(printf "%03d" "$i")
         n_nodes=$(printf "nodes%03d" "${bkeeper_large_n_nodes_cpu[$i]}";)
         # Orchestrating the file construction
         #__batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__simulation_size}")

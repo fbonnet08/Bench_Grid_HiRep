@@ -36,11 +36,11 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded  login.vega.izum.si
+#sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
+sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------

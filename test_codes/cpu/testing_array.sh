@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 ARGV=`basename -a $1`
 set -eu
 scrfipt_file_name=$(basename "$0")
@@ -59,9 +59,6 @@ declare -a bkeeper_lattice_size_clock_gpu=("48.48.48.64")
 declare -a bkeeper_mpi_clock_gpu=("1.1.1.4")
 declare -a bkeeper_small_n_nodes_gpu=(1 2 3 4 6 8 12 16)
 declare -a bkeeper_large_n_nodes_gpu=(1 2 3 4 6 8 12 16 24 32)
-
-
-
 #-------------------------------------------------------------------------------
 # Grid GPU:
 #-------------------------------------------------------------------------------
@@ -80,10 +77,6 @@ declare -a HiRep_LLR_HMC_weak_n_nodes=(1 2 3 4)
 declare -a HiRep_LLR_HMC_strong_n_nodes=(1 2 3 4 6 8)
 
 #TODO. continue from here ....
-
-
-
-
 
 # ##############################################################################
 #-------------------------------------------------------------------------------

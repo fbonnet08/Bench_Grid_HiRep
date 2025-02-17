@@ -1,4 +1,68 @@
 
+printf "\nNow looping through the array ----\n"
+
+
+
+
+    if [ -f "$line" ]
+    then
+      printf "Target_file ---->: $line ---->: exists\n"
+    else
+      printf "Target_file ---->: $line ---->: does not exists"
+    fi
+
+
+
+
+if [ -f "$target_file" ]
+then
+  printf "Target_file ---->: $target_file ---->: exists"
+else
+  printf "Target_file ---->: $target_file ---->: does not exists"
+fi
+
+
+
+declare -a target_file_array=()
+N=1
+while read line
+do
+    target_file_array=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
+
+    N=$(expr $N + 1)
+done < "$target_file"
+
+H=1
+for i in $(seq 0 `expr ${#target_file_array[@]} - 1`)
+do
+
+
+  echo " i ------>: $i ------>: H ------>: $H ------>: ${#target_file_array[i]}"
+
+  H=$(expr $H + 1)
+done
+
+
+
+
+# TODO: create loop here for the different cases.
+# TODO: need to fix the file reading of the target_file
+# TODO: fix the logic here on the file screening and use method
+# TODO: file_exists "${__input_filename}"
+#
+# TODO: #find $targetdir_in$sptr$run_folder_in -maxdepth 1 -name "$all$stat_ext"  | xargs --replace=@ cat @
+# TODO: the find function of the batch*.sh files into the target_runs.txt file
+# TODO: find "$PWD" -name "*.sh" > target_runs.txt
+# TODO: ls -R1 "$PWD" |grep ".sh"|tr ":" "\n"
+
+echo $line   | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'
+target_file_array=(${max_string_array[@]} ${#path_to_data_dir[$i]});
+
+
+echo "$line"  | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'
+target_file_array=(${max_string_array[@]} ${#path_to_data_dir[$i]});
+target_file_array=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
+
 bash -s < ./launcher_bench_BKeeper.sh   SwanSea/SourceCodes/external_lib BKeeper_compile;
 
 
@@ -7,8 +71,6 @@ sbatch $batch_Scripts_dir/Run_BKeeper_run_cpu.sh \
 
 
 BINDING="--interleave=$numa1"
-
-
 
 
 echo "$(hostname)  --->: $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"

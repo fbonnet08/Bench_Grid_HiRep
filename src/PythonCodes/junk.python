@@ -1,0 +1,52 @@
+
+
+for line in cluster_file:
+        if "Performing benchmark for SU(2), adjoint" in line: start_key = "Performing benchmark for SU(2), adjoint"
+        #if start_key in
+        print(line.strip())
+        if "Performing benchmark for SU(2), fundamental" in line:
+            print(line.strip())
+        if "Performing benchmark for SU(3), fundamental" in line:
+            print(line.strip())
+        if "Performing benchmark for Sp(4), fundamental" in line:
+            print(line.strip())
+            print("                                : # no data collected from Sp(4)")
+        # [end-if]
+
+import os
+
+        #if start_key in
+        print(line.strip())
+        if "Performing benchmark for SU(2), fundamental" in line:
+            print(line.strip())
+        if "Performing benchmark for SU(3), fundamental" in line:
+            print(line.strip())
+        if "Performing benchmark for Sp(4), fundamental" in line:
+            print(line.strip())
+            print("                                : # no data collected from Sp(4)")
+        # [end-if]
+
+
+print(str(i)+ " --->: " + os.path.join(DATA_PATH, batch_action, simulation_size, str(target_file_lst[i].split(".sh")[0])) + " ---> " + target_file_lst[i])
+
+print (msg)
+
+print (len(target_file_lst[:]))
+
+print( target_file_lst[i]     )
+
+print(os.path.join(DATA_PATH, str(target_file_lst[i].strip(".sh")[0]), target_file_lst[i]))
+
+print("target_file_lst[:]: ", target_file_lst[:])
+
+os.path.join(DATA_PATH, str(target_file_lst[i].split(".sh")[0]), target_file_lst[i])
+
+
+print("target_file_cluster_lst[:]: ", target_file_cluster_lst[:])
+m.printMesgAddStr("[Check]: target file       --->: ", c.getYellow(), target_file_cluster_lst[:])
+
+msg = ( os.path.join(DATA_PATH, batch_action, simulation_size, str(target_file_lst[i].split(".sh")[0]), target_file_lst[i]) ).strip()
+print(cluster_out_file)
+
+
+print("line ---->: ", line)

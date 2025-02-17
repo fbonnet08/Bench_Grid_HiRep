@@ -124,11 +124,24 @@ HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 #grid_dir=${sourcecode_dir}/Grid-Main/Grid
 grid_dir=${sourcecode_dir}/Grid-UCL-ARC/Grid
 #-------------------------------------------------------------------------------
-#[Run-Structure] Setting up the target file name structure
-target_BKeeper_run_gpu_batch_files="target_BKeeper_run_gpu_batch_files.sh"
-target_BKeeper_run_cpu_batch_files="target_BKeeper_run_cpu_batch_files.sh"
-
-
+# [Run-Structure] Setting up the target file name structure
+# [Small]
+target_BKeeper_run_cpu_small_batch_files="target_BKeeper_run_cpu_small_batch_files.txt"
+target_BKeeper_run_gpu_small_batch_files="target_BKeeper_run_gpu_small_batch_files.txt"
+# [Large]
+target_BKeeper_run_cpu_large_batch_files="target_BKeeper_run_cpu_large_batch_files.txt"
+target_BKeeper_run_gpu_large_batch_files="target_BKeeper_run_gpu_large_batch_files.txt"
+#-------------------------------------------------------------------------------
+$green; $bold;
+echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+$red  ; printf "Target files names     : ";
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$reset_colors;
+$white; printf "BKeeper_run_cpu_small  : ";$red;   printf "$target_BKeeper_run_cpu_small_batch_files\n"; $reset_colors;
+$white; printf "BKeeper_run_gpu_small  : ";$red;   printf "$target_BKeeper_run_gpu_small_batch_files\n"; $reset_colors;
+$white; printf "BKeeper_run_cpu_large  : ";$blue;  printf "$target_BKeeper_run_cpu_large_batch_files\n"; $reset_colors;
+$white; printf "BKeeper_run_gpu_large  : ";$green; printf "$target_BKeeper_run_gpu_large_batch_files\n"; $reset_colors;
+$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;  printf "$0\n";                    $reset_colors;
 #-------------------------------------------------------------------------------
 #[Build-Structure] Setting up the directory structure for the download
 basedir=${local_dir}/grid_bench_202410

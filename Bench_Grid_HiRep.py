@@ -133,11 +133,11 @@ if __name__ == "__main__":
     l.createMultiprocessing_type()
     m.printMesgStr("Multiprocessing mode          :", c.get_B_Yellow(), c.getMultiprocessing_type())
     # --------------------------------------------------------------------------
-    # [Paths-Setup]
+    # [Main-code]
     # --------------------------------------------------------------------------
     m.printMesgStr("This is the main program      :", c.getCyan(), "Bench_Grid_HiRep.py")
     # --------------------------------------------------------------------------
-    # [Main-code]
+    # [Analysis-Type]
     # --------------------------------------------------------------------------
     if args['--grid']:
         l.createGrid()
