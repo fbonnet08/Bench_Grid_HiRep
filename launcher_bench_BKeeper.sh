@@ -124,7 +124,7 @@ do
   index_H=$(printf "%04d" "$H")
   $cyan; printf "#------>: i #------>: "; $green;   printf "${index_i} ";
   $cyan; printf "#------>: H #------>: "; $magenta; printf "${index_H} ";
-  $cyan; printf "#------>: F #------>: "; $red;     printf "${target_batch_file_array[i]}";
+  $cyan; printf "#------>: File #--->: "; $red;     printf "${target_batch_file_array[i]}";
   $cyan; printf "\n"; $white; $reset_colors;
 
   file_exists "${target_batch_file_array[i]}"
