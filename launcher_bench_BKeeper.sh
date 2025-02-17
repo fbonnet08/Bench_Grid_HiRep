@@ -104,7 +104,8 @@ while read line
 do
     file_exists "${line}"
 
-    target_batch_file_array+=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
+    #target_batch_file_array+=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
+    target_batch_file_array+=($(echo "$line"));
 
     N=$(expr $N + 1)
 done < "$target_file"
