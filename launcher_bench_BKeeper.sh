@@ -129,8 +129,11 @@ do
 
   file_exists "${target_batch_file_array[i]}"
 
-  if [ "$file_exists" = 'yes' ]; then echo "YES ---> sbatch go for it"; fi;
-  if [ "$file_exists" = 'no' ];  then echo "NO  ---> sbatch NO GO";     fi;
+  if [ "$file_exists" = 'yes' ]
+  then
+    printf "                       : "; $bold;
+    $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
+  elif [ "$file_exists" = 'no' ];  then echo "NO  ---> sbatch NO GO";     fi;
 
   H=$(expr $H + 1)
 done
