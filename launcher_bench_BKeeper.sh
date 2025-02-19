@@ -71,12 +71,12 @@ case "$__batch_action" in
       # TODO: need to fix the simulation size and pass it into the argument list?
       declare -a simulations_type_array=("small" "large")
 
+      # Initializing the file names to an initial value: empty
+      target_file_BKeeper_gpu_small="empty"
+      target_file_BKeeper_gpu_large="empty"
       for k in $(seq 0 `expr ${#simulations_type_array[@]} - 1`)
       do
         printf "simulations_type_array[$k]} ----> ${simulations_type_array[k]} ----> "
-
-        target_file_BKeeper_gpu_small="empty"
-        target_file_BKeeper_gpu_large="empty"
 
         simulation_size=${simulations_type_array[k]}
         case $simulation_size in
@@ -91,10 +91,10 @@ case "$__batch_action" in
                   > "$target_file_BKeeper_gpu_large"
           ;;
         esac
+        printf "${target_file_BKeeper_gpu_small} <--::--> ${target_file_BKeeper_gpu_large}\n"
       done
       ;;
 esac
-
 #-------------------------------------------------------------------------------
 # Method to launch batch jobs from a given target file
 #-------------------------------------------------------------------------------
