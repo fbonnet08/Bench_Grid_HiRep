@@ -446,14 +446,14 @@ CPU_BIND="\${CPU_BIND},7e0000,7e000000"
 CPU_BIND="\${CPU_BIND},7e,7e00"
 CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 
-cat << EOF > select_gpu
+cat << EOF > \${_path_to_run}/select_gpu
 #!/bin/bash
 
 export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
 exec \\\$*
 $eof_end_string
 
-chmod +x ./select_gpu
+chmod +x \${_path_to_run}/select_gpu
 EOF
 elif [[ $_machine_name = "leonardo" ]]
 then
@@ -507,7 +507,7 @@ cat << EOF >> "$_batch_file_out"
 device_mem=23000
 shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
-  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
+  \${_path_to_run}/select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
   "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
   --grid $_lattice_size_cpu \\
   --mpi $_mpi_distribution \\
@@ -516,7 +516,6 @@ srun --cpu-bind=\${CPU_BIND} \\
   --device-mem \$device_mem \\
   --log Error,Warning,Message
 ################################################################################
-#rm -rf ./select_gpu
 #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "tursa"    || \
