@@ -1,4 +1,10 @@
 
+         \\
+        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
+         \\
+        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
+
+
 
 if [ -f \${sombrero_dir}/sombrero.sh ]
 then

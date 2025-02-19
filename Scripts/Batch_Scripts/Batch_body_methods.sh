@@ -36,8 +36,7 @@ slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -w \\
-        -s $_simulation_size \\
-        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
+        -s $_simulation_size
 
 EOF
 }
@@ -71,38 +70,12 @@ path_to_run=$_path_to_run
 #-------------------------------------------------------------------------------
 cd \$sombrero_dir;
 
-if [ -f \${sombrero_dir}/sombrero.sh ]
-then
-  printf "File                   : ";
-  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " exist, let's submit.\n";
-  ls -la \$sombrero_dir/sombrero.sh
-else
-  printf "Directory              : ";
-  printf '%s'"\${sombrero_dir}/sombrero.sh"; printf " does not exist, exiting ...\n";
-  printf "                       : "; printf "done.\n";
-  #exit
-fi
-
-if [ -d \${path_to_run} ]
-then
-  printf "Directory              : ";
-  printf '%s'"\${path_to_run}"; printf " exist, nothing to do.\n";
-else
-  printf "Directory              : ";
-  printf '%s'"\${path_to_run}";printf " doesn't exist, will create it...\n";
-  mkdir -p \${path_to_run}
-  printf "                       : "; printf "done.\n";
-fi
-
-echo "$PWD"
-
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
-        -s $_simulation_size \\
-        > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
+        -s $_simulation_size
 
 EOF
 }

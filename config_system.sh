@@ -32,7 +32,7 @@ case $machine_name in
     gpus_per_node=4;                             qos="normal";
     ;;
   *"lumi"*)
-    target_partition_gpu="standard-g";           target_partition_cpu="standard-c";
+    target_partition_gpu="standard-g";           target_partition_cpu="standard";
     gpus_per_node=8;                             qos="normal";
     ;;
   *"leonardo"*)
