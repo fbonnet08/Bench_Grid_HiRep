@@ -431,6 +431,17 @@ export GRID_ALLOC_NCACHE_HUGE=0
 EOF
 fi
 #-------------------------------------------------------------------------------
+# Job description
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Output variable.
+#-------------------------------------------------------------------------------
+LatticeRuns_dir=$_LatticeRuns_dir
+path_to_run=$_path_to_run
+job_name=$_batch_file_construct
+EOF
+#-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -446,14 +457,14 @@ CPU_BIND="\${CPU_BIND},7e0000,7e000000"
 CPU_BIND="\${CPU_BIND},7e,7e00"
 CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 
-cat << EOF > \${_path_to_run}/select_gpu
+cat << EOF > \${path_to_run}/select_gpu
 #!/bin/bash
 
 export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
 exec \\\$*
 $eof_end_string
 
-chmod +x \${_path_to_run}/select_gpu
+chmod +x \${path_to_run}/select_gpu
 EOF
 elif [[ $_machine_name = "leonardo" ]]
 then
@@ -484,17 +495,6 @@ chmod a+x \${wrapper_script}
 EOF
 fi
 #-------------------------------------------------------------------------------
-# Job description
-#-------------------------------------------------------------------------------
-cat << EOF >> "$_batch_file_out"
-#-------------------------------------------------------------------------------
-# Output variable.
-#-------------------------------------------------------------------------------
-LatticeRuns_dir=$_LatticeRuns_dir
-path_to_run=$_path_to_run
-job_name=$_batch_file_construct
-EOF
-#-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -507,7 +507,7 @@ cat << EOF >> "$_batch_file_out"
 device_mem=23000
 shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
-  \${_path_to_run}/select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
+  \${path_to_run}/select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
   "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
   --grid $_lattice_size_cpu \\
   --mpi $_mpi_distribution \\
