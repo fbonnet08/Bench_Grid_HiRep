@@ -140,14 +140,17 @@ case "$__batch_action" in
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
         "$gpus_per_node"                         \
-        "$target_partition_gpu"                  \
+        "$target_partition_cpu"                  \
         "${__batch_file_construct}"              \
         "02:00:00"                               \
         "$qos"
 
       # Writting the header to files
       cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node}   \\
+               ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} \\
+               ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} \\
+               ${_qos})
 $(
       case $__batch_action in
         *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"        ;;
@@ -162,9 +165,15 @@ $module_list
 
 EOF
       # Now let's get the body in for the batch file
-      Batch_body_Run_Sombrero_weak \
-      "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
+      Batch_body_Run_Sombrero_weak                       \
+            "${machine_name}"                            \
+            "${sombrero_dir}"                            \
+            "${LatticeRuns_dir}"                         \
+            "${__path_to_run}${sptr}${__batch_file_out}" \
+            "${__simulation_size}"                       \
+            "${__batch_file_construct}"                  \
+            "${prefix}"                                  \
+            "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
@@ -211,7 +220,7 @@ EOF
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
         "$gpus_per_node"                         \
-        "$target_partition_gpu"                  \
+        "$target_partition_cpu"                  \
         "${__batch_file_construct}"              \
         "01:00:00"                               \
         "$qos"
