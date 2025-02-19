@@ -1,4 +1,8 @@
 
+target_batch_file_BKeeper_gpu_small_array+=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
+
+
+
 printf "\nNow looping through the array ----\n"
 
 

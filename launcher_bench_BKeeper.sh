@@ -69,20 +69,47 @@ case "$__batch_action" in
       #sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
       #        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
       # TODO: need to fix the simulation size and pass it into the argument list?
-      simulation_size="small"
+      declare -a simulations_type_array=("small" "large")
 
-      target_file="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_small_batch_files}"
+      for k in $(seq 0 `expr ${#simulations_type_array[@]} - 1`)
+      do
+        printf "simulations_type_array[$k]} ----> ${simulations_type_array[k]} ----> "
 
-      find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*small.sh" \
-              > "$target_file"
+        target_file_BKeeper_gpu_small="empty"
+        target_file_BKeeper_gpu_large="empty"
+
+        simulation_size=${simulations_type_array[k]}
+        case $simulation_size in
+          *"small"*)
+            target_file_BKeeper_gpu_small="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_small_batch_files}"
+            find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*small.sh" \
+                  > "$target_file_BKeeper_gpu_small"
+          ;;
+          *"large"*)
+            target_file_BKeeper_gpu_large="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_large_batch_files}"
+            find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*large.sh" \
+                  > "$target_file_BKeeper_gpu_large"
+          ;;
+        esac
+      done
       ;;
 esac
+
+#-------------------------------------------------------------------------------
+# Method to launch batch jobs from a given target file
+#-------------------------------------------------------------------------------
+# Submitting the small set method in:
+# ./Scripts/Batch_Scripts/Batch_util_methods.sh;
+Batch_submit_target_file_list_to_queue "${target_file_BKeeper_gpu_small}"      \
+                                       "${max_number_submitted_batch_scripts}"
+
+: '
 #-------------------------------------------------------------------------------
 # Check if target file exists first
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Check if target file exists first:\n"; $white; $reset_colors;
-file_exists "${target_file}"
+file_exists "${target_file_BKeeper_gpu_small}"
 #-------------------------------------------------------------------------------
 # Launching batch scripts from the Screening directory
 #-------------------------------------------------------------------------------
@@ -94,21 +121,20 @@ $cyan; printf "Maximum number of submitted batch scripts: "; $bold;
 $magenta; printf "${max_number_submitted_batch_scripts}\n"; $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; printf "Reading in target file: "; $bold;
-$yellow; printf "${target_file}\n"; $white; $reset_colors;
+$yellow; printf "${target_file_BKeeper_gpu_small}\n"; $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo ""
 
-declare -a target_batch_file_array=()
+declare -a target_batch_file_BKeeper_gpu_small_array=()
 N=0
 while read line
 do
     file_exists "${line}"
 
-    #target_batch_file_array+=($(echo "$line" | sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g'));
-    target_batch_file_array+=($(echo "$line"));
+    target_batch_file_BKeeper_gpu_small_array+=($(echo "$line"));
 
     N=$(expr $N + 1)
-done < "$target_file"
+done < "$target_file_BKeeper_gpu_small"
 
 $cyan; printf "Read in from target   : "; $bold;
 $yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n"; $white; $reset_colors;
@@ -118,23 +144,23 @@ $green; printf "Now looping through the target batch file array:\n";
 $white; $reset_colors;
 
 H=1
-for i in $(seq 0 `expr ${#target_batch_file_array[@]} - 1`)
+for i in $(seq 0 `expr ${#target_batch_file_BKeeper_gpu_small_array[@]} - 1`)
 do
   index_i=$(printf "%04d" "$i")
   index_H=$(printf "%04d" "$H")
   $cyan; printf "#------>: i #------>: "; $green;   printf "${index_i} ";
   $cyan; printf "#------>: H #------>: "; $magenta; printf "${index_H} ";
-  $cyan; printf "#------>: File #--->: "; $red;     printf "${target_batch_file_array[i]}";
+  $cyan; printf "#------>: File #--->: "; $red;     printf "${target_batch_file_BKeeper_gpu_small_array[i]}";
   $cyan; printf "\n"; $white; $reset_colors;
 
-  file_exists "${target_batch_file_array[i]}"
+  file_exists "${target_batch_file_BKeeper_gpu_small_array[i]}"
 
   if [ "$file_exists" = 'yes' ]
   then
     printf "                       : "; $bold;
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
     # Submitting the batch script to the slurm queue.
-    sbatch "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
+    sbatch "${target_batch_file_BKeeper_gpu_small_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
   elif [ "$file_exists" = 'no' ]
   then
     printf "                       : "; $bold;
@@ -143,6 +169,7 @@ do
 
   H=$(expr $H + 1)
 done
+'
 
 #-------------------------------------------------------------------------------
 #End of the script

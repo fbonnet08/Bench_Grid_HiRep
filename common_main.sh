@@ -206,11 +206,11 @@ case $machine_name in
     #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
     #module load FFTW/3.3.10-GCC-12.3.0;
     #module list;
-    module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0; module list;"
+    module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0 Python; module list;"
     ;;
   *"lumi"*)
     module list;
-    module_list="module load cray-mpich cray-fftw; module list;"
+    module_list="module load cray-mpich cray-fftw cray-python; module list;"
     ;;
   *"leonardo"*)
     #module list;

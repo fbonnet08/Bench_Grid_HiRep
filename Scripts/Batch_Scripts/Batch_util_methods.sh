@@ -1,5 +1,78 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
+# Method to launch batch jobs from a given target file
+#-------------------------------------------------------------------------------
+Batch_submit_target_file_list_to_queue (){
+_target_file=$1
+_max_number_submitted_batch_scripts=$2 #variable passed but not used maybe later
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Check if target file exists first
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Check if target file exists first:\n"; $white; $reset_colors;
+file_exists "${_target_file}"
+#-------------------------------------------------------------------------------
+# Launching batch scripts from the Screening directory
+#-------------------------------------------------------------------------------
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Launching batch scripts from the Screening directory:\n";
+$white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; printf "Maximum number of submitted batch scripts: "; $bold;
+$magenta; printf "${_max_number_submitted_batch_scripts}\n"; $white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; printf "Reading in target file: "; $bold;
+$yellow; printf "${_target_file}\n"; $white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo ""
+
+declare -a target_batch_file_array=()
+N=0
+while read line
+do
+    file_exists "${line}"
+
+    target_batch_file_array+=($(echo "$line"));
+
+    N=$(expr $N + 1)
+done < "$_target_file"
+
+$cyan; printf "Read in from target   : "; $bold;
+$yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n"; $white; $reset_colors;
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Now looping through the target batch file array:\n";
+$white; $reset_colors;
+
+H=1
+for i in $(seq 0 `expr ${#target_batch_file_array[@]} - 1`)
+do
+  index_i=$(printf "%04d" "$i")
+  index_H=$(printf "%04d" "$H")
+  $cyan; printf "#------>: i #------>: "; $green;   printf "${index_i} ";
+  $cyan; printf "#------>: H #------>: "; $magenta; printf "${index_H} ";
+  $cyan; printf "#------>: File #--->: "; $red;     printf "${target_batch_file_array[i]}";
+  $cyan; printf "\n"; $white; $reset_colors;
+
+  file_exists "${target_batch_file_array[i]}"
+
+  if [ "$file_exists" = 'yes' ]
+  then
+    printf "                       : "; $bold;
+    $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
+    # Submitting the batch script to the slurm queue.
+    sbatch "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
+  elif [ "$file_exists" = 'no' ]
+  then
+    printf "                       : "; $bold;
+    $white; printf "NO  ---> sbatch NO GO.\n"; $reset_colors;
+  fi;
+
+  H=$(expr $H + 1)
+done
+}
+#-------------------------------------------------------------------------------
 # Method to create an arbitrary directory
 #-------------------------------------------------------------------------------
 Batch_util_create_path (){

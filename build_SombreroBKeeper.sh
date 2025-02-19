@@ -94,7 +94,7 @@ ls -al
 
 $green; printf "Building Sombrero            : "; $bold;
 $yellow; printf " ... \n"; $white; $reset_colors;
-#make -k
+make -k
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
