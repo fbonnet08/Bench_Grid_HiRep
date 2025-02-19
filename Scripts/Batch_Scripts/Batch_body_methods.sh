@@ -73,6 +73,8 @@ cd \$sombrero_dir;
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
+alias mpirun='srun'
+
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -s $_simulation_size
