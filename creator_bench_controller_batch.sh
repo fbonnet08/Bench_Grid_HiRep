@@ -104,6 +104,7 @@ case "$__batch_action" in
     #-------------------------------------------------------------------------------
     #__batch_action="Sombrero_weak" #$2
     # constructing the files and directory structure
+    __accelerator="cpu"
     __simulation_size="small"
     H=1
     #L=1
@@ -247,6 +248,7 @@ EOF
     # Sombrero[Strong-Small]:
     #-------------------------------------------------------------------------------
     # constructing the files and directory structure
+    __accelerator="cpu"
     __simulation_size="small"
     H=1
     #L=1
