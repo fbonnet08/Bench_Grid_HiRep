@@ -22,11 +22,11 @@ white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 #-------------------------------------------------------------------------------
 __project_account=$1   #SwanSea/SourceCodes/external_lib
 __external_lib_dir=$2   #SwanSea/SourceCodes/external_lib
-#bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" Sombrero_weak
-#bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" Sombrero_strong
+bash -s < ./creator_bench_controller_batch.sh  "$__project_account" "$__external_lib_dir" Sombrero_weak
+#bash -s < ./creator_bench_controller_batch.sh  "$__project_account" "$__external_lib_dir" Sombrero_strong
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_run_cpu;
 
-bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
+#bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
 
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" HiRep-LLR-master-cpu
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_compile;

@@ -98,8 +98,7 @@ esac
 #-------------------------------------------------------------------------------
 # Method to launch batch jobs from a given target file
 #-------------------------------------------------------------------------------
-# Submitting the small set method in:
-# ./Scripts/Batch_Scripts/Batch_util_methods.sh;
+# Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
 Batch_submit_target_file_list_to_queue "${target_file_BKeeper_gpu_small}"      \
                                        "${max_number_submitted_batch_scripts}"
 

@@ -138,15 +138,15 @@ case "$__batch_action" in
         "${sombrero_small_weak_n_nodes[$i]}"     \
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
-        1                                        \
-        "cpu"                                    \
+        "$gpus_per_node"                         \
+        "$target_partition_gpu"                  \
         "${__batch_file_construct}"              \
-        "2:0:0"                                  \
-        "standard"
+        "02:00:00"                               \
+        "$qos"
 
       # Writting the header to files
       cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
       case $__batch_action in
         *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"        ;;
@@ -209,15 +209,15 @@ EOF
         "${sombrero_large_weak_n_nodes[$i]}"     \
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
-        1                                        \
-        "cpu"                                    \
+        "$gpus_per_node"                         \
+        "$target_partition_gpu"                  \
         "${__batch_file_construct}"              \
-        "2:0:0"                                  \
-        "standard"
+        "01:00:00"                               \
+        "$qos"
 
       # Writting the header to files
       cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
       case $__batch_action in
         *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"        ;;

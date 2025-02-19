@@ -147,6 +147,7 @@ class DataManage_common:
         self.phaseshift       = "no"   #Find additional phase shift
         self.data_rot         = -90    #Rot angle for Size of power spec.
         self.target_file      = 'target.txt' #Name of output file list
+        self.init_target_file = 'target.txt' #Name of output file list
 
         self.fm_dose = 1.0
         self.bfactor = 150
