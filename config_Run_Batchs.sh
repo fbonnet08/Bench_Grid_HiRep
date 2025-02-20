@@ -8,7 +8,7 @@
 # Instantiating the benchmarks arrays
 #-------------------------------------------------------------------------------
 declare -a ntasks_per_node=(1 2 4 8 16 32 64 128 256)
-declare -a mpi_permutation=(1 1 2 3)
+#declare -a mpi_permutation=(1 1 2 3)
 declare -a mpi_distribution=(
 "1.1.1.2"
 )
