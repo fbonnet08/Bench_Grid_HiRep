@@ -46,8 +46,8 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # Code block comment for now as the main focus is going to be LUMI for just now
 
-# Booster: EUHPC_B17_015
-# DCPG: EUHPC_B17_015_0
+# Booster [GPU]: EUHPC_B17_015
+# DCPG    [CPU]: EUHPC_B17_015_0
 
 : '
 step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
