@@ -59,7 +59,6 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Launching Sombrero Weak benchmark dir:\n"; $white; $reset_colors;
 
 # TODO: create the automated launching for the jobs using Sombrero Strong case,
-# TODO: create loop here for the different cases.
 # TODO: need to fix the simulation size and pass it into the argument list?
 
 declare -a simulations_type_array=("small" "large")

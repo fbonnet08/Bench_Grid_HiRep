@@ -110,9 +110,6 @@ case "$__batch_action" in
     H=1
     L=1
 
-    # TODO: reinstate the loop ove the ntasks_per_node loop up to node threshold of max_cores_per_node_cpu=16;
-    # TODO: this is machine dependent
-
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     do
       if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
@@ -193,9 +190,6 @@ EOF
     __simulation_size="large"
     H=1
     L=1
-
-    # TODO: reinstate the loop ove the ntasks_per_node loop up to node threshold of max_cores_per_node_cpu=16;
-    # TODO: this is machine dependent
 
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     do
@@ -604,7 +598,6 @@ EOF
     #-------------------------------------------------------------------------------
     # BKeeper [Small-GPU]:
     #-------------------------------------------------------------------------------
-    # TODO: continue from here ..............
     __accelerator="gpu"
     __simulation_size="small"
     # constructing the files and directory structure
