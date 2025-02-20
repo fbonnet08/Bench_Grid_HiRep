@@ -1,5 +1,34 @@
 #!/bin/bash
 ################################################################################
+# Run Finishing up method
+################################################################################
+Batch_body_Run_finishing_up_method (){
+_batch_file_out=$1
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+#End of the script
+echo
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo `date`;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo "- $_batch_file_out Done. -"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+# srun --account={account_name} --partition={partition} --time=00:30:00 --nodes=1 --gres=gpu:4 --pty bash
+##SBATCH --ntasks-per-socket=4
+##SBATCH --mem=494000
+#export MPICH_GPU_SUPPORT_ENABLED=1
+#export UCX_TLS=self,sm,rc,ud
+#export OMPI_MCA_PML="ucx"
+#export OMPI_MCA_osc="ucx"
+#-------------------------------------------------------------------------------
+EOF
+}
+################################################################################
 # Run Sombrero weak
 ################################################################################
 Batch_body_Run_Sombrero_weak (){
@@ -33,14 +62,15 @@ cd \$sombrero_dir;
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
-alias mpirun='srun'
-
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -w \\
         -s $_simulation_size
-
 EOF
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+Batch_body_Run_finishing_up_method "${_batch_file_out}"
 }
 ################################################################################
 # Run Sombrero strong
@@ -75,13 +105,14 @@ cd \$sombrero_dir;
 echo "SLURM_NTASKS: \$SLURM_NTASKS"
 slrm_ntasks=\$(printf "%04d" \$SLURM_NTASKS)
 
-alias mpirun='srun'
-
 \$sombrero_dir/sombrero.sh \\
         -n \$SLURM_NTASKS \\
         -s $_simulation_size
-
 EOF
+#-------------------------------------------------------------------------------
+# Finishing up
+#-------------------------------------------------------------------------------
+Batch_body_Run_finishing_up_method "${_batch_file_out}"
 }
 ################################################################################
 # Compile BKeeper

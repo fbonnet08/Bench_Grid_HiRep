@@ -105,25 +105,31 @@ case "$__batch_action" in
     #__batch_action="Sombrero_weak" #$2
     # constructing the files and directory structure
     __accelerator="cpu"
+    __strength="weak"
     __simulation_size="small"
     H=1
-    #L=1
-    #for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
-    #do
+    L=1
+
+    # TODO: reinstate the loop ove the ntasks_per_node loop up to node threshold of max_cores_per_node_cpu=16;
+    # TODO: this is machine dependent
+
+    for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    do
+      if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
+      then
     for i in $(seq 0 `expr ${#sombrero_small_weak_n_nodes[@]} - 1`)
     do
       cnt=$(printf "%03d" $H)
       index=$(printf "%03d" $i)
       n_nodes=$(printf "nodes%03d" ${sombrero_small_weak_n_nodes[$i]};)
-      #ntpn=$(printf "ntpn%03d" ${ntasks_per_node[$j]};)
+      ntpn=$(printf "ntpns%03d" ${ntasks_per_node[$j]};)
       # Orchestrating the file construction
-      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
-      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
+      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
+      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+      $cyan;printf "                       : $n_nodes, $ntpn, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
       Batch_util_create_path "${__path_to_run}"
@@ -133,8 +139,8 @@ case "$__batch_action" in
       $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
       # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-      ntasks_per_node=$(expr "${sombrero_small_weak_n_nodes[$i]}" \* "${_core_count}")
-      #ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+      #ntasks_per_node=$(expr "${sombrero_small_weak_n_nodes[$i]}" \* "${_core_count}")
+      ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
       config_Batch_with_input_from_system_config \
         "${sombrero_small_weak_n_nodes[$i]}"     \
         "${_core_count}"                         \
@@ -175,32 +181,39 @@ EOF
       # incrementing the counter
       H=$(expr $H + 1)
     done
-    #  L=$(expr $L + 1)
-    #done
+    fi
+      L=$(expr $L + 1)
+    done
     #-------------------------------------------------------------------------------
     # Sombrero[Weak-Large]:
-    #-------------------------------------------------------------------------------
+        #-------------------------------------------------------------------------------
     #__batch_action="Sombrero_weak" #$2
     # constructing the files and directory structure
+    __strength="weak"
     __simulation_size="large"
     H=1
-    #L=1
-    #for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
-    #do
+    L=1
+
+    # TODO: reinstate the loop ove the ntasks_per_node loop up to node threshold of max_cores_per_node_cpu=16;
+    # TODO: this is machine dependent
+
+    for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    do
+      if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
+      then
     for i in $(seq 0 `expr ${#sombrero_large_weak_n_nodes[@]} - 1`)
     do
       cnt=$(printf "%03d" "$H")
       index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_large_weak_n_nodes[$i]}";)
-      #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
+      ntpn=$(printf "ntpns%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
-      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
-      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
+      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
+      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+      $cyan;printf "                       : $n_nodes, $ntpn, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
       Batch_util_create_path "${__path_to_run}"
@@ -210,8 +223,8 @@ EOF
       $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
       # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-      ntasks_per_node=$(expr "${sombrero_large_weak_n_nodes[$i]}" \* "${_core_count}")
-      #ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+      #ntasks_per_node=$(expr "${sombrero_large_weak_n_nodes[$i]}" \* "${_core_count}")
+      ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
       config_Batch_with_input_from_system_config \
         "${sombrero_large_weak_n_nodes[$i]}"     \
         "${_core_count}"                         \
@@ -246,8 +259,9 @@ EOF
       # incrementing the counter
       H=$(expr $H + 1)
     done
-    #  L=$(expr $L + 1)
-    #done
+    fi
+      L=$(expr $L + 1)
+    done
       ;;
   *"Sombrero_strong"*)
     #-------------------------------------------------------------------------------
@@ -255,25 +269,27 @@ EOF
     #-------------------------------------------------------------------------------
     # constructing the files and directory structure
     __accelerator="cpu"
+    __strength="strong"
     __simulation_size="small"
     H=1
-    #L=1
-    #for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
-    #do
+    L=1
+    for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    do
+      if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
+      then
     for i in $(seq 0 `expr ${#sombrero_small_strong_n_nodes[@]} - 1`)
     do
       cnt=$(printf "%03d" "$H")
       index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_small_strong_n_nodes[$i]}";)
-      #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
+      ntpn=$(printf "ntpns%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
-      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
-      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
+      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
+      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+      $cyan;printf "                       : $n_nodes, $ntpn, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
       Batch_util_create_path "${__path_to_run}"
@@ -283,21 +299,21 @@ EOF
       $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
       # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-      ntasks_per_node=$(expr ${sombrero_small_strong_n_nodes[$i]} \* ${_core_count})
-      #ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+      #ntasks_per_node=$(expr ${sombrero_small_strong_n_nodes[$i]} \* ${_core_count})
+      ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
       config_Batch_with_input_from_system_config \
         "${sombrero_small_strong_n_nodes[$i]}"   \
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
-        1                                        \
-        "cpu"                                    \
+        "$gpus_per_node"                         \
+        "$target_partition_cpu"                  \
         "${__batch_file_construct}"              \
-        "2:0:0"                                  \
-        "standard"
+        "02:00:00"                               \
+        "$qos"
 
       # Writting the header to files
       cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
       case $__batch_action in
         *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
@@ -312,38 +328,47 @@ $module_list
 
 EOF
       # Constructing the rest of the batch file body
-      Batch_body_Run_Sombrero_strong \
-      "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
+      Batch_body_Run_Sombrero_strong               \
+      "${machine_name}"                            \
+      "${sombrero_dir}"                            \
+      "${LatticeRuns_dir}"                         \
+      "${__path_to_run}${sptr}${__batch_file_out}" \
+      "${__simulation_size}"                       \
+      "${__batch_file_construct}"                  \
+      "${prefix}"                                  \
+      "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
     done
-    #  L=$(expr $L + 1)
-    #done
+    fi
+      L=$(expr $L + 1)
+    done
     #-------------------------------------------------------------------------------
     # Sombrero[Strong-Large]:
     #-------------------------------------------------------------------------------
     # constructing the files and directory structure
+    __strength="strong"
     __simulation_size="large"
     H=1
-    #L=1
-    #for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
-    #do
+    L=1
+    for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    do
+      if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
+      then
     for i in $(seq 0 `expr ${#sombrero_large_strong_n_nodes[@]} - 1`)
     do
       cnt=$(printf "%03d" "$H")
       index=$(printf "%03d" "$i")
       n_nodes=$(printf "nodes%03d" "${sombrero_large_strong_n_nodes[$i]}";)
-      #ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$j]}";)
+      ntpn=$(printf "ntpns%03d" "${ntasks_per_node[$j]}";)
       # Orchestrating the file construction
-      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
-      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
+      #__batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${__simulation_size}")
+      __batch_file_construct=$(printf "Run_${__batch_action}_${n_nodes}_${ntpn}_${__simulation_size}")
       __batch_file_out=$(printf "${__batch_file_construct}.sh")
-      #__path_to_run=$(printf "${LatticeRuns_dir}/${__batch_file_construct}")
       __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
-      $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+      $cyan;printf "                       : $n_nodes, $ntpn, $__batch_file_out, $__path_to_run\n"; $reset_colors
 
       # Creating the path in question
       Batch_util_create_path "${__path_to_run}"
@@ -353,21 +378,21 @@ EOF
       $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
       # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-      ntasks_per_node=$(expr ${sombrero_large_strong_n_nodes[$i]} \* ${_core_count})
-      #ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+      #ntasks_per_node=$(expr ${sombrero_large_strong_n_nodes[$i]} \* ${_core_count})
+      ntasks_per_node=${ntasks_per_node[$j]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
       config_Batch_with_input_from_system_config \
         "${sombrero_large_strong_n_nodes[$i]}"   \
         "${_core_count}"                         \
         "$ntasks_per_node"                       \
-        1                                        \
-        "cpu"                                    \
+        "$gpus_per_node"                         \
+        "$target_partition_cpu"                  \
         "${__batch_file_construct}"              \
-        "2:0:0"                                  \
-        "standard"
+        "02:00:00"                               \
+        "$qos"
 
       # Writting the header to files
       cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
-$(Batch_header ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
       case $__batch_action in
         *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
@@ -382,15 +407,22 @@ $module_list
 
 EOF
       # Constructing the rest of the batch file body
-      Batch_body_Run_Sombrero_strong \
-      "${machine_name}" "${sombrero_dir}" "${LatticeRuns_dir}" "${__path_to_run}${sptr}${__batch_file_out}" \
-      "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}"
+      Batch_body_Run_Sombrero_strong               \
+      "${machine_name}"                            \
+      "${sombrero_dir}"                            \
+      "${LatticeRuns_dir}"                         \
+      "${__path_to_run}${sptr}${__batch_file_out}" \
+      "${__simulation_size}"                       \
+      "${__batch_file_construct}"                  \
+      "${prefix}"                                  \
+      "${__path_to_run}"
 
       # incrementing the counter
       H=$(expr $H + 1)
     done
-    #  L=$(expr $L + 1)
-    #done
+    fi
+      L=$(expr $L + 1)
+    done
       ;;
   *"BKeeper_run_cpu"*)
     #-------------------------------------------------------------------------------

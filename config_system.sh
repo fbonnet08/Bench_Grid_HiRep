@@ -10,34 +10,42 @@ case $machine_name in
   *"Precision-3571"*)
     target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";
     gpus_per_node=1;                             qos="normal";
+    max_cores_per_node_gpu=16;                   max_cores_per_node_cpu=16;
     ;;
   *"DESKTOP-GPI5ERK"*)
     target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK";
     gpus_per_node=1;                             qos="normal";
+    max_cores_per_node_gpu=8;                    max_cores_per_node_cpu=8;
     ;;
   *"desktop-dpr4gpr"*)
     target_partition_gpu="desktop-dpr4gpr";      target_partition_cpu="desktop-dpr4gpr";
     gpus_per_node=1;                             qos="normal";
+    max_cores_per_node_gpu=22;                   max_cores_per_node_cpu=22;
     ;;
   *"tursa"*)
-    target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK";
+    target_partition_gpu="gpu";                  target_partition_cpu="cpu";
     gpus_per_node=4;                             qos="standard";
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
   *"sunbird"*)
-    target_partition_gpu="accel_ai";             target_partition_cpu="DESKTOP-GPI5ERK";
+    target_partition_gpu="accel_ai";             target_partition_cpu="cpu";
     gpus_per_node=4;                             qos="normal";
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
   *"vega"*)
-    target_partition_gpu="gpu";                  target_partition_cpu="DESKTOP-GPI5ERK";
+    target_partition_gpu="gpu";                  target_partition_cpu="cpu";
     gpus_per_node=4;                             qos="normal";
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
   *"lumi"*)
     target_partition_gpu="standard-g";           target_partition_cpu="standard";
     gpus_per_node=8;                             qos="normal";
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
   *"leonardo"*)
     target_partition_gpu="boost_usr_prod";       target_partition_cpu="DESKTOP-GPI5ERK";
     gpus_per_node=4;                             qos="normal";
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
 esac
 

@@ -1,7 +1,16 @@
 
-         \\
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
+$magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
+cd ${batch_Scripts_dir}
+ls -al
+
+
+
+
         > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
-         \\
+
         > \$path_to_run/strong_n\${slrm_ntasks}_\${job_name}.log &
 
 

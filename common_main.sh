@@ -125,6 +125,18 @@ HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 grid_dir=${sourcecode_dir}/Grid-UCL-ARC/Grid
 #-------------------------------------------------------------------------------
 # [Run-Structure] Setting up the target file name structure
+#-------------------------------------------------------------------------------
+# Sombrero[Weak-Strong]-[Small-Large]:
+#-------------------------------------------------------------------------------
+# [Small]
+target_Sombrero_weak_cpu_small_batch_files="target_Sombrero_weak_cpu_small_batch_files.txt"
+target_Sombrero_strg_cpu_small_batch_files="target_Sombrero_strg_cpu_small_batch_files.txt"
+# [Large]
+target_Sombrero_weak_cpu_large_batch_files="target_Sombrero_weak_cpu_large_batch_files.txt"
+target_Sombrero_strg_cpu_large_batch_files="target_Sombrero_strg_cpu_large_batch_files.txt"
+#-------------------------------------------------------------------------------
+# BKeeper[small-large]-[cpu-gpu]:
+#-------------------------------------------------------------------------------
 # [Small]
 target_BKeeper_run_cpu_small_batch_files="target_BKeeper_run_cpu_small_batch_files.txt"
 target_BKeeper_run_gpu_small_batch_files="target_BKeeper_run_gpu_small_batch_files.txt"
@@ -137,11 +149,17 @@ echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 $red  ; printf "Target files names     : ";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
-$white; printf "BKeeper_run_cpu_small  : ";$red;   printf "$target_BKeeper_run_cpu_small_batch_files\n"; $reset_colors;
-$white; printf "BKeeper_run_gpu_small  : ";$red;   printf "$target_BKeeper_run_gpu_small_batch_files\n"; $reset_colors;
-$white; printf "BKeeper_run_cpu_large  : ";$blue;  printf "$target_BKeeper_run_cpu_large_batch_files\n"; $reset_colors;
-$white; printf "BKeeper_run_gpu_large  : ";$green; printf "$target_BKeeper_run_gpu_large_batch_files\n"; $reset_colors;
-$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;  printf "$0\n";                    $reset_colors;
+$white; printf "BKeeper                : ";$reset_colors;
+$white; printf "BKeeper_run_cpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
+$white; printf "BKeeper_run_gpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;
+$white; printf "BKeeper_run_cpu_large  : ";$blue;  printf "%s\n" $target_BKeeper_run_cpu_large_batch_files; $reset_colors;
+$white; printf "BKeeper_run_gpu_large  : ";$green; printf "%s\n" $target_BKeeper_run_gpu_large_batch_files; $reset_colors;
+$white; printf "Sombrero               : ";$reset_colors;
+$white; printf "Sombrero_weak_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_weak_cpu_small_batch_files; $reset_colors;
+$white; printf "Sombrero_strg_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_strg_cpu_small_batch_files; $reset_colors;
+$white; printf "Sombrero_weak_cpu_large: ";$blue;  printf "%s\n" $target_Sombrero_weak_cpu_large_batch_files; $reset_colors;
+$white; printf "Sombrero_strg_gpu_large: ";$green; printf "%s\n" $target_Sombrero_strg_cpu_large_batch_files; $reset_colors;
+$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;  printf "%s\n" "$0";                    $reset_colors;
 #-------------------------------------------------------------------------------
 #[Build-Structure] Setting up the directory structure for the download
 basedir=${local_dir}/grid_bench_202410
@@ -228,21 +246,21 @@ $red  ; printf "Directory structure    : ";
 $cyan ; printf "$(basename \"$0\")\n"; $green;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
-$white; printf "hostname               : ";$red;      printf "$hostname\n";             $reset_colors;
-$white; printf "machine_name           : ";$red;      printf "$machine_name\n";         $reset_colors;
-$white; printf "build_dir              : ";$blue;     printf "$build_dir\n";            $reset_colors;
-$white; printf "sourcecode_dir         : ";$green;    printf "$sourcecode_dir\n";       $reset_colors;
-$white; printf "prefix Directory       : ";$yellow;   printf "$prefix\n";               $reset_colors;
-$white; printf "base Directory         : ";$blue;     printf "$basedir\n";              $reset_colors;
-$white; printf "grid directory         : ";$magenta;  printf "$grid_dir\n";             $reset_colors;
-$white; printf "grid build directory   : ";$magenta;  printf "$grid_build_dir\n";       $reset_colors;
-$white; printf "Hirep_LLR_SP directory : ";$yellow;   printf "$Hirep_LLR_SP_dir\n";     $reset_colors;
-$white; printf "Hirep_LLR_SP_HMC dir   : ";$green;    printf "$Hirep_LLR_SP_HMC_dir\n"; $reset_colors;
-$white; printf "HiRep_Cuda directory   : ";$green;    printf "$HiRep_Cuda_dir\n";       $reset_colors;
-$white; printf "Sombrero directory     : ";$magenta;  printf "$sombrero_dir\n";         $reset_colors;
-$white; printf "BKeeper directory      : ";$cyan;     printf "$bkeeper_dir\n";          $reset_colors;
-$white; printf "Lattice runs directory : ";$magenta;  printf "$LatticeRuns_dir\n";      $reset_colors;
-$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;     printf "$0\n";                    $reset_colors;
+$white; printf "hostname               : ";$red;     printf "%s\n" "$hostname";             $reset_colors;
+$white; printf "machine_name           : ";$red;     printf "%s\n" "$machine_name";         $reset_colors;
+$white; printf "build_dir              : ";$blue;    printf "%s\n" "$build_dir";            $reset_colors;
+$white; printf "sourcecode_dir         : ";$green;   printf "%s\n" "$sourcecode_dir";       $reset_colors;
+$white; printf "prefix Directory       : ";$yellow;  printf "%s\n" "$prefix";               $reset_colors;
+$white; printf "base Directory         : ";$blue;    printf "%s\n" "$basedir";              $reset_colors;
+$white; printf "grid directory         : ";$magenta; printf "%s\n" "$grid_dir";             $reset_colors;
+$white; printf "grid build directory   : ";$magenta; printf "%s\n" "$grid_build_dir";       $reset_colors;
+$white; printf "Hirep_LLR_SP directory : ";$yellow;  printf "%s\n" "$Hirep_LLR_SP_dir";     $reset_colors;
+$white; printf "Hirep_LLR_SP_HMC dir   : ";$green;   printf "%s\n" "$Hirep_LLR_SP_HMC_dir"; $reset_colors;
+$white; printf "HiRep_Cuda directory   : ";$green;   printf "%s\n" "$HiRep_Cuda_dir";       $reset_colors;
+$white; printf "Sombrero directory     : ";$magenta; printf "%s\n" "$sombrero_dir";         $reset_colors;
+$white; printf "BKeeper directory      : ";$cyan;    printf "%s\n" "$bkeeper_dir";          $reset_colors;
+$white; printf "Lattice runs directory : ";$magenta; printf "%s\n" "$LatticeRuns_dir";      $reset_colors;
+$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;    printf "%s\n" "$0";                    $reset_colors;
 # ##############################################################################
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -276,7 +294,7 @@ elif [ ${#path_to_data_dir[@]} -eq 0 ]; then max_string_length=80; fi
 for n_nodes in "${max_string_array[@]}"
 do ((n_nodes > max_string_length)) && max_string_length=$n_nodes; done
 $cyan;printf "<-- Array length   --->: ";$green;printf "%i\n" ${#path_to_data_dir[@]};$white
-$cyan;printf "<-- Max length dir --->: ";$yellow;printf "%i\n" ${max_string_length};$white
+$cyan;printf "<-- Max length dir --->: ";$yellow;printf "%i\n" "${max_string_length}";$white
 #launching the metadata extractor and plotters
 G=1
 for i in $(seq 0 `expr ${#path_to_data_dir[@]} - 1`)
