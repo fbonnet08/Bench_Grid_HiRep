@@ -43,7 +43,7 @@ case $machine_name in
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
   *"leonardo"*)
-    target_partition_gpu="boost_usr_prod";       target_partition_cpu="DESKTOP-GPI5ERK";
+    target_partition_gpu="boost_usr_prod";       target_partition_cpu="dcgp_usr_prod";
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
