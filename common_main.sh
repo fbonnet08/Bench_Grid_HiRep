@@ -19,7 +19,7 @@ blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 # Global variables and fixed Unix operators
 sleep_time=2
-max_number_submitted_batch_scripts=5
+max_number_submitted_batch_scripts=500
 sptr="/";
 all="*";
 dot=".";

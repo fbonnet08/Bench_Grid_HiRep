@@ -86,6 +86,13 @@ case "$__batch_action" in
         esac
         printf "${target_Sombrero_weak_cpu_small} <--::--> ${target_Sombrero_weak_cpu_large}\n"
       done
+      #-------------------------------------------------------------------------------
+      # Method to launch batch jobs from a given target file
+      #-------------------------------------------------------------------------------
+      # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+      Batch_submit_target_file_list_to_queue "${target_Sombrero_weak_cpu_small}"      \
+                                             "${max_number_submitted_batch_scripts}"
+      #-------------------------------------------------------------------------------
       ;;
   *"Sombrero_strong"*)
       # Initializing the file names to an initial value: empty
@@ -109,17 +116,14 @@ case "$__batch_action" in
         esac
         printf "${target_Sombrero_strg_cpu_small} <--::--> ${target_Sombrero_strg_cpu_large}\n"
       done
+      #-------------------------------------------------------------------------------
+      # Method to launch batch jobs from a given target file
+      #-------------------------------------------------------------------------------
+      Batch_submit_target_file_list_to_queue "${target_Sombrero_strg_cpu_small}"      \
+                                             "${max_number_submitted_batch_scripts}"
+      #-------------------------------------------------------------------------------
       ;;
 esac
-#-------------------------------------------------------------------------------
-# Method to launch batch jobs from a given target file
-#-------------------------------------------------------------------------------
-# Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-Batch_submit_target_file_list_to_queue "${target_Sombrero_weak_cpu_small}"      \
-                                       "${max_number_submitted_batch_scripts}"
-
-Batch_submit_target_file_list_to_queue "${target_Sombrero_strg_cpu_small}"      \
-                                       "${max_number_submitted_batch_scripts}"
 #-------------------------------------------------------------------------------
 # Method to launch batch jobs from a given target file
 #-------------------------------------------------------------------------------
