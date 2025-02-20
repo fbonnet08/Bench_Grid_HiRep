@@ -56,7 +56,7 @@ cd ${LatticeRuns_dir}
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching Sombrero Weak benchmark dir: "; $bold;
+$green; printf "Launching Sombrero Weak benchmark dir:\n"; $white; $reset_colors;
 
 # TODO: create the automated launching for the jobs using Sombrero Strong case,
 # TODO: create loop here for the different cases.
