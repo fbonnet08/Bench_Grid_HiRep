@@ -53,8 +53,16 @@ then
   echo "#SBATCH --qos=$_qos"
 elif [[ $_machine_name = "leonardo" || $_machine_name = "vega" ]];
 then
-  echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-  echo "#SBATCH --gres=gpu:4"
+  if [[ $_partition = "dcgp_usr_prod" || $_partition = "cpu" ]];
+  then
+    echo "#"
+    echo "# no gres or cpus_per_task directives needed on cpu partitions"
+    echo "#"
+  elif [[ $_partition = "boost_usr_prod" || $_partition = "gpu" ]];
+  then
+    echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+    echo "#SBATCH --gres=gpu:4"
+  fi
 fi
 # TODO: continue from here to include the logic of different systems
 # TODO: fix the --ntasks-per-node=128 error and --cpus-per-task=1
