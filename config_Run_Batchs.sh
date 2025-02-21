@@ -8,6 +8,11 @@
 # Instantiating the benchmarks arrays
 #-------------------------------------------------------------------------------
 declare -a ntasks_per_node=(1 2 4 8 16 32 64 128 256)
+
+# Leonardo decomposition over 112 = (1,2,4,7,8,14,16,28,56,112)
+# division by primes 2,7 over 112 = (4,8,14,16,28,56,112)
+# Best decomposition of over  112 = (1 2 3 6 12 24 48 96) with --ntasks-per-socket=(ntasks_per_node / 2)
+
 #declare -a mpi_permutation=(1 1 2 3)
 declare -a mpi_distribution=(
 "1.1.1.2"
