@@ -42,9 +42,6 @@ else
   echo "#SBATCH --cpus-per-task=$_cpus_per_task"
 fi
 
-if [[ $_machine_name != "vega" ]];
-then echo "#SBATCH --account=$_project_account"; fi
-
 # additional commands required on the following systems
 if [[ $_machine_name = "tursa" ]];
 then
@@ -70,9 +67,10 @@ then
     echo "#SBATCH --gres=gpu:4"
   fi
 fi
-# TODO: continue from here to include the logic of different systems
-# TODO: fix the --ntasks-per-node=128 error and --cpus-per-task=1
-# TODO: for --ntasks-per-node remove unnecessary loop
+
+if [[ $_machine_name != "vega" ]];
+then echo "#SBATCH --account=$_project_account"; fi
+
 #echo "#SBATCH --ntasks=$_ntask"
 echo "#-------------------------------------------------------------------------------"
 echo "# Getting the common code setup and variables: "
