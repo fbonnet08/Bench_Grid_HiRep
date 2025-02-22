@@ -9,6 +9,8 @@
 #-------------------------------------------------------------------------------
 declare -a ntasks_per_node=(1 2 4 8 16 32 64 128 256)
 
+declare -a ntasks_per_node_leonardo_special=(1 2 3 6 12 24 48 96)
+
 # Leonardo decomposition over 112 = (1,2,4,7,8,14,16,28,56,112)
 # division by primes 2,7 over 112 = (4,8,14,16,28,56,112)
 # Best decomposition of over  112 = (1 2 3 6 12 24 48 96) with --ntasks-per-socket=(ntasks_per_node / 2)

@@ -80,7 +80,7 @@ done
 printf "Moving on ... \n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
+$green; printf "Moving Batch_Scripts_dir dir and creating batch scripts: "; $bold;
 $magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
 cd ${batch_Scripts_dir}
 #ls -al
@@ -96,7 +96,6 @@ $magenta;printf "$__batch_action\n"; $white; $reset_colors;
 #-------------------------------------------------------------------------------
 # Now creating the batch script for a case in question
 #-------------------------------------------------------------------------------
-# TODO: create loop here for the different cases.
 case "$__batch_action" in
   *"Sombrero_weak"*)
     #-------------------------------------------------------------------------------
@@ -107,9 +106,24 @@ case "$__batch_action" in
     __accelerator="cpu"
     __strength="weak"
     __simulation_size="small"
+    #-------------------------------------------------------------------------------
+    if [[ $machine_name = "leonardo" ]]
+    then
+      $cyan; printf "Switching to the configuration          ---->: "; $bold;
+      $magenta; printf "${machine_name}\n"; $white; $reset_colors;
+      $cyan; printf "Array elements           ntasks_per_node --->: ";
+      $green; printf "${ntasks_per_node[*]}\n"; $white; $reset_colors;
+      $cyan; printf "        ntasks_per_node_leonardo_special --->: ";
+      $yellow;printf "${ntasks_per_node_leonardo_special[*]}\n"; $white; $reset_colors;
+      ntasks_per_node=()
+      for k in $(seq 0 `expr ${#ntasks_per_node_leonardo_special[@]} - 1`)
+      do
+        ntasks_per_node=(${ntasks_per_node[@]} ${ntasks_per_node_leonardo_special[$k]})
+      done
+    fi
+    #-------------------------------------------------------------------------------
     H=1
     L=1
-
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     do
       if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
@@ -188,9 +202,24 @@ EOF
     # constructing the files and directory structure
     __strength="weak"
     __simulation_size="large"
+    #-------------------------------------------------------------------------------
+    if [[ $machine_name = "leonardo" ]]
+    then
+      $cyan; printf "Switching to the configuration          ---->: "; $bold;
+      $magenta; printf "${machine_name}\n"; $white; $reset_colors;
+      $cyan; printf "Array elements           ntasks_per_node --->: ";
+      $green; printf "${ntasks_per_node[*]}\n"; $white; $reset_colors;
+      $cyan; printf "        ntasks_per_node_leonardo_special --->: ";
+      $yellow;printf "${ntasks_per_node_leonardo_special[*]}\n"; $white; $reset_colors;
+      ntasks_per_node=()
+      for k in $(seq 0 `expr ${#ntasks_per_node_leonardo_special[@]} - 1`)
+      do
+        ntasks_per_node=(${ntasks_per_node[@]} ${ntasks_per_node_leonardo_special[$k]})
+      done
+    fi
+    #-------------------------------------------------------------------------------
     H=1
     L=1
-
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     do
       if [[ ${ntasks_per_node[j]} -le ${max_cores_per_node_cpu} ]]
@@ -265,6 +294,22 @@ EOF
     __accelerator="cpu"
     __strength="strong"
     __simulation_size="small"
+    #-------------------------------------------------------------------------------
+    if [[ $machine_name = "leonardo" ]]
+    then
+      $cyan; printf "Switching to the configuration          ---->: "; $bold;
+      $magenta; printf "${machine_name}\n"; $white; $reset_colors;
+      $cyan; printf "Array elements           ntasks_per_node --->: ";
+      $green; printf "${ntasks_per_node[*]}\n"; $white; $reset_colors;
+      $cyan; printf "        ntasks_per_node_leonardo_special --->: ";
+      $yellow;printf "${ntasks_per_node_leonardo_special[*]}\n"; $white; $reset_colors;
+      ntasks_per_node=()
+      for k in $(seq 0 `expr ${#ntasks_per_node_leonardo_special[@]} - 1`)
+      do
+        ntasks_per_node=(${ntasks_per_node[@]} ${ntasks_per_node_leonardo_special[$k]})
+      done
+    fi
+    #-------------------------------------------------------------------------------
     H=1
     L=1
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
@@ -344,6 +389,22 @@ EOF
     # constructing the files and directory structure
     __strength="strong"
     __simulation_size="large"
+    #-------------------------------------------------------------------------------
+    if [[ $machine_name = "leonardo" ]]
+    then
+      $cyan; printf "Switching to the configuration          ---->: "; $bold;
+      $magenta; printf "${machine_name}\n"; $white; $reset_colors;
+      $cyan; printf "Array elements           ntasks_per_node --->: ";
+      $green; printf "${ntasks_per_node[*]}\n"; $white; $reset_colors;
+      $cyan; printf "        ntasks_per_node_leonardo_special --->: ";
+      $yellow;printf "${ntasks_per_node_leonardo_special[*]}\n"; $white; $reset_colors;
+      ntasks_per_node=()
+      for k in $(seq 0 `expr ${#ntasks_per_node_leonardo_special[@]} - 1`)
+      do
+        ntasks_per_node=(${ntasks_per_node[@]} ${ntasks_per_node_leonardo_special[$k]})
+      done
+    fi
+    #-------------------------------------------------------------------------------
     H=1
     L=1
     for j in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
@@ -813,27 +874,6 @@ done
     #done
       M=$(expr $M + 1)
     done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       ;;
   *"HiRep-LLR-master-cpu"*)

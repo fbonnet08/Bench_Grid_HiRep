@@ -55,6 +55,12 @@ elif [[ $_machine_name = "leonardo" || $_machine_name = "vega" ]];
 then
   if [[ $_partition = "dcgp_usr_prod" || $_partition = "cpu" ]];
   then
+    if [[ $_machine_name = "leonardo" ]]
+    then
+      _ntasks_per_socket=$((_ntasks_per_node / 2))
+      if [[ $_ntasks_per_socket -eq 0 ]]; then _ntasks_per_socket=1; fi
+      echo "#SBATCH --ntasks-per-socket=$_ntasks_per_socket"
+    fi
     echo "#"
     echo "# no gres or cpus_per_task directives needed on cpu partitions"
     echo "#"
@@ -75,7 +81,6 @@ echo "#---> Simulation size in consideration       : $_simulation_size"
 echo "#---> Machine name that we are working on is : $_machine_name"
 echo "#-------------------------------------------------------------------------------"
 }
-
 #-------------------------------------------------------------------------------
 #End of the script
 echo
@@ -87,17 +92,3 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors
 #exit
 #-------------------------------------------------------------------------------
-
-#The underlining sampling algorithm
-
-#LLR class to define
-
-#- routine to call the different replicas
-#- Algorithm that update the sysrtg within the energy interval
-#- updates within the energy intervals can be PHB, --> shapr boundary
-#                                             HMC -- > define a gaussian 2 parameters
-#
-#                                             ---> aim to compouyt e eepctted energy
-#- Conf update
-#- LLR HMC controller instantiated from the the LLR class
-#- Try to understand the
