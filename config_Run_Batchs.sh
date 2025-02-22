@@ -31,9 +31,9 @@ declare -a mpi_distribution=(
 #Small, strong scaling, n_nodes=1, 2, 3, 4, 6, 8, 12
 #Large, strong scaling; small/large, weak scaling, n_nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
 declare -a sombrero_small_weak_n_nodes=(1 2 4) # 6 8 12 16 24 32)
-declare -a sombrero_large_weak_n_nodes=(1 2 4 6 8 12 16 24 32)
+declare -a sombrero_large_weak_n_nodes=(1 2 4) # 6 8 12 16 24 32)
 declare -a sombrero_small_strong_n_nodes=(1 2 4) # 6 8 12)
-declare -a sombrero_large_strong_n_nodes=(1 2 4 6 8 12 16 24 32)
+declare -a sombrero_large_strong_n_nodes=(1 2 4) # 6 8 12 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # BKeeper CPU:

@@ -90,10 +90,10 @@ case "$__batch_action" in
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------------
       # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-      Batch_submit_target_file_list_to_queue "${target_Sombrero_weak_cpu_small}"      \
-                                             "${max_number_submitted_batch_scripts}"
-      Batch_submit_target_file_list_to_queue "${target_Sombrero_weak_cpu_large}"      \
-                                             "${max_number_submitted_batch_scripts}"
+      Batch_submit_target_file_list_to_queue  "${target_Sombrero_weak_cpu_small}"      \
+                                              "${max_number_submitted_batch_scripts}"
+      Batch_submit_target_file_list_to_queue  "${target_Sombrero_weak_cpu_large}"      \
+                                              "${max_number_submitted_batch_scripts}"
       #-------------------------------------------------------------------------------
       ;;
   *"Sombrero_strong"*)
@@ -121,24 +121,13 @@ case "$__batch_action" in
       #-------------------------------------------------------------------------------
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------------
-      Batch_submit_target_file_list_to_queue "${target_Sombrero_strg_cpu_small}"      \
-                                             "${max_number_submitted_batch_scripts}"
-      Batch_submit_target_file_list_to_queue "${target_Sombrero_strg_cpu_large}"      \
-                                             "${max_number_submitted_batch_scripts}"
+      Batch_submit_target_file_list_to_queue  "${target_Sombrero_strg_cpu_small}"      \
+                                              "${max_number_submitted_batch_scripts}"
+      Batch_submit_target_file_list_to_queue  "${target_Sombrero_strg_cpu_large}"      \
+                                              "${max_number_submitted_batch_scripts}"
       #-------------------------------------------------------------------------------
       ;;
 esac
-#-------------------------------------------------------------------------------
-# Method to launch batch jobs from a given target file
-#-------------------------------------------------------------------------------
-# Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-
-#sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
-#        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
-
-#sbatch $batch_Scripts_dir/Run_Sombrero_weak.sh \
-#        > $LatticeRuns_dir/out_launcher_bench_Sombrero_weak.log &
-
 #-------------------------------------------------------------------------------
 #End of the script
 echo

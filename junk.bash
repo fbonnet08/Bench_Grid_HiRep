@@ -1,5 +1,17 @@
 
 
+
+#-------------------------------------------------------------------------------
+# Method to launch batch jobs from a given target file
+#-------------------------------------------------------------------------------
+# Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+
+sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
+        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
+
+sbatch $batch_Scripts_dir/Run_Sombrero_weak.sh \
+        > $LatticeRuns_dir/out_launcher_bench_Sombrero_weak.log &
+
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Scripts/Batch_Scripts dir and submitting job: "; $bold;
 $magenta; printf "${batch_Scripts_dir}\n"; $white; $reset_colors;
