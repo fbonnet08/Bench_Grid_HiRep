@@ -139,6 +139,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh creator_bench_*.sh ${external_lib_dir}
 cp -rv clean_all_builds.sh config_*.sh ./Scripts ${external_lib_dir}
+cp kill_*.sh ${LatticeRuns_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory

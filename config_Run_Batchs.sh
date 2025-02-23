@@ -43,7 +43,7 @@ declare -a sombrero_large_strong_n_nodes=(1 2 4) # 6 8 12 16 24 32)
 #--grid 24.24.24.{number of MPI ranks} --mpi 1.1.2.{number of MPI ranks/2}, n_nodes=1, 2, 3, 4, 6, 8, 12, 16, 24, 32
 declare -a bkeeper_lattice_size_cpu=("24.24.24.32") # "32.32.32.64" "64.64.64.96")
 declare -a bkeeper_small_n_nodes_cpu=(1 2)
-declare -a bkeeper_large_n_nodes_cpu=(4 6 8 12) # 16 24 32)
+declare -a bkeeper_large_n_nodes_cpu=(4 6) # 8 12 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # BKeeper GPU:
@@ -59,7 +59,7 @@ declare -a bkeeper_mpi_gpu=("24.24.24.32") # "32.32.32.64" "64.64.64.96")
 declare -a bkeeper_lattice_size_clock_gpu=("48.48.48.64")
 declare -a bkeeper_mpi_clock_gpu=("1.1.1.4")
 declare -a bkeeper_small_n_nodes_gpu=(1 2)
-declare -a bkeeper_large_n_nodes_gpu=(4 8 12) # 6 16 24 32)
+declare -a bkeeper_large_n_nodes_gpu=(4 8) # 12 6 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # Grid GPU:

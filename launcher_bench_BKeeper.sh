@@ -52,7 +52,7 @@ printf "\n"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Screening the directory and moving to it: "; $bold;
 $magenta; printf "${LatticeRuns_dir}\n"; $white; $reset_colors;
-cd ${LatticeRuns_dir}
+cd "${LatticeRuns_dir}"
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
