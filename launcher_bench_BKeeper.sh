@@ -84,24 +84,32 @@ case "$__batch_action" in
             target_file_BKeeper_gpu_small="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_small_batch_files}"
             find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*small.sh" \
                   > "$target_file_BKeeper_gpu_small"
+            #-------------------------------------------------------------------
+            # Method to launch batch jobs from a given target file
+            #-------------------------------------------------------------------
+            # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+            Batch_submit_target_file_list_to_queue "${target_file_BKeeper_gpu_small}"      \
+                                                    "${max_number_submitted_batch_scripts}"
+            printf "${target_file_BKeeper_gpu_small} <--::--> ${target_file_BKeeper_gpu_large}\n"
+            #-------------------------------------------------------------------
           ;;
           *"large"*)
             target_file_BKeeper_gpu_large="${LatticeRuns_dir}"/"${target_BKeeper_run_gpu_large_batch_files}"
             find "${LatticeRuns_dir}/" -type f -name "*Run_BKeeper_run_gpu*node*large.sh" \
                   > "$target_file_BKeeper_gpu_large"
+            #-------------------------------------------------------------------
+            # Method to launch batch jobs from a given target file
+            #-------------------------------------------------------------------
+            # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+            Batch_submit_target_file_list_to_queue "${target_file_BKeeper_gpu_large}"      \
+                                                    "${max_number_submitted_batch_scripts}"
+            printf "${target_file_BKeeper_gpu_small} <--::--> ${target_file_BKeeper_gpu_large}\n"
+            #-------------------------------------------------------------------
           ;;
         esac
-        printf "${target_file_BKeeper_gpu_small} <--::--> ${target_file_BKeeper_gpu_large}\n"
       done
       ;;
 esac
-#-------------------------------------------------------------------------------
-# Method to launch batch jobs from a given target file
-#-------------------------------------------------------------------------------
-# Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-Batch_submit_target_file_list_to_queue "${target_file_BKeeper_gpu_small}"      \
-                                       "${max_number_submitted_batch_scripts}"
-
 #-------------------------------------------------------------------------------
 #End of the script
 echo
