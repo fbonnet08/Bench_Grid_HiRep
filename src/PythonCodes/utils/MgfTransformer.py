@@ -201,9 +201,9 @@ class MgfTransformer:
             json_file.close()
         except IOError:
             self.m.printMesgAddStr(" Filename          : ",
-                                   self.c.getCyan(), filename)
+                                    self.c.getCyan(), filename)
             self.m.printMesgAddStr("                   : ",
-                                   self.c.getRed(), "cannot be written check"
+                                    self.c.getRed(), "cannot be written check"
                                                     " if path exist")
             exit(self.c.get_RC_FAIL())
 
