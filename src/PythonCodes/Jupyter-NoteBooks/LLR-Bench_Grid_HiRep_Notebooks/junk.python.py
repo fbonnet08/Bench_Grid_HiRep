@@ -1,5 +1,54 @@
 import os
 
+
+#with open(target_file_cluster_lst[i]) as cluster_file:
+#nnodes = target_file_cluster_lst[i].split()
+#print(" target_file_cluster_lst["+str(i)+"] --->: ", ith_file )
+# The list in question
+#print( " split_string --->: ", split_string)
+
+#print("<---->: "+ str(split_string[0]).split('lat'  )[1] +" <--->" + \
+#      str(split_string[1]).split('nodes')[1]  +" <--->" + \
+#        str(split_string[2]).split('mpi'  )[1] +"\n"
+#)
+
+#print("the number of lines in file "+ str(target_file_cluster_lst[i]) + " is : "+str(database_file_len))
+
+#print(lines[j].split('\n')[0])
+# TODO: continue from here
+
+#print(lines[j].split('\n')[0])
+if start_grid_key in lines[j].split('\n')[0]:
+    if "Lattice dimensions" in lines[j].split('\n')[0]:
+        print(" in Lattice dimensions")
+        key   = "Lattice dimensions" #str(lines[j]).split(':')[0]
+        value = str(str(lines[j]).split(':')[4]).split('\n')[0]
+        lattice_size_lst.append(value)
+    if "MPI decomposition" in lines[j].split('\n')[0]:
+        key   = "MPI decomposition" #str(lines[j]).split(':')[0]
+        value = str(str(lines[j]).split(':')[4]).split('\n')[0]
+        mpi_distribution_lst.append(value)
+if target_file_cluster_lst[i].split('.sh')[0] in  lines[j].split('\n')[0]:
+    value = str(split_string[1]).split('nodes')[1]
+    nnodes_lst.append(value)
+
+
+    #else:
+    #    cg_run_time_lst.append('-')
+
+    #else:
+    #    cg_run_time_lst.append('-')
+    #else:
+    #    cg_run_time_lst.append('-')
+
+
+
+    #else:
+    #    cg_run_time_lst.append('-')
+
+
+
+
 machine_name="Lumi"
 
 APP_ROOT          = os.path.join(os.getcwd(), '..','..','..','..')
