@@ -1,4 +1,165 @@
 
+dataframe_representation_lst_vega = [df_su2_adj_vega, df_su2_fun_vega, df_su3_fun_vega]
+
+rc = plot_representation_matplotlib(c, m, dataframe_representation_lst_vega, machine_name_vega)
+
+
+
+dataframe_representation_lst_leonardo = [df_su2_adj_leonardo, df_su2_fun_leonardo, df_su3_fun_leonardo]
+
+rc = plot_representation_matplotlib(c, m, dataframe_representation_lst_leonardo, machine_name_leonardo)
+
+#df_su2_adj_lumi_mpi_node002 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "002"][["mpi_distribution"]]
+
+
+df_su2_adj_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(2), adjoint"][["Representation", "CG Run Time (s)","mpi_distribution","nodes"]]
+df_su2_fun_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(2), fundamental"][["Representation", "CG Run Time (s)","mpi_distribution","nodes"]]
+df_su3_fun_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(3), fundamental"][["Representation", "CG Run Time (s)","mpi_distribution","nodes"]]
+
+# PLotting data
+
+df_su2_adj_lumi_mpi_node001     = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["mpi_distribution"]]
+df_su2_adj_lumi_cgtimes_node001 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su2_fun_lumi_cgtimes_node001 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su3_fun_lumi_cgtimes_node001 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+
+rc = plot_BenchRes_groupByBars_matplotlib(c, m,
+                                          df_su2_adj_lumi_mpi_node001['mpi_distribution'],
+                                          df_su2_adj_lumi_cgtimes_node001['CG Run Time (s)'],
+                                          df_su2_fun_lumi_cgtimes_node001['CG Run Time (s)'],
+                                          df_su3_fun_lumi_cgtimes_node001['CG Run Time (s)'],
+                                          machine_name_lumi, "node001")
+
+
+#df_su2_adj_lumi_mpi_node002 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "002"][["mpi_distribution"]]
+
+df_su2_adj_lumi_mpi_node002     = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "002"][["mpi_distribution"]]
+df_su2_adj_lumi_cgtimes_node002 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)"]]
+df_su2_fun_lumi_cgtimes_node002 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)"]]
+df_su3_fun_lumi_cgtimes_node002 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)"]]
+
+
+rc = plot_BenchRes_groupByBars_matplotlib(c, m,
+                                          df_su2_adj_lumi_mpi_node002['mpi_distribution'],
+                                          df_su2_adj_lumi_cgtimes_node002['CG Run Time (s)'],
+                                          df_su2_fun_lumi_cgtimes_node002['CG Run Time (s)'],
+                                          df_su3_fun_lumi_cgtimes_node002['CG Run Time (s)'],
+                                          machine_name_lumi, "node002")
+
+
+
+df_su2_adj_lumi_mpi_node001     = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["mpi_distribution"]]
+df_su2_adj_lumi_cgtimes_node001 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su2_fun_lumi_cgtimes_node001 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su3_fun_lumi_cgtimes_node001 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+
+
+#print(df_su2_adj_lumi)
+
+dataframe_representation_lst_lumi = [df_su2_adj_lumi, df_su2_fun_lumi, df_su3_fun_lumi]
+
+#rc = plot_representation_matplotlib(c, m, dataframe_representation_lst_lumi, machine_name_lumi)
+
+df_su2_adj_lumi_cgtimes_mpi = df_su2_adj_lumi[["mpi_distribution","CG Run Time (s)","nodes"]]
+df_su2_fun_lumi_cgtimes_mpi = df_su2_fun_lumi[["mpi_distribution","CG Run Time (s)","nodes"]]
+df_su3_fun_lumi_cgtimes_mpi = df_su3_fun_lumi[["mpi_distribution","CG Run Time (s)","nodes"]]
+
+#print(df_su2_adj_lumi_cgtimes_mpi)
+
+
+df_su2_adj_lumi_cgtimes_mpi_node001 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)","mpi_distribution"]]
+df_su2_adj_lumi_cgtimes_mpi_node002 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)","mpi_distribution"]]
+
+df_su2_fun_lumi_cgtimes_mpi_node001 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)","mpi_distribution"]]
+df_su2_fun_lumi_cgtimes_mpi_node002 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)","mpi_distribution"]]
+
+df_su3_fun_lumi_cgtimes_mpi_node001 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)","mpi_distribution"]]
+df_su3_fun_lumi_cgtimes_mpi_node002 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "002"][["CG Run Time (s)","mpi_distribution"]]
+
+
+df_su2_adj_lumi_mpi_node001     = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["mpi_distribution"]]
+df_su2_adj_lumi_cgtimes_node001 = df_su2_adj_lumi_cgtimes_mpi[df_su2_adj_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su2_fun_lumi_cgtimes_node001 = df_su2_fun_lumi_cgtimes_mpi[df_su2_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+df_su3_fun_lumi_cgtimes_node001 = df_su3_fun_lumi_cgtimes_mpi[df_su3_fun_lumi_cgtimes_mpi["nodes"] == "001"][["CG Run Time (s)"]]
+
+
+
+print(df_su2_adj_lumi_mpi_node001)
+
+print(df_su2_adj_lumi_mpi_node001['mpi_distribution'])
+
+print(df_su2_adj_lumi_cgtimes_node001)
+
+rc = plot_groupByBars_matplotlib(c, m)
+
+print(df_su2_adj_lumi_cgtimes_mpi_node001 )
+
+
+
+dataframe_representation_cgtimes_mpi_lst_lumi = [df_su2_adj_lumi_cgtimes_mpi] #,df_su3_fun_lumi_cgtimes_mpi, df_su4_fun_lumi_cgtimes_mpi]
+
+rc = plot_representation_seaborn(c, m, dataframe_representation_cgtimes_mpi_lst_lumi, machine_name_lumi)
+rc = plot_representation_seaborn(c, m, [df_su2_adj_lumi_cgtimes_mpi_node001], machine_name_lumi, "node001")
+rc = plot_representation_seaborn(c, m, [df_su2_adj_lumi_cgtimes_mpi_node002], machine_name_lumi, "node002")
+
+print(df_su2_adj_lumi, df_su2_fun_lumi, df_su3_fun_lumi)
+
+
+
+
+def plot_BenchRes_groupByBars_matplotlib(c, m,
+                                         df_mpi_distr,
+                                         df_su2_adj,
+                                         df_su2_fun,
+                                         df_su3_fun,
+                                         mach_name, message):
+    __func__ = sys._getframe().f_code.co_name
+    rc = c.get_RC_SUCCESS()
+    m.printMesgStr("Getting target file list      :", c.getGreen(), __func__)
+
+    # Extract MPI distributions
+    species = tuple(df_mpi_distr)
+
+    # Dictionary containing data series
+    grouped_data = {
+        'SU(2) Adj': df_su2_adj,
+        'SU(2) Fun': df_su2_fun,
+        'SU(3) Fun': df_su3_fun,
+    }
+
+    colors = ['blue', 'red', 'green']
+    x = np.arange(len(species))  # Label locations
+    width = 0.25  # Adjusted bar width
+    multiplier = 0
+
+    fig, ax = plt.subplots(layout='constrained', figsize=(16, 10))
+
+    for (attribute, measurement), color in zip(grouped_data.items(), colors):
+        offset = width * multiplier
+        rects = ax.bar(x + offset, measurement, width, label=attribute, color=color)
+        ax.bar_label(rects, padding=3)
+        multiplier += 1
+
+    # Set labels and title
+    ax.set_ylabel('CG Run Time (s)')
+    ax.set_xlabel('MPI distribution')
+    ax.set_title(f"[{mach_name}] {message}")
+
+    # Set x-axis ticks
+    ax.set_xticks(x + width)
+    ax.set_xticklabels(species, rotation=45, ha='right')
+
+    ax.legend(loc='upper left', ncols=3)
+
+    plt.show()
+    return rc
+
+
+
+https://indico.cern.ch/event/1466097/
+https://edbennett.github.io/exatepp-talk-20241112/
+
+
 start_key_rep_lst = [
     'Performing benchmark for SU(2), adjoint',
     'Performing benchmark for SU(2), fundamental',
