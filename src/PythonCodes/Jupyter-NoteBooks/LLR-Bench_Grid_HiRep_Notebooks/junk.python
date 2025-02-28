@@ -1,4 +1,58 @@
 
+        #for ikey in range(len(start_key_rep_lst[:])):
+        #    start_key_rep_ith = start_key_rep_lst[ikey]
+        #    print(" start_key_rep_ith -->: ", start_key_rep_ith)
+        #    if start_key_rep_ith in  line.split('\n')[0]:
+        #        rep_value = str(start_key_rep_ith).split('Performing benchmark for ')[1]
+        #        representation_lst.append(rep_value)
+        #rep_value = "empty_string"
+
+
+            rep_value = str(line.split('\n')[0]).split('Performing benchmark for ')[1].split(' #')[0]
+            #print("rep_value --->: ", rep_value)
+
+  cg_run_time_lst, FlOps_GFlOps_lst, Comms_MB_lst, Memory_GB_lst, mpi_distribution_lst, nnodes_lst, lattice_size_lst, representation_lst
+
+print("target_file_cluster_lst[i] -->: ", target_file_cluster_lst[i])
+
+    #start_bkeeper_key = "BKeeper"
+    # Starting the parsing of files over the start_key_lst
+    # TODO: loop over the representation key
+    #ikey = 0
+
+    end_key_rep = "###############################################"
+
+    print(" printing the dictionary ---->: ", bench_BKeeper_dict)
+
+    exit(c.get_RC_FAIL())
+    print ("representation_lst[:]      --->: ", representation_lst[:] )
+    print ("len(representation_lst[:]) --->: ", len(representation_lst[:]) )
+    print ("cg_run_time_lst[:]         --->: ", cg_run_time_lst[:] )
+    print ("len(cg_run_time_lst[:])    --->: ", len(cg_run_time_lst[:]) )
+    print ("run_file_name_lst[:]       --->: ", run_file_name_lst[:] )
+    print ("len(run_file_name_lst[:])    --->: ", len(run_file_name_lst[:]) )
+
+
+
+# ----------------------------------------------------------------------------
+machine_name_lumi = "Lumi"
+DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_lumi,'LatticeRuns')
+# ----------------------------------------------------------------------------
+
+print(target_file_lst_lumi[:])
+
+
+        msg = ""
+        if batch_action == "BKeeper_run_gpu":
+        elif "Sombrero" in batch_action:
+            msg = (os.path.join(c.getData_path(), batch_action.replace('_cpu',''), simulation_size, str(target_file_lst[i].split(".sh")[0]), target_file_lst[i])).strip()
+         [end-if]
+
+
+print(target_Sombrero_weak_small_file_lst_lumi[:])
+print(target_Sombrero_weak_small_file_cluster_lst_lumi[:])
+
+
 dataframe_representation_lst_vega = [df_su2_adj_vega, df_su2_fun_vega, df_su3_fun_vega]
 
 rc = plot_representation_matplotlib(c, m, dataframe_representation_lst_vega, machine_name_vega)
