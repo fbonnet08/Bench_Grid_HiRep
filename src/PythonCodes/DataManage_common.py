@@ -285,6 +285,10 @@ class DataManage_common:
         self.begin_ions = "BEGIN IONS"
         self.end_ions = "END IONS"
 
+        # plotting variables
+        self.xaxis_label = "x-axis"
+        self.yaxis_label = "y-axis"
+
         # Computation and processing [serial, parrallell, multiprocessing]
         self.multiprocessing_type = "serial"   # [serial, parrallle, multithreaded]
 
@@ -1020,10 +1024,22 @@ class DataManage_common:
     def setHiRep(self, hirep):
         self.HiRep = hirep
 
+    # Ploting x-axis-label
+    def setXaxis_label(self, xaxis_label):
+        self.xaxis_label = xaxis_label
+    # Ploting y-axis-label
+    def setYaxis_label(self, yaxis_label):
+        self.yaxis_label = yaxis_label
     #---------------------------------------------------------------------------
     # [Getters]: methods
     #---------------------------------------------------------------------------
     #---------------------------------------------------------------------------
+    # Ploting x-axis-label
+    def getXaxis_label(self):
+        return self.xaxis_label
+    # Ploting y-axis-label
+    def getYaxis_label(self):
+        return self.yaxis_label
     # [Bench_Grid_HiRep]
     def getLogBKeeperAction(self): return self.logBKeeperAction
     def getLogGrid(self): return self.logGrid
