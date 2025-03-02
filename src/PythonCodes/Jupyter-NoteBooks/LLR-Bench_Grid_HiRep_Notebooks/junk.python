@@ -1,5 +1,19 @@
 
 
+        #for i in range(len(target_file_cluster_lst[:])):
+        # Getting the mpi_distribution, lattice size and number of nodes
+        #ith_file = os.path.basename(target_file_cluster_lst[i].split('\n')[0]).split('.out')[0].split('Run_')[1].split(batch_act+'_')[1].split('_'+sim_size)[0]
+        #print(len(nnodes_lst[:]))
+        #for k in range(len(nnodes_lst[:])):
+        #    lattice_sz_lst.append(str(lattice_sz_value))
+        # [end-for-loop [j]]
+
+                #print(split_string)
+
+                #print(lattice_sz_value)
+
+    #print(" printing the dictionary ---->: ", bench_BKeeper_dict)
+
 
 from mpl_toolkits.mplot3d import Axes3D
 x_label = "mpi_distribution"
