@@ -1,4 +1,114 @@
 
+
+
+from mpl_toolkits.mplot3d import Axes3D
+x_label = "mpi_distribution"
+y_label = "CG Run Time (s)"
+z_label = "FlOp/S (GFlOp/s)"
+# Sample data
+#mpi_distribution = df_su2_adj_leonardo_mpi_node002[x_label]  # Example MPI configurations
+#flops            = numpy.array(df_su2_adj_leonardo_cgtimes_node002[y_label])  # Example performance values (GFlop/s)
+#cg_runtime       = numpy.array(df_su2_adj_leonardo_flops_node002[z_label])  # Example CG Run Time (s)
+'''
+# Create a 3D figure
+fig = matplotlib.pyplot.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+
+# Scatter plot
+ax.scatter(mpi_distribution, flops, cg_runtime, c='r', marker='o')
+
+# Labels
+ax.set_xlabel(x_label)
+ax.set_ylabel(y_label)
+ax.set_zlabel(z_label)
+
+matplotlib.pyplot.title("3D Performance Visualization")
+matplotlib.pyplot.show()
+'''
+
+
+# Data from the table
+mpi_distribution = df_su2_adj_leonardo_mpi_node002[x_label] #["01-01-01-04", "01-01-01-04", "01-01-01-04", "01-01-02-02", "01-01-02-02", "01-01-02-02", "01-01-02-04", "01-01-02-04","01-01-02-04", "01-02-01-04"]
+cg_run_time      = df_su2_adj_leonardo_cgtimes_node002[y_label] #[0.106523, 0.058752, 0.072020, 0.075592, 0.051122, 0.105030, 0.070195, 0.061927, 0.093687, 0.091574]
+flop_s           = df_su2_adj_leonardo_flops_node002[z_label] #[1895.86642, 1720.13929, 2804.12911, 2671.62369, 1976.87148, 1922.81613, 1439.72682, 3261.15230, 2155.61794, 2205.35718]
+# Convert mpi_distribution to numerical values
+unique_mpi = list(set(mpi_distribution))
+mpi_numeric = [unique_mpi.index(mpi) for mpi in mpi_distribution]
+
+# Create 3D plot
+fig = matplotlib.pyplot.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Scatter plot
+sc = ax.scatter(cg_run_time, flop_s, mpi_numeric, c=mpi_numeric, cmap='viridis', marker='o')
+
+# Labels and titles
+ax.set_xlabel("CG Run Time (s)")
+ax.set_ylabel("FlOp/S (GFlOp/s)")
+ax.set_zlabel("MPI Distribution (Encoded)")
+ax.set_title("3D Scatter Plot of Lattice QCD Runs")
+
+# Custom legend for MPI distribution
+from matplotlib.lines import Line2D
+legend_elements = [Line2D([0], [0], marker='o', color='w', markerfacecolor='C'+str(i), markersize=10, label=mpi) for i, mpi in enumerate(unique_mpi)]
+ax.legend(handles=legend_elements, title="MPI Distribution")
+
+matplotlib.pyplot.show()
+
+'''
+
+
+# Convert mpi_distribution to numerical values
+unique_mpi = list(set(mpi_distribution))
+mpi_numeric = [unique_mpi.index(mpi) for mpi in mpi_distribution]
+
+# Create mesh grid for 3D surface plot
+X, Y = numpy.meshgrid(numpy.linspace(min(mpi_numeric), max(mpi_numeric), 10),
+                   numpy.linspace(min(flop_s), max(flop_s), 10))
+Z = numpy.interp(X, mpi_numeric, cg_run_time)  # Interpolating Z values
+
+# Create 3D plot
+fig = matplotlib.pyplot.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Scatter plot
+sc = ax.scatter(mpi_numeric, flop_s, cg_run_time, c=cg_run_time, cmap='viridis', marker='o')
+
+# 3D Mesh surface
+ax.plot_surface(X, Y, Z, alpha=0.5, cmap='coolwarm', edgecolor='k')
+
+# Labels and titles
+ax.set_xlabel("MPI Distribution (Encoded)")
+ax.set_ylabel("FlOp/S (GFlOp/s)")
+ax.set_zlabel("CG Run Time (s)")
+ax.set_title("3D Scatter Plot with Mesh of Lattice QCD Runs")
+
+# Custom legend for MPI distribution
+from matplotlib.lines import Line2D
+legend_elements = [Line2D([0], [0], marker='o', color='w', markerfacecolor='C'+str(i), markersize=10, label=mpi) for i, mpi in enumerate(unique_mpi)]
+ax.legend(handles=legend_elements, title="MPI Distribution")
+
+matplotlib.pyplot.show()
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+print(batch_act)
+print(sim_size)
+
+
+
         #for ikey in range(len(start_key_rep_lst[:])):
         #    start_key_rep_ith = start_key_rep_lst[ikey]
         #    print(" start_key_rep_ith -->: ", start_key_rep_ith)
@@ -538,23 +648,23 @@ import os
 start_grid_key    = "Grid"
 
 
-#with open(target_file_cluster_lst[i]) as cluster_file:
-#nnodes = target_file_cluster_lst[i].split()
-#print(" target_file_cluster_lst["+str(i)+"] --->: ", ith_file )
-# The list in question
-#print( " split_string --->: ", split_string)
+with open(target_file_cluster_lst[i]) as cluster_file:
+nnodes = target_file_cluster_lst[i].split()
+print(" target_file_cluster_lst["+str(i)+"] --->: ", ith_file )
+ The list in question
+print( " split_string --->: ", split_string)
 
-#print("<---->: "+ str(split_string[0]).split('lat'  )[1] +" <--->" + \
-#      str(split_string[1]).split('nodes')[1]  +" <--->" + \
-#        str(split_string[2]).split('mpi'  )[1] +"\n"
-#)
+print("<---->: "+ str(split_string[0]).split('lat'  )[1] +" <--->" + \
+      str(split_string[1]).split('nodes')[1]  +" <--->" + \
+        str(split_string[2]).split('mpi'  )[1] +"\n"
+)
 
-#print("the number of lines in file "+ str(target_file_cluster_lst[i]) + " is : "+str(database_file_len))
+print("the number of lines in file "+ str(target_file_cluster_lst[i]) + " is : "+str(database_file_len))
 
-#print(lines[j].split('\n')[0])
+print(lines[j].split('\n')[0])
 # TODO: continue from here
 
-#print(lines[j].split('\n')[0])
+print(lines[j].split('\n')[0])
 if start_grid_key in lines[j].split('\n')[0]:
     if "Lattice dimensions" in lines[j].split('\n')[0]:
         print(" in Lattice dimensions")

@@ -1,0 +1,145 @@
+SLURM_NTASKS: 2
+srun could be found
+[GEOMETRY][10] Global size is 8x4x4x4
+[GEOMETRY][10] Proc grid is 2x1x1x1
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[CLOVER][10]Initial Coefficient: csw = 1.000000
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 1: 0.05e9 floating point operations and 3.34e6 bytes communicated (both directions included)
+[MAIN][0] Case 1: 15.22 flop per byte communicated
+[MAIN][0] Case 1: 0.58 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 1 0.05 Gflops in 0.023519 seconds
+[RESULT][0] Case 1 2.16 Gflops/seconds
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 2: 0.11e9 floating point operations and 5.01e6 bytes communicated (both directions included)
+[MAIN][0] Case 2: 21.53 flop per byte communicated
+[MAIN][0] Case 2: 0.74 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 2 0.11 Gflops in 0.030696 seconds
+[RESULT][0] Case 2 3.52 Gflops/seconds
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 3: 0.11e9 floating point operations and 5.01e6 bytes communicated (both directions included)
+[MAIN][0] Case 3: 21.53 flop per byte communicated
+[MAIN][0] Case 3: 0.74 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 3 0.11 Gflops in 0.047181 seconds
+[RESULT][0] Case 3 2.29 Gflops/seconds
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 4: 0.19e9 floating point operations and 6.68e6 bytes communicated (both directions included)
+[MAIN][0] Case 4: 27.84 flop per byte communicated
+[MAIN][0] Case 4: 0.86 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 4 0.19 Gflops in 0.075562 seconds
+[RESULT][0] Case 4 2.46 Gflops/seconds
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 5: 0.41e9 floating point operations and 10.03e6 bytes communicated (both directions included)
+[MAIN][0] Case 5: 40.45 flop per byte communicated
+[MAIN][0] Case 5: 1.05 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 5 0.41 Gflops in 0.178157 seconds
+[RESULT][0] Case 5 2.28 Gflops/seconds
+
+[MAIN][0]SOMBRERO built from HiRep commit 6c436a2
+[MAIN][0]Base SOMBRERO commit 093dec4
+[MAIN][0]SOMBRERO built using shoplifter commit 7aaec76
+[GEOMETRY][0]CId = 0 (0,0,0,0)
+[GEOMETRY_INIT][0]Global size is 8x4x4x4
+[GEOMETRY_INIT][0]Local size is 4x4x4x4
+[GEOMETRY_INIT][0]Extended local size is 6x4x4x4
+[GEOMETRY_INIT][0]The lattice borders are (1,0,0,0)
+[GEOMETRY][0]Geometry variable checked
+[GEOMETRY][0]Gauge field: size 384 nbuffer 4 
+[GEOMETRY][0]Spinor field (EO): size 384 nbuffer 4 
+[GEOMETRY][0]Even Spinor field: size 192 nbuffer 2 
+[GEOMETRY][0]Odd Spinor field: size 192 nbuffer 2 
+[BCS][0]Gauge field: PERIODIC x PERIODIC PERIODIC PERIODIC
+[BCS][0]Fermion fields: PERIODIC x PERIODIC PERIODIC PERIODIC
+[MAIN][0] Performed 50 conjugate gradient iterations
+[MAIN][0] Case 6: 1.10e9 floating point operations and 16.71e6 bytes communicated (both directions included)
+[MAIN][0] Case 6: 65.69 flop per byte communicated
+[MAIN][0] Case 6: 1.29 average arithmetic intensity estimate (DRAM or L3) 
+[RESULT][0] Case 6 1.10 Gflops in 0.335836 seconds
+[RESULT][0] Case 6 3.27 Gflops/seconds
+[RESULT] SUM 1.97 Gflops in 0.69 seconds
+[RESULT] SUM 2.85 Gflops/seconds
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Sat 22 Feb 2025 05:32:36 PM EET
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- /users/bonnetfr/SwanSea/SourceCodes/LatticeRuns/Sombrero_weak/small/Run_Sombrero_weak_nodes002_ntpns001_small/Run_Sombrero_weak_nodes002_ntpns001_small.sh Done. -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
