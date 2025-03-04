@@ -1,4 +1,28 @@
 
+print("mpi_lst[:] ---->: ", mpi_lst[:] )
+
+
+mpi_str = "2x1x1x1"
+rc, zerolead = extract_ZeroLead(int(2))
+
+val_lst = mpi_str.strip().split('x')
+
+print(val_lst[:])
+
+mpi_lst = []
+mpi_lst.clear()
+for k in range(len(val_lst[:])):
+    mpi_lst.append(val_lst[k].replace(val_lst[k], str( val_lst[k].zfill(len(str(zerolead)) ) ) ) )
+# [end-for-loop [k]]
+print("mpi_lst[:] ---->: ", mpi_lst[:] )
+if len(mpi_lst[:]) == 4:
+    proc_grid_value = mpi_lst[0] +'-' + mpi_lst[1]  +'-' + mpi_lst[2]  +'-' + mpi_lst[3]
+print("proc_grid_value ---->: ", proc_grid_value)
+
+
+
+
+proc_grid_value = '-'.join(str(mpi_lst[:]))
 
         #for i in range(len(target_file_cluster_lst[:])):
         # Getting the mpi_distribution, lattice size and number of nodes
