@@ -745,7 +745,7 @@ EOF
           Batch_body_Run_BKeeper_gpu                                                          \
             "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
             "${__path_to_run}${sptr}${__batch_file_out}"                                      \
-            "${bkeeper_lattice_size_cpu[$j]}"                                                 \
+            "${bkeeper_small_lattice_size_gpu[$j]}"                                                 \
             "${_mpi_distr}"                                                                   \
             "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
             "${module_list}" "${sourcecode_dir}"
@@ -854,7 +854,7 @@ EOF
           Batch_body_Run_BKeeper_gpu                                                          \
             "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
             "${__path_to_run}${sptr}${__batch_file_out}"                                      \
-            "${bkeeper_lattice_size_cpu[$j]}"                                                 \
+            "${bkeeper_large_lattice_size_gpu[$j]}"                                                 \
             "${_mpi_distr}"                                                                   \
             "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
             "${module_list}" "${sourcecode_dir}"
