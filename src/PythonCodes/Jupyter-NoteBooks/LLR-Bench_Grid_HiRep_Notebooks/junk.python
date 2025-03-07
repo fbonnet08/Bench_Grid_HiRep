@@ -1,4 +1,17 @@
 
+
+                #'''
+                #rc = plot_BenchRes_groupByBars_matplotlib(c, m,
+                #                                          df_su2_adj_leonardo_mpi_node002[x_label],
+                #                                          df_su2_adj_leonardo_flops_node002[y_label],
+                #                                          df_su2_fun_leonardo_flops_node002[y_label],
+                #                                          df_su3_fun_leonardo_flops_node002[y_label],
+                #                                          machine_name_leonardo, msg)
+                #
+                #'''
+
+
+
 print("mpi_lst[:] ---->: ", mpi_lst[:] )
 
 
