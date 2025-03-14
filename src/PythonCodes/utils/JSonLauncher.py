@@ -90,7 +90,7 @@ class JSonLauncher:
         self.jsonfile_content_value_lst = []
         self.jsonfile_content_dict_lst = []
 
-    # ----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
         # Instantiating logfile mechanism
         # ----------------------------------------------------------------------
         logfile = self.c.getLogfileName()

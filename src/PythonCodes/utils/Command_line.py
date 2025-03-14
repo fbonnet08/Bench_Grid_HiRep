@@ -87,6 +87,33 @@ class Command_line:
     #---------------------------------------------------------------------------
     #General command for args
     #---------------------------------------------------------------------------
+
+    # --sombrero_action=[Sombrero_weak, Sombrero_strong]
+    def createSombreroAction(self):
+        __func__ = sys._getframe().f_code.co_name
+        #--sombrero_action=[Sombrero_weak, Sombrero_strong]
+        if self.args['--sombrero_action'] == "Sombrero_weak":
+            SOMBRERO_ACTION = "Sombrero_weak"
+        elif self.args['--sombrero_action'] == "Sombrero_strong":
+            SOMBRERO_ACTION = "Sombrero_strong"
+        else:
+            SOMBRERO_ACTION = self.c.getSombreroAction()
+        self.c.setSombreroAction(SOMBRERO_ACTION)
+
+    # --simulation_size=[small, large]
+    def createSimulationSize(self):
+        __func__ = sys._getframe().f_code.co_name
+        #--sombrero_action=[Sombrero_weak, Sombrero_strong]
+        if self.args['--simulation_size'] == "small":
+            SIMULATION_SIZE = "small"
+        elif self.args['--simulation_size'] == "large":
+            SIMULATION_SIZE = "large"
+        else:
+            SIMULATION_SIZE = self.c.getSimulationSize()
+        self.c.setSimulationSize(SIMULATION_SIZE)
+
+
+
     # --grid=GRID
     def createGrid(self):
         __func__ = sys._getframe().f_code.co_name

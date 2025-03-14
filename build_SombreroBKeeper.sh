@@ -179,6 +179,19 @@ elif [[ $machine_name =~ "leonardo" ]]; then
     --enable-su3tis \
     --disable-all \
     CXX="nvcc -std=c++17 -x cu"
+elif [[ $machine_name =~ "mi300" ]]; then
+    printf "add BKeeper configure statement in build_SombreroBKeeper.sh file"
+  ../configure \
+    --prefix=${prefix} \
+    --with-grid=${prefix} \
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --disable-all \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-std=c++17"
 else
   ../configure \
     --prefix=${prefix} \

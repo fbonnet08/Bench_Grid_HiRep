@@ -33,11 +33,19 @@ $white; printf "Username               : ";$green;  printf "$username\n";$reset_
 $white; printf "Project Account        : ";$magenta;printf "$project_account\n";$reset_colors;
 $white; printf "Remote hostname        : ";$yellow; printf "$remote_hostname\n";$reset_colors;
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+add_connect_strg=""
+case ${remote_hostname} in
+  *"aac6.amd.com"*)
+    add_connect_strg="-X -i ~/.ssh/id_rsa -p 7000"
+  ;;
+esac
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 user_remote_host=${username}"@"${remote_hostname}
 $white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
 printf "\n"
 # Getting the remote home dir from the remote (brutal way of doing this)
-user_remote_home_dir=$(ssh -t "${user_remote_host}" "cd ~/; pwd -P")
+user_remote_home_dir=$(ssh -t ${add_connect_strg} "${user_remote_host}" "cd ~/; pwd -P")
 $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_dir\n";$reset_colors;
 
 # Setting the external lib_dir
@@ -55,7 +63,7 @@ $white; printf "external_lib_dir       : ";$magenta; printf "$external_lib_dir\n
 $white; printf "Lattice run directory  : ";$cyan; printf "$LatticeRuns_dir\n";$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-ssh -t "$user_remote_host" "
+ssh -t ${add_connect_strg} "$user_remote_host" "
 #colors
 red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
@@ -182,6 +190,10 @@ case ${remote_hostname} in
     \$white; printf \"Module list after WarpX: \n\"; \$white; \$reset_colors;
     module list;
     ;;
+  *\"aac6.amd.com\"*)
+    module load rocm amdclang hdf5 fftw;
+    module list;
+    ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -210,7 +222,6 @@ bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib B
 #bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;
 #bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib;
 "
-#TODO: continue with the commands here or in the ssh statement
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}
 #ssh -t $user_remote_host " cd ${external_lib_dir};

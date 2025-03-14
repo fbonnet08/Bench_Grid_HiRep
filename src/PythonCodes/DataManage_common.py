@@ -265,9 +265,36 @@ class DataManage_common:
 
         # [Bench_Grid_HiRep]
         self.bkeeper_action = "set action=[BKeeper_run_cpu, BKeeper_run_gpu]"
+        self.sombrero_action = "set action=[Sombrero_weak, Sombrero_strong]"
+        self.simulation_size = "set size=[small, large]"
         self.grid = "no"
         self.HiRep = "no"
-
+        #------------------------------------------------------------------------
+        # [start_key-list]
+        #------------------------------------------------------------------------
+        # -----------------------------------------------------------------------
+        self.start_key_rep_lst = [
+            'Performing benchmark for SU(2), adjoint',
+            'Performing benchmark for SU(2), fundamental',
+            'Performing benchmark for SU(3), fundamental',
+            'Performing benchmark for Sp(4), fundamental'
+        ]
+        self.start_key_sombrero_rep_lst = [
+            'Case 1:', 'Case 2:', 'Case 3:',
+            'Case 4:', 'Case 6:', 'Case 6:'
+        ]
+        # 1: SU(2) adj
+        # 2: SU(2) fun
+        # 3: SU(3) fun
+        # 4: Sp(4) fun
+        # 5: SU(3) two-index symmetric
+        # 6: Sp(4) adjoint (Sp(4) two-index symmetric)
+        self.start_key_sombrero_rep_bkeeper_map_lst = [
+            'SU(2) adj', 'SU(2) fun', 'SU(3) fun',
+            'Sp(4) fun', 'SU(3) 2-index sym', 'Sp(4) adj (Sp(4) 2-index sym)'
+        ]
+        #------------------------------------------------------------------------
+        # -----------------------------------------------------------------------
         # Machine learning parameters
         self.machine_learning = "no"
         self.batch_size = 64
@@ -1030,10 +1057,27 @@ class DataManage_common:
     # Ploting y-axis-label
     def setYaxis_label(self, yaxis_label):
         self.yaxis_label = yaxis_label
+
+    # --sombrero_action=SOMBRERO_ACTION
+    def setSombreroAction(self, sombrero_action):
+        self.sombrero_action = sombrero_action
+
+    # --simulation_size=SIMULATION_SIZE
+    def setSimulationSize(self, simulation_size):
+        self.simulation_size = simulation_size
+
     #---------------------------------------------------------------------------
     # [Getters]: methods
     #---------------------------------------------------------------------------
     #---------------------------------------------------------------------------
+    # --simulation_size=SIMULATION_SIZE
+    def getSimulationSize(self):
+        return self.simulation_size
+
+    # --sombrero_action=SOMBRERO_ACTION
+    def getSombreroAction(self):
+        return self.sombrero_action
+
     # Ploting x-axis-label
     def getXaxis_label(self):
         return self.xaxis_label

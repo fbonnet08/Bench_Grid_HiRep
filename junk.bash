@@ -1,4 +1,44 @@
 
+validate_url(){
+__download_folder=$1
+__database=$2
+#-------------------------------------------------------------------------------
+__db_path_file=$(basename "${__database}")
+echo "${__db_path_file}"
+echo "${__download_folder}/${__db_path_file}"
+#-------------------------------------------------------------------------------
+  #wget -S --spider $__db_path_file
+  file_exists "${__download_folder}/${__db_path_file}"
+  string_check=""
+  if [ "$__database" = "GNPS" ]
+  then
+    echo "hello --->: $__database"
+    string_check=$(wget -S --spider "${__download_folder}/${__db_path_file}" 2>&1 | grep  "HTTP/1.1 200 OK")
+  else
+    echo "hello --->: $__database"
+    string_check=`wget -S --spider "${__download_folder}/${__db_path_file}" 2>&1 | grep  "HTTP/1.1 401 Unauthorized"`
+  fi
+  echo "string_check --->: $string_check"
+
+  if [ "$string_check" != "" ]
+  then
+    echo "true";
+  else
+    echo "false";
+  fi
+}
+
+
+#TODO: continue with the commands here or in the ssh statement
+#TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
+#scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}
+#ssh -t $user_remote_host " cd ${external_lib_dir};
+# ls -al; which bash ; bash -s < ./dependencies_Grid.sh SwanSea/SourceCodes/external_lib;"
+
+
+
+
+
 
 
 #-------------------------------------------------------------------------------

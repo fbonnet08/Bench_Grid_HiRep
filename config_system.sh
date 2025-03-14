@@ -47,6 +47,11 @@ case $machine_name in
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
     ;;
+  *"mi300"*)
+    target_partition_gpu="boost_usr_prod";       target_partition_cpu="dcgp_usr_prod";
+    gpus_per_node=4;                             qos="normal";
+    max_cores_per_node_gpu=192;                  max_cores_per_node_cpu=192;
+    ;;
 esac
 
 #if [[ -v "$_username" ]];        then echo "Enter Username         : $_username"; fi

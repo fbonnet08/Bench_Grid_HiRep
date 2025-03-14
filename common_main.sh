@@ -94,6 +94,7 @@ elif [[ $hostname =~ "vega" ]];            then machine_name="vega"
 elif [[ $hostname =~ "sunbird" ]];         then machine_name="sunbird"
 elif [[ $hostname =~ "uan" ]];             then machine_name="lumi"
 elif [[ $hostname =~ "leonardo" ]];        then machine_name="leonardo"
+elif [[ $hostname =~ "a065014a" ]];        then machine_name="mi300"
 else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
@@ -149,12 +150,12 @@ echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 $red  ; printf "Target files names     : ";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
-$white; printf "BKeeper                : ";$reset_colors;
+$white; printf "BKeeper                : ";printf "\n"; $reset_colors;
 $white; printf "BKeeper_run_cpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
 $white; printf "BKeeper_run_gpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;
 $white; printf "BKeeper_run_cpu_large  : ";$blue;  printf "%s\n" $target_BKeeper_run_cpu_large_batch_files; $reset_colors;
 $white; printf "BKeeper_run_gpu_large  : ";$green; printf "%s\n" $target_BKeeper_run_gpu_large_batch_files; $reset_colors;
-$white; printf "Sombrero               : ";$reset_colors;
+$white; printf "Sombrero               : ";printf "\n";$reset_colors;
 $white; printf "Sombrero_weak_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_weak_cpu_small_batch_files; $reset_colors;
 $white; printf "Sombrero_strg_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_strg_cpu_small_batch_files; $reset_colors;
 $white; printf "Sombrero_weak_cpu_large: ";$blue;  printf "%s\n" $target_Sombrero_weak_cpu_large_batch_files; $reset_colors;
@@ -233,6 +234,9 @@ case $machine_name in
   *"leonardo"*)
     #module list;
     module_list="module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
+    ;;
+  *"mi300"*)
+    module_list="module load rocm amdclang hdf5 fftw; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;

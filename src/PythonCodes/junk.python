@@ -1,5 +1,208 @@
 
 
+            #[[ "nodes", "ntpns",
+            #                                                 "Gflops_per_seconds",
+            #                                                 "Gflops_in_seconds",
+            #                                                 "lattice_sz"
+            #                                                 "mpi_distribution"]]
+            #df_sombrero_lattice_case['nodes'] = df_sombrero_lattice_case['nodes'].astype(int)
+            #df_sombrero_lattice_case['ntpns'] = df_sombrero_lattice_case['ntpns'].astype(int)
+
+
+
+ + "_"  + str(str("lat"+str(lattice)).replace(" ","")).replace("x",".") # +str(ntpns) # str(node) # +
+
+
+
+seaborn.barplot(data=df_sombrero_small_mach_lattice_case, x="mpi_distribution", y="Gflops_per_seconds", hue="ntpns", palette="viridis")
+
+
+IPython.display.display(df_mpi_distr)
+IPython.display.display(df_su2_adj)
+
+
+            df_su2_adj_mpi_node002     = df_su2_ad[df_su2_ad["nodes"] == "002"][[x_label]]
+            df_su2_adj_cgtimes_node002 = df_su2_ad[df_su2_ad["nodes"] == "002"][[y_label]]
+            df_su2_fun_cgtimes_node002 = df_su2_fun[df_su2_fun["nodes"] == "002"][[y_label]]
+            df_su3_fun_cgtimes_node002 = df_su3_fun[df_su3_fun["nodes"] == "002"][[y_label]]
+
+            msg = batch_act + "_" + sim_sz + "_" + "node002"
+
+            rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_mpi_node002[x_label],
+                                                                       df_su2_adj_cgtimes_node002[y_label],
+                                                                       df_su2_fun_cgtimes_node002[y_label],
+                                                                       df_su3_fun_cgtimes_node002[y_label],
+                                                                       mach_name, msg)
+
+            df_su2_adj_mpi_node002   = df_su2_ad[df_su2_ad["nodes"] == "002"][[x_label]]
+            df_su2_adj_flops_node002 = df_su2_ad[df_su2_ad["nodes"] == "002"][[y_label]]
+            df_su2_fun_flops_node002 = df_su2_fun[df_su2_fun["nodes"] == "002"][[y_label]]
+            df_su3_fun_flops_node002 = df_su3_fun[df_su3_fun["nodes"] == "002"][[y_label]]
+
+            msg = batch_act + "_" + sim_sz + "_" + "node002"
+
+            rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_mpi_node002[x_label],
+                                                                       df_su2_adj_flops_node002[y_label],
+                                                                       df_su2_fun_flops_node002[y_label],
+                                                                       df_su3_fun_flops_node002[y_label],
+                                                                       mach_name, msg)
+
+
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+        if args['--simulation_size'] == "small":
+            m.printMesgStr("Simulation size for analysis  :", c.getYellow(), args['--simulation_size'])
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            machine_name_lumi = "Lumi"
+            batch_action = "BKeeper_run_gpu"
+            simulation_size="small"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_lumi,'LatticeRuns')
+            #DATA_PATH         = os.path.join('media','frederic','ScanDisk_128GB','LatticeRuns','Clusters',machine_name_lumi,'LatticeRuns')
+            # --------------------------------------------------------------------
+            # --------------------------------------------------------------------
+            rc = batch_transformer.Reinitialising_Paths_and_object_content(DATA_PATH, batch_action, simulation_size)
+            # --------------------------------------------------------------------
+            # --------------------------------------------------------------------
+            # Getting content in the target file
+            rc, target_file_lst_lumi, target_file_dir_lumi = batch_transformer.getTarget_file_lst(c.getTargetdir())
+            # --------------------------------------------------------------------
+            # --------------------------------------------------------------------
+            # Getting content in the target file
+            rc, target_file_cluster_lst_lumi = batch_transformer.getTarget_file_cluster_lst(batch_action,
+                                                                                            simulation_size,
+                                                                                            target_file_lst_lumi[:])
+            # --------------------------------------------------------------------
+            # --------------------------------------------------------------------
+            # [Data-Extraction]
+            # --------------------------------------------------------------------
+            m.printMesgStr(   "Data extraction cluster out   :", c.getGreen(), machine_name_lumi)
+            m.printMesgAddStr("Simulation size               :", c.getRed(), simulation_size)
+            m.printMesgAddStr("target_file_cluster_lst_lumi  :", c.getYellow(), target_file_cluster_lst_lumi[:])
+            m.printMesgAddStr("len( ..file_cluster_lst_lumi) :", c.getYellow(), len(target_file_cluster_lst_lumi[:]))
+            # ----------------------------------------------------------------------------
+            # --------------------------------------------------------------------------
+            # Reading in the inout file
+            rc, target_file_cluster_filtered_lst_lumi = batch_transformer.filter_target_file_cluster_lst(start_key_rep_lst[:],
+                                                                                                         target_file_cluster_lst_lumi[:])
+            m.printMesgAddStr("len(target_file_cluster_filtered_lst_lumi[:]) --->: ", c.getYellow(), len(target_file_cluster_filtered_lst_lumi[:]))
+            # ----------------------------------------------------------------------------
+            #%%
+            # --------------------------------------------------------------------------
+            # Reading in the inout file
+            msg = batch_action + "_" + simulation_size + "_" + "all nodes"
+            rc, cluster_failed_lst_lumi = lattice_bench_Analyser.plot_BenchRes_SuccessFailure_pieChart_matplotlib(target_file_cluster_lst_lumi[:],
+                                                                                                                  target_file_cluster_filtered_lst_lumi[:],
+                                                                                                                  machine_name_lumi, msg)
+            # ----------------------------------------------------------------------------
+            #%%
+            # --------------------------------------------------------------------------
+            # Reading in the inout file
+            #rc, dataFrame_BKeeper_small_lumi = read_BKeeper_file_out(c, m, batch_action, simulation_size, target_file_cluster_lst_lumi[:])
+            rc, dataFrame_BKeeper_small_lumi = batch_transformer.read_BKeeper_file_out(batch_action, simulation_size,
+                                                                                       target_file_cluster_filtered_lst_lumi[:])
+            # ----------------------------------------------------------------------------
+            #%%
+            # --------------------------------------------------------------------------
+            # Reading in the inout file
+            m.printMesgStr("DataFrame BKeeper small Lumi-G                    : ", c.getGreen(), machine_name_lumi)
+            print(dataFrame_BKeeper_small_lumi)
+            # ----------------------------------------------------------------------------
+            # --------------------------------------------------------------------------
+            # Reading in the inout file
+            m.printMesgStr("Plots DataFrame BKeeper small Lumi-G              : ", c.getGreen(), machine_name_lumi)
+
+            df_su2_adj_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(2), adjoint"][["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]]
+            df_su2_fun_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(2), fundamental"][["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]]
+            df_su3_fun_lumi = dataFrame_BKeeper_small_lumi[dataFrame_BKeeper_small_lumi["Representation"] == "SU(3), fundamental"][["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]]
+            # --------------------------------------------------------------------------
+            #%%
+            # --------------------------------------------------------------------------
+            # Plotting data
+            x_label = "mpi_distribution"
+            y_label = "CG Run Time (s)"
+
+            c.setXaxis_label(x_label)
+            c.setYaxis_label(y_label)
+
+            df_su2_adj_lumi_mpi_node001     = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "001"][[x_label]]
+            df_su2_adj_lumi_cgtimes_node001 = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "001"][[y_label]]
+            df_su2_fun_lumi_cgtimes_node001 = df_su2_fun_lumi[df_su2_fun_lumi["nodes"] == "001"][[y_label]]
+            df_su3_fun_lumi_cgtimes_node001 = df_su3_fun_lumi[df_su3_fun_lumi["nodes"] == "001"][[y_label]]
+
+            msg = batch_action + "_" + simulation_size + "_" + "node001"
+
+            rc = lattice_bench_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_lumi_mpi_node001[x_label],
+                                                                             df_su2_adj_lumi_cgtimes_node001[y_label],
+                                                                             df_su2_fun_lumi_cgtimes_node001[y_label],
+                                                                             df_su3_fun_lumi_cgtimes_node001[y_label],
+                                                                             machine_name_lumi, msg)
+
+            df_su2_adj_lumi_mpi_node002     = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "002"][[x_label]]
+            df_su2_adj_lumi_cgtimes_node002 = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "002"][[y_label]]
+            df_su2_fun_lumi_cgtimes_node002 = df_su2_fun_lumi[df_su2_fun_lumi["nodes"] == "002"][[y_label]]
+            df_su3_fun_lumi_cgtimes_node002 = df_su3_fun_lumi[df_su3_fun_lumi["nodes"] == "002"][[y_label]]
+
+            msg = batch_action + "_" + simulation_size + "_" + "node002"
+
+            rc = lattice_bench_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_lumi_mpi_node002[x_label],
+                                                                             df_su2_adj_lumi_cgtimes_node002[y_label],
+                                                                             df_su2_fun_lumi_cgtimes_node002[y_label],
+                                                                             df_su3_fun_lumi_cgtimes_node002[y_label],
+                                                                             machine_name_lumi, msg)
+            # --------------------------------------------------------------------------
+            #%%
+            # --------------------------------------------------------------------------
+            # Plotting data
+            x_label = "mpi_distribution"
+            y_label = "FlOp/S (GFlOp/s)"
+
+            c.setXaxis_label(x_label)
+            c.setYaxis_label(y_label)
+
+            df_su2_adj_lumi_mpi_node001   = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "001"][[x_label]]
+            df_su2_adj_lumi_flops_node001 = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "001"][[y_label]]
+            df_su2_fun_lumi_flops_node001 = df_su2_fun_lumi[df_su2_fun_lumi["nodes"] == "001"][[y_label]]
+            df_su3_fun_lumi_flops_node001 = df_su3_fun_lumi[df_su3_fun_lumi["nodes"] == "001"][[y_label]]
+
+            msg = batch_action + "_" + simulation_size + "_" + "node001"
+
+            rc = lattice_bench_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_lumi_mpi_node001[x_label],
+                                                                             df_su2_adj_lumi_flops_node001[y_label],
+                                                                             df_su2_fun_lumi_flops_node001[y_label],
+                                                                             df_su3_fun_lumi_flops_node001[y_label],
+                                                                             machine_name_lumi, msg)
+
+            df_su2_adj_lumi_mpi_node002   = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "002"][[x_label]]
+            df_su2_adj_lumi_flops_node002 = df_su2_adj_lumi[df_su2_adj_lumi["nodes"] == "002"][[y_label]]
+            df_su2_fun_lumi_flops_node002 = df_su2_fun_lumi[df_su2_fun_lumi["nodes"] == "002"][[y_label]]
+            df_su3_fun_lumi_flops_node002 = df_su3_fun_lumi[df_su3_fun_lumi["nodes"] == "002"][[y_label]]
+
+            msg = batch_action + "_" + simulation_size + "_" + "node002"
+
+            rc = lattice_bench_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_lumi_mpi_node002[x_label],
+                                                                             df_su2_adj_lumi_flops_node002[y_label],
+                                                                             df_su2_fun_lumi_flops_node002[y_label],
+                                                                             df_su3_fun_lumi_flops_node002[y_label],
+                                                                             machine_name_lumi, msg)
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            # [Vega]
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            # [Leonardo]
+            # -------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+
+
+
+
+
 for line in cluster_file:
         if "Performing benchmark for SU(2), adjoint" in line: start_key = "Performing benchmark for SU(2), adjoint"
         #if start_key in

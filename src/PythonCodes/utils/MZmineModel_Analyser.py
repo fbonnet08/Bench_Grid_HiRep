@@ -266,10 +266,12 @@ class MZmineModel_Analyser:
         __func__= sys._getframe().f_code.co_name
         
         #Strip ProjectName content from filename_without_ext to standardize
-        self.m.printMesgAddStr("filename_without_ext       --->: ", self.c.getMagenta(), filename_without_ext)
+        self.m.printMesgAddStr("filename_without_ext       --->: ",
+                               self.c.getMagenta(), filename_without_ext)
         filename_without_ext_split = []
         filename_without_ext_split = filename_without_ext.split("_")
-        self.m.printMesgAddStr("file_without_ext_split[:]  --->: ", self.c.getGreen(), filename_without_ext_split[:])
+        self.m.printMesgAddStr("file_without_ext_split[:]  --->: ",
+                               self.c.getGreen(), filename_without_ext_split[:])
         
         #Initialiszing the variable to default value
         filename_postfix = filename_without_ext
@@ -303,7 +305,7 @@ class MZmineModel_Analyser:
         # End of method return statement
         # ----------------------------------------------------------------------
         return rc, zerolead
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------------------------------
     #---------------------------------------------------------------------------
     # [Writters]
     #---------------------------------------------------------------------------
