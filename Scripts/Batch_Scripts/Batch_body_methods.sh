@@ -492,27 +492,15 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
 chmod a+x \${wrapper_script}
 EOF
-elif [[ $_machine_name = "mi300" ]]
-then
-cat << EOF >> "$_batch_file_out"
-#-------------------------------------------------------------------------------
-# Wrapper scripts Getting the gpu select script
-#-------------------------------------------------------------------------------
-wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi300.sh
-CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
-CPU_BIND="\${CPU_BIND},7e0000,7e000000"
-CPU_BIND="\${CPU_BIND},7e,7e00"
-CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 
-cat << EOF > ./select_gpu
-#!/bin/bash
 
-export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
-exec \\\$*
-$eof_end_string
 
-chmod +x ./select_gpu
-EOF
+
+
+
+
+
+
 fi
 #-------------------------------------------------------------------------------
 # Launching mechanism
