@@ -412,6 +412,22 @@ export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
 EOF
+elif [[ $_machine_name = "mi300" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export MPICH_GPU_SUPPORT_ENABLED=1
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
+# UCX
+export UCX_TLS=self,sm,rc,ud
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
 fi
 #-------------------------------------------------------------------------------
 # Job description
@@ -475,6 +491,27 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
 chmod a+x \${wrapper_script}
+EOF
+elif [[ $_machine_name = "mi300" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi300.sh
+CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
+CPU_BIND="\${CPU_BIND},7e0000,7e000000"
+CPU_BIND="\${CPU_BIND},7e,7e00"
+CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
+
+cat << EOF > ./select_gpu
+#!/bin/bash
+
+export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
+exec \\\$*
+$eof_end_string
+
+chmod +x ./select_gpu
 EOF
 fi
 #-------------------------------------------------------------------------------
