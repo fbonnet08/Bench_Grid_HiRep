@@ -506,14 +506,17 @@ CPU_BIND="\${CPU_BIND},7e0000,7e000000"
 CPU_BIND="\${CPU_BIND},7e,7e00"
 CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
 
+cat << EOF > ./select_gpu
+#!/bin/bash
+
+export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
+exec \\\$*
+$eof_end_string
+
+chmod +x ./select_gpu
+\EOF
+
 EOF
-
-
-
-
-
-
-
 fi
 #-------------------------------------------------------------------------------
 # Launching mechanism
