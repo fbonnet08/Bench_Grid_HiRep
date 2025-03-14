@@ -154,7 +154,7 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 #
 #../configure --prefix=${prefix} --with-grid=${prefix} --enable-su2adj --enable-su2fund --enable-su3fund --enable-su4fund --enable-su3tis --enable-sp4tis --disable-all CXX="nvcc -std=c++17 -x cu" --no-create --no-recursion
 #
-if [[ $machine_name =~ "lumi" ]]; then
+if [[ $machine_name =~ "lumi" || $machine_name =~ "mi300" ]]; then
   #  --prefix=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
   #  --with-grid=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
   ../configure \
