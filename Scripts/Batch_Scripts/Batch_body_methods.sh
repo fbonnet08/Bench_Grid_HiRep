@@ -492,10 +492,9 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Tursa.sh
 chmod a+x \${wrapper_script}
 EOF
-
-
 elif [[ $_machine_name = "mi300" ]]
 then
+eof_end_string="EOF"
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
@@ -514,8 +513,6 @@ exec \\\$*
 $eof_end_string
 
 chmod +x ./select_gpu
-\EOF
-
 EOF
 fi
 #-------------------------------------------------------------------------------
