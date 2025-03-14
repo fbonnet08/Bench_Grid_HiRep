@@ -215,28 +215,19 @@ case $machine_name in
     module_list="module load cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
   *"sunbird"*)
-   #module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;
    module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
-    #source /etc/profile.d/modules.sh;
-    #source /ceph/hpc/software/cvmfs_env.sh ;
-    module list;
-    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
-    #module load FFTW/3.3.10-GCC-12.3.0;
-    #module list;
     module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0 Python; module list;"
     ;;
   *"lumi"*)
-    module list;
     module_list="module load cray-mpich cray-fftw cray-python; module list;"
     ;;
   *"leonardo"*)
-    #module list;
     module_list="module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
     ;;
   *"mi300"*)
-    module_list="module load rocm amdclang hdf5 fftw; module list;"
+    module_list="module load rocm amdclang hdf5 fftw openmpi; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;

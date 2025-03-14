@@ -1,4 +1,18 @@
 
+    #module list;
+    #module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;
+    #source /etc/profile.d/modules.sh;
+    #source /ceph/hpc/software/cvmfs_env.sh ;
+    #module list;
+    #module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0;
+    #module load FFTW/3.3.10-GCC-12.3.0;
+    #module list;
+    module list;
+
+    #module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
+
+
+
 validate_url(){
 __download_folder=$1
 __database=$2
@@ -429,15 +443,6 @@ prefix=${sourcecode_dir}/external_lib/prefix_grid_202410
   else
     echo "_core_count is not a valid integer."
   fi
-
-
-
-
-
-
-
-
-
 
 echo           "Enter Username         : "; username="frederic"                    # read username;
 echo           "Enter remote hostname  : "; remote_hostname="137.44.5.215"         # read remote_hostname;

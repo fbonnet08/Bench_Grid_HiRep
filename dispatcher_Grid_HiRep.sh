@@ -161,7 +161,6 @@ case ${remote_hostname} in
   *\"tursa.dirac.ed.ac.uk\"*)
     ;;
   *\"sunbird.swansea.ac.uk\"*)
-    #module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list
     ;;
   *\"login.vega.izum.si\"*)
     source /etc/profile.d/modules.sh;
@@ -191,7 +190,7 @@ case ${remote_hostname} in
     module list;
     ;;
   *\"aac6.amd.com\"*)
-    module load rocm amdclang hdf5 fftw;
+    module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
 esac
@@ -207,18 +206,18 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
-bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+
 bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
 bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
-bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+
+#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_run_gpu
-
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_strong;
-
 #bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib;
 #bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib;
 "
