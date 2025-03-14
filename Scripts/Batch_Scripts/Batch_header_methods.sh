@@ -68,7 +68,7 @@ then
   fi
 fi
 
-if [[ $_machine_name != "vega" ]];
+if [[ $_machine_name != "vega" || $_machine_name != "mi300" ]];
 then echo "#SBATCH --account=$_project_account"; fi
 
 #echo "#SBATCH --ntasks=$_ntask"

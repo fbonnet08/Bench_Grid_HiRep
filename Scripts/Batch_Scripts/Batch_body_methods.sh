@@ -259,7 +259,7 @@ EOF
 #-------------------------------------------------------------------------------
 # Compiler queries
 #-------------------------------------------------------------------------------
-if [[ $_machine_name = "lumi" ]];
+if [[ $_machine_name = "lumi" || $_machine_name = "mi300" ]];
 then
 cat << EOF >> "$_batch_file_out"
 # Check some versions
@@ -481,6 +481,27 @@ fi
 # Launching mechanism
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+device_mem=23000
+shm=8192
+srun --cpu-bind=\${CPU_BIND} \\
+  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
+  "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
+  --grid $_lattice_size_cpu \\
+  --mpi $_mpi_distribution \\
+  --accelerator-threads "\$OMP_NUM_THREADS" \\
+  --shm \$shm \\
+  --device-mem \$device_mem \\
+  --log Error,Warning,Message
+################################################################################
+#-------------------------------------------------------------------------------
+EOF
+elif [[ $_machine_name = "mi300" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
