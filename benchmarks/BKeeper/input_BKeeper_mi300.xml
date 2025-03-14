@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<grid>
+    <benchmarks>
+        <elem>su2adj</elem>
+        <elem>su2fund</elem>
+        <elem>su3fund</elem>
+        <elem>sp4fund</elem>
+        <elem>su3tis</elem>
+        <elem>sp4tis</elem>
+        <elem>su4adj</elem>
+        <elem>su4fund</elem>
+    </benchmarks>
+    <iterations>
+        50
+    </iterations>
+    <mass>
+        0.1
+    </mass>
+</grid>
+

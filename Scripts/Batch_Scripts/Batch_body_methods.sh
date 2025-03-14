@@ -550,7 +550,7 @@ device_mem=23000
 shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
   ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
-  "\${benchmark_input_dir}"/BKeeper/input_BKeeper.xml \\
+  "\${benchmark_input_dir}"/BKeeper/input_BKeeper_mi300.xml \\
   --grid $_lattice_size_cpu \\
   --mpi $_mpi_distribution \\
   --accelerator-threads "\$OMP_NUM_THREADS" \\

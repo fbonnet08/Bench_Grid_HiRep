@@ -154,7 +154,7 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 #
 #../configure --prefix=${prefix} --with-grid=${prefix} --enable-su2adj --enable-su2fund --enable-su3fund --enable-su4fund --enable-su3tis --enable-sp4tis --disable-all CXX="nvcc -std=c++17 -x cu" --no-create --no-recursion
 #
-if [[ $machine_name =~ "lumi" || $machine_name =~ "mi300" ]]; then
+if [[ $machine_name =~ "lumi" ]]; then
   #  --prefix=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
   #  --with-grid=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
   ../configure \
@@ -165,6 +165,19 @@ if [[ $machine_name =~ "lumi" || $machine_name =~ "mi300" ]]; then
     --enable-su3fund \
     --enable-su4fund \
     --enable-su3tis \
+    --disable-all \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-std=c++17"
+if [[ $machine_name =~ "mi300" ]]; then
+  ../configure \
+    --prefix=${prefix} \
+    --with-grid=${prefix} \
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --enable-su4adj \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
