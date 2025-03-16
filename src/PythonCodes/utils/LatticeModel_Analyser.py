@@ -99,10 +99,146 @@ class LatticeModel_Analyser:
     #------------------------------------------------------------------------
     #------------------------------------------------------------------------
     # [Plotters]
-    #------------------------------------------------------------------------
     # -----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
+    def plot_Sombrero_AllCases_strength_Nodes_mach(self,
+                                                   dataframe_sombrero_small_mach,
+                                                   dataframe_sombrero_large_mach,
+                                                   batch_act, mach_name,
+                                                   start_key_cases_sombrero_lst,
+                                                   is_float):
+        __func__= sys._getframe().f_code.co_name
+        rc = self.c.get_RC_SUCCESS()
+        self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
+        # ----------------------------------------------------------------------
+        # Setting up the axis labels
+        x_label = self.c.getXaxis_label()
+        y_label = self.c.getYaxis_label()
+        # Define the cases
+        cases = ["Case 1", "Case 2", "Case 3", "Case 4", "Case 5", "Case 6"]
+        # Define relevant columns
+        columns = ["Case", "nodes", "ntpns", "Gflops_per_seconds", "Gflops_in_seconds", "lattice_sz", "mpi_distribution"]
+
+        # Filter data efficiently using `.loc[]` and `.copy()`
+        df_sombrero_small_mach = {case: dataframe_sombrero_small_mach.loc[dataframe_sombrero_small_mach["Case"] == case, columns].copy() for case in cases}
+        df_sombrero_large_mach = {case: dataframe_sombrero_large_mach.loc[dataframe_sombrero_large_mach["Case"] == case, columns].copy() for case in cases}
+
+        # Combine all cases into a single DataFrame and add a 'Machine' column
+        df_sombrero_small_mach_all = pandas.concat(df_sombrero_small_mach.values(), ignore_index=True).assign(Simul_size="Small")
+        df_sombrero_large_mach_all = pandas.concat(df_sombrero_large_mach.values(), ignore_index=True).assign(Simul_size="Large")
+
+        # converting the
+        if is_float == "with_float":
+            df_sombrero_small_mach_all[y_label] = df_sombrero_small_mach_all[y_label].astype(float)
+            df_sombrero_large_mach_all[y_label] = df_sombrero_large_mach_all[y_label].astype(float)
+        #[end-if [is_float]]
+
+        # Merge small and large Simul_size data
+        df_combined = pandas.concat([df_sombrero_small_mach_all, df_sombrero_large_mach_all], ignore_index=True)
+
+        # Print to check if data is structured correctly
+        print(df_combined.head())
+        # Ensure the combined DataFrame is ready
+        df_combined["lattice_sz"] = df_combined["lattice_sz"].astype(str)  # Convert lattice size to string for grouping
+
+        # Plot each case separately
+        cases = df_combined["Case"].unique()
+        if len(start_key_cases_sombrero_lst[:]) != len(cases[:]):
+            self.m.printMesgAddStr("List length for cases !=   --->: ", self.c.getRed(), len(cases[:]))
+            self.m.printMesgAddStr("List length for cases !=   --->: ", self.c.getRed(), len(start_key_cases_sombrero_lst[:]))
+        # [end-if]
+        cnt = 0
+        # Plot each case separately
+        for case in cases:
+            case_df = df_combined[df_combined["Case"] == case]
+
+            # Setting the plot
+            matplotlib.pyplot.figure(figsize=(12, 6))
+            # Line plot to connect points of the same lattice size
+            ax = seaborn.lineplot(
+                data=case_df,
+                x=x_label,
+                y=y_label,
+                hue="lattice_sz",  # Different lines for different lattice sizes
+                style="Simul_size",# Different line styles for Small/Large Simul_size
+                markers=True,      # Show markers at data points
+                dashes=False,      # Use solid lines
+                linewidth=2.5,
+                palette="tab10"
+            )
+            # Scatter plot to overlay actual points
+            seaborn.scatterplot(
+                data=case_df,
+                x=x_label,
+                y=y_label,
+                hue="mpi_distribution",   # Same hue for consistency
+                style="mpi_distribution", # Ensure marker styles match
+                size="ntpns",             # Point size based on ntpns
+                edgecolor="black",
+                alpha=0.8,
+                legend=False,             # Avoid duplicate legends
+                palette="tab10"
+            )
+            # Add values on data points (Gflops_per_seconds)
+            for i, row in case_df.iterrows():
+                # Label the ntpns on the graph
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'{row["ntpns"]}',
+                                       ha='center', va='bottom', fontsize=7, fontweight='bold', color='black')
+                # Label the ntpns on the graph
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'{row["mpi_distribution"]}',
+                                       ha='right', va='top', fontsize=8, fontweight='bold', color='black')
+                # Label the nodes on the graph
+                #matplotlib.pyplot.text(row[x_label], row[y_label], f':{row["lattice_sz"]}',
+                #                       ha='left', va='top', fontsize=8, fontweight='bold', color='black')
+            # [end-for-loop [i, row]]
+
+            # Titles and labels
+            matplotlib.pyplot.title("["+batch_act + "], "    + \
+                                    f"{case}" + ", [" + str(mach_name) + "], " + \
+                                    str(start_key_cases_sombrero_lst[cnt]), fontsize=14, fontweight='bold')
+            matplotlib.pyplot.xlabel(x_label, fontsize=12, fontweight='bold', color="darkgreen")
+            matplotlib.pyplot.ylabel(y_label, fontsize=12, fontweight='bold', color="darkred")
+
+            # Adjust legend
+            matplotlib.pyplot.legend(title="Lattice Size / Simulation size", fontsize=10, loc="upper left", bbox_to_anchor=(1, 1))
+            matplotlib.pyplot.xticks(rotation=45, fontsize=10)
+            matplotlib.pyplot.yticks(fontsize=10)
+            matplotlib.pyplot.grid(True, linestyle="--", color='gray')
+
+            matplotlib.pyplot.tight_layout()  # Ensure proper layout
+
+            # Check whether the specified path exists or not
+            plot_dir = "Plots"
+            rc = self.check_directory_if_exists(plot_dir)
+
+            message = batch_act  + "_" + case + "_" + str(is_float) + "_" + "nodes" # + "_" + sim_size  #+ "_" + "node002"
+
+            png_out_filename = "plot_ScatterPlot_" + \
+                               str(message) + "_" + \
+                               str(self.c.getYaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_" + \
+                               str(mach_name) + ".png"
+            output_file = os.path.join(plot_dir, png_out_filename)
+            # print("png_out_filename --->: ", png_out_filename)
+            self.m.printMesgAddStr("Grouped Bar plot saved to  --->: ", self.c.getMagenta(), output_file)
+            #base_width = 300
+            matplotlib.pyplot.savefig(output_file) #, dpi=base_width)
+
+            # incrementing the counter on the list
+            cnt += 1
+
+            #matplotlib.pyplot.show()
+        # [end-for-loop [case]]
+        IPython.display.display(case_df)
+
+        return rc
+        # [end-function]
+        # --------------------------------------------------------------------------
+
     def plot_Sombrero_AllCases_strength_scatterPlot_mach(self,
-                                                        dataframe_sombrero_small, dataframe_sombrero_large,
+                                                        dataframe_sombrero_small,
+                                                        dataframe_sombrero_large,
                                                         batch_act, mach_name,
                                                         start_key_cases_sombrero_lst,
                                                         is_float):
@@ -703,7 +839,457 @@ class LatticeModel_Analyser:
 
         return rc, failed_lst[:]
         # [end-function]
+        # ------------------------------------------------------------------------
+
+
+
+    # ----------------------------------------------------------------------------
+    def plot_BenchRes_group_Nodes_Rep_matplotlib(self,
+                                                 df_su2_adj_lat,
+                                                 mach_name, message):
+        __func__= sys._getframe().f_code.co_name
+        rc = self.c.get_RC_SUCCESS()
+        self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
+        # ----------------------------------------------------------------------
+
+        lattice_lst = df_su2_adj_lat['lattice'].unique().tolist()
+        columns = ["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]
+        df_su2_adj_lattices = {lattice: df_su2_adj_lat.loc[df_su2_adj_lat["lattice"] == lattice, columns].copy() for lattice in lattice_lst}
+
+        IPython.display.display(df_su2_adj_lattices)
+
+        # Check whether the specified path exists or not
+        plot_dir = "Plots"
+        rc = self.check_directory_if_exists(plot_dir)
+
+        # setting the main axis labels
+        x_label = self.c.getXaxis_label()
+        y_label = self.c.getYaxis_label()
+
+        print(x_label)
+        print(y_label)
+        cnt_lattice = 0
+        for lattice in lattice_lst:
+            print(lattice)
+
+            # --------------------------------------------------------------
+            # plotting for each and for
+            # --------------------------------------------------------------
+            matplotlib.pyplot.figure(figsize=(15, 10))
+
+            # Create bar plot
+            #seaborn.barplot(data=df_sombrero_small_mach_lattice_case, x="mpi_distribution", y="Gflops_per_seconds", hue="ntpns", palette="viridis")
+            seaborn.lineplot(data=df_su2_adj_lattices[lattice],
+                             x=x_label, y=y_label, hue="mpi_distribution", marker="o", linewidth=2, markersize=8)
+
+            # Add values on data points (Gflops_per_seconds)
+            for i, row in df_su2_adj_lattices[lattice].iterrows():
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'{row["mpi_distribution"]}',
+                                       ha='center', va='top', fontsize=8, fontweight='bold', color='black')
+                # Label the nodes on the graph
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'Nodes: {row["nodes"]}',
+                                       ha='left', va='bottom', fontsize=8, fontweight='bold', color='black')
+            # [end-for-loop [i, row]]
+
+            # Add labels and title
+            matplotlib.pyplot.xlabel(x_label, fontsize=12, fontweight='bold', color="darkgreen")
+            matplotlib.pyplot.ylabel(y_label, fontsize=12, fontweight='bold', color="darkred")
+            matplotlib.pyplot.xticks(rotation=45)  # Rotate labels by 45 degrees
+            matplotlib.pyplot.title(message +", [" + str(mach_name) + "]" + ", " + str(lattice).replace(".","x"))
+            matplotlib.pyplot.legend(title="mpi_distribution")
+            matplotlib.pyplot.grid(True, linestyle='-.', color='gray')
+            # --------------------------------------------------------------
+            # Getting the plots out to screen and to file.
+            # --------------------------------------------------------------
+            # Now getting the plot onto disk
+            png_out_filename = "plot_Grouped_" + \
+                               str(message) + "_" + \
+                               str(self.c.getXaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_vs_" + \
+                               str(self.c.getYaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_" + \
+                               "lat" + str(lattice).replace(".","x") + \
+                               "_" + \
+                               str(mach_name) + ".png"
+            output_file = os.path.join(plot_dir, png_out_filename)
+            # print("png_out_filename --->: ", png_out_filename)
+            self.m.printMesgAddStr("Grouped FlopsCG saved to   --->: ", self.c.getMagenta(), output_file)
+            base_width = 300
+            matplotlib.pyplot.savefig(output_file, dpi=base_width)
+            #matplotlib.pyplot.show()
+            # --------------------------------------------------------------
+            # Incrementing hte case counter for the graph title
+            # --------------------------------------------------------------
+            cnt_lattice += 1
+        # [end-for-loop [lattice]]
+
+        return rc
+        # [end-function]
         # --------------------------------------------------------------------------
+
+
+
+    # ----------------------------------------------------------------------------
+    def plot_BenchRes_group_Nodes_matplotlib(self, scale,
+                                             df_su2_adj_lat,
+                                             df_su2_fun_lat,
+                                             df_su3_fun_lat,
+                                             mach_name, message):
+        __func__= sys._getframe().f_code.co_name
+        rc = self.c.get_RC_SUCCESS()
+        self.m.printMesgStr("Ploting group nodes           :", self.c.getGreen(), __func__)
+        # ----------------------------------------------------------------------
+        columns = ["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]
+        lattice_lst = df_su2_adj_lat['lattice'].unique().tolist()
+
+        df_combined_lat = pandas.concat([df_su2_adj_lat, df_su2_fun_lat, df_su3_fun_lat], ignore_index=True)
+        df_combined_lattices = {lattice: df_combined_lat.loc[df_combined_lat["lattice"] == lattice, columns].copy() for lattice in lattice_lst}
+
+        # Check whether the specified path exists or not
+        plot_dir = "Plots"
+        rc = self.check_directory_if_exists(plot_dir)
+
+        # setting the main axis labels
+        x_label = self.c.getXaxis_label()
+        y_label = self.c.getYaxis_label()
+
+        cnt_lattice = 0
+        custom_colors = seaborn.color_palette("hls", 3)
+        for lattice in lattice_lst:
+            print(lattice)
+            # --------------------------------------------------------------
+            # plotting for each and for
+            # --------------------------------------------------------------
+            #matplotlib.pyplot.figure(figsize=(15, 10))
+            fig, ax = matplotlib.pyplot.subplots(figsize=(15, 10))
+            seaborn.scatterplot(
+                data=df_combined_lattices[lattice],
+                x=x_label,
+                y=y_label,
+                hue="mpi_distribution",
+                style="mpi_distribution",
+                s=100,
+                alpha=0.8,
+                legend='full',        # Avoid duplicate legends
+                palette="tab10"
+            )
+            seaborn.lineplot(
+                data=df_combined_lattices[lattice],
+                x=x_label,
+                y=y_label,
+                hue="Representation",  # Different lines for different lattice sizes
+                style="Representation",# Different line styles for Small/Large Simul_size
+                markers=True,          # Show markers at data points
+                markersize=8,
+                dashes=True,           # Use solid lines
+                linewidth=2.5,
+                legend='full',         # Avoid duplicate legends
+                palette=custom_colors
+            )
+            for item, color in zip(df_combined_lattices[lattice].groupby('Representation'),custom_colors):
+                #item[1] is a grouped data frame
+                for x,y,m in item[1][[x_label, y_label, 'Representation']].values:
+                    ax.text(x,y,m,color=color)
+                # [end-for-loop [x,y,m]]
+            #[end-for-loop [item,color]]
+
+            # Add values on data points (Gflops_per_seconds)
+            for i, row in df_combined_lattices[lattice].iterrows():
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'{row["mpi_distribution"]}',
+                                       ha='center', va='top', fontsize=8, fontweight='bold', color='black')
+            # [end-for-loop []i , row]
+            # Add labels and title
+            matplotlib.pyplot.xlabel(x_label, fontsize=12, fontweight='bold', color="darkgreen")
+            matplotlib.pyplot.ylabel(y_label, fontsize=12, fontweight='bold', color="darkred")
+            if scale == "log_scale":
+                matplotlib.pyplot.yscale('log')
+            # [end-if [scale]]
+            matplotlib.pyplot.xticks(rotation=45)  # Rotate labels by 45 degrees
+            matplotlib.pyplot.title(message +", [" + str(mach_name) + "]" + ", " + str(lattice).replace(".","x"))
+            matplotlib.pyplot.legend(title="mpi_distribution")
+            matplotlib.pyplot.grid(True, linestyle='-.', color='gray')
+            # --------------------------------------------------------------
+            # Getting the plots out to screen and to file.
+            # --------------------------------------------------------------
+            # Now getting the plot onto disk
+            png_out_filename = "plot_Grouped_Nodes_" + \
+                               str(message) + "_" + \
+                               str(self.c.getXaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_vs_" + \
+                               str(self.c.getYaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_" + \
+                               "lat" + str(lattice).replace(".","x") + \
+                               "_" + \
+                               str(mach_name) + ".png"
+            print("png_out_filename --->: ", png_out_filename)
+            output_file = os.path.join(plot_dir, png_out_filename)
+            print("output_file      --->: ", output_file)
+            self.m.printMesgAddStr("Grouped Nodes saved to     --->: ", self.c.getMagenta(), output_file)
+            base_width = 300
+            matplotlib.pyplot.savefig(output_file, dpi=base_width)
+            #matplotlib.pyplot.show()
+            # --------------------------------------------------------------
+            # Incrementing hte case counter for the graph title
+            # --------------------------------------------------------------
+            cnt_lattice += 1
+        # [end-for-loop [lattice]]
+
+        return rc
+        # [end-function]
+        # --------------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------------
+    def plot_BenchRes_group_FlopsCG_matplotlib(self, scale,
+                                               df_su2_adj_lat,
+                                               df_su2_fun_lat,
+                                               df_su3_fun_lat,
+                                               batch_act, sim_sz, mach_name, message):
+        __func__= sys._getframe().f_code.co_name
+        rc = self.c.get_RC_SUCCESS()
+        self.m.printMesgStr("Plotting group Flops CG(s)    :", self.c.getGreen(), __func__)
+        # ----------------------------------------------------------------------
+        columns = ["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]
+        lattice_lst = df_su2_adj_lat['lattice'].unique().tolist()
+
+        df_combined_lat = pandas.concat([df_su2_adj_lat, df_su2_fun_lat, df_su3_fun_lat], ignore_index=True)
+        df_combined_lattices = {lattice: df_combined_lat.loc[df_combined_lat["lattice"] == lattice, columns].copy() for lattice in lattice_lst}
+
+        # Check whether the specified path exists or not
+        plot_dir = "Plots"
+        rc = self.check_directory_if_exists(plot_dir)
+
+        # setting the main axis labels
+        x_label = self.c.getXaxis_label() #"FlOp/S (GFlOp/s)"
+        y_label = self.c.getYaxis_label() #"CG Run Time (s)"
+
+        cnt_lattice = 0
+        custom_colors = seaborn.color_palette("hls", 3)
+        for lattice in lattice_lst:
+            print(lattice)
+            # --------------------------------------------------------------
+            # plotting for each and for
+            # --------------------------------------------------------------
+            #matplotlib.pyplot.figure(figsize=(15, 10))
+            fig, ax = matplotlib.pyplot.subplots(figsize=(15, 10))
+            custom_colors = seaborn.color_palette("hls", 3)
+            seaborn.scatterplot(
+                data=df_combined_lattices[lattice],
+                x=x_label,
+                y=y_label,
+                hue="Representation",
+                style="Representation",
+                s=100,
+                alpha=0.8,
+                legend=True,            # Avoid duplicate legends
+                palette="tab10"
+            )
+            seaborn.lineplot(
+                data=df_combined_lattices[lattice],
+                x=x_label,
+                y=y_label,
+                hue="Representation",   # Different lines for different lattice sizes
+                style="Representation", # Different line styles for Small/Large Simul_size
+                markers=False,          # Show markers at data points
+                dashes=True,            # Use solid lines
+                linewidth=2.5,
+                legend=True,            # Avoid duplicate legends
+                palette=custom_colors
+            )
+            # Add labels for each point
+            for i, row in df_combined_lattices[lattice].iterrows():
+                # Mpi_distribution
+                matplotlib.pyplot.text(row[x_label], row[y_label], f"{row['mpi_distribution']}",
+                                       ha='center', va='top', fontsize=8, fontweight='bold', color='black')
+                # nodes labeling
+                matplotlib.pyplot.text(row[x_label], row[y_label], f'Nodes: {row["nodes"]}',
+                                       ha='left', va='bottom', fontsize=8, fontweight='bold', color='black')
+            # [end-for-loop [i, row]]
+
+            # Finalize the plot
+            matplotlib.pyplot.title(f"[{mach_name}] {batch_act}_{sim_sz}_lat{str(lattice).replace(".","x")}")
+            matplotlib.pyplot.xlabel(x_label, fontsize=12, fontweight='bold', color="darkgreen")
+            matplotlib.pyplot.ylabel(y_label, fontsize=12, fontweight='bold', color="darkred")
+            if scale == "log_scale":
+                matplotlib.pyplot.yscale('log')
+            matplotlib.pyplot.legend(title="Representation")
+            matplotlib.pyplot.grid(True, linestyle='-.', color='gray')
+            # --------------------------------------------------------------
+            # Getting the plots out to screen and to file.
+            # --------------------------------------------------------------
+            # Now getting the plot onto disk
+            png_out_filename = "plot_Grouped_" + \
+                               str(message) + "_" + \
+                               str(self.c.getXaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_vs_" + \
+                               str(self.c.getYaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                               "_" + \
+                               "lat" + str(lattice).replace(".","x") + \
+                               "_" + \
+                               str(mach_name) + ".png"
+            output_file = os.path.join(plot_dir, png_out_filename)
+            # print("png_out_filename --->: ", png_out_filename)
+            self.m.printMesgAddStr("Grouped FlopsCG saved to   --->: ", self.c.getMagenta(), output_file)
+            base_width = 300
+            matplotlib.pyplot.savefig(output_file, dpi=base_width)
+            #matplotlib.pyplot.show()
+            # --------------------------------------------------------------
+            # Incrementing hte case counter for the graph title
+            # --------------------------------------------------------------
+            cnt_lattice += 1
+        # [end-for-loop [lattice]]
+
+        return rc
+        # [end-function]
+        # --------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ----------------------------------------------------------------------------
+    def plot_BenchRes_group_FlopsCG_per_Nodes_matplotlib(self, scale,
+                                                         df_su2_adj_lat,
+                                                         df_su2_fun_lat,
+                                                         df_su3_fun_lat,
+                                                         batch_act, sim_sz, mach_name, message):
+        __func__= sys._getframe().f_code.co_name
+        rc = self.c.get_RC_SUCCESS()
+        self.m.printMesgStr("Plotting group Flops CG(s)    :", self.c.getGreen(), __func__)
+        # ----------------------------------------------------------------------
+        columns = ["Representation", "CG Run Time (s)","mpi_distribution","nodes", "FlOp/S (GFlOp/s)"]
+        lattice_lst = df_su2_adj_lat['lattice'].unique().tolist()
+        nodes_lst   = df_su2_adj_lat['nodes'  ].unique().tolist()
+
+        df_combined_lat = pandas.concat([df_su2_adj_lat, df_su2_fun_lat, df_su3_fun_lat], ignore_index=True)
+        df_combined_lattices = {lattice: df_combined_lat.loc[df_combined_lat["lattice"] == lattice, columns].copy() for lattice in lattice_lst}
+
+        # Check whether the specified path exists or not
+        plot_dir = "Plots"
+        rc = self.check_directory_if_exists(plot_dir)
+
+        # setting the main axis labels
+        x_label = self.c.getXaxis_label() #"FlOp/S (GFlOp/s)"
+        y_label = self.c.getYaxis_label() #"CG Run Time (s)"
+
+        cnt_lattice = 0
+        custom_colors = seaborn.color_palette("hls", 3)
+        for lattice in lattice_lst:
+            print(lattice)
+            # --------------------------------------------------------------
+            # plotting for each lattice and for nodes
+            # --------------------------------------------------------------
+            for node in nodes_lst[:]:
+                print (node)
+                df_combined_lattices_node = df_combined_lattices[lattice][
+                    df_combined_lattices[lattice]['nodes'] == node][["Representation",
+                                                                     "CG Run Time (s)",
+                                                                     "mpi_distribution",
+                                                                     "FlOp/S (GFlOp/s)"]]
+                #matplotlib.pyplot.figure(figsize=(15, 10))
+                fig, ax = matplotlib.pyplot.subplots(figsize=(15, 10))
+                custom_colors = seaborn.color_palette("hls", 3)
+                seaborn.scatterplot(
+                    data=df_combined_lattices_node,
+                    x=x_label,
+                    y=y_label,
+                    hue="Representation",
+                    style="Representation",
+                    s=100,
+                    alpha=0.8,
+                    legend=True,            # Avoid duplicate legends
+                    palette="tab10"
+                )
+
+                IPython.display.display(df_combined_lattices_node)
+                ''''
+                # It flags an error on the hue with an umarked Jupyter nodebook works but
+                # in project at the momment. Will look into that later 
+                seaborn.lineplot(
+                    data=df_combined_lattices_node,
+                    x=x_label,
+                    y=y_label,
+                    hue  ="Representation", # Different lines for different lattice sizes
+                    style="Representation", # Different line styles for Small/Large Simul_size
+                    markers=False,          # Show markers at data points
+                    dashes=True,            # Use solid lines
+                    linewidth=2.5,
+                    legend=True,            # Avoid duplicate legends
+                    palette=custom_colors
+                )
+                '''
+                # Add labels for each point
+                for i, row in df_combined_lattices_node.iterrows():
+                    # Mpi_distribution
+                    matplotlib.pyplot.text(row[x_label], row[y_label], f"{row['mpi_distribution']}",
+                                           ha='center', va='top', fontsize=8, fontweight='bold', color='black')
+                # [end-for-loop [i, row]]
+
+                # Finalize the plot
+                matplotlib.pyplot.title(f"[{mach_name}] {batch_act}_{sim_sz}_lat{str(lattice).replace(".","x")}_node{node}")
+                matplotlib.pyplot.xlabel(x_label, fontsize=12, fontweight='bold', color="darkgreen")
+                matplotlib.pyplot.ylabel(y_label, fontsize=12, fontweight='bold', color="darkred")
+                if scale == "log_scale":
+                    matplotlib.pyplot.yscale('log')
+                matplotlib.pyplot.legend(title="Representation")
+                matplotlib.pyplot.grid(True, linestyle='-.', color='gray')
+                # --------------------------------------------------------------
+                # Getting the plots out to screen and to file.
+                # --------------------------------------------------------------
+                # Now getting the plot onto disk
+                png_out_filename = "plot_Grouped_" + \
+                                   str(message) + "_" + \
+                                   str(self.c.getXaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                                   "_vs_" + \
+                                   str(self.c.getYaxis_label()).replace(" ","_").replace("/","").replace("(","").replace(")","") + \
+                                   "_" + "node" + str(node) + "_" + \
+                                   "lat" + str(lattice).replace(".","x") + \
+                                   "_" + \
+                                   str(mach_name) + ".png"
+                output_file = os.path.join(plot_dir, png_out_filename)
+                # print("png_out_filename --->: ", png_out_filename)
+                self.m.printMesgAddStr("Grouped FlopsCG saved to   --->: ", self.c.getMagenta(), output_file)
+                base_width = 300
+                matplotlib.pyplot.savefig(output_file, dpi=base_width)
+                #matplotlib.pyplot.show()
+            # --------------------------------------------------------------
+            # Incrementing hte case counter for the graph title
+            # --------------------------------------------------------------
+            cnt_lattice += 1
+        # [end-for-loop [lattice]]
+
+        return rc
+        # [end-function]
+        # --------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # ----------------------------------------------------------------------------
     def plot_BenchRes_groupByBars_matplotlib(self, df_mpi_distr,

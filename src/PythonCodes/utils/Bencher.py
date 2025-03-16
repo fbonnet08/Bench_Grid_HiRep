@@ -139,7 +139,7 @@ class Bencher:
         # --------------------------------------------------------------------------
         # Reading in the inout file
         self.m.printMesgStr("DataFrame BKeeper             :", self.c.getGreen(), mach_name)
-        print(dataFrame_BKeeper)
+        IPython.display.display(dataFrame_BKeeper)
         # ----------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         # Reading in the inout file
@@ -208,12 +208,15 @@ class Bencher:
                 #msg = batch_act + "_" + sim_sz + "_" + "node001"
                 msg = batch_act + "_" + sim_sz + "_" + "node"+str(node) +  "_" + "lat"+str(lattice)
 
-                rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_mpi_node001[x_label],
-                                                                           df_su2_adj_cgtimes_node001[y_label],
-                                                                           df_su2_fun_cgtimes_node001[y_label],
-                                                                           df_su3_fun_cgtimes_node001[y_label],
-                                                                           mach_name, msg)
+                rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(
+                    df_su2_adj_mpi_node001[x_label],
+                    df_su2_adj_cgtimes_node001[y_label],
+                    df_su2_fun_cgtimes_node001[y_label],
+                    df_su3_fun_cgtimes_node001[y_label],
+                    mach_name, msg
+                )
             # --------------------------------------------------------------------------
+            # [Mpi_dristibution]
             # --------------------------------------------------------------------------
             # Plotting data
             x_label = "mpi_distribution"
@@ -231,13 +234,92 @@ class Bencher:
                 df_su3_fun_flops_node001 = df_su3_fun_lattice[df_su3_fun_lattice["nodes"] == str(node)][[y_label]]
 
                 #msg = batch_act + "_" + sim_sz + "_" + "node001"
-                msg = batch_act + "_" + sim_sz + "_" + "node"+str(node) +  "_" + "lat"+str(lattice)
+                msg = batch_act + "_" + sim_sz + "_" + "node" + str(node) +  "_" + "lat" + str(lattice)
 
-                rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(df_su2_adj_mpi_node001[x_label],
-                                                                           df_su2_adj_flops_node001[y_label],
-                                                                           df_su2_fun_flops_node001[y_label],
-                                                                           df_su3_fun_flops_node001[y_label],
-                                                                           mach_name, msg)
+                rc = lattice_Analyser.plot_BenchRes_groupByBars_matplotlib(
+                    df_su2_adj_mpi_node001[x_label],
+                    df_su2_adj_flops_node001[y_label],
+                    df_su2_fun_flops_node001[y_label],
+                    df_su3_fun_flops_node001[y_label],
+                    mach_name, msg
+                )
+            #[end-for-loop [node]
+        #[end-for-loop [lattice]
+        # --------------------------------------------------------------------------
+        # [Nodes] All cases
+        # --------------------------------------------------------------------------
+        # --------------------------------------------------------------------------
+        # [Representation]
+        # --------------------------------------------------------------------------
+        # --------------------------------------------------------------------------
+        x_label = "nodes"
+        y_label = "CG Run Time (s)"
+        self.c.setXaxis_label(x_label)
+        self.c.setYaxis_label(y_label)
+        # --------------------------------------------------------------------------
+        msg = batch_act + "_" + sim_sz + "_" + \
+              str(str(self.c.start_key_rep_lst[0]).split("Performing benchmark for ")[1]).replace(" ","_").replace(",","")
+        # --------------------------------------------------------------------------
+        rc = lattice_Analyser.plot_BenchRes_group_Nodes_Rep_matplotlib(df_su2_ad, mach_name, msg)
+        # --------------------------------------------------------------------------
+        y_label = "FlOp/S (GFlOp/s)"
+        self.c.setYaxis_label(y_label)
+        rc = lattice_Analyser.plot_BenchRes_group_Nodes_Rep_matplotlib(df_su2_ad, mach_name, msg)
+        # --------------------------------------------------------------------------
+        # --------------------------------------------------------------------------
+        # Plotting data per nodes
+        # --------------------------------------------------------------------------
+        x_label = "nodes"
+        y_label = "CG Run Time (s)"
+        self.c.setXaxis_label(x_label)
+        self.c.setYaxis_label(y_label)
+
+        msg = batch_act + "_" + sim_sz
+        # --------------------------------------------------------------------------
+        rc = lattice_Analyser.plot_BenchRes_group_Nodes_matplotlib("linear_scale",
+                                                                  df_su2_ad,
+                                                                  df_su2_fun,
+                                                                  df_su3_fun,
+                                                                  mach_name, msg)
+        # --------------------------------------------------------------------------
+        y_label = "FlOp/S (GFlOp/s)"
+        self.c.setYaxis_label(y_label)
+        rc = lattice_Analyser.plot_BenchRes_group_Nodes_matplotlib("linear_scale",
+                                                                    df_su2_ad,
+                                                                    df_su2_fun,
+                                                                    df_su3_fun,
+                                                                    mach_name, msg)
+        # --------------------------------------------------------------------------
+        # --------------------------------------------------------------------------
+        # [CG vs Flops]
+        # --------------------------------------------------------------------------
+        x_label = "FlOp/S (GFlOp/s)"
+        y_label = "CG Run Time (s)"
+        self.c.setXaxis_label(x_label)
+        self.c.setYaxis_label(y_label)
+
+        msg = batch_act + "_" + sim_sz
+        rc = lattice_Analyser.plot_BenchRes_group_FlopsCG_matplotlib("linear_scale",
+                                                                    df_su2_ad,
+                                                                    df_su2_fun,
+                                                                    df_su3_fun,
+                                                                    batch_act, sim_sz, mach_name, msg)
+        #'''
+        # --------------------------------------------------------------------------
+        # [CG vs Flops] per node
+        # --------------------------------------------------------------------------
+        x_label = "FlOp/S (GFlOp/s)"
+        y_label = "CG Run Time (s)"
+        self.c.setXaxis_label(x_label)
+        self.c.setYaxis_label(y_label)
+
+        msg = batch_act + "_" + sim_sz
+        rc = lattice_Analyser.plot_BenchRes_group_FlopsCG_per_Nodes_matplotlib("linear_scale",
+                                                                                df_su2_ad,
+                                                                                df_su2_fun,
+                                                                                df_su3_fun,
+                                                                                batch_act, sim_sz, mach_name, msg)
+        #'''
         # -------------------------------------------------------------------
         return rc
         # [end-function]
@@ -262,7 +344,7 @@ class Bencher:
         # --------------------------------------------------------------------------
         # Reading in the inout file
         self.m.printMesgStr("DataFrame Sombrero            :", self.c.getGreen(), mach_name)
-        print(dataFrame_Sombrero)
+        IPython.display.display(dataFrame_Sombrero)
         # ----------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         rc = lattice_Analyser.plot_Sombrero_AllCases_strong_ByLatticeSz_scatterPlot_mach(
@@ -287,26 +369,28 @@ class Bencher:
         # -------------------------------------------------------------------
 
     def driver_BenchRes_Sombrero_weak(self, transformer,
-                                 lattice_Analyser,
-                                 mach_name,
-                                 target_batch_act,
-                                 batch_act, sim_sz, data_path):
+                                    lattice_Analyser,
+                                    mach_name,
+                                    target_batch_act,
+                                    batch_act, sim_sz, data_path):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
         self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
         # -------------------------------------------------------------------
-        rc, dataFrame_Sombrero = self.getDataFrame_from_Sombrero_Runs(transformer,
-                                                                      lattice_Analyser,
-                                                                      data_path,
-                                                                      mach_name,
-                                                                      target_batch_act,
-                                                                      batch_act,
-                                                                      sim_sz,
-                                                                      self.c.start_key_sombrero_rep_lst)
+        rc, dataFrame_Sombrero = self.getDataFrame_from_Sombrero_Runs(
+            transformer,
+            lattice_Analyser,
+            data_path,
+            mach_name,
+            target_batch_act,
+            batch_act,
+            sim_sz,
+            self.c.start_key_sombrero_rep_lst
+        )
         # --------------------------------------------------------------------------
         # Reading in the inout file
         self.m.printMesgStr("DataFrame Sombrero            :", self.c.getGreen(), mach_name)
-        print(dataFrame_Sombrero)
+        IPython.display.display(dataFrame_Sombrero)
         # ----------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         rc = lattice_Analyser.plot_Sombrero_AllCases_weak_ByLatticeSz_scatterPlot_mach(
@@ -330,10 +414,10 @@ class Bencher:
         # [end-function]
         # -------------------------------------------------------------------
     def driver_BenchRes_Sombrero_small_large(self, transformer,
-                                             lattice_Analyser,
-                                             mach_name,
-                                             target_batch_act,
-                                             batch_act, sim_sz, data_path):
+                                                lattice_Analyser,
+                                                mach_name,
+                                                target_batch_act,
+                                                batch_act, sim_sz, data_path):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
         self.m.printMesgStr("Getting target file list      :",
@@ -373,11 +457,11 @@ class Bencher:
         # Reading in the inout file
         self.m.printMesgStr("DataFrame Sombrero small      :",
                             self.c.getGreen(), mach_name)
-        print(dataFrame_Sombrero_small)
+        IPython.display.display(dataFrame_Sombrero_small)
         # Reading in the inout file
         self.m.printMesgStr("DataFrame Sombrero large      :",
                             self.c.getGreen(), mach_name)
-        print(dataFrame_Sombrero_large)
+        IPython.display.display(dataFrame_Sombrero_large)
         # ----------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         # Scatter plots
@@ -410,6 +494,27 @@ class Bencher:
             self.c.start_key_sombrero_rep_bkeeper_map_lst,
             is_float="no_float"
         )
+        # --------------------------------------------------------------------------
+        x_label = "nodes"
+        y_label = "Gflops_per_seconds"
+        self.c.setXaxis_label(x_label)
+        self.c.setYaxis_label(y_label)
+        # --------------------------------------------------------------------------
+        rc = lattice_Analyser.plot_Sombrero_AllCases_strength_Nodes_mach(
+            dataFrame_Sombrero_small,
+            dataFrame_Sombrero_large,
+            batch_act, mach_name,
+            self.c.start_key_sombrero_rep_bkeeper_map_lst,
+            "no_float"
+        )
+        rc = lattice_Analyser.plot_Sombrero_AllCases_strength_Nodes_mach(
+            dataFrame_Sombrero_small,
+            dataFrame_Sombrero_large,
+            batch_act, mach_name,
+            self.c.start_key_sombrero_rep_bkeeper_map_lst,
+            "with_float"
+        )
+        # --------------------------------------------------------------------------
 
         return rc
         # [end-function]
@@ -453,7 +558,7 @@ class Bencher:
     #------------------------------------------------------------------------
     # [Getters]
     #------------------------------------------------------------------------
-    # ----------------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     def getDataFrame_from_Sombrero_Runs(self, transformer,
                                         lattice_Analyser,
                                         data_path, mach_name,
@@ -463,54 +568,52 @@ class Bencher:
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
         self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         #batch_action = "Sombrero_weak_cpu"
         #simulation_size = "small"
         rc = transformer.Reinitialising_Paths_and_object_content(data_path, target_batch_act, sim_size)
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # Getting content in the target file
         # TODO: redefinition necessary to to act on the target file name _cpu
         # TODO: and batch script discrepancy, batch action will need to be passed in,
         # TODO: in the cluster method.
         #batch_action = "Sombrero_weak"
         rc, target_file_lst, target_file_dir = transformer.getTarget_file_lst(self.c.getTargetdir())
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # Getting content in the target file
         rc, target_file_cluster_lst = transformer.getTarget_file_cluster_lst(batch_act,
                                                                              sim_size,
                                                                              target_file_lst[:])
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # [Data-Extraction]
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
         self.m.printMesgStr(   "Data extraction cluster out          : ", self.c.getGreen(), mach_name)
         self.m.printMesgAddStr("Target Batch action                   : ", self.c.getYellow(), target_batch_act)
         self.m.printMesgAddStr("Batch action                          : ", self.c.getCyan(), batch_act)
         self.m.printMesgAddStr("Simulation size                       : ", self.c.getMagenta(), sim_size)
         self.m.printMesgAddStr("target_file_cluster_lst[:]        --->: ", self.c.getYellow(), target_file_cluster_lst[:])
         self.m.printMesgAddStr("Length target_file_cluster_lst[:] --->: ", self.c.getYellow(), len(target_file_cluster_lst[:]))
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # Reading in the inout file
-        # TODO: return to this one once the read_Sombrero_file_out method is done.
         rc, target_file_cluster_filtered_lst = transformer.filter_target_file_cluster_lst(start_key_lst[:],
                                                                               target_file_cluster_lst[:])
         self.m.printMesgAddStr("len(target_Sombrero_weak_small_file_cluster_filtered_lst[:]) --->: ",
                                self.c.getYellow(), len(target_file_cluster_filtered_lst[:]))
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # Reading in the inout file
-        # TODO: return to this one once the read_Sombrero_file_out method is done.
         msg = batch_act + "_" + sim_size + "_" + "all_nodes"
         rc, file_cluster_failed_lst = lattice_Analyser.plot_BenchRes_SuccessFailure_pieChart_matplotlib(target_file_cluster_lst[:],
                                                                                        target_file_cluster_filtered_lst[:],
                                                                                        mach_name,
                                                                                        msg)
-        # --------------------------------------------------------------------------
-        # --------------------------------------------------------------------------
+        # -------------------------------------------------------------------
+        # -------------------------------------------------------------------
         # Reading in the inout file
         # TODO: return to this one once the read_Sombrero_file_out method is done and replace with the filtered list
         # TODO: instead. For now we are going to use the full unfiltered list.
@@ -525,17 +628,7 @@ class Bencher:
 
         return rc, dataframe
         # [end-function]
-        # --------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
+        # -------------------------------------------------------------------
     #------------------------------------------------------------------------
     # [Printers]
     #------------------------------------------------------------------------

@@ -1,5 +1,9 @@
 
 
+matplotlib.pyplot.gca().xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(6))
+matplotlib.pyplot.gca().xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(1))
+
+
             #[[ "nodes", "ntpns",
             #                                                 "Gflops_per_seconds",
             #                                                 "Gflops_in_seconds",

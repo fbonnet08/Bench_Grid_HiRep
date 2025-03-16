@@ -75,6 +75,8 @@ class SystemCheck:
         self.MATPLOTLIB_AVAILABLE = None
         self.MATPLOTLIB_PYPLOT_AVAILABLE = None
         self.MATPLOTLIB_COLORS_AVAILABLE = None
+        self.MATPLOTLIB_COLORS_AVAILABLE = None
+        self.MATPLOTLIB_TICKER_AVAILABLE = None
         self.TQDM_AVAILABLE = None
         self.PANDAS_AVAILABLE = None
         self.SEABORN_AVAILABLE = None
@@ -149,6 +151,12 @@ class SystemCheck:
             print(" Python package matplotlib.colors is not installed on your system, verify or install\n")
             self.MATPLOTLIB_COLORS_AVAILABLE = False
         try:
+            import matplotlib.ticker
+            self.MATPLOTLIB_TICKER_AVAILABLE = True
+        except (ImportError, NameError, AttributeError, OSError):
+            print(" Python package matplotlib.ticker is not installed on your system, verify or install\n")
+            self.MATPLOTLIB_TICKER_AVAILABLE = False
+        try:
             import matplotlib
             self.MATPLOTLIB_AVAILABLE = True
         except (ImportError, NameError, AttributeError, OSError):
@@ -192,6 +200,7 @@ class SystemCheck:
         self.m.printMesgStr("matplotlib       - installed >:", self.c.get_B_Magenta(), self.MATPLOTLIB_AVAILABLE)
         self.m.printMesgStr("matplotlib.pyplot- installed >:", self.c.get_B_Magenta(), self.MATPLOTLIB_PYPLOT_AVAILABLE)
         self.m.printMesgStr("matplotlib.colors- installed >:", self.c.get_B_Magenta(), self.MATPLOTLIB_COLORS_AVAILABLE)
+        self.m.printMesgStr("matplotlib.ticker- installed >:", self.c.get_B_Magenta(), self.MATPLOTLIB_TICKER_AVAILABLE)
         self.m.printMesgStr("tqdm             - installed >:", self.c.get_B_Magenta(), self.TQDM_AVAILABLE)
         self.m.printMesgStr("pandas           - installed >:", self.c.get_B_Magenta(), self.PANDAS_AVAILABLE)
         self.m.printMesgStr("seaborn          - installed >:", self.c.get_B_Magenta(), self.SEABORN_AVAILABLE)
