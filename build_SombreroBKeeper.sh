@@ -153,7 +153,7 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 #--enable-sp4tias [Explicitly enables compilation for Sp(4) two-index antisymmetric]
 #
 #../configure --prefix=${prefix} --with-grid=${prefix} --enable-su2adj --enable-su2fund --enable-su3fund --enable-su4fund --enable-su3tis --enable-sp4tis --disable-all CXX="nvcc -std=c++17 -x cu" --no-create --no-recursion
-#
+#     --enable-su4adj \
 if [[ $machine_name =~ "lumi" ]]; then
   #  --prefix=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
   #  --with-grid=/users/bonnetfr/SwanSea/SourceCodes/external_lib/prefix_grid_202410 \
@@ -177,7 +177,7 @@ elif [[ $machine_name =~ "mi300" ]]; then
     --enable-su3fund \
     --enable-su4fund \
     --enable-su3tis \
-    --enable-su4adj \
+    --enable-sp4fund \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
