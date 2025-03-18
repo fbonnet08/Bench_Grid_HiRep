@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-lrank=$OMPI_COMM_WORLD_LOCAL_RANK
+lrank=$SLURM_PROCID     #$OMPI_COMM_WORLD_LOCAL_RANK
 numa1=$((lrank))
 netdev=mlx5_${lrank}:1
 
