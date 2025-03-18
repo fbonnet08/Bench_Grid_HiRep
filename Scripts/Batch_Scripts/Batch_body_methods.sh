@@ -547,7 +547,7 @@ cat << EOF >> "$_batch_file_out"
      --log Error,Warning,Message
    ################################################################################
    #-------------------------------------------------------------------------------
-   EOF
+EOF
 elif [[ $_machine_name = "tursa"    || \
         $_machine_name = "vega"     || \
         $_machine_name = "sunbird"  || \
