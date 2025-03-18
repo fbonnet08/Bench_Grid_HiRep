@@ -3,6 +3,7 @@
 GPU_ID=$SLURM_PROCID
 # Detect NUMA node for the assigned GPU using rocm-smi
 lrank=$OMPI_COMM_WORLD_LOCAL_RANK
+numa1=$((lrank))
 
 NUM_GPUS=$(rocm-smi --showuniqueid | grep 'GPU' | wc -l);
 n_gpus=$(( NUM_GPUS / 2 ))
@@ -26,7 +27,7 @@ export UCX_IB_REG_METHODS=rc_mlx5
 export UCX_IB_GPU_DIRECT_RDMA=y
 export AMD_VISIBLE_DEVICES=$OMPI_COMM_WORLD_LOCAL_RANK
 
-BINDING="--cpunodebind=$NUMA_NODE --membind=$NUMA_NODE --gpu-id=$GPU_ID"
+BINDING="--interleave=$numa1 --cpunodebind=$NUMA_NODE --membind=$NUMA_NODE --gpu-id=$GPU_ID"
 
 echo "BINDING      --->: $BINDING"
 echo "numa command --->: numactl ${BINDING} $@"
