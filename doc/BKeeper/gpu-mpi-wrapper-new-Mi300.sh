@@ -19,8 +19,6 @@ echo "$(hostname) - $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
 numactl ${BINDING} "$@"
 
 : '
-
-
 #!/usr/bin/env bash
 # Get the GPU ID assigned by SLURM
 GPU_ID=$SLURM_PROCID
