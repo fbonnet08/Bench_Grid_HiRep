@@ -114,8 +114,15 @@ LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
 
 LeonardoInstallerWarpX_dir="${batch_Scripts_dir}"/LeonardoInstallerWarpX
 
-Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP/Hirep_LLR_SP/
+Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
 Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
+
+LLR_HiRep_heatbath_input_dir=${sourcecode_dir}/LLR_HiRep_heatbath_input
+# Les boule tar
+ball_llr_codes="${sourcecode_dir}/ball_HiRep-LLR-SP.tar.gz"
+ball_llr_input="${sourcecode_dir}/ball_LLR_HiRep_heatbath_input.tar.gz"
+# Some random directory in sourcecode_dir directory for sanity checks and test
+some_dir=${sourcecode_dir}/some_other_directory
 
 HiRep_LLR_master_dir=${sourcecode_dir}/HiRep-LLR-master/HiRep
 HiRep_LLR_master_HMC_dir=${HiRep_LLR_master_dir}/LLR_HMC

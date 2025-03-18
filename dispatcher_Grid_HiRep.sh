@@ -51,12 +51,12 @@ $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_d
 # Setting the external lib_dir
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_dir="SwanSea/SourceCodes"
-lib_dir="SwanSea/SourceCodes/external_lib";
-lat_run_dir="SwanSea/SourceCodes/LatticeRuns";
+lib_dir="$src_dir"/"external_lib";
+lat_run_dir="$src_dir"/"LatticeRuns";
 #external_lib_dir=$(echo $user_remote_home_dir$sptr$lib_dir | tr -d ' ')
 chopped=$(echo "${user_remote_home_dir}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-external_lib_dir=$chopped$sptr$lib_dir
 source_dir=$chopped$sptr$src_dir
+external_lib_dir=$chopped$sptr$lib_dir
 LatticeRuns_dir=$chopped$sptr$lat_run_dir
 $white; printf "source_dir             : ";$yellow; printf "$source_dir\n";$reset_colors;
 $white; printf "external_lib_dir       : ";$magenta; printf "$external_lib_dir\n";$reset_colors;
@@ -206,14 +206,14 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
-bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_run_gpu
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;

@@ -1,3 +1,62 @@
+
+
+#!/usr/bin/env bash
+ Get the number of GPUs
+NUM_GPUS=$(rocm-smi --showtopo | grep 'GPU\[.*\]' | wc -l)
+
+echo "Detected $NUM_GPUS GPUs"
+echo "Configuring UCX for optimal NUMA balancing..."
+
+# Iterate over each GPU and bind UCX to the corresponding NUMA node
+for ((i = 0; i < NUM_GPUS; i++)); do
+    # Get the NUMA node for the current GPU
+    NUMA_NODE=$(rocm-smi --showtopo | grep "GPU\[$i\]" | grep -oP 'Numa Node: \K\d+')
+
+    if [ -n "$NUMA_NODE" ]; then
+        echo "Binding GPU $i to NUMA node $NUMA_NODE"
+
+        # Set UCX parameters to bind to the correct NUMA node
+        export UCX_MEMTYPE_CACHE=n
+        export UCX_TLS=rc,cuda_copy,cuda_ipc,sm
+        export UCX_NET_DEVICES=mlx5_0:1
+        export UCX_RNDV_THRESH=8192
+        export UCX_IB_REG_METHODS=rc_mlx5
+        export UCX_IB_GPU_DIRECT_RDMA=y
+
+        # Use numactl to set CPU and memory affinity to the correct NUMA node
+        numactl --cpunodebind=$NUMA_NODE --membind=$NUMA_NODE \
+            ucx_perftest -t tag_bw -n 1000000 -s 8192 -w 1 -d mlx5_0:1 &
+    else
+        echo "Failed to detect NUMA node for GPU $i"
+    fi
+done
+
+# Wait for all background processes to finish
+wait
+
+echo "UCX NUMA balancing configuration complete!"
+
+
+
+
+
+
+CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
+CPU_BIND="\${CPU_BIND},7e0000,7e000000"
+CPU_BIND="\${CPU_BIND},7e,7e00"
+CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
+
+cat << EOF > ./select_gpu
+#!/bin/bash
+
+export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
+exec \\\$*
+$eof_end_string
+
+chmod +x ./select_gpu
+
+
+
 elif [[ $machine_name =~ "mi300" ]]; then
     printf "add BKeeper configure statement in build_SombreroBKeeper.sh file"
   ../configure \

@@ -117,6 +117,30 @@ if [ -f "${_input_filename}" ]
 fi
 }
 #-------------------------------------------------------------------------------
+# Method to check if file exists
+#-------------------------------------------------------------------------------
+directory_exists (){
+_input_directory=$1
+#-------------------------------------------------------------------------------
+directory_exists="no"
+if [ -d "${_input_directory}" ]
+  then
+    $white; printf "Directory              : "; $bold;
+    $yellow; printf '%s'"${_input_directory}"; $green; printf " --->: exist.\n";
+    $white; $reset_colors;
+    directory_exists="yes"
+    printf " directory_exists ---->: "; $bold;
+    $green; printf "$directory_exists.\n"; $reset_colors;
+  else
+    $white; printf "Directory              : "; $bold;
+    $yellow; printf '%s'"${_input_directory}"; $red;printf " --->: does not exist.\n";
+    $white; $reset_colors;
+    directory_exists="no"
+    printf " directory_exists ---->: "; $bold;
+    $red; printf "$directory_exists.\n"; $reset_colors;
+fi
+}
+#-------------------------------------------------------------------------------
 # Cloning method from a given repository
 #-------------------------------------------------------------------------------
 Git_Clone_project (){

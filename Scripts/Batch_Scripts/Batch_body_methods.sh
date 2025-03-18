@@ -499,20 +499,8 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
-#wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi300.sh
-CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
-CPU_BIND="\${CPU_BIND},7e0000,7e000000"
-CPU_BIND="\${CPU_BIND},7e,7e00"
-CPU_BIND="\${CPU_BIND},7e00000000,7e0000000000"
-
-cat << EOF > ./select_gpu
-#!/bin/bash
-
-export ROCR_VISIBLE_DEVICES=\\\$SLURM_LOCALID
-exec \\\$*
-$eof_end_string
-
-chmod +x ./select_gpu
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi300.sh
+chmod a+x \${wrapper_script}
 EOF
 fi
 #-------------------------------------------------------------------------------
@@ -543,23 +531,23 @@ elif [[ $_machine_name = "mi300" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-# Launching mechanism
-#-------------------------------------------------------------------------------
-# run! #########################################################################
-device_mem=23000
-shm=8192
-srun --cpu-bind=\${CPU_BIND} \\
-  ./select_gpu "\${bkeeper_build_dir}"/BKeeper  \\
-  "\${benchmark_input_dir}"/BKeeper/input_BKeeper_mi300.xml \\
-  --grid $_lattice_size_cpu \\
-  --mpi $_mpi_distribution \\
-  --accelerator-threads "\$OMP_NUM_THREADS" \\
-  --shm \$shm \\
-  --device-mem \$device_mem \\
-  --log Error,Warning,Message
-################################################################################
-#-------------------------------------------------------------------------------
-EOF
+   # Launching mechanism
+   #-------------------------------------------------------------------------------
+   # run! #########################################################################
+   device_mem=23000
+   shm=8192
+   srun --exclusive bash \\
+     "\$wrapper_script" "\${bkeeper_build_dir}"/BKeeper  \\
+     "\${benchmark_input_dir}"/BKeeper/input_BKeeper_mi300.xml \\
+     --grid $_lattice_size_cpu \\
+     --mpi $_mpi_distribution \\
+     --accelerator-threads "\$OMP_NUM_THREADS" \\
+     --shm \$shm \\
+     --device-mem \$device_mem \\
+     --log Error,Warning,Message
+   ################################################################################
+   #-------------------------------------------------------------------------------
+   EOF
 elif [[ $_machine_name = "tursa"    || \
         $_machine_name = "vega"     || \
         $_machine_name = "sunbird"  || \
