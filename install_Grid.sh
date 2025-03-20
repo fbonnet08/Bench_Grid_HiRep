@@ -68,7 +68,21 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Running make -k install      : "; $bold;
 $magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
-make -k install
+
+#make -k install
+
+$green; printf "Building Grid                : "; $bold;
+$yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
+if [[ $machine_name =~ "Precision-3571"  ||
+      $machine_name =~ "DESKTOP-GPI5ERK" ||
+      $machine_name =~ "desktop-dpr4gpr" ]]; then
+  make -k -j16 install;
+else
+  make -k -j32 install;
+fi
+
+
+
 
 #-------------------------------------------------------------------------------
 #End of the script

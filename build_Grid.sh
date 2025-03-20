@@ -98,8 +98,7 @@ case $machine_name in
   *"Precision-3571"*)
     ../configure \
     --enable-comms=mpi-auto \
-    --enable-doxygen-doc
-    --enable-comms=mpi-auto \
+    --enable-doxygen-doc \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
