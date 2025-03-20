@@ -106,7 +106,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $white; printf "Getting and compiling  : "; $bold;
 $magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
 cd ${basedir}
-wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.gz
+wget https://www.mpfr.org/mpfr-current/mpfr-4.2.2.tar.gz
 for i in $(seq 0 $sleep_time)
 do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
