@@ -96,7 +96,6 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 $green; printf "Configuring                  : "; $bold;
 case $machine_name in
   *"Precision-3571"*)
-    source "${HOME}"/.bashrc
     ../configure \
     --enable-comms=mpi-auto \
     --enable-doxygen-doc \
@@ -105,13 +104,14 @@ case $machine_name in
     --with-mpfr=${prefix} \
     --with-openssl=/usr/lib/x86_64-linux-gnu/ \
     --includedir=/usr/include/x86_64-linux-gnu/mpi \
-    --disable-unified \
-    --enable-simd=GPU \
-    --enable-accelerator=cuda \
-    --enable-gen-simd-width=64 \
-    CXX=nvcc \
-    LDFLAGS="-cudart shared -lcublas " \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    --disable-unified
+    # \
+    #--enable-simd=GPU \
+    #--enable-accelerator=cuda \
+    #--enable-gen-simd-width=64 \
+    #CXX=nvcc \
+    #LDFLAGS="-cudart shared -lcublas " \
+    #CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
     ;;
   *"desktop-dpr4gpr"*)
     #../configure --prefix=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --enable-doxygen-doc --enable-comms=mpi-auto --enable-Sp  --enable-Nc=4 --with-lime=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-gmp=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-mpfr=/home/frederic/SwanSea/SourceCodes/external_lib/prefix_grid_202410/ --with-openssl=/usr/lib/x86_64-linux-gnu/ --includedir=/usr/include/x86_64-linux-gnu/mpi  --disable-unified
