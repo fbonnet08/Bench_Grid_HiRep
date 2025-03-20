@@ -103,6 +103,7 @@ done
 printf "\n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+# TODO: need to go in the common for the versionning otherwise it not stable
 $white; printf "Getting and compiling  : "; $bold;
 $magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
 cd ${basedir}
@@ -113,7 +114,7 @@ do
 done
 printf "\n"
 tar xvzf mpfr-4.2.2.tar.gz
-cd mpfr-4.2.1
+cd mpfr-4.2.2
 ./configure --prefix=${prefix} --with-gmp=${prefix}
 #make -j16
 make
