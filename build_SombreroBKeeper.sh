@@ -207,34 +207,24 @@ else
     #  --no-recursion
     #  CXXFLAGS="-std=c++17"
 fi
-
+# ----------------------------------------------------------------------------
 $green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-
-# TODO: ----------------------------------------------------------------------------
-# TODO: Replace the standard building mecanism with the battch script already created
-
-$green; printf "Building Grid                : "; $bold;
+# ----------------------------------------------------------------------------
+$green; printf "Building BKeeper             : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-if [[ $machine_name =~ "Precision-3571"  ||
-      $machine_name =~ "DESKTOP-GPI5ERK" ||
-      $machine_name =~ "desktop-dpr4gpr" ]]; then
+if [[ $machine_name =~ "DESKTOP-GPI5ERK" ]]; then
+  make -k -j8;
+elif [[ $machine_name =~ "desktop-dpr4gpr" ]]; then
   make -k -j16;
+elif [[ $machine_name =~ "Precision-3571" ]]; then
+  make -k -j20;
 else
   make -k -j32;
 fi
-# TODO: ----------------------------------------------------------------------------
-#echo "Here now we will submit to queue the rest of compilation"
-# sbatch script_name > output.log &
-#$green; printf "Submitting to queue         : "; $bold;
-#$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
-#cd $batch_Scripts_dir
-#sbatch ./Compile_BKeeper.sh > out_Compile_BKeeper.log &
-# TODO: ----------------------------------------------------------------------------
-
 $green; printf "Installing BKeeper           : "; $bold;
 $yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
-#make install
+make install
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)

@@ -1,4 +1,31 @@
 
+if [[ $machine_name =~ "Precision-3571"  ||
+      $machine_name =~ "DESKTOP-GPI5ERK" ||
+      $machine_name =~ "desktop-dpr4gpr" ]]; then
+  make -k -j16 install;
+else
+  make -k -j32 install;
+fi
+
+
+if [[ $machine_name =~ "Precision-3571"  ||
+      $machine_name =~ "DESKTOP-GPI5ERK" ||
+      $machine_name =~ "desktop-dpr4gpr" ]]; then
+  make -k -j16;
+else
+  make -k -j32;
+fi
+
+# TODO: ----------------------------------------------------------------------------
+# TODO: Replace the standard building mecanism with the battch script already created
+# TODO: ----------------------------------------------------------------------------
+#echo "Here now we will submit to queue the rest of compilation"
+# sbatch script_name > output.log &
+#$green; printf "Submitting to queue         : "; $bold;
+#$yellow; printf "coffee o'clock time take 2! ... \n"; $white; $reset_colors;
+#cd $batch_Scripts_dir
+#sbatch ./Compile_BKeeper.sh > out_Compile_BKeeper.log &
+# TODO: ----------------------------------------------------------------------------
 
 #!/usr/bin/env bash
  Get the number of GPUs
@@ -20,6 +47,7 @@ for ((i = 0; i < NUM_GPUS; i++)); do
         export UCX_TLS=rc,cuda_copy,cuda_ipc,sm
         export UCX_NET_DEVICES=mlx5_0:1
         export UCX_RNDV_THRESH=8192
+
         export UCX_IB_REG_METHODS=rc_mlx5
         export UCX_IB_GPU_DIRECT_RDMA=y
 

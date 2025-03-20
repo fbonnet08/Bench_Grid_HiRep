@@ -66,23 +66,20 @@ $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
 
 # Running the make install into the prefix directory
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Running make -k install      : "; $bold;
+$green; printf "Running make -k -jx install  : "; $bold;
 $magenta; printf "${grid_build_dir}\n"; $white; $reset_colors;
-
 #make -k install
-
-$green; printf "Building Grid                : "; $bold;
+$green; printf "Installing Grid              : "; $bold;
 $yellow; printf "coffee o'clock time! ... \n"; $white; $reset_colors;
-if [[ $machine_name =~ "Precision-3571"  ||
-      $machine_name =~ "DESKTOP-GPI5ERK" ||
-      $machine_name =~ "desktop-dpr4gpr" ]]; then
+if [[ $machine_name =~ "DESKTOP-GPI5ERK" ]]; then
+  make -k -j8 install;
+elif [[ $machine_name =~ "desktop-dpr4gpr" ]]; then
   make -k -j16 install;
+elif [[ $machine_name =~ "Precision-3571" ]]; then
+  make -k -j20 install;
 else
   make -k -j32 install;
 fi
-
-
-
 
 #-------------------------------------------------------------------------------
 #End of the script
