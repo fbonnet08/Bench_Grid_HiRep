@@ -104,7 +104,7 @@ case $machine_name in
     --with-mpfr=${prefix} \
     --with-openssl=/usr/lib/x86_64-linux-gnu/ \
     --includedir=/usr/include/x86_64-linux-gnu/mpi \
-    --disable-unified
+    --disable-unified \
     --enable-simd=GPU \
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
