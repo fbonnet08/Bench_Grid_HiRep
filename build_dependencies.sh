@@ -112,7 +112,7 @@ do
   $green;ProgressBar "${i}" "${sleep_time}"; sleep 1;
 done
 printf "\n"
-tar xvzf mpfr-4.2.1.tar.gz
+tar xvzf mpfr-4.2.2.tar.gz
 cd mpfr-4.2.1
 ./configure --prefix=${prefix} --with-gmp=${prefix}
 #make -j16
