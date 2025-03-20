@@ -205,7 +205,7 @@ case $machine_name in
   *"Precision-3571"*)
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
-    grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    grid_dir=${sourcecode_dir}/Grid-Main/Grid;
     module_list="#---> no modules on Precision-3571;module list;"
     ;;
   *"DESKTOP-GPI5ERK"*)
