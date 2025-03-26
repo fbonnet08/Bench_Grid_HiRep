@@ -192,6 +192,18 @@ elif [[ $machine_name =~ "leonardo" ]]; then
     --enable-su3tis \
     --disable-all \
     CXX="nvcc -std=c++17 -x cu"
+elif [[ $machine_name =~ "DESKTOP-GPI5ERK" ||
+        $machine_name =~ "desktop-dpr4gpr" ||
+        $machine_name =~ "Precision-3571"  ]]; then
+  ../configure \
+    --prefix=${prefix} \
+    --with-grid=${prefix} \
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --disable-all
 else
   ../configure \
     --prefix=${prefix} \
