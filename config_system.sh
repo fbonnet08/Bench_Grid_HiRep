@@ -52,6 +52,11 @@ case $machine_name in
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=192;                  max_cores_per_node_cpu=192;
     ;;
+  *"mi210"*)
+    target_partition_gpu="LocalQ";               target_partition_cpu="LocalQ";
+    gpus_per_node=4;                             qos="normal";
+    max_cores_per_node_gpu=192;                  max_cores_per_node_cpu=192;
+    ;;
 esac
 
 #if [[ -v "$_username" ]];        then echo "Enter Username         : $_username"; fi
@@ -286,7 +291,32 @@ get_system_config_clusters_AMD_LUMI-G (){
 }
 
 get_system_config_clusters_AMD_Mi300 (){
-  _max_gpu_count=8  # Max number of GPUs on a Lumi node
+  _max_gpu_count=4  # Max number of GPUs on a Lumi node
+  # CPU stuff
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(echo "$_core_count/2"|bc);
+  #_core_count=$(srun --account="$__project_account" --partition="dev-g" --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  $white; printf "From /proc/cpuinfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _core_count : "; $bold;
+  $yellow; printf "${_core_count}\n"; $reset_colors;
+  _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(echo "$_mem_total*2"|bc);
+  #_mem_total=$(srun --account="$__project_account" --partition="dev-g" --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  $white; printf "From /proc/meminfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
+  $yellow; printf "${_mem_total}\n"; $reset_colors;
+  # GPU stuff we already know that there is 8 max gpu on Lumi but we can check this way:
+  _gpu_count=${_max_gpu_count}
+  #_gpu_count=$(srun --account="$__project_account" --partition="dev-g" --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" rocm-smi --showtopo |grep "GPU\["|wc -l | awk '{print $1}');
+  #_gpu_count=$(echo "$_gpu_count/2"|bc);
+  $white; printf "rocm-smi               : "; $bold;
+  $cyan; printf "srun cmd --> _gpu_count : "; $bold;
+  $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  #_gpu_count=$(echo "${_max_gpu_count}/2"|bc);
+  #echo "$_gpu_count"
+}
+get_system_config_clusters_AMD_Mi210 (){
+  _max_gpu_count=4  # Max number of GPUs on a Lumi node
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(echo "$_core_count/2"|bc);
@@ -325,6 +355,7 @@ case $machine_name in
   *"lumi"*)            get_system_config_clusters_AMD_LUMI-G; ;;
   *"leonardo"*)        get_system_config_clusters_nvidia_Leonardo-Booster; ;;
   *"mi300"*)           get_system_config_clusters_AMD_Mi300; ;;
+  *"mi210"*)           get_system_config_clusters_AMD_Mi210; ;;
 esac
 #-------------------------------------------------------------------------------
 #End of the script

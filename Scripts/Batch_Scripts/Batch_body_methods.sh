@@ -259,7 +259,9 @@ EOF
 #-------------------------------------------------------------------------------
 # Compiler queries
 #-------------------------------------------------------------------------------
-if [[ $_machine_name = "lumi" || $_machine_name = "mi300" ]];
+if [[ $_machine_name = "lumi"  ||
+      $_machine_name = "mi300" ||
+      $_machine_name = "mi210" ]];
 then
 cat << EOF >> "$_batch_file_out"
 # Check some versions
@@ -435,6 +437,29 @@ export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
 export GRID_ALLOC_NCACHE_HUGE=0
 EOF
+elif [[ $_machine_name = "mi210" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export OMPI_MCA_btl=^uct,openib
+export OMPI_MCA_pml=ucx
+export OMPI_MCA_io=romio321
+export OMPI_MCA_btl_openib_allow_ib=true
+export OMPI_MCA_btl_openib_device_type=infiniband
+export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+# UCX
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+export UCX_RNDV_THRESH=16384
+export UCX_RNDV_SCHEME=put_zcopy
+export UCX_IB_GPU_DIRECT_RDMA=yes
+export UCX_MEMTYPE_CACHE=n
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
 fi
 #-------------------------------------------------------------------------------
 # Job description
@@ -509,6 +534,16 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi300.sh
 chmod a+x \${wrapper_script}
 EOF
+elif [[ $_machine_name = "mi210" ]]
+then
+eof_end_string="EOF"
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi210.sh
+chmod a+x \${wrapper_script}
+EOF
 fi
 #-------------------------------------------------------------------------------
 # Launching mechanism
@@ -546,6 +581,27 @@ cat << EOF >> "$_batch_file_out"
    srun --exclusive bash \\
      "\$wrapper_script" "\${bkeeper_build_dir}"/BKeeper  \\
      "\${benchmark_input_dir}"/BKeeper/input_BKeeper_mi300.xml \\
+     --grid $_lattice_size_cpu \\
+     --mpi $_mpi_distribution \\
+     --accelerator-threads "\$OMP_NUM_THREADS" \\
+     --shm \$shm \\
+     --device-mem \$device_mem \\
+     --log Error,Warning,Message
+   ################################################################################
+   #-------------------------------------------------------------------------------
+EOF
+elif [[ $_machine_name = "mi210" ]];
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+   # Launching mechanism
+   #-------------------------------------------------------------------------------
+   # run! #########################################################################
+   device_mem=23000
+   shm=8192
+   srun --exclusive bash \\
+     "\$wrapper_script" "\${bkeeper_build_dir}"/BKeeper  \\
+     "\${benchmark_input_dir}"/BKeeper/input_BKeeper_mi210.xml \\
      --grid $_lattice_size_cpu \\
      --mpi $_mpi_distribution \\
      --accelerator-threads "\$OMP_NUM_THREADS" \\

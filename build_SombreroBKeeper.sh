@@ -181,6 +181,19 @@ elif [[ $machine_name =~ "mi300" ]]; then
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
+elif [[ $machine_name =~ "mi210" ]]; then
+  ../configure \
+    --prefix=${prefix} \
+    --with-grid=${prefix} \
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --enable-sp4fund \
+    --disable-all \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-std=c++17"
 elif [[ $machine_name =~ "leonardo" ]]; then
   ../configure \
     --prefix=${prefix} \

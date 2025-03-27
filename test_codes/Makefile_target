@@ -1,0 +1,9 @@
+test_dataManage_code: test_cuda_code \
+                     test_c_code    \
+                     test_cpp_code  ;
+
+test_cuda_code:                     ;
+
+test_cpp_code:                      ;
+
+test_c_code:                        ;

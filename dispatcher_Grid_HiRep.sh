@@ -193,6 +193,10 @@ case ${remote_hostname} in
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
+  *\"aac1.amd.com\"*)
+    module load rocm amdclang hdf5 fftw openmpi;
+    module list;
+    ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"

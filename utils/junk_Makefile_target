@@ -1,0 +1,8 @@
+utils_cuda_code: cmdLine.o             \
+                 deviceTools_gpu.o     \
+                 get_deviceQuery_gpu.o \
+                 get_systemQuery_cpu.o \
+                 timming.o             ;
+
+
+testcode_cpu_cuda_code: testing_Network.o            ;

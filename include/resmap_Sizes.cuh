@@ -24,9 +24,9 @@
 //system headers
 #include <string>
 // Cuda includes
-//#if defined (CUDA) /*preprossing for the CUDA environment */
+#if defined (CUDA) /*preprossing for the CUDA environment */
 #include <cufftXt.h>
-//#endif
+#endif
 
 // Application includes
 #include "common_krnl.cuh"
@@ -39,9 +39,9 @@
 extern "C" {
 #endif
 
-/* ////////////////////////////////////////////////////////////////////////////
- -- common resmap kernel function definitions / Data on GPU
-*/
+	/* ////////////////////////////////////////////////////////////////////////////
+	 -- common resmap kernel function definitions / Data on GPU
+	*/
 
   /* TRANSFORMERS */
   int EmbbedFilter2Volume(const float *filter, float *pad_fltr,

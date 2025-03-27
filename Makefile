@@ -3,7 +3,7 @@ include Makefile_macros
 
 # Source directories.
 
-SRCDIRS = src utils
+SRCDIRS = src test_codes/cpu test_codes utils
 
 # Search directories.
 
@@ -57,33 +57,51 @@ vpath %.o   $(OBJDIR)
 
 # Targets.
 
-.PHONY: src_dataManage_code utils_dataManage_code default all makedir checkclean clean cleanall robodoc check_news protocB finalCmpl wc tar detar;
+.PHONY: src_dataManage_code testcode_cpu_dataManage_code test_dataManage_code utils_dataManage_code default all makedir checkclean clean cleanall robodoc check_news protocB finalCmpl wc tar detar;
 
 default:
 	@./makemake > /dev/null; \
 	make --no-print-directory all
 
-all: makedir checkclean src_dataManage_code utils_dataManage_code protocB finalCmpl;
+all: makedir checkclean src_dataManage_code testcode_cpu_dataManage_code test_dataManage_code utils_dataManage_code protocB finalCmpl;
 
 src_dataManage_code: src_cuda_code \
-                     src_c_code    ;
+                     src_c_code    \
+                     src_cpp_code  ;
 
-src_cuda_code: carte_mesh_3D.o     \
-               common_Helpr_gpu.o  \
-               common_krnl_gpu.o   \
-               dataDeviceManag.o   \
-               resmap_Sizes.o      ;
+src_cuda_code:                     ;
 
-src_c_code: GetPID.o               ;
+src_cpp_code:                      ;
+
+src_c_code:                        ;
+
+testcode_cpu_dataManage_code: testcode_cpu_cuda_code \
+                              testcode_cpu_cpp_code  \
+                              testcode_cpu_c_code    ;
+
+testcode_cpu_cuda_code:                              ;
+
+testcode_cpu_cpp_code: testing_ChronoTime.o          ;
+
+testcode_cpu_c_code:                                 ;
+
+test_dataManage_code: test_cuda_code \
+                     test_c_code    \
+                     test_cpp_code  ;
+
+test_cuda_code:                     ;
+
+test_cpp_code:                      ;
+
+test_c_code:                        ;
 
 utils_dataManage_code: utils_cuda_code \
-                       utils_c_code    ;
+                       utils_c_code    \
+                       utils_cpp_code  ;
 
-utils_cuda_code: cmdLine.o             \
-                 deviceTools_gpu.o     \
-                 get_deviceQuery_gpu.o \
-                 get_systemQuery_cpu.o \
-                 timming.o             ;
+utils_cuda_code:                       ;
+
+utils_cpp_code:                        ;
 
 utils_c_code:                          ;
 
@@ -170,18 +188,18 @@ robodoc:
 	./makemdoc;
 check:
 	@echo "Running building in check scenarios for simple models."; \
-        export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.2//lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export PYTHONPATH=; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/mnt/c/Program Files/NVIDIA/CUDNN/v9.8//lib/12.8/x64/; \
         python ./checks/simple_LibTests/report.py --use_gpu=$(use_gpu) --bench_gpu=$(bench_gpu) --fix_gpu=$(fix_gpu) --set_gpu=$(set_gpu) --help=$(help)
 bench:
 	@echo "Running building in check scenarios for simple models."; \
-        export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.2//lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export PYTHONPATH=; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/mnt/c/Program Files/NVIDIA/CUDNN/v9.8//lib/12.8/x64/; \
         python3 ./checks/simple_LibTests/bench.py --use_gpu=$(use_gpu) --bench_gpu=$(bench_gpu) --fix_gpu=$(fix_gpu) --set_gpu=$(set_gpu) --help=$(help)
 check_help:
 	@echo "Running building in check scenarios for simple models."; \
-        export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.2//lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export PYTHONPATH=; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/mnt/c/Program Files/NVIDIA/CUDNN/v9.8//lib/12.8/x64/; \
         python ./checks/simple_LibTests/report.py --help
 check_cpu:
 	@echo "moving to directory: ./checks/simple_LibTests/cpu_test_code and compiling check codes..."; \
@@ -195,8 +213,8 @@ check_gpu:
         cd ./checks/simple_LibTests/gpu_test_code; \
         pwd; \
         make; \
-        export PYTHONPATH=/home/frederic/Leiden/SourceCode:; \
-        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.2//lib64:/usr/local/cudnn/2016-05-12/lib64:/opt/Devel_tools/magma-1.6.1/lib:/opt/Devel_tools/Relion4/BetaVersion/relion/build/lib:/usr/local/lib; \
+        export PYTHONPATH=; \
+        export LD_LIBRARY_PATH=:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/lib64:/mnt/c/Program Files/NVIDIA/CUDNN/v9.8//lib/12.8/x64/; \
         python ./check_gpu.py --use_gpu=$(use_gpu) --set_gpu=$(set_gpu); \
         cd ../../../
 clean_check_cpu:

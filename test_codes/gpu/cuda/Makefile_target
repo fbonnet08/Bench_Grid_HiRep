@@ -1,0 +1,9 @@
+test_gpu_dataManage_code: test_gpu_cuda_code \
+                     test_gpu_c_code    \
+                     test_gpu_cpp_code  ;
+
+test_gpu_cuda_code:                     ;
+
+test_gpu_cpp_code:                      ;
+
+test_gpu_c_code:                        ;

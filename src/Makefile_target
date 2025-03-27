@@ -1,10 +1,9 @@
 src_dataManage_code: src_cuda_code \
-                     src_c_code    ;
+                     src_c_code    \
+                     src_cpp_code  ;
 
-src_cuda_code: carte_mesh_3D.o     \
-               common_Helpr_gpu.o  \
-               common_krnl_gpu.o   \
-               dataDeviceManag.o   \
-               resmap_Sizes.o      ;
+src_cuda_code:                     ;
 
-src_c_code: GetPID.o               ;
+src_cpp_code:                      ;
+
+src_c_code:                        ;

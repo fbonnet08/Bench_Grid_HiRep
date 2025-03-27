@@ -2,9 +2,30 @@
 
 ####### The project path #####
 
-DataManage_source=/home/Frederic/SwanSea/SourceCodes/Bench_Grid_HiRep
-#/home/frederic/Leiden/SourceCode/DataManage_project
-#/home/frederic/Leiden/SourceCode/Simple_Restruct.projet
+DataManage_source=/home/frederic/SwanSea/SourceCodes/Bench_Grid_HiRep
+DataManage_source_inc=$(DataManage_source)/include
+
+Grid_dir=/home/frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid/
+Grid_dir_inc=/home/frederic/SwanSea/SourceCodes/Grid-UCL-ARC/Grid/Grid/
+####### The CUDA and MAGMA paths #####
+#CUDADIR=/usr/local/cuda
+CUDADIR=/mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.6/
+# Visual studio
+VS_DIR=/mnt/c/Program\ Files/Microsoft\ Visual\ Studio/2022/Community
+#/SDK/ScopeCppSDK/vc15/VC/bin
+####### The LINUX paths #####
+LINUX_INC = /usr/include/x86_64-linux-gnu
+LINUX_LIB = /usr/lib/x86_64-linux-gnu
+####### The MPI paths #####
+MPIDIR=/usr
+MPIDIR_INCLUDE=/usr/include/mpi
+
+####### The compilers paths #####
+CCCOMP=gcc
+GCC=g++
+MPIFORTRAN=/usr/bin/mpif90
+GFORTRAN=gfortran
+
 
 ####### The switches #####
 
@@ -19,30 +40,8 @@ DMKL = -DMKL
 DSIMPLE_MPI = -DSIMPLE_MPI
 DBENCH = -DBENCH
 
-####### The LINUX paths #####
-
-LINUX_INC = /usr/include/x86_64-linux-gnu
-LINUX_LIB = /usr/lib/x86_64-linux-gnu
-
-####### The MPI paths #####
-
-MPIDIR=/usr
-MPIDIR_INCLUDE=/usr/include/mpi
-
-####### The compilers paths #####
-
-CCCOMP=gcc
-GCC=g++
-MPIFORTRAN=/usr/bin/mpif90
-GFORTRAN=gfortran
-
-####### The CUDA and MAGMA paths #####
-
-#CUDADIR=/usr/local/cuda
-CUDADIR=/mnt/c/Program\ Files/NVIDIA\ GPU\ Computing\ Toolkit/CUDA/v12.2/
 
 ####### Set MAGMA-ADDONS={Magma version} to compile Magma addons. #####
-
 GPU_MODEL=0.0     #0: tesla arch, 1: fermi arch
 GPU_SM=sm_52
 GPUS_HMEM=520
@@ -50,26 +49,26 @@ GPUS_HMEM=520
 
 OBJDIR=obj/GFORTgpu
 MODDIR=obj/GFORTgpu
-DataManage_source_inc=$(DataManage_source)/include
 
 ##############
 # C compiler.#
 ##############
 CC=$(CCCOMP)
-CFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -O -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL
+CFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -O -DLINUX -fopenmp -DBENCH -DCUDA -DLINUX -DOPENCL -DOPENCV -DOPENGL -DGSL
 CCLIB=$(CC) $(CFLAGS) -I $(MODDIR)                                                \
                       -I $(DataManage_source_inc)                                 \
                       -I $(CUDADIR)/include/                                      \
                       -I $(CUDADIR)/src                                           \
                       -I $(MPIDIR_INCLUDE)                                        \
                       -I $(DataManage_source)/src/include                         \
-                      -I $(DataManage_source)/cuda/include/dataManage
+                      -I $(DataManage_source)/cuda/include/dataManage             \
+                      -I $(Grid_dir_inc)
 
 ################
 # C++ compiler.#
 ################
-CPP=$(GCC) -std=c++11
-CPPFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DOPENCL -DOPENCV -DOPENGL -DGSL -DGL_GLEXT_PROTOTYPES
+CPP=$(GCC) -std=c++17
+CPPFLAGS=-DCUBLAS_GFORTRAN -DADD_ -O3 -DLINUX -fopenmp -DBENCH -DCUDA -DLINUX -DOPENCL -DOPENCV -DOPENGL -DGSL -DGL_GLEXT_PROTOTYPES
 
 CPPCLIB=$(CPP) $(CPPFLAGS) -I $(MODDIR)                                                \
                            -I $(DataManage_source_inc)                                 \
@@ -77,7 +76,8 @@ CPPCLIB=$(CPP) $(CPPFLAGS) -I $(MODDIR)                                         
                            -I $(CUDADIR)/include/                                      \
                            -I $(CUDADIR)/src                                           \
                            -I $(MPIDIR_INCLUDE)                                        \
-                           -I $(DataManage_source)/src/include
+                           -I $(DataManage_source)/src/include                         \
+                           -I $(Grid_dir_inc)
 
 #################
 # CUDA compiler.#
@@ -89,8 +89,9 @@ CPPCLIB=$(CPP) $(CPPFLAGS) -I $(MODDIR)                                         
 PUSHMEM_GPU= -arch $(GPU_SM) -DGPUSHMEM=$(GPUS_HMEM) -gencode arch=compute_52,code=compute_52
 #endif
 
-#NVCC=$(CUDADIR)/bin/nvcc -std=c++14
-NVCC=$(CUDADIR)/bin/nvcc.exe -std=c++11 -allow-unsupported-compiler
+#NVCC=$(CUDADIR)/bin/nvcc -std=c++14 #-allow-unsupported-compiler
+CXX=$(GCC)
+NVCC=$(CUDADIR)/bin/nvcc.exe -std=c++11
 NVCCFLAGS= --ptxas-options=-v $(PUSHMEM_GPU) -O3 -DADD_ -DBENCH -DCUDA -DOPENCV -DOPENGL -DGSL
 NVCCFLAGS += -D_FORCE_INLINES -ccbin=$(CXX) -Xcompiler -fPIC $(COMMON_FLAGS)
 NVCCCLIB=$(NVCC) $(NVCCFLAGS) -I $(MODDIR)                                             \

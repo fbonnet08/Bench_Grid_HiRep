@@ -46,5 +46,4 @@ set(SOURCE_FILES
 add_executable(Bench_Grid_HiRep main.cu ${SOURCE_FILES} )
 
 
-
 set_target_properties(Bench_Grid_HiRep PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
