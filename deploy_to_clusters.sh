@@ -48,7 +48,7 @@ sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac6.amd.com
 #-------------------------------------------------------------------------------
 # [Mi210]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac1.amd.com
+#sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac1.amd.com
 #-------------------------------------------------------------------------------
 # [Marenostrum]: Authentication  procedure.
 #-------------------------------------------------------------------------------
