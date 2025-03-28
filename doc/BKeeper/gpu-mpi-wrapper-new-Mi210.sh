@@ -1,4 +1,26 @@
 #!/usr/bin/env bash
+lrank=$OMPI_COMM_WORLD_LOCAL_RANK
+lgpu=(0 1 2 3)
+numa1=$((lrank))
+
+echo "lrank        --->: $lrank"
+echo "numa1        --->: $numa1"
+echo "lgpu         --->: $lgpu"
+
+export ROCR_VISIBLE_DEVICES=${lgpu[$lrank]}
+export HIP_VISIBLE_DEVICES=$ROCR_VISIBLE_DEVICES
+unset ROCR_VISIBLE_DEVICES
+BINDING="--interleave=$numa1"
+
+echo "BINDING      --->: $BINDING"
+echo "numa command --->: numactl ${BINDING} $@"
+
+echo "`hostname` - $lrank device=$HIP_VISIBLE_DEVICES binding=$BINDING"
+
+numactl ${BINDING} "$@"
+
+: '
+#!/usr/bin/env bash
 lrank=$SLURM_PROCID     #$OMPI_COMM_WORLD_LOCAL_RANK
 numa1=$((lrank))
 netdev=mlx5_${lrank}:1
@@ -18,7 +40,6 @@ echo "$(hostname) - $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
 
 numactl ${BINDING} "$@"
 
-: '
 #!/usr/bin/env bash
 # Get the GPU ID assigned by SLURM
 GPU_ID=$SLURM_PROCID

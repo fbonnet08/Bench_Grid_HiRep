@@ -34,13 +34,25 @@ xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiR
 #-------------------------------------------------------------------------------
 xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded login.vega.izum.si" &
 #-------------------------------------------------------------------------------
-# [Tursa]
-#-------------------------------------------------------------------------------
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  dc-bonn2     dp208  tursa.dirac.ed.ac.uk" &
-#-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
 xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614   lumi.csc.fi" &
+#-------------------------------------------------------------------------------
+# [Tursa]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  dp208  tursa.dirac.ed.ac.uk" &
+#-------------------------------------------------------------------------------
+# [Mi300]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac6.amd.com" &
+#-------------------------------------------------------------------------------
+# [Mi210]
+#-------------------------------------------------------------------------------
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac1.amd.com" &
+#-------------------------------------------------------------------------------
+# [Marenostrum]: Authentication  procedure.
+#-------------------------------------------------------------------------------
+# TODO:
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------

@@ -259,8 +259,8 @@ case $machine_name in
     --disable-fermion-reps \
     --disable-gparity \
     CXX=hipcc MPICXX=mpicxx \
-    CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17" \
-    LDFLAGS="-lmpi -fopenmp"
+    CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
+    LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
     #CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/include" \
     #LDFLAGS="-L/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/lib -lmpi -fopenmp"
     ;;
@@ -281,8 +281,8 @@ case $machine_name in
     --disable-fermion-reps \
     --disable-gparity \
     CXX=hipcc MPICXX=mpicxx \
-    CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17" \
-    LDFLAGS="-lmpi -fopenmp"
+    CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
+    LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
     #CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/include" \
     #LDFLAGS="-L/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/lib -lmpi -fopenmp"
     ;;

@@ -1,6 +1,11 @@
 #################
 ## Generals and diverse
 #################
+junk.*
+junk_*
+#################
+## Generals and diverse
+#################
 target_*.txt
 *.ttxt
 #################
