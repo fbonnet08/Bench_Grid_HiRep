@@ -24,31 +24,35 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Precision-3571]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh frederic  notneeded  10.44.5.20
+#sh ./dispatcher_Grid_HiRep.sh frederic  notneeded  10.44.5.20
 #-------------------------------------------------------------------------------
 # [Sunbird] [scw1813, scw1019] TODO: Sunbird has issues with max_string_array
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh s.frederic.bonnet  scw1813  sunbird.swansea.ac.uk
+#sh ./dispatcher_Grid_HiRep.sh s.frederic.bonnet  scw1813  sunbird.swansea.ac.uk
 #-------------------------------------------------------------------------------
 # [Tursa]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  dp208  tursa.dirac.ed.ac.uk
+#sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  dp208  tursa.dirac.ed.ac.uk
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded  login.vega.izum.si
+#sh ./dispatcher_Grid_HiRep.sh  eufredericb  notneeded  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_hiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
+#sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Mi300]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  not_required  aac6.amd.com
+sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac6.amd.com
 #-------------------------------------------------------------------------------
-# [Mi300]
+# [Mi210]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_hiRep.sh  dc-bonn2  not_required  aac1.amd.com
+sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac1.amd.com
+#-------------------------------------------------------------------------------
+# [Marenostrum]: Authentication  procedure.
+#-------------------------------------------------------------------------------
+# TODO:
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
@@ -64,7 +68,7 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-sh ./dispatcher_Grid_hiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
+sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
 '
 #-------------------------------------------------------------------------------
 #End of the script
