@@ -3,6 +3,8 @@
 //
 // System headers
 //Application headers
+#include <Grid/Grid.h>
+
 #include "../include/global_app.hpp"
 #include "../include/Exception_app.hpp"
 // Application headers for Bencher
@@ -180,12 +182,6 @@ namespace namespace_Bencher {
 
 
 
-
-
-
-
-
-
         int threads = GridThread::GetThreads();
         // here make a routine to print all the relevant information on the run
         std::cout << GridLogMessage << "Grid is setup to use " << threads << " threads" << std::endl;
@@ -307,16 +303,6 @@ namespace namespace_Bencher {
 
 
 
-
-
-
-
-
-
-
-
-
-
         // Stopping the Grid
         rc = stop_Grid_t();
         return rc;
@@ -335,6 +321,54 @@ namespace namespace_Bencher {
     ////////////////////////////////////////////////////////////////////////////////
     /// [Getters] Template class getters
     ////////////////////////////////////////////////////////////////////////////////
+    template <typename T, typename S> int
+    Bencher_Grid_ClassTemplate_t<T,S>::get_site_SU3_plaquette_t(int argc, char *argv[],
+                                                            std::string file) {
+        int rc = RC_SUCCESS;
+        // Brining in the Grid namespace
+        //using namespace Grid;
+        // Bringing to log
+        rc = start_Grid_t(argc, argv);
+        if (rc != RC_SUCCESS){
+            std::cout<<C_RED<<"Grid did not start properly ...: "<<__FILE__<<COLOR_RESET<<std::endl;
+        }
+        std::cout<< Grid::GridLogMessage << "Grid is initializing now" << std::endl;
+
+        // Getting the machine structure.
+        auto lattice_sz  = Grid::GridDefaultLatt();
+        auto simd_layout = Grid::GridDefaultSimd(Grid::Nd, Grid::vComplex::Nsimd());
+        auto mpi_layout  = Grid::GridDefaultMpi();
+        Grid::GridCartesian  Grid(lattice_sz, simd_layout, mpi_layout);
+
+        Grid::LatticeGaugeField Umu(&Grid);
+        std::vector<Grid::LatticeColourMatrix> U(4, &Grid);
+        Grid::LatticeComplexD plaq(&Grid);
+
+        Grid::FieldMetaData gauge_filed_header;
+        //std::cout<< gauge_filed_header <<std::endl;
+
+        double vol = Umu.Grid()->gSites();
+        double faces = (1.0 * Grid::Nd * (Grid::Nd - 1)) / 2.0;
+        double Ncdiv = 1.0/Grid::Nc;
+
+        std::cout << "Vol     "<< B_YELLOW  << vol   << C_RESET <<std::endl;
+        std::cout << "faces   "<< B_MAGENTA << faces << C_RESET <<std::endl;
+        std::cout << "Ncdiv   "<< B_CYAN    << Ncdiv << C_RESET <<std::endl;
+
+        std::cout << "Reading "<< file <<std::endl;
+        Grid::NerscIO::readConfiguration(Umu, gauge_filed_header, file);
+        for(int mu=0; mu < Grid::Nd; mu++){
+            U[mu] = Grid::PeekIndex<LorentzIndex>(Umu,mu);
+        }
+        Grid::SU3WilsonLoops::sitePlaquette(plaq,U);
+
+        plaq = plaq *(Ncdiv/faces);
+
+        std::cout << "plaquette --->: "<< plaq  <<std::endl;
+
+        return rc;
+    } /* end of get_machine_struct method */
+
     template <typename T, typename S> machine_struct*
     Bencher_Grid_ClassTemplate_t<T,S>::get_machine_struct_t() {
         return s_mach_o_t;
@@ -468,6 +502,17 @@ namespace namespace_Bencher {
         rc = print_empty_method_message(strcpy(arr,method.c_str()));
         return rc;
     } /* end of _initialize method */
+    ////////////////////////////////////////////////////////////////////////////////
+    // [Setters]
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    // [Getters]
+    ////////////////////////////////////////////////////////////////////////////////
+    int Bencher_Grid::get_site_SU3_plaquette(int argc, char *argv[], std::string file) {
+       int rc = RC_SUCCESS;
+       rc = p_cOverBenchGrid_t_o->get_site_SU3_plaquette_t(argc, argv, file);
+       return rc;
+    }
     ////////////////////////////////////////////////////////////////////////////////
     // [Finalizers] deallocate the arrays and cleans up the environment
     ////////////////////////////////////////////////////////////////////////////////

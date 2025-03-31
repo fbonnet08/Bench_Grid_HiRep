@@ -56,11 +56,11 @@ source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 # First pulling the code from GitHub
 #-------------------------------------------------------------------------------
 # TODO: ------------------------------------------------------------------------
-# TODO: finish this bit
+# TODO: finish this bit with different version of Grid passed into argument
 # TODO: ------------------------------------------------------------------------
-src_fldr="${sourcecode_dir}"/Grid-UCL-ARC
+src_fldr="${sourcecode_dir}"/"${grid_UCL_ARC}"
 
-Git_Clone_project "${src_fldr}" "https://github.com/UCL-ARC/Grid.git"
+Git_Clone_project "${src_fldr}" "${grid_UCL_ARC_git_url}"
 
 pwd ;
 # TODO: ------------------------------------------------------------------------

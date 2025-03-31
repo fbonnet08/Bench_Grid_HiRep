@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
         exit(rc);
     }
     bool MobiusSp2f_DWF = checkCmdLineFlag(argc,(const char **)argv,"MobiusSp2f_DWF") != 0;
+    bool get_site_SU3_plaquette = checkCmdLineFlag(argc,(const char **)argv,"get_site_SU3_plaquette") != 0;
 
     if (!benchmark) {
         std::cout<<B_WHITE<<"TODO: implement runBenchmark()..."<<__FILE__<<COLOR_RESET<<std::endl;
@@ -63,6 +64,10 @@ int main(int argc, char *argv[])
     // Hello test code
     p_Bencher_Grid_o->hello();
     // Benchmarker starts Grid stuff
+    if (get_site_SU3_plaquette) {
+        std::string file = "/home/frederic/SwanSea/SourceCodes/DWF_ensembles_GRID/nf2_fund_sp4/b6p9_m0p08_LNt32L24Ls8/ckpoint_EODWF_rng.7280";
+        rc = p_Bencher_Grid_o->get_site_SU3_plaquette(argc, argv, file);
+    }
     if (benchmark) {
         // Starting MobiusSp2f_DWF
         if (MobiusSp2f_DWF){rc = p_Bencher_Grid_o->run_MobiusSp2f_DWF(argc, argv);}

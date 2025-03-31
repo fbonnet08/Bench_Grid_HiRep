@@ -36,6 +36,7 @@ namespace namespace_Bencher {
         /* Getters */
         machine_struct* get_machine_struct_t();
         int hello_t();
+        int get_site_SU3_plaquette_t(int argc, char *argv[], std::string file);
         int get_network_map_nmap();
         int get_network_foreachIPs(machine_struct *s_machine);
         int get_network_localIPs(machine_struct *s_machine,
@@ -71,7 +72,10 @@ namespace namespace_Bencher {
         int hello();
         /* Method */
         int run_MobiusSp2f_DWF(int argc, char *argv[]);
-        protected:
+        /* getters */
+        int get_site_SU3_plaquette(int argc, char *argv[], std::string file);
+
+    protected:
         int _initialize();
         int _finalize();
     }; /* end of Bencher_Grid class */

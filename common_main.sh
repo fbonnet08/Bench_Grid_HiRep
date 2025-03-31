@@ -103,7 +103,6 @@ else
 fi
 #-------------------------------------------------------------------------------
 #[Path-structure] Setting up the directory structure for the download
-build_dir=build
 
 sourcecode_dir=${HOME}/SwanSea/SourceCodes
 Batch_util_create_path "${sourcecode_dir}"
@@ -132,7 +131,11 @@ HiRep_LLR_master_HMC_dir=${HiRep_LLR_master_dir}/LLR_HMC
 HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 
 #grid_dir=${sourcecode_dir}/Grid-Main/Grid
-grid_dir=${sourcecode_dir}/Grid-UCL-ARC/Grid
+build_dir="build"
+grid_UCL_ARC="Grid-UCL-ARC"
+grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
+grid_dir=${sourcecode_dir}/${grid_UCL_ARC}/Grid
+grid_build_dir=${grid_dir}${sptr}${build_dir}
 #-------------------------------------------------------------------------------
 # [Run-Structure] Setting up the target file name structure
 #-------------------------------------------------------------------------------
@@ -245,7 +248,6 @@ esac
 $white; printf "String --> module_list : "; $bold;
 $magenta; printf "${module_list}\n"; $reset_colors;
 $green; printf "done.\n"; $reset_colors;
-grid_build_dir=$grid_dir$sptr$build_dir
 #-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"

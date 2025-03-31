@@ -1,5 +1,58 @@
 
 
+
+
+target_link_libraries(Grid_HiRep_Benchmarker LINK_PUBLIC ${GRID_LIBRARY})
+
+
+
+
+
+-------------------------------------------------------------------
+
+
+project(Grid_HiRep_Benchmarker)
+
+
+project(./Grid_HiRep_Benchmarker/Grid_HiRep_Benchmarker)
+
+
+find_library(GRID_LIBRARY NAMES Grid PATH_SUFFIXES build/Grid PATHS ${GRID_DIR})
+
+
+
+set(GRID_DIR /mnt/c/cygwin64/home/frede/Swansea/SourceCodes/Grid-UCL-ARC/Grid/)
+set(GRID_INCLUDE_DIR /mnt/c/cygwin64/home/frede/Swansea/SourceCodes/Grid-UCL-ARC/Grid//Grid)
+
+include_directories(${GRID_DIR})
+include_directories(${GRID_INCLUDE_DIR})
+
+
+find_library(GRID_LIBRARY NAMES Grid PATHS ${GRID_DIR}/build)
+
+
+cmake_print_variables(GRID_DIR)
+cmake_print_variables(GRID_INCLUDE_DIR)
+cmake_print_variables(GRID_LIBRARY)
+
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${GRID_LIBRARY})
+
+-------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 set(CMAKE_CXX_STANDARD 17)
 
 

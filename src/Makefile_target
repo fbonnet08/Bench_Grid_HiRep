@@ -1,9 +1,6 @@
 src_dataManage_code: src_cuda_code \
                      src_c_code    \
                      src_cpp_code  ;
-
 src_cuda_code:                     ;
-
 src_cpp_code:                      ;
-
 src_c_code:                        ;
