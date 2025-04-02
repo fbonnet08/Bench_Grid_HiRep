@@ -234,7 +234,7 @@ EOF
 ################################################################################
 Batch_body_Run_Grid_DWF_gpu(){
   _machine_name=$1
-  _bkeeper_dir=$2
+  _grid_dwf_telos_dir=$2
   _LatticeRuns_dir=$3
   _benchmark_input_dir=$4
   _batch_file_out=$5
@@ -293,8 +293,8 @@ Bench_Grid_HiRep_dir=\$sourcecode_dir/Bench_Grid_HiRep
 benchmark_input_dir=$_benchmark_input_dir
 
 # Application paths
-bkeeper_dir=$_bkeeper_dir
-bkeeper_build_dir=\$bkeeper_dir/build
+grid_dwf_telos_dir=$_grid_dwf_telos_dir
+grid_dwf_telos_build_dir=\$grid_dwf_telos_dir/build
 
 #Extending the library path
 prefix=$_prefix
@@ -588,33 +588,82 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
-elif [[ $_machine_name = "mi300" ]];
+elif [[ $_machine_name = "mi300"           ||
+        $_machine_name = "desktop-dpr4gpr" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
    # Launching mechanism
    #-------------------------------------------------------------------------------
    # run! #########################################################################
+   ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
    device_mem=23000
    shm=8192
-
+mpirun -np \${SLURM_NTASKS} \\
+  --map-by numa \\
+  -x LD_LIBRARY_PATH \\
+  --bind-to none \\
+   rocprofv3 \${ROCOPTS} \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  --StartingType CheckpointStart \\
+  --beta \${BETA} \\
+  --starttraj \${STARTTRAJ} \\
+  --tlen \${TLEN} \\
+  --grid \${VOL} \\
+  --dwf_mass \${DWF_MASS} \\
+  --mobius_b \${MOBIUS_B} \\
+  --mobius_c \${MOBIUS_C} \\
+  --Ls \${Ls} \\
+  --savefreq \${SAVEFREQ} \\
+  --fermionmass \${MASS} \\
+  --nsteps \${NSTEPS} \\
+  --mpi \${MPI} \\
+  --cnfg_dir "./dwf_trials_verybigR1" \\
+  --accelerator-threads 8 \\
+  --Trajectories \${TRAJECTORIES} \\
+  --Thermalizations 10000 \\
+  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
    ################################################################################
    #-------------------------------------------------------------------------------
 EOF
-elif [[ $_machine_name = "mi210" ]];
+elif [[ $_machine_name = "mi210"           ||
+        $_machine_name = "desktop-dpr4gpr" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
    # Launching mechanism
    #-------------------------------------------------------------------------------
    # run! #########################################################################
+   ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
    device_mem=23000
    shm=8192
-
+mpirun -np \${SLURM_NTASKS} \\
+  --map-by numa \\
+  -x LD_LIBRARY_PATH \\
+  --bind-to none \\
+  rocprofv3 \${ROCOPTS} \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  --StartingType CheckpointStart \\
+  --beta \${BETA} \\
+  --starttraj \${STARTTRAJ} \\
+  --tlen \${TLEN} \\
+  --grid \${VOL} \\
+  --dwf_mass \${DWF_MASS} \\
+  --mobius_b \${MOBIUS_B} \\
+  --mobius_c \${MOBIUS_C} \\
+  --Ls \${Ls} \\
+  --savefreq \${SAVEFREQ} \\
+  --fermionmass \${MASS} \\
+  --nsteps \${NSTEPS} \\
+  --mpi \${MPI} \\
+  --cnfg_dir "./dwf_trials_verybigR1" \\
+  --accelerator-threads 8 \\
+  --Trajectories \${TRAJECTORIES} \\
+  --Thermalizations 10000 \\
+  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
    ################################################################################
    #-------------------------------------------------------------------------------
 EOF
@@ -635,7 +684,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  "\$wrapper_script" "\${bkeeper_build_dir}"/MobiusSp2f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
   --beta \${BETA} \\
   --starttraj \${STARTTRAJ} \\

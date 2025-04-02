@@ -201,7 +201,7 @@ EOF
           #-------------------------------------------------------------------------
 
           Batch_body_Run_Grid_DWF_gpu                                                         \
-            "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}"                           \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                           \
             "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
             "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
             "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
@@ -312,19 +312,14 @@ EOF
           # Constructing the rest of the batch file body
           #-------------------------------------------------------------------------
           Batch_body_Run_Grid_DWF_gpu                                                          \
-            "${machine_name}" "${bkeeper_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
             "${__path_to_run}${sptr}${__batch_file_out}"                                      \
             "${grid_large_lattice_size_gpu[$j]}"                                              \
             "${_mpi_distr}"                                                                   \
             "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
             "${module_list}" "${sourcecode_dir}"
 
-
-
-
           # TODO: continue from here .... insert the DWF batch scripts delaration.
-
-
 
         fi
 

@@ -491,8 +491,17 @@ if __name__ == "__main__":
             DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_leonardo,'LatticeRuns')
             # ---------------------------------------------------------------
             rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
-                                                lattice_bench_Analyser,
-                                                machine_name_leonardo, batch_action, simulation_size, DATA_PATH)
+                                                 lattice_bench_Analyser,
+                                                 machine_name_leonardo, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Mi300]
+            # ---------------------------------------------------------------
+            machine_name_leonardo = "Mi300"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_leonardo,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                 lattice_bench_Analyser,
+                                                 machine_name_leonardo, batch_action, simulation_size, DATA_PATH)
             # ---------------------------------------------------------------
             # ---------------------------------------------------------------        if args['--simulation_size'] == "large":
         if args['--simulation_size'] == "large":
@@ -519,8 +528,17 @@ if __name__ == "__main__":
             DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_vega,'LatticeRuns')
             # ---------------------------------------------------------------
             rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
-                                                lattice_bench_Analyser,
-                                                machine_name_vega, batch_action, simulation_size, DATA_PATH)
+                                                 lattice_bench_Analyser,
+                                                 machine_name_vega, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Mi300]
+            # ---------------------------------------------------------------
+            machine_name_vega = "Mi300"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name_vega,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                 lattice_bench_Analyser,
+                                                 machine_name_vega, batch_action, simulation_size, DATA_PATH)
     # [end-if args['--bkeeper_action']]
     #------------------------------------------------------------------------
     #------------------------------------------------------------------------
