@@ -193,10 +193,12 @@ case ${remote_hostname} in
     module list;
     ;;
   *\"aac6.amd.com\"*)
+    source /etc/profile.d/lmod.sh;
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
   *\"aac1.amd.com\"*)
+    source /etc/profile.d/lmod.sh;
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
