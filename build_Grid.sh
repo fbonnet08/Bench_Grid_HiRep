@@ -58,9 +58,9 @@ source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 # TODO: ------------------------------------------------------------------------
 # TODO: finish this bit with different version of Grid passed into argument
 # TODO: ------------------------------------------------------------------------
-src_fldr="${sourcecode_dir}"/"${grid_UCL_ARC}"
+src_fldr="${sourcecode_dir}"/"${grid_version}"
 
-Git_Clone_project "${src_fldr}" "${grid_UCL_ARC_git_url}"
+Git_Clone_project "${src_fldr}" "${grid_version_git_url}"
 
 pwd ;
 # TODO: ------------------------------------------------------------------------
@@ -246,6 +246,7 @@ case $machine_name in
     #--with-fftw=$FFTW_DIR/.. \
     ../configure \
     --prefix=${prefix} \
+    --enable-tracing=roctx \
     --enable-comms=mpi-auto \
     --enable-unified=no \
     --enable-shm=nvlink \
@@ -256,11 +257,13 @@ case $machine_name in
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --with-fftw=/opt/rocmplus-6.3.3/fftw \
     --disable-fermion-reps \
     --disable-gparity \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
     LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
+
     #CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/include" \
     #LDFLAGS="-L/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/lib -lmpi -fopenmp"
     ;;
@@ -268,6 +271,7 @@ case $machine_name in
     #--with-fftw=$FFTW_DIR/.. \
     ../configure \
     --prefix=${prefix} \
+    --enable-tracing=roctx \
     --enable-comms=mpi-auto \
     --enable-unified=no \
     --enable-shm=nvlink \
@@ -278,6 +282,7 @@ case $machine_name in
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --with-fftw=/opt/rocmplus-6.3.3/fftw \
     --disable-fermion-reps \
     --disable-gparity \
     CXX=hipcc MPICXX=mpicxx \

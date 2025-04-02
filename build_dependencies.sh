@@ -103,7 +103,7 @@ done
 printf "\n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-# TODO: need to go in the common for the versionning otherwise it not stable
+# TODO: need to go in the common for the versioning otherwise it not stable
 $white; printf "Getting and compiling  : "; $bold;
 $magenta; printf "mpfr-4.2.1.tar.gz\n"; $white; $reset_colors;
 cd ${basedir}

@@ -49,11 +49,12 @@ case $__batch_action in
   *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
   *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
   *"BKeeper_compile"*)      config_Batch_BKeeper_compile_cpu  ;;
+  *"Grid_DWF_run_gpu"*)     config_Batch_Grid_DWF_run_gpu     ;;
   *)
     echo
     $red; printf "The batch action is either incorrect or missing: \n";
     $yellow; printf "[BKeeper_compile, BKeeper_run, Sombrero_weak, Sombrero_strong,";
-             printf " HiRep-LLR-master-cpu]\n";
+             printf " HiRep-LLR-master-cpu, Grid_DWF_run_gpu]\n";
     $cyan; printf "[try: bash -s < ./creator_batch.sh SwanSea/SourceCodes/external_lib BKeeper_compile]\n"; $reset_colors;
     read -p "Would you like to continue (yes/no): " continue;
     if [[ $continue =~ "yes" || $continue =~ "Yes" ]]
@@ -141,6 +142,9 @@ case "$__batch_action" in
       ${machine_name} ${HiRep_LLR_master_HMC_dir} ${LatticeRuns_dir} \
       ${__batch_file_out} ${_job_name};;
   *"HiRep-LLR-master-gpu"*)
+      #TODO: insert the method for the gpu batch script creation
+      ;;
+  *"Grid_DWF_run_gpu"*)
       #TODO: insert the method for the gpu batch script creation
       ;;
 esac

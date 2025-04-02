@@ -481,7 +481,7 @@ EOF
       ;;
   *"BKeeper_run_cpu"*)
     #-------------------------------------------------------------------------------
-    # BKeeper [Large-CPU]:
+    # BKeeper [Small-CPU]:
     #-------------------------------------------------------------------------------
     __simulation_size="small"
     # constructing the files and directory structure

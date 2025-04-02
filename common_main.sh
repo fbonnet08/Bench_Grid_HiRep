@@ -132,9 +132,19 @@ HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 
 #grid_dir=${sourcecode_dir}/Grid-Main/Grid
 build_dir="build"
+# DWF grid supported
+grid_DWF_Telos="Grid-DWF-Telos"
+grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
+# UCL optimized version
 grid_UCL_ARC="Grid-UCL-ARC"
 grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
-grid_dir=${sourcecode_dir}/${grid_UCL_ARC}/Grid
+#-------------------------------------------------------------------------------
+# The grid version that we are going to compile this time. May change this later
+#-------------------------------------------------------------------------------
+grid_version="${grid_UCL_ARC}"
+grid_version_git_url="${grid_UCL_ARC_git_url}"
+
+grid_dir=${sourcecode_dir}/${grid_version}/Grid
 grid_build_dir=${grid_dir}${sptr}${build_dir}
 #-------------------------------------------------------------------------------
 # [Run-Structure] Setting up the target file name structure
@@ -157,11 +167,21 @@ target_BKeeper_run_gpu_small_batch_files="target_BKeeper_run_gpu_small_batch_fil
 target_BKeeper_run_cpu_large_batch_files="target_BKeeper_run_cpu_large_batch_files.txt"
 target_BKeeper_run_gpu_large_batch_files="target_BKeeper_run_gpu_large_batch_files.txt"
 #-------------------------------------------------------------------------------
+# Grid_DWF[small-large]-[gpu]:
+#-------------------------------------------------------------------------------
+# [Small]
+target_Grid_DWF_run_gpu_small_batch_files="target_Grid_DWF_run_gpu_small_batch_files.txt"
+# [Large]
+target_Grid_DWF_run_gpu_large_batch_files="target_Grid_DWF_run_gpu_large_batch_files.txt"
+#-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 $red  ; printf "Target files names     : ";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
+$white; printf "Grid_DWF               : ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF_run_gpu_small : ";$red;   printf "%s\n" $target_Grid_DWF_run_gpu_small_batch_files; $reset_colors;
+$white; printf "Grid_DWF_run_gpu_large : ";$green; printf "%s\n" $target_Grid_DWF_run_gpu_large_batch_files; $reset_colors;
 $white; printf "BKeeper                : ";printf "\n"; $reset_colors;
 $white; printf "BKeeper_run_cpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
 $white; printf "BKeeper_run_gpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;

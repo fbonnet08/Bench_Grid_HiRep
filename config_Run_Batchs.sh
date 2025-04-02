@@ -66,9 +66,30 @@ declare -a bkeeper_large_n_nodes_gpu=(4 8 12 16 24 32) # 12 6 16 24 32)
 #-------------------------------------------------------------------------------
 #tests/sp2n/Test_hmc_Sp_WF_2_Fund_3_2AS.cc, using a thermalised starting configuration
 #--grid 32.32.32.64, use a sensible --mpi, one task per GPU, nodes=1, 2, 4, 8, 16, 32
-declare -a grid_large_n_nodes=(1 2 4 8 16 32)
+# Used only for:
+# ./test_codes/cpu/testing_array.sh
+# ./test_codes/cpu/testing_nameMPIDistribution.sh
 declare -a grid_lattice_size_gpu=("32.32.32.64")
+# Used for:
+# ./creator_phys_controller_batch.sh
+declare -a grid_small_n_nodes_gpu=(1 2)
+declare -a grid_large_n_nodes_gpu=(4 8 16 32)
+declare -a grid_small_lattice_size_gpu=("24.24.24.32")
+declare -a grid_large_lattice_size_gpu=("32.32.32.64")
+
 # TODO: add the other possibilities if any
+# DWF fermions
+declare -a trajectories=(100000)
+declare -a mass=("0.10")
+#MASS=100
+declare -a nsteps=(27)
+declare -a savefreq=(10)
+declare -a beta=("6.9")
+declare -a tlen=(1)
+declare -a dwf_mass=("1.8")
+declare -a Mobius_b=("1.5")
+declare -a Mobius_c=("0.5")
+declare -a Ls=(18)
 #-------------------------------------------------------------------------------
 # HiRep LLR HMC CPU:
 #-------------------------------------------------------------------------------

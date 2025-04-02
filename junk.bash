@@ -1,4 +1,11 @@
 
+
+
+
+
+bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_cpu;
+
+
 if [[ $machine_name =~ "Precision-3571"  ||
       $machine_name =~ "DESKTOP-GPI5ERK" ||
       $machine_name =~ "desktop-dpr4gpr" ]]; then

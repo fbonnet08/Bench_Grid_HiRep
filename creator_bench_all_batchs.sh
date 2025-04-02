@@ -18,15 +18,20 @@ red="tput setaf 1"  ;green="tput setaf 2"  ;yellow="tput setaf 3"
 blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
 white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 #-------------------------------------------------------------------------------
-# Creating the case batch file
+# [Inputs] Creating the case batch file
 #-------------------------------------------------------------------------------
 __project_account=$1   #SwanSea/SourceCodes/external_lib
 __external_lib_dir=$2   #SwanSea/SourceCodes/external_lib
-bash -s < ./creator_bench_controller_batch.sh  "$__project_account" "$__external_lib_dir" Sombrero_weak
-bash -s < ./creator_bench_controller_batch.sh  "$__project_account" "$__external_lib_dir" Sombrero_strong
-
-#bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_run_cpu;
+#-------------------------------------------------------------------------------
+# [Bench] Creating the case batch file
+#-------------------------------------------------------------------------------
+bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_weak
+bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_strong
 bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
+#-------------------------------------------------------------------------------
+# [Physics] Creating the case batch file
+#-------------------------------------------------------------------------------
+bash -s < ./creator_phys_controller_batch.sh  "$__project_account" "$__external_lib_dir" Grid_DWF_run_gpu;
 
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" HiRep-LLR-master-cpu
 #bash -s < ./creator_bench_controller_batch.sh  "$__external_lib_dir" BKeeper_compile;
