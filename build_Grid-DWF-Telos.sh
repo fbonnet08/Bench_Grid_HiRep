@@ -55,16 +55,11 @@ source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #-------------------------------------------------------------------------------
 # First pulling the code from GitHub
 #-------------------------------------------------------------------------------
-# TODO: ------------------------------------------------------------------------
-# TODO: finish this bit with different version of Grid passed into argument
-# TODO: ------------------------------------------------------------------------
 src_fldr="${sourcecode_dir}"/"${grid_DWF_Telos}"
 
 Git_Clone_project "${src_fldr}" "${grid_DWF_Telos_git_url}"
 
 pwd ;
-# TODO: ------------------------------------------------------------------------
-# TODO: ------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 # Building grid after the dependencies
 #-------------------------------------------------------------------------------
@@ -263,7 +258,6 @@ case $machine_name in
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
     LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
-
     #CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/include" \
     #LDFLAGS="-L/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/lib -lmpi -fopenmp"
     ;;

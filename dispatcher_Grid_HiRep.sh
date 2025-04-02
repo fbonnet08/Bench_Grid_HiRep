@@ -219,9 +219,9 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
+bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
+bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
 #bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
@@ -231,7 +231,7 @@ bash -s < ./install_Grid-DWF-Telos.sh          SwanSea/SourceCodes/external_lib;
 
 bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
-bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_run_gpu
+#bash -s < ./launcher_bench_BKeeper.sh         SwanSea/SourceCodes/external_lib BKeeper_run_gpu
 
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_strong;
