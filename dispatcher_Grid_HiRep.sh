@@ -194,11 +194,15 @@ case ${remote_hostname} in
     ;;
   *\"aac6.amd.com\"*)
     source /etc/profile.d/lmod.sh;
+    source /etc/profile.d/z00_lmod.sh;
+    source /etc/profile.d/z01_lmod.sh;
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
   *\"aac1.amd.com\"*)
     source /etc/profile.d/lmod.sh;
+    source /etc/profile.d/z00_lmod.sh;
+    source /etc/profile.d/z01_lmod.sh;
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
