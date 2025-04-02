@@ -58,8 +58,8 @@ declare -a bkeeper_large_lattice_size_gpu=("32.32.32.64" "64.64.64.96") # "24.24
 declare -a bkeeper_mpi_gpu=("24.24.24.32") # "32.32.32.64" "64.64.64.96")
 declare -a bkeeper_lattice_size_clock_gpu=("48.48.48.64")
 declare -a bkeeper_mpi_clock_gpu=("1.1.1.4")
-declare -a bkeeper_small_n_nodes_gpu=(1 2)
-declare -a bkeeper_large_n_nodes_gpu=(4 8 12 16 24 32) # 12 6 16 24 32)
+declare -a bkeeper_small_n_nodes_gpu=(1) #2
+declare -a bkeeper_large_n_nodes_gpu=(1) #4 8 12 16 24 32) # 12 6 16 24 32)
 # TODO: add the other possibilities if any
 #-------------------------------------------------------------------------------
 # Grid GPU:
