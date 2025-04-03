@@ -610,6 +610,7 @@ mpirun -np \${SLURM_NTASKS} \\
    rocprofv3 \${ROCOPTS} -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
+  --starttraj 0 \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -648,6 +649,7 @@ mpirun -np \${SLURM_NTASKS} \\
   rocprofv3 \${ROCOPTS} -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
+  --starttraj 0 \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
