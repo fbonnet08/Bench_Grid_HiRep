@@ -31,9 +31,9 @@ function My-Copy-File {
 Write-Host "Launching python script ---> Bench_Grid_HiRep.py ..."
 ################################################################################
 # Sombrero plot generation
-#start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=small}
-#start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=large}
-#start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=small-large}
+start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=small}
+start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=large}
+start powershell {python .\Bench_Grid_HiRep.py --sombrero_action=Sombrero_weak --simulation_size=small-large}
 
 # BKepper plot generation
 start powershell {python .\Bench_Grid_HiRep.py --bkeeper_action=BKeeper_run_gpu --simulation_size=small}

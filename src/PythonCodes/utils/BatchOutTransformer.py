@@ -458,8 +458,12 @@ class BatchOutTransformer:
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
         # ----------------------------------------------------------------------
+
+        print("line.split('\n')[0] ---> ", line.split('\n')[0])
+
         start_bkeeper_key = "BKeeper"
         if start_bkeeper_key in line.split('\n')[0]:
+            print("start_bkeeper_key ---> ", start_bkeeper_key)
             if 'Performing benchmark for ' in line.split('\n')[0]:
                 rep_value = str(line.split('\n')[0]).split('Performing benchmark for ')[1].split(' #')[0]
                 #print("rep_value --->: ", rep_value)

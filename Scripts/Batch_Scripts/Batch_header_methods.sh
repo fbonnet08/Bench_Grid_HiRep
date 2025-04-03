@@ -48,7 +48,10 @@ then
   echo "#SBATCH --cpus-per-task=$_cpus_per_task"
   echo "#SBATCH --gres=gpu:4"
   echo "#SBATCH --qos=$_qos"
-elif [[ $_machine_name = "leonardo" || $_machine_name = "vega" ]];
+elif [[ $_machine_name = "leonardo" ||
+        $_machine_name = "vega"     ||
+        $_machine_name = "mi300"    ||
+        $_machine_name = "mi210"    ]];
 then
   if [[ $_partition = "dcgp_usr_prod" || $_partition = "cpu" ]];
   then
