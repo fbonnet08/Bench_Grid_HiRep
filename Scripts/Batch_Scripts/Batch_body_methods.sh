@@ -607,7 +607,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-   rocprofv3 \${ROCOPTS} -- \\
+   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj 0 \\
@@ -646,7 +646,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  rocprofv3 \${ROCOPTS} -- \\
+  rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj 0 \\
