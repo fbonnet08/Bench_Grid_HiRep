@@ -65,8 +65,8 @@ pwd ;
 #-------------------------------------------------------------------------------
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving Grid dir and compiling: "; $bold;
-$magenta; printf "${grid_dir}\n"; $white; $reset_colors;
-cd ${grid_dir}
+$magenta; printf "${grid_DWF_Telos_dir}\n"; $white; $reset_colors;
+cd ${grid_DWF_Telos_dir}
 ls -al
 
 $magenta; printf "currennt dir: "`pwd`"\n"; $white; $reset_colors;
