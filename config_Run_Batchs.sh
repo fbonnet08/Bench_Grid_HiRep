@@ -74,12 +74,12 @@ declare -a grid_lattice_size_gpu=("32.32.32.64")
 # ./creator_phys_controller_batch.sh
 declare -a grid_small_n_nodes_gpu=(1) # 2)
 declare -a grid_large_n_nodes_gpu=(1) #4 8 16 32)
-declare -a grid_small_lattice_size_gpu=("24.24.24.32")
-declare -a grid_large_lattice_size_gpu=("32.32.32.64")
+declare -a grid_small_lattice_size_gpu=("8.8.8.8")   #("24.24.24.32")
+declare -a grid_large_lattice_size_gpu=("16.16.16.32")   #("32.32.32.64")
 
 # TODO: add the other possibilities if any
 # DWF fermions
-declare -a trajectories=(100000)
+declare -a trajectories=(20) #(100000)
 declare -a mass=("0.10")
 #MASS=100
 declare -a nsteps=(27)
