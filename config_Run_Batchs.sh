@@ -72,8 +72,8 @@ declare -a bkeeper_large_n_nodes_gpu=(1) #4 8 12 16 24 32) # 12 6 16 24 32)
 declare -a grid_lattice_size_gpu=("32.32.32.64")
 # Used for:
 # ./creator_phys_controller_batch.sh
-declare -a grid_small_n_nodes_gpu=(1 2)
-declare -a grid_large_n_nodes_gpu=(4 8 16 32)
+declare -a grid_small_n_nodes_gpu=(1) # 2)
+declare -a grid_large_n_nodes_gpu=(1) #4 8 16 32)
 declare -a grid_small_lattice_size_gpu=("24.24.24.32")
 declare -a grid_large_lattice_size_gpu=("32.32.32.64")
 

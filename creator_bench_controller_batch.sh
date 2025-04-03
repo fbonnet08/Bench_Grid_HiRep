@@ -876,6 +876,277 @@ done
     done
 
       ;;
+
+
+
+
+
+
+
+
+
+
+  *"Grid_DWF_run_gpu"*)
+    #-------------------------------------------------------------------------------
+    # BKeeper [Small-GPU]:
+    #-------------------------------------------------------------------------------
+    __accelerator="gpu"
+    __simulation_size="small"
+
+    for m in ${trajectories[@]}; do echo $m; done
+    for m in ${mass[@]}; do echo $m; done
+    for m in ${nsteps[@]}; do echo $m; done
+    for m in ${savefreq[@]}; do echo $m; done
+    for m in ${beta[@]}; do echo $m; done
+    for m in ${tlen[@]}; do echo $m; done
+    for m in ${dwf_mass[@]}; do echo $m; done
+    for m in ${Mobius_b[@]}; do echo $m; done
+    for m in ${Mobius_c[@]}; do echo $m; done
+    for m in ${Ls[@]}; do echo $m; done
+
+    # constructing the files and directory structure
+    H=1
+    L=1
+    T=1
+    M=1
+    #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    #do
+    #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
+    for j in $(seq 0 `expr ${#grid_small_lattice_size_gpu[@]} - 1`)
+    do
+      lattice=$(printf "lat%s" "${grid_small_lattice_size_gpu[$j]}";)
+
+      for i in $(seq 0 `expr ${#grid_small_n_nodes_gpu[@]} - 1`)
+      do
+        # Generate all unique 4-number combinations
+        nodes_x_gpus_per_node=$(echo "${grid_small_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
+
+# Combinatorics loop over MPI distributions
+K=1
+_mpi_distr=""
+for ((ix = 1; ix <= gpus_per_node; ix++)); do
+  for ((iy = 1; iy <= gpus_per_node; iy++)); do
+    for ((iz = 1; iz <= gpus_per_node; iz++)); do
+      for ((it = 1; it <= gpus_per_node; it++)); do
+        # Calculate the product of the four numbers
+        product=$((ix * iy * iz * it))
+        #echo "product --->: $product"
+        # Check if the product is equals to number of nodes nodes
+        if ((product == nodes_x_gpus_per_node)); then
+          _mpi_distr="${ix}.${iy}.${iz}.${it}"
+          #echo "_mpi_distr --->: $_mpi_distr"
+          K=$(expr $K + 1)
+          mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+
+          cnt=$(printf "%03d" "$H")
+          index=$(printf "%03d" "$i")
+          n_nodes=$(printf "nodes%03d" "${grid_small_n_nodes_gpu[$i]}";)
+          __mpi_distr_FileTag=$(printf "${mpi_distr}")
+          __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_out=$(printf "${__batch_file_construct}.sh")
+          __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
+
+          $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
+          # TODO: continue from here: first check the file convention is correct.
+          # Creating the path in question
+          Batch_util_create_path "${__path_to_run}"
+          # Now creating the Batch file: __batch_file_out in __path_to_run
+          $white; printf "                       : ";
+          $yellow; printf "Creating the Batch script from the methods: "; $bold;
+          $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+          #ntasks_per_node=$(expr ${grid_small_n_nodes_gpu[$i]} \* ${_core_count})
+          #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          ntasks_per_node="$gpus_per_node"
+          config_Batch_with_input_from_system_config \
+            "${grid_small_n_nodes_gpu[$i]}"       \
+            "${_core_count}"                         \
+            "$ntasks_per_node"                       \
+            "$gpus_per_node"                         \
+            "$target_partition_gpu"                  \
+            "${__batch_file_construct}"              \
+            "01:00:00"                               \
+            "$qos"
+
+          # Writing the header to files
+          cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(
+          case $__batch_action in
+            *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"Sombrero_strong"*)      echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"BKeeper"*)              echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"HiRep-LLR-master-cpu"*) echo "#---> this is a HiRep-LLR-master-cpu job run"       ;;
+            *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run"       ;;
+            *"Grid_DWF_run_gpu"*)     echo "#---> this is a Grid_DWF_run_gpu job run"           ;;
+          esac
+    )
+EOF
+          #-------------------------------------------------------------------------
+          # Constructing the rest of the batch file body
+          #-------------------------------------------------------------------------
+
+          Batch_body_Run_Grid_DWF_gpu                                                         \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                           \
+            "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
+            "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
+            "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
+            "${module_list}" "${sourcecode_dir}"
+
+        fi
+
+      done
+    done
+  done
+done
+        # incrementing the counter
+        #L=$(expr $L + 1)
+      #done
+      H=$(expr $H + 1)
+    done
+    #  T=$(expr $T + 1)
+    #done
+      M=$(expr $M + 1)
+    done
+    #-------------------------------------------------------------------------------
+    # BKeeper [Large-GPU]:
+    #-------------------------------------------------------------------------------
+    # TODO: implement the large case which should be very similar to the small caes
+    __accelerator="gpu"
+    __simulation_size="large"
+    # constructing the files and directory structure
+    H=1
+    L=1
+    T=1
+    M=1
+    #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    #do
+    #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
+    for j in $(seq 0 `expr ${#grid_large_lattice_size_gpu[@]} - 1`)
+    do
+      lattice=$(printf "lat%s" "${grid_large_lattice_size_gpu[$j]}";)
+
+      for i in $(seq 0 `expr ${#grid_large_n_nodes_gpu[@]} - 1`)
+      do
+        # Generate all unique 4-number combinations
+        nodes_x_gpus_per_node=$(echo "${grid_large_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
+
+# Combinatorics loop over MPI distributions
+K=1
+_mpi_distr=""
+for ((ix = 1; ix <= gpus_per_node; ix++)); do
+  for ((iy = 1; iy <= gpus_per_node; iy++)); do
+    for ((iz = 1; iz <= gpus_per_node; iz++)); do
+      for ((it = 1; it <= gpus_per_node; it++)); do
+        # Calculate the product of the four numbers
+        product=$((ix * iy * iz * it))
+        #echo "product --->: $product"
+        # Check if the product is equals to number of nodes nodes
+        if ((product == nodes_x_gpus_per_node)); then
+          _mpi_distr="${ix}.${iy}.${iz}.${it}"
+          #echo "_mpi_distr --->: $_mpi_distr"
+          K=$(expr $K + 1)
+          mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+
+          cnt=$(printf "%03d" "$H")
+          index=$(printf "%03d" "$i")
+          n_nodes=$(printf "nodes%03d" "${grid_large_n_nodes_gpu[$i]}";)
+          __mpi_distr_FileTag=$(printf "${mpi_distr}")
+          __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_out=$(printf "${__batch_file_construct}.sh")
+          __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
+
+          $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
+          # TODO: continue from here: first check the file convention is correct.
+
+          # Creating the path in question
+          Batch_util_create_path "${__path_to_run}"
+          # Now creating the Batch file: __batch_file_out in __path_to_run
+          $white; printf "                       : ";
+          $yellow; printf "Creating the Batch script from the methods: "; $bold;
+          $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+          #ntasks_per_node=$(expr ${grid_large_n_nodes_gpu[$i]} \* ${_core_count})
+          #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          ntasks_per_node="$gpus_per_node"
+          config_Batch_with_input_from_system_config \
+            "${grid_large_n_nodes_gpu[$i]}"       \
+            "${_core_count}"                         \
+            "$ntasks_per_node"                       \
+            "$gpus_per_node"                         \
+            "$target_partition_gpu"                  \
+            "${__batch_file_construct}"              \
+            "01:00:00"                               \
+            "$qos"
+
+          # Writing the header to files
+          cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(
+          case $__batch_action in
+            *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"Sombrero_strong"*)      echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"BKeeper"*)              echo "#---> this is a ${__batch_file_construct} job run"  ;;
+            *"HiRep-LLR-master-cpu"*) echo "#---> this is a HiRep-LLR-master-cpu job run"       ;;
+            *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run"       ;;
+          esac
+    )
+EOF
+          #-------------------------------------------------------------------------
+          # Constructing the rest of the batch file body
+          #-------------------------------------------------------------------------
+          Batch_body_Run_Grid_DWF_gpu                                                          \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
+            "${__path_to_run}${sptr}${__batch_file_out}"                                      \
+            "${grid_large_lattice_size_gpu[$j]}"                                              \
+            "${_mpi_distr}"                                                                   \
+            "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
+            "${module_list}" "${sourcecode_dir}"
+
+          # TODO: continue from here .... insert the DWF batch scripts delaration.
+
+        fi
+
+      done
+    done
+  done
+done
+        # incrementing the counter
+        #L=$(expr $L + 1)
+      #done
+      H=$(expr $H + 1)
+    done
+    #  T=$(expr $T + 1)
+    #done
+      M=$(expr $M + 1)
+    done
+
+      ;;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   *"HiRep-LLR-master-cpu"*)
       ;;
   *"HiRep-LLR-master-gpu"*)

@@ -219,6 +219,7 @@ case $machine_name in
     --with-mpfr=${prefix} \
     --disable-fermion-reps \
     --disable-gparity \
+    --enable-Sp \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
     LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp"
@@ -238,6 +239,7 @@ case $machine_name in
     --with-mpfr=${prefix} \
     --disable-fermion-reps \
     --disable-gparity \
+    --enable-Sp \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
     CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
@@ -260,6 +262,7 @@ case $machine_name in
     --with-fftw=/opt/rocmplus-6.3.3/fftw \
     --disable-fermion-reps \
     --disable-gparity \
+    --enable-Sp \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
     LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
@@ -285,6 +288,7 @@ case $machine_name in
     --with-fftw=/opt/rocmplus-6.3.3/fftw \
     --disable-fermion-reps \
     --disable-gparity \
+    --enable-Sp \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
     LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"

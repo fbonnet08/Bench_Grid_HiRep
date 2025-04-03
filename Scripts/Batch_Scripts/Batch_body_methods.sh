@@ -563,7 +563,7 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 VOL=$_lattice_size_cpu
 MPI=$_mpi_distribution
-TRAJECTORIES=100000
+TRAJECTORIES=100 #100000
 MASS=0.10
 #MASS=100
 NSTEPS=27
@@ -574,7 +574,7 @@ DWF_MASS=1.8
 MOBIUS_B=1.5
 MOBIUS_C=0.5
 Ls=18
-STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+#STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 EOF
 #-------------------------------------------------------------------------------
 # Launching mechanism
@@ -602,15 +602,15 @@ cat << EOF >> "$_batch_file_out"
    ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
    device_mem=23000
    shm=8192
+   #  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-   rocprofv3 \${ROCOPTS} \\
+   rocprofv3 \${ROCOPTS} -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
-  --StartingType CheckpointStart \\
+  --StartingType HotStart \\
   --beta \${BETA} \\
-  --starttraj \${STARTTRAJ} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
   --dwf_mass \${DWF_MASS} \\
@@ -625,7 +625,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
    ################################################################################
    #-------------------------------------------------------------------------------
 EOF
@@ -640,15 +640,15 @@ cat << EOF >> "$_batch_file_out"
    ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
    device_mem=23000
    shm=8192
+   #  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  rocprofv3 \${ROCOPTS} \\
+  rocprofv3 \${ROCOPTS} -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
-  --StartingType CheckpointStart \\
+  --StartingType HotStart \\
   --beta \${BETA} \\
-  --starttraj \${STARTTRAJ} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
   --dwf_mass \${DWF_MASS} \\
@@ -663,7 +663,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
    ################################################################################
    #-------------------------------------------------------------------------------
 EOF
