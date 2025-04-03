@@ -48,6 +48,7 @@ case $__batch_action in
   *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
   *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
   *"BKeeper_compile"*)      bash -s < ./creator_bench_case_batch.sh "$__project_account" "$__external_lib_dir" "$__batch_action"; ;;
+  *"Grid_DWF_run_gpu"*)     config_Batch_Grid_DWF_run_gpu     ;;
   *)
     echo
     $red; printf "The batch action is either incorrect or missing: \n";
