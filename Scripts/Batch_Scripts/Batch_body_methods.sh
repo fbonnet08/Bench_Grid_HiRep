@@ -563,7 +563,7 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 VOL=$_lattice_size_cpu
 MPI=$_mpi_distribution
-TRAJECTORIES=20 #100000
+TRAJECTORIES=100 #100000
 MASS=0.10
 #MASS=100
 NSTEPS=27
