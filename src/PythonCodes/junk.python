@@ -1,4 +1,22 @@
 
+        #print("target_file_cluster_lst[:] ---> ", target_file_cluster_lst[:])
+
+        
+
+
+        print( "Representation", len(self.representation_lst[:]))
+        print( "CG Run Time (s)", len(self.cg_run_time_lst[:]))
+        print( "FlOp/S (GFlOp/s)", len(self.FlOps_GFlOps_lst[:]))
+        print( "Comms  (MB)", len(self.Comms_MB_lst[:]))
+        print("Memory (GB)", len(self.Memory_GB_lst[:]))
+        print( "lattice", len(self.lattice_size_lst[:]))
+        print( "nodes", len(self.nnodes_lst[:]))
+        print("mpi_distribution", len(self.mpi_distribution_lst[:]))
+        print( "Run output file", len(self.run_file_name_lst[:]))
+
+        print( "Run output file", self.run_file_name_lst[:])
+
+
 
 matplotlib.pyplot.gca().xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(6))
 matplotlib.pyplot.gca().xaxis.set_minor_locator(matplotlib.ticker.MultipleLocator(1))

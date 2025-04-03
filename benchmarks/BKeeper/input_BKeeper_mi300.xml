@@ -4,9 +4,8 @@
         <elem>su2adj</elem>
         <elem>su2fund</elem>
         <elem>su3fund</elem>
-        <elem>su3tis</elem>
-        <elem>su4fund</elem>
         <elem>sp4fund</elem>
+        <elem>su3tis</elem>
         <elem>sp4tis</elem>
     </benchmarks>
     <iterations>

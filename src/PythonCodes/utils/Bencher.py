@@ -118,7 +118,7 @@ class Bencher:
         # --------------------------------------------------------------------------
         # Reading in the inout file
         rc, target_file_cluster_filtered_lst = transformer.filter_target_file_cluster_lst(self.c.start_key_rep_lst[:],
-                                                                                        target_file_cluster_lst[:])
+                                                                                          target_file_cluster_lst[:])
         self.m.printMesgAddStr("len(target_file_cluster_filtered_lst[:]) --->:",
                           self.c.getYellow(), len(target_file_cluster_filtered_lst[:]))
         # ----------------------------------------------------------------------------
@@ -133,8 +133,12 @@ class Bencher:
         # --------------------------------------------------------------------------
         # Reading in the inout file
         #rc, dataFrame_BKeeper = read_BKeeper_file_out(c, m, batch_action, simulation_size, target_file_cluster_lst[:])
-        rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
-                                                                        target_file_cluster_filtered_lst[:])
+        if mach_name == "Mi300":
+            rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
+                                                                      target_file_cluster_lst[:])
+        else:
+            rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
+                                                                      target_file_cluster_filtered_lst[:])
         # --------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         # Reading in the inout file

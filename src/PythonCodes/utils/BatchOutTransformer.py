@@ -459,11 +459,9 @@ class BatchOutTransformer:
         rc = self.c.get_RC_SUCCESS()
         # ----------------------------------------------------------------------
 
-        print("line.split('\n')[0] ---> ", line.split('\n')[0])
-
         start_bkeeper_key = "BKeeper"
         if start_bkeeper_key in line.split('\n')[0]:
-            print("start_bkeeper_key ---> ", start_bkeeper_key)
+            #print("start_bkeeper_key ---> ", start_bkeeper_key)
             if 'Performing benchmark for ' in line.split('\n')[0]:
                 rep_value = str(line.split('\n')[0]).split('Performing benchmark for ')[1].split(' #')[0]
                 #print("rep_value --->: ", rep_value)
@@ -481,7 +479,8 @@ class BatchOutTransformer:
                 mpi_distribution_lst.append(str(split_string[2]).split('mpi'  )[1])
                 #if rep_value != "empty_string":
 
-            if "FlOp/S (GFlOp/s)" in line.split('\n')[0]:
+            #if "FlOp/S (GFlOp/s)" in line.split('\n')[0]:
+            if "Performance (GFLOP/s)" in line.split('\n')[0]:
                 #key   = "FlOp/S (GFlOp/s)" #str(lines[j]).split(':')[0]
                 value = str(str(line).split(':')[4]).split('\n')[0]
                 FlOps_GFlOps_lst.append(float(value))
