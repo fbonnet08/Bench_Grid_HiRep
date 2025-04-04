@@ -433,7 +433,8 @@ export OMPI_MCA_btl_openib_allow_ib=true
 export OMPI_MCA_btl_openib_device_type=infiniband
 export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
 # UCX
-export UCX_TLS=self,shm
+#export UCX_TLS=self,shm
+export UCX_TLS=gdr_copy,rc,rc_x,sm,rocm_copy,rocm_ipc
 export UCX_RNDV_THRESH=16384
 export UCX_RNDV_SCHEME=put_zcopy
 export UCX_IB_GPU_DIRECT_RDMA=yes
@@ -458,7 +459,8 @@ export OMPI_MCA_btl_openib_allow_ib=true
 export OMPI_MCA_btl_openib_device_type=infiniband
 export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
 # UCX
-export UCX_TLS=self,shm
+#export UCX_TLS=self,shm
+export UCX_TLS=gdr_copy,rc,rc_x,sm,rocm_copy,rocm_ipc
 export UCX_RNDV_THRESH=16384
 export UCX_RNDV_SCHEME=put_zcopy
 export UCX_IB_GPU_DIRECT_RDMA=yes
