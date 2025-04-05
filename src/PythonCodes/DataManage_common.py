@@ -273,12 +273,23 @@ class DataManage_common:
         # [start_key-list]
         #------------------------------------------------------------------------
         # -----------------------------------------------------------------------
+        ''''
         self.start_key_rep_lst = [
             'Performing benchmark for SU(2), adjoint',
             'Performing benchmark for SU(2), fundamental',
             'Performing benchmark for SU(3), fundamental',
             'Performing benchmark for Sp(4), fundamental'
         ]
+        '''
+        self.start_key_rep_lst = [
+            'Performing benchmark for SU(2), adjoint',
+            'Performing benchmark for SU(2), fundamental',
+            'Performing benchmark for SU(3), fundamental',
+            'Performing benchmark for Sp(4), fundamental',
+            'Performing benchmark for SU(3), twoindexsymmetric',
+            'Performing benchmark for Sp(4), twoindexsymmetric'
+        ]
+
         self.start_key_sombrero_rep_lst = [
             'Case 1:', 'Case 2:', 'Case 3:',
             'Case 4:', 'Case 6:', 'Case 6:'

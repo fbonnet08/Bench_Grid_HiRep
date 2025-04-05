@@ -133,12 +133,12 @@ class Bencher:
         # --------------------------------------------------------------------------
         # Reading in the inout file
         #rc, dataFrame_BKeeper = read_BKeeper_file_out(c, m, batch_action, simulation_size, target_file_cluster_lst[:])
-        if mach_name == "Mi300":
-            rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
-                                                                      target_file_cluster_lst[:])
-        else:
-            rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
-                                                                      target_file_cluster_filtered_lst[:])
+        #if mach_name == "Mi300":
+        #    rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
+        #                                                              target_file_cluster_lst[:])
+        #else:
+        rc, dataFrame_BKeeper = transformer.read_BKeeper_file_out(batch_act, sim_sz,
+                                                                  target_file_cluster_filtered_lst[:])
         # --------------------------------------------------------------------------
         # --------------------------------------------------------------------------
         # Reading in the inout file

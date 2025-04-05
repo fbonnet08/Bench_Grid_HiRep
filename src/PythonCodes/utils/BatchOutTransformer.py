@@ -465,7 +465,9 @@ class BatchOutTransformer:
             if 'Performing benchmark for ' in line.split('\n')[0]:
                 rep_value = str(line.split('\n')[0]).split('Performing benchmark for ')[1].split(' #')[0]
                 #print("rep_value --->: ", rep_value)
-                if rep_value != 'Sp(4), fundamental':
+                #if rep_value != 'Sp(4), fundamental':
+                #if rep_value != 'Grid Finalize':
+                if rep_value != 'Sp(4), TwoIndexSymmetric':
                     representation_lst.append(rep_value)
                     run_file_name_lst.append(ith_target_filename)
 
@@ -638,6 +640,7 @@ class BatchOutTransformer:
                     cluster_file = open(target_file_cluster_lst[i])
                     # Getting the mpi_distribution, lattice size and number of nodes
                     ith_file = os.path.basename(target_file_cluster_lst[i].split('\n')[0]).split('.out')[0].split('Run_')[1].split(batch_act+'_')[1].split('_'+sim_size)[0]
+                    print("ith_file --->: ", ith_file)
                     split_string = ith_file.split('_')
                     lines = cluster_file.readlines()
                     database_file_len = len(lines)
@@ -655,6 +658,18 @@ class BatchOutTransformer:
                 self.m.printMesgAddStr("                   :", self.c.getRed(), "cannot be found check if file exist")
             # [end-try-catch]
         # [end-for-loop [i]]
+
+
+        print( "Representation", len(self.representation_lst[:]))
+        print( "CG Run Time (s)", len(self.cg_run_time_lst[:]))
+        print( "FlOp/S (GFlOp/s)", len(self.FlOps_GFlOps_lst[:]))
+        print( "Comms  (MB)", len(self.Comms_MB_lst[:]))
+        print("Memory (GB)", len(self.Memory_GB_lst[:]))
+        print( "lattice", len(self.lattice_size_lst[:]))
+        print( "nodes", len(self.nnodes_lst[:]))
+        print("mpi_distribution", len(self.mpi_distribution_lst[:]))
+        print( "Run output file", len(self.run_file_name_lst[:]))
+
 
         self.bench_BKeeper_dict["Representation"]   = self.representation_lst[:]
         self.bench_BKeeper_dict["CG Run Time (s)"]  = self.cg_run_time_lst[:]

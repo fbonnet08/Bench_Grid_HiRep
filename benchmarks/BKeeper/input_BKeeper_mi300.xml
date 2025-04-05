@@ -5,6 +5,8 @@
         <elem>su2fund</elem>
         <elem>su3fund</elem>
         <elem>sp4fund</elem>
+        <elem>su3tis</elem>
+        <elem>sp4tis</elem>
     </benchmarks>
     <iterations>
         50
