@@ -1,4 +1,295 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+            # ---------------------------------------------------------------
+            # [Lumi]
+            # ---------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            #DATA_PATH         = os.path.join('media','frederic','ScanDisk_128GB','LatticeRuns','Clusters',machine_name_lumi,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Vega]
+            # ---------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Mi300]
+            # ---------------------------------------------------------------
+            machine_name = "Mi300"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # ---------------------------------------------------------------        if args['--simulation_size'] == "large":
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            # ---------------------------------------------------------------
+            # [Lumi]
+            # ---------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                 lattice_bench_Analyser,
+                                                 machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Vega]
+            # ---------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Leonardo]
+            # ---------------------------------------------------------------
+            machine_name = "Leonardo"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # [Mi300]
+            # ---------------------------------------------------------------
+            machine_name = "Mi300"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # ---------------------------------------------------------------
+            rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
+                                                lattice_bench_Analyser,
+                                                machine_name, batch_action, simulation_size, DATA_PATH)
+            # ---------------------------------------------------------------
+            # ---------------------------------------------------------------        if args['--simulation_size'] == "large":
+
+
+
+
+
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Vega]
+            # -------------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Leonardo]
+            # -------------------------------------------------------------------
+            machine_name = "Leonardo"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size, DATA_PATH)
+
+
+
+
+
+
+
+
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero(batch_transformer,
+                                                  lattice_bench_Analyser,
+                                                  machine_name,
+                                                  target_batch_action,
+                                                  batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Vega]
+            # -------------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero(batch_transformer,
+                                                  lattice_bench_Analyser,
+                                                  machine_name,
+                                                  target_batch_action,
+                                                  batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Leonardo]
+            # -------------------------------------------------------------------
+            machine_name = "Leonardo"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero(batch_transformer,
+                                                  lattice_bench_Analyser,
+                                                  machine_name,
+                                                  target_batch_action,
+                                                  batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+
+
+
+
+
+
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size,
+                                                              DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Vega]
+            # -------------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size, DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Leonardo]
+            # -------------------------------------------------------------------
+            machine_name = "Leonardo"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_small_large(batch_transformer,
+                                                              lattice_bench_Analyser,
+                                                              machine_name,
+                                                              target_batch_action,
+                                                              batch_action, simulation_size, DATA_PATH)
+
+
+
+
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Lumi"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_weak(batch_transformer,
+                                                       lattice_bench_Analyser,
+                                                       machine_name,
+                                                       target_batch_action,
+                                                       batch_action, simulation_size,
+                                                       DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Vega"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_weak(batch_transformer,
+                                                       lattice_bench_Analyser,
+                                                       machine_name,
+                                                       target_batch_action,
+                                                       batch_action, simulation_size,
+                                                       DATA_PATH)
+            # -------------------------------------------------------------------
+            # [Lumi]
+            # -------------------------------------------------------------------
+            machine_name = "Leonardo"
+            DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters',machine_name,'LatticeRuns')
+            # -------------------------------------------------------------------
+            # -------------------------------------------------------------------
+            rc = bencher.driver_BenchRes_Sombrero_weak(batch_transformer,
+                                                       lattice_bench_Analyser,
+                                                       machine_name,
+                                                       target_batch_action,
+                                                       batch_action, simulation_size,
+                                                       DATA_PATH)
+            # -------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            else:
+                cg_run_time_lst.append(float(cg_run_value))
+
+
+
         #print("target_file_cluster_lst[:] ---> ", target_file_cluster_lst[:])
 
         

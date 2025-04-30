@@ -6,7 +6,7 @@ ARGV=`basename -a $1 $2`
 __project_account=$1
 __machine_name=$2
 
-case $machine_name in
+case $__machine_name in
   *"Precision-3571"*)
     target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";
     gpus_per_node=1;                             qos="normal";
@@ -56,6 +56,12 @@ case $machine_name in
     target_partition_gpu="LocalQ";               target_partition_cpu="LocalQ";
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=192;                  max_cores_per_node_cpu=192;
+    ;;
+  *"MareNostrum"*)
+    target_partition_gpu="acc";                  target_partition_cpu="gp";
+    qos_gpu="acc_ehpc";                          qos_cpu="gp_ehpc";
+    gpus_per_node=4;                             qos="acc_ehpc"; # default to gpu qos
+    max_cores_per_node_gpu=80;                   max_cores_per_node_cpu=112;
     ;;
 esac
 
@@ -222,6 +228,49 @@ get_system_config_clusters_nvidia_Vega-GPU (){
   fi
 }
 
+get_system_config_clusters_nvidia_MareNostrum (){
+  # Default node setup
+  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  # CPU stuff
+  _core_count=$(grep -c ^processor /proc/cpuinfo)
+  _core_count=$(echo "$_core_count/4"|bc);
+  #_core_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep -c ^processor /proc/cpuinfo)
+  $white; printf "From /proc/cpuinfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _core_count : "; $bold;
+  $yellow; printf "${_core_count}\n"; $reset_colors;
+  _mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  _mem_total=$(echo "$_mem_total*1"|bc);
+  #_mem_total=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" grep MemTotal /proc/meminfo | awk '{print $2}')
+  $white; printf "From /proc/meminfo     : "; $bold;
+  $cyan; printf "Node srun cmd --> _mem_total : "; $bold;
+  $yellow; printf "${_mem_total}\n"; $reset_colors;
+  # GPU stuff
+  _gpu_count=${_max_gpu_count}
+  if command -v lspci 2>&1 >/dev/null
+  then
+    echo "lspci could be found"
+    _gpu_count=$(lspci |grep NVIDIA|grep "\["|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" lspci | grep NVIDIA|grep "\["|wc -l)
+    if [[ $_gpu_count -eq 0 ]]; then _gpu_count=${_max_gpu_count}; fi;
+    $white; printf "lspci                  : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  elif command -v nvidia-smi 2>&1 >/dev/null
+  then
+    echo "lspci could not be found let's try nvidia-smi"
+    #_gpu_count=$(nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(srun --account="$__project_account" --partition=boost_usr_prod --time=00:30:00 --nodes=1 --gres=gpu:"${_max_gpu_count}" nvidia-smi |grep NVIDIA|wc -l)
+    #_gpu_count=$(expr $_gpu_count - 1)
+    $white; printf "nvidia-smi             : "; $bold;
+    $cyan; printf "Node srun cmd --> _gpu_count : "; $bold;
+    _gpu_count=0
+    $yellow; printf "${_gpu_count}\n"; $reset_colors;
+  else
+    echo "nvidia-smi or lspci command not found"
+  fi
+}
+
+
 get_system_config_clusters_nvidia_Leonardo-Booster (){
   # Default node setup
   _max_gpu_count=4  # Max number of GPUs on a Leonardo node
@@ -356,6 +405,7 @@ case $machine_name in
   *"leonardo"*)        get_system_config_clusters_nvidia_Leonardo-Booster; ;;
   *"mi300"*)           get_system_config_clusters_AMD_Mi300; ;;
   *"mi210"*)           get_system_config_clusters_AMD_Mi210; ;;
+  *"MareNostrum"*)     get_system_config_clusters_nvidia_MareNostrum; ;;
 esac
 #-------------------------------------------------------------------------------
 #End of the script

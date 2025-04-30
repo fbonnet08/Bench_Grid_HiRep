@@ -236,7 +236,7 @@ class BatchOutTransformer:
     def filter_target_file_cluster_lst(self, key_rep_lst, target_file_cluster_lst):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
-        self.m.printMesgStr(   "Getting target file list      :", self.c.getGreen(), __func__)
+        self.m.printMesgStr("Filter target file list       :", self.c.getGreen(), __func__)
         # -------------------------------------------------------------------
 
         self.target_file_cluster_filtered_lst = []
@@ -458,7 +458,11 @@ class BatchOutTransformer:
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
         # ----------------------------------------------------------------------
-
+        cg_run_value = float(0.0)
+        perf_value = float(0.0)
+        comms_value = float(0.0)
+        mem_value = float(0.0)
+        # ----------------------------------------------------------------------
         start_bkeeper_key = "BKeeper"
         if start_bkeeper_key in line.split('\n')[0]:
             #print("start_bkeeper_key ---> ", start_bkeeper_key)
@@ -467,33 +471,37 @@ class BatchOutTransformer:
                 #print("rep_value --->: ", rep_value)
                 #if rep_value != 'Sp(4), fundamental':
                 #if rep_value != 'Grid Finalize':
-                if rep_value != 'Sp(4), TwoIndexSymmetric':
+                if rep_value != 'Sp(4), twoindexsymmetric':
                     representation_lst.append(rep_value)
                     run_file_name_lst.append(ith_target_filename)
 
             if "CG Run Time (s)" in line.split('\n')[0]:
                 #key   = "CG Run Time (s)" #str(lines[j]).split(':')[0]
-                value = str(str(line).split(':')[4]).split('\n')[0]
-                cg_run_time_lst.append(float(value))
+                cg_run_value = str(str(line).split(':')[4]).split('\n')[0]
+                cg_run_time_lst.append(float(cg_run_value))
 
                 lattice_size_lst.append(str(split_string[0]).split('lat'  )[1])
                 nnodes_lst.append(str(split_string[1]).split('nodes')[1])
                 mpi_distribution_lst.append(str(split_string[2]).split('mpi'  )[1])
                 #if rep_value != "empty_string":
 
-            #if "FlOp/S (GFlOp/s)" in line.split('\n')[0]:
+            if "FlOp/S (GFlOp/s)" in line.split('\n')[0]:
+                # Before update runs
+                perf_value = str(str(line).split(':')[4]).split('\n')[0]
+                FlOps_GFlOps_lst.append(float(perf_value))
+
             if "Performance (GFLOP/s)" in line.split('\n')[0]:
                 #key   = "FlOp/S (GFlOp/s)" #str(lines[j]).split(':')[0]
-                value = str(str(line).split(':')[4]).split('\n')[0]
-                FlOps_GFlOps_lst.append(float(value))
+                perf_value = str(str(line).split(':')[4]).split('\n')[0]
+                FlOps_GFlOps_lst.append(float(perf_value))
             if "Comms  (MB)" in  line.split('\n')[0]:
                 #key   = "Comms" #str(lines[j]).split(':')[0]
-                value = str(str(line).split(':')[4]).split('\n')[0]
-                Comms_MB_lst.append(float(value))
+                comms_value = str(str(line).split(':')[4]).split('\n')[0]
+                Comms_MB_lst.append(float(comms_value))
             if "Memory (GB)" in line.split('\n')[0]:
                 #key   = "Memory (GB)" #str(lines[j]).split(':')[0]
-                value = str(str(line).split(':')[4]).split('\n')[0]
-                Memory_GB_lst.append(float(value))
+                mem_value = str(str(line).split(':')[4]).split('\n')[0]
+                Memory_GB_lst.append(float(mem_value))
         # [end-if]
         # ------------------------------------------------------------------
         return rc
@@ -507,7 +515,7 @@ class BatchOutTransformer:
     def read_Sombrero_file_out(self, batch_act, sim_size, target_file_cluster_lst):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
-        self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
+        self.m.printMesgStr("Reader Sombrero file          :", self.c.getGreen(), __func__)
         # ----------------------------------------------------------------------
         self.bench_Sombrero_dict = {}
         # list definitions
@@ -608,7 +616,7 @@ class BatchOutTransformer:
     def read_BKeeper_file_out(self, batch_act, sim_size, target_file_cluster_lst):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
-        self.m.printMesgStr("Getting target file list         :", self.c.getGreen(), __func__)
+        self.m.printMesgStr("Reader BKeeper file           :", self.c.getGreen(), __func__)
         # ----------------------------------------------------------------------
         self.bench_BKeeper_dict = {}
         # list definitions
@@ -640,7 +648,7 @@ class BatchOutTransformer:
                     cluster_file = open(target_file_cluster_lst[i])
                     # Getting the mpi_distribution, lattice size and number of nodes
                     ith_file = os.path.basename(target_file_cluster_lst[i].split('\n')[0]).split('.out')[0].split('Run_')[1].split(batch_act+'_')[1].split('_'+sim_size)[0]
-                    print("ith_file --->: ", ith_file)
+                    #print("ith_file --->: ", ith_file)
                     split_string = ith_file.split('_')
                     lines = cluster_file.readlines()
                     database_file_len = len(lines)
@@ -654,23 +662,23 @@ class BatchOutTransformer:
                     # [end-for-loop [j]]
                 # [end-if]
             except IOError:
-                self.m.printMesgAddStr(" Filename          :", self.c.getCyan(), target_file_cluster_lst[i])
-                self.m.printMesgAddStr("                   :", self.c.getRed(), "cannot be found check if file exist")
+                self.m.printMesgAddStr(" Filename                      :", self.c.getCyan(), target_file_cluster_lst[i])
+                self.m.printMesgAddStr("                               :", self.c.getRed(), "cannot be found check if file exist")
             # [end-try-catch]
         # [end-for-loop [i]]
-
-
-        print( "Representation", len(self.representation_lst[:]))
-        print( "CG Run Time (s)", len(self.cg_run_time_lst[:]))
-        print( "FlOp/S (GFlOp/s)", len(self.FlOps_GFlOps_lst[:]))
-        print( "Comms  (MB)", len(self.Comms_MB_lst[:]))
-        print("Memory (GB)", len(self.Memory_GB_lst[:]))
-        print( "lattice", len(self.lattice_size_lst[:]))
-        print( "nodes", len(self.nnodes_lst[:]))
-        print("mpi_distribution", len(self.mpi_distribution_lst[:]))
-        print( "Run output file", len(self.run_file_name_lst[:]))
-
-
+        # ------------------------------------------------------------------
+        # Print the lengths of the list
+        self.m.printMesgAddStr(" Representation   (length) --->: ", self.c.getCyan(), len(self.representation_lst[:]))
+        self.m.printMesgAddStr(" CG Run Time (s)  (length) --->: ", self.c.getCyan(), len(self.cg_run_time_lst[:]))
+        self.m.printMesgAddStr(" Perf. (GFLOP/s)  (length) --->: ", self.c.getCyan(), len(self.FlOps_GFlOps_lst[:]))
+        self.m.printMesgAddStr(" Comms  (MB)      (length) --->: ", self.c.getCyan(), len(self.Comms_MB_lst[:]))
+        self.m.printMesgAddStr(" Memory (GB)      (length) --->: ", self.c.getCyan(), len(self.Memory_GB_lst[:]))
+        self.m.printMesgAddStr(" lattice          (length) --->: ", self.c.getCyan(), len(self.lattice_size_lst[:]))
+        self.m.printMesgAddStr(" nodes            (length) --->: ", self.c.getCyan(), len(self.nnodes_lst[:]))
+        self.m.printMesgAddStr(" mpi_distribution (length) --->: ", self.c.getCyan(), len(self.mpi_distribution_lst[:]))
+        self.m.printMesgAddStr(" Run output file  (length) --->: ", self.c.getCyan(), len(self.run_file_name_lst[:]))
+        # ------------------------------------------------------------------
+        # Mapping the list to the dataframes
         self.bench_BKeeper_dict["Representation"]   = self.representation_lst[:]
         self.bench_BKeeper_dict["CG Run Time (s)"]  = self.cg_run_time_lst[:]
         self.bench_BKeeper_dict["FlOp/S (GFlOp/s)"] = self.FlOps_GFlOps_lst[:]
@@ -680,20 +688,19 @@ class BatchOutTransformer:
         self.bench_BKeeper_dict["nodes"]            = self.nnodes_lst[:]
         self.bench_BKeeper_dict["mpi_distribution"] = self.mpi_distribution_lst[:]
         self.bench_BKeeper_dict["Run output file"]  = self.run_file_name_lst[:]
-
+        # ------------------------------------------------------------------
         # creating a dictionary from the output data
         dataframe = pandas.DataFrame.from_dict(self.bench_BKeeper_dict)
-
         # Now sorting out the data from on the mpi_distribution column.
         dataframe.sort_values(by='mpi_distribution', inplace=True)
-
+        # ------------------------------------------------------------------
         return rc, dataframe
         # [end-function]
-        # --------------------------------------------------------------------------
+        # ------------------------------------------------------------------
     #-----------------------------------------------------------------------
     # [Writers]
     #-----------------------------------------------------------------------
-    #-------------------------------------------------------------------
+    #-----------------------------------------------------------------------
     # [Creator]
     #-----------------------------------------------------------------------
     #-----------------------------------------------------------------------

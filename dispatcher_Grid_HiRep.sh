@@ -206,6 +206,14 @@ case ${remote_hostname} in
     module load rocm amdclang hdf5 fftw openmpi;
     module list;
     ;;
+  *\"alogin1.bsc.es\"*)
+    source /etc/profile.d/01-module.sh
+    module load gcc cuda ucx intel impi hdf5 fftw;
+    module list;
+    ;;
+  *\"glogin1.bsc.es\"*)
+
+    ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -230,7 +238,7 @@ bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/Source
 
 #bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
 
-bash -s < ./launcher_bench_BKeeper.sh           SwanSea/SourceCodes/external_lib BKeeper_run_gpu
+#bash -s < ./launcher_bench_BKeeper.sh           SwanSea/SourceCodes/external_lib BKeeper_run_gpu
 #bash -s < ./launcher_bench_Grid-DWF-Telos.sh    SwanSea/SourceCodes/external_lib Grid_DWF_run_gpu
 
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;

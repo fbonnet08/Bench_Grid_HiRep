@@ -46,7 +46,7 @@ fi
 if [[ $_machine_name = "tursa" ]];
 then
   echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-  echo "#SBATCH --gres=gpu:4"
+  echo "#SBATCH --gres=gpu:$_gpus_per_node"
   echo "#SBATCH --qos=$_qos"
 elif [[ $_machine_name = "leonardo" ||
         $_machine_name = "vega"     ]];
@@ -65,7 +65,24 @@ then
   elif [[ $_partition = "boost_usr_prod" || $_partition = "gpu" ]];
   then
     echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-    echo "#SBATCH --gres=gpu:4"
+    echo "#SBATCH --gres=gpu:$_gpus_per_node"
+  fi
+elif [[ $_machine_name = "MareNostrum" ]];
+then
+  if [[ $_accelerator = "cpu" ]];
+  then
+    echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+    echo "#SBATCH --qos=$_qos"
+
+  elif [[ $_accelerator = "gpu" ]];
+  then
+    echo "#SBATCH --cpus-per-task=$_cpus_per_task"
+    echo "#SBATCH --gres=gpu:$_gpus_per_node"
+    echo "#SBATCH --qos=$_qos"
+    echo "#SBATCH --gpus-per-node=$_gpus_per_node"
+  else
+    echo "##accelerator type not specified, we will default onto CPU only"
+    echo "#SBATCH --cpus-per-task=$_cpus_per_task"
   fi
 fi
 
@@ -73,7 +90,7 @@ if [[ $_machine_name = "mi300"    ||
       $_machine_name = "mi210"    ]];
 then
   echo "#SBATCH --cpus-per-task=$_cpus_per_task"
-  echo "#SBATCH --gres=gpu:4"
+  echo "#SBATCH --gres=gpu:$_gpus_per_node"
 fi
 
 if [[ $_machine_name = "vega"  ||

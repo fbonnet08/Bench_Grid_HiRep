@@ -273,7 +273,7 @@ class DataManage_common:
         # [start_key-list]
         #------------------------------------------------------------------------
         # -----------------------------------------------------------------------
-        ''''
+        '''
         self.start_key_rep_lst = [
             'Performing benchmark for SU(2), adjoint',
             'Performing benchmark for SU(2), fundamental',

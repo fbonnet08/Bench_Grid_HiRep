@@ -221,7 +221,7 @@ class LatticeModel_Analyser:
                                str(mach_name) + ".png"
             output_file = os.path.join(plot_dir, png_out_filename)
             # print("png_out_filename --->: ", png_out_filename)
-            self.m.printMesgAddStr("Grouped Bar plot saved to  --->: ", self.c.getMagenta(), output_file)
+            self.m.printMesgAddStr("Grouped Bar plot saved to--->: ", self.c.getMagenta(), output_file)
             #base_width = 300
             matplotlib.pyplot.savefig(output_file) #, dpi=base_width)
 
@@ -768,13 +768,13 @@ class LatticeModel_Analyser:
             # [end-for-loop [case]]
             # ------------------------------------------------------------------
         # [end-for-loop [node]]
-        print(" The dataframe ---->:  df_sombrero_lattices_case")
+        print(" The dataframe ---->: df_sombrero_lattices_case")
         IPython.display.display(df_sombrero_lattice_case)
 
-        print(" The dataframe ---->:  df_sombrero_lattice_case_node")
+        print(" The dataframe ---->: df_sombrero_lattice_case_node")
         IPython.display.display(df_sombrero_lattice_case_node)
 
-        print(" The dataframe ---->:  df_sombrero_lattice_case_node_ntpns")
+        print(" The dataframe ---->: df_sombrero_lattice_case_node_ntpns")
         IPython.display.display(df_sombrero_lattice_case_node_ntpns)
 
         return rc
@@ -786,12 +786,12 @@ class LatticeModel_Analyser:
                                                          mach_name, message):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
-        self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
+        self.m.printMesgStr("Plotter BenchRes Success      :", self.c.getGreen(), __func__)
         # ----------------------------------------------------------------------
         total_cluster = len(cluster_lst)
         total_cluster_filtered = len(cluster_filtered_lst)
-        self.m.printMesgAddStr("len(cluster_lst[:])          --->: ", self.c.getYellow(), str(total_cluster))
-        self.m.printMesgAddStr("len(cluster_filtered_lst[:]) --->: ", self.c.getGreen(), str(total_cluster_filtered))
+        self.m.printMesgAddStr(" len(cluster_lst[:])       --->: ", self.c.getYellow(), str(total_cluster))
+        self.m.printMesgAddStr(" len(filtered_lst[:])      --->: ", self.c.getGreen(), str(total_cluster_filtered))
         failed_lst = []
         failed_lst.clear()
         for i in range(len(cluster_lst[:])):
@@ -827,21 +827,19 @@ class LatticeModel_Analyser:
                            str(mach_name) + ".png"
         output_file = os.path.join(plot_dir, png_out_filename)
         # print("png_out_filename --->: ", png_out_filename)
-        self.m.printMesgAddStr("Grouped Bar plot saved to    --->: ", self.c.getMagenta(), output_file)
+        self.m.printMesgAddStr(" Grouped Bar plot saved to --->: ", self.c.getMagenta(), output_file)
         base_width = 300
         matplotlib.pyplot.savefig(output_file, dpi=base_width)
 
         #matplotlib.pyplot.show()
         # Summary
-        self.m.printMesgAddStr("Failed cluster lst           --->: ", self.c.getYellow(), failed_lst[:])
-        self.m.printMesgAddStr("len(cluster_failed_lst)      --->: ", self.c.getRed(), str(total_cluster_failed))
+        self.m.printMesgAddStr(" Failed cluster lst        --->: ", self.c.getYellow(), failed_lst[:])
+        self.m.printMesgAddStr(" len(cluster_failed_lst)   --->: ", self.c.getRed(), str(total_cluster_failed))
         # Now plotting the pie chart.
 
         return rc, failed_lst[:]
         # [end-function]
         # ------------------------------------------------------------------------
-
-
 
     # ----------------------------------------------------------------------------
     def plot_BenchRes_group_Nodes_Rep_matplotlib(self,
@@ -866,11 +864,11 @@ class LatticeModel_Analyser:
         x_label = self.c.getXaxis_label()
         y_label = self.c.getYaxis_label()
 
-        print(x_label)
-        print(y_label)
+        #print(x_label)
+        #print(y_label)
         cnt_lattice = 0
         for lattice in lattice_lst:
-            print(lattice)
+            #print(lattice)
 
             # --------------------------------------------------------------
             # plotting for each and for
@@ -927,8 +925,6 @@ class LatticeModel_Analyser:
         # [end-function]
         # --------------------------------------------------------------------------
 
-
-
     # ----------------------------------------------------------------------------
     def plot_BenchRes_group_Nodes_matplotlib(self, scale,
                                              df_su2_adj_lat,
@@ -956,7 +952,7 @@ class LatticeModel_Analyser:
         cnt_lattice = 0
         custom_colors = seaborn.color_palette("hls", 3)
         for lattice in lattice_lst:
-            print(lattice)
+            #print(lattice)
             # --------------------------------------------------------------
             # plotting for each and for
             # --------------------------------------------------------------
@@ -1021,9 +1017,9 @@ class LatticeModel_Analyser:
                                "lat" + str(lattice).replace(".","x") + \
                                "_" + \
                                str(mach_name) + ".png"
-            print("png_out_filename --->: ", png_out_filename)
+            #print("png_out_filename --->: ", png_out_filename)
             output_file = os.path.join(plot_dir, png_out_filename)
-            print("output_file      --->: ", output_file)
+            #print("output_file      --->: ", output_file)
             self.m.printMesgAddStr("Grouped Nodes saved to     --->: ", self.c.getMagenta(), output_file)
             base_width = 300
             matplotlib.pyplot.savefig(output_file, dpi=base_width)
@@ -1065,7 +1061,7 @@ class LatticeModel_Analyser:
         cnt_lattice = 0
         custom_colors = seaborn.color_palette("hls", 3)
         for lattice in lattice_lst:
-            print(lattice)
+            #print(lattice)
             # --------------------------------------------------------------
             # plotting for each and for
             # --------------------------------------------------------------
@@ -1140,25 +1136,7 @@ class LatticeModel_Analyser:
 
         return rc
         # [end-function]
-        # --------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # ------------------------------------------------------------------------
     # ----------------------------------------------------------------------------
     def plot_BenchRes_group_FlopsCG_per_Nodes_matplotlib(self, scale,
                                                          df_su2_adj_lat,
@@ -1187,7 +1165,7 @@ class LatticeModel_Analyser:
         cnt_lattice = 0
         custom_colors = seaborn.color_palette("hls", 3)
         for lattice in lattice_lst:
-            print(lattice)
+            #print(lattice)
             # --------------------------------------------------------------
             # plotting for each lattice and for nodes
             # --------------------------------------------------------------
@@ -1274,28 +1252,11 @@ class LatticeModel_Analyser:
         # [end-function]
         # --------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     # ----------------------------------------------------------------------------
     def plot_BenchRes_groupByBars_matplotlib(self, df_mpi_distr,
-                                             df_su2_adj,
-                                             df_su2_fun,
-                                             df_su3_fun,
+                                             df_1, rep_1,
+                                             df_2, rep_2,
+                                             df_3, rep_3,
                                              mach_name, message):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
@@ -1304,11 +1265,12 @@ class LatticeModel_Analyser:
         species = tuple(df_mpi_distr)
         #print(type(species))
         #print(species)
-        grouped_data = {
-            'SU(2) Adj': df_su2_adj,
-            'SU(2) Fun': df_su2_fun,
-            'SU(3) Fun': df_su3_fun,
-        }
+        #grouped_data = {
+        #    'SU(2) Adj' : df_1,
+        #    'SU(2) Fun' : df_2,
+        #    'SU(3) Fun' : df_3,
+        #}
+        grouped_data = { rep_1 : df_1, rep_2 : df_2, rep_3 : df_3 }
         colors = ['magenta', 'blue', 'green'] #, 'red', 'black']
 
         x = numpy.arange(len(species))  # the label locations
@@ -1387,7 +1349,7 @@ class LatticeModel_Analyser:
     def check_directory_if_exists(self, dir):
         __func__= sys._getframe().f_code.co_name
         rc = self.c.get_RC_SUCCESS()
-        self.m.printMesgStr("Getting target file list      :", self.c.getGreen(), __func__)
+        self.m.printMesgStr("Checker for directory         :", self.c.getGreen(), __func__)
         # ----------------------------------------------------------------------
         # Check whether the specified path exists or not
         dir_exist = os.path.exists(dir)

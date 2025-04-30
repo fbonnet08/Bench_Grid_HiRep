@@ -8,8 +8,8 @@ echo "!                                                                       !"
 echo "!     Code to load modules and prepare the base dependencies for grid   !"
 echo "!     $scrfipt_file_name                                                     !"
 echo "!     [Author]: Frederic Bonnet October 2024                            !"
-echo "!     [usage]: sh build_Grid.sh   {Input list}                          !"
-echo "!     [example]: sh build_Grid.sh /data/local                           !"
+echo "!     [usage]: sh build_Grid-DWF-Telos.sh   {Input list}                !"
+echo "!     [example]: sh build_Grid-DWF-Telos.sh /data/local                 !"
 echo "!                                                                       !"
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 tput sgr0;
@@ -48,10 +48,8 @@ fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-
 source ./common_main.sh $1;
 source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
-
 #-------------------------------------------------------------------------------
 # First pulling the code from GitHub
 #-------------------------------------------------------------------------------
@@ -289,6 +287,26 @@ case $machine_name in
     #CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/include" \
     #LDFLAGS="-L/opt/rocmplus-6.3.3/openmpi-5.0.7-ucc-1.3.0-ucx-1.18.0/lib -lmpi -fopenmp"
     ;;
+  *"MareNostrum"*)
+    ../configure \
+    --prefix=${prefix} \
+    --enable-comms=mpi-auto \
+    --enable-unified=no \
+    --enable-shm=nvlink \
+    --enable-accelerator=cuda \
+    --enable-gen-simd-width=64 \
+    --enable-simd=GPU \
+    --enable-accelerator-cshift \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-fermion-reps \
+    --disable-gparity \
+    --enable-Sp \
+    CXX=nvcc \
+    LDFLAGS="-cudart shared -lcublas" \
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    ;;
 esac
 
 $green; printf "Building Grid                : "; $bold;
@@ -309,7 +327,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  build_Grid.sh Done.                                  -"
+echo "-                  build_Grid-DWF-Telos.sh Done.                        -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #exit
 #-------------------------------------------------------------------------------

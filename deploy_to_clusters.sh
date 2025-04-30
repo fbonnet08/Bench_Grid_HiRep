@@ -44,22 +44,26 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Mi300]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac6.amd.com
+#sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac6.amd.com
 #-------------------------------------------------------------------------------
 # [Mi210]
 #-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_HiRep.sh  dc-bonn2  not_required  aac1.amd.com
 #-------------------------------------------------------------------------------
-# [Marenostrum]: Authentication  procedure.
+# [MareNostrum-5]: Authentication  procedure.
 #-------------------------------------------------------------------------------
-# TODO:
+# GPU-Node
+sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
+# # CPU-Node comon file system with the gpu node
+#sh ./dispatcher_Grid_HiRep.sh  swan127136  not_required  glogin1.bsc.es
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
 # Code block comment for now as the main focus is going to be LUMI for just now
 
-# Booster [GPU]: EUHPC_B17_015
-# DCPG    [CPU]: EUHPC_B17_015_0
+# Booster [GPU]: EUHPC_B17_015     EUHPC_B22_046
+# DCPG    [CPU]: EUHPC_B17_015_0   EUHPC_B22_046_0
+#sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
 
 : '
 step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
@@ -68,7 +72,7 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
+sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B22_046  login.leonardo.cineca.it
 '
 #-------------------------------------------------------------------------------
 #End of the script

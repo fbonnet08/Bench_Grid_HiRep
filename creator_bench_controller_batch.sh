@@ -1127,27 +1127,6 @@ done
     done
 
       ;;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   *"HiRep-LLR-master-cpu"*)
       ;;
   *"HiRep-LLR-master-gpu"*)

@@ -97,6 +97,8 @@ elif [[ $hostname =~ "leonardo" ]];        then machine_name="leonardo"
 elif [[ $hostname =~ "a065014a" ]];        then machine_name="mi300"
 elif [[ $hostname =~ "a89612a" ]];         then machine_name="mi300"
 elif [[ $hostname =~ "c3729fc" ]];         then machine_name="mi210"
+elif [[ $hostname =~ "glogin" ]];          then machine_name="MareNostrum"
+elif [[ $hostname =~ "alogin" ]];          then machine_name="MareNostrum"
 else
   #TODO: need to fix propagation machine_name when system is not defined
   machine_name="Other-Linux-Distribution"
@@ -264,6 +266,9 @@ case $machine_name in
     ;;
   *"mi210"*)
     module_list="module load rocm amdclang hdf5 fftw openmpi; module list;"
+    ;;
+  *"MareNostrum"*)
+    module_list="module load gcc cuda ucx intel impi hdf5 fftw; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;
