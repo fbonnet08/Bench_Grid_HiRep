@@ -14,7 +14,28 @@
 
 
 
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --enable-sp4fund \
 
+
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --enable-sp4fund \
+
+
+    --enable-su2adj \
+    --enable-su2fund \
+    --enable-su3fund \
+    --enable-su4fund \
+    --enable-su3tis \
+    --enable-sp4fund \
 
 
 

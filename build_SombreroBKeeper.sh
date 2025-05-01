@@ -163,9 +163,9 @@ if [[ $machine_name =~ "lumi" ]]; then
     --enable-su2adj \
     --enable-su2fund \
     --enable-su3fund \
-    --enable-su4fund \
-    --enable-su3tis \
     --enable-sp4fund \
+    --enable-su3tis \
+    --enable-su4tis \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
@@ -176,9 +176,9 @@ elif [[ $machine_name =~ "mi300" ]]; then
     --enable-su2adj \
     --enable-su2fund \
     --enable-su3fund \
-    --enable-su4fund \
-    --enable-su3tis \
     --enable-sp4fund \
+    --enable-su3tis \
+    --enable-su4tis \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
@@ -189,9 +189,9 @@ elif [[ $machine_name =~ "mi210" ]]; then
     --enable-su2adj \
     --enable-su2fund \
     --enable-su3fund \
-    --enable-su4fund \
-    --enable-su3tis \
     --enable-sp4fund \
+    --enable-su3tis \
+    --enable-su4tis \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
@@ -202,9 +202,9 @@ elif [[ $machine_name =~ "leonardo" ]]; then
     --enable-su2adj \
     --enable-su2fund \
     --enable-su3fund \
-    --enable-su4fund \
-    --enable-su3tis \
     --enable-sp4fund \
+    --enable-su3tis \
+    --enable-su4tis \
     --disable-all \
     CXX="nvcc -std=c++17 -x cu"
 elif [[ $machine_name =~ "DESKTOP-GPI5ERK" ||
@@ -226,9 +226,9 @@ else
     --enable-su2adj \
     --enable-su2fund \
     --enable-su3fund \
-    --enable-su4fund \
-    --enable-su3tis \
     --enable-sp4fund \
+    --enable-su3tis \
+    --enable-su4tis \
     --disable-all \
     CXX="nvcc -std=c++17 -x cu"
     #  --no-create \
