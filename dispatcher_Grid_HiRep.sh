@@ -45,6 +45,9 @@ case ${remote_hostname} in
   *"login.vega.izum.si"*)
     add_connect_strg="-X -i ~/.ssh/id_ed255"
   ;;
+  *"login.leonardo.cineca.it"*)
+    add_connect_strg="-X -i ~/.ssh/id_rsa"
+  ;;
 esac
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 user_remote_host=${username}"@"${remote_hostname}
