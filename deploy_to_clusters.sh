@@ -32,7 +32,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-#sh ./dispatcher_Grid_HiRep.sh  eufredericb  notneeded  login.vega.izum.si
+sh ./dispatcher_Grid_HiRep.sh  eufredericb  notneeded  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ sptr="/"
 # [MareNostrum-5]: Authentication  procedure.
 #-------------------------------------------------------------------------------
 # GPU-Node
-sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
+#sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
 # # CPU-Node comon file system with the gpu node
 #sh ./dispatcher_Grid_HiRep.sh  swan127136  not_required  glogin1.bsc.es
 #-------------------------------------------------------------------------------

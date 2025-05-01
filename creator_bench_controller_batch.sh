@@ -99,9 +99,14 @@ $magenta;printf "$__batch_action\n"; $white; $reset_colors;
 #-------------------------------------------------------------------------------
 case "$__batch_action" in
   *"Sombrero_weak"*)
-    #-------------------------------------------------------------------------------
+    #---------------------------------------------------------------------------
     # Sombrero[Weak-Small]:
-    #-------------------------------------------------------------------------------
+    #---------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Sombrero[Weak-Small]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     #__batch_action="Sombrero_weak" #$2
     # constructing the files and directory structure
     __accelerator="cpu"
@@ -198,7 +203,12 @@ EOF
     done
     #-------------------------------------------------------------------------------
     # Sombrero[Weak-Large]:
-        #-------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Sombrero[Weak-Large]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     #__batch_action="Sombrero_weak" #$2
     # constructing the files and directory structure
     __strength="weak"
@@ -291,6 +301,11 @@ EOF
     #-------------------------------------------------------------------------------
     # Sombrero[Strong-Small]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Sombrero[Strong-Small]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     # constructing the files and directory structure
     __accelerator="cpu"
     __strength="strong"
@@ -387,6 +402,11 @@ EOF
     #-------------------------------------------------------------------------------
     # Sombrero[Strong-Large]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Sombrero[Strong-Large]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     # constructing the files and directory structure
     __strength="strong"
     __simulation_size="large"
@@ -484,6 +504,11 @@ EOF
     #-------------------------------------------------------------------------------
     # BKeeper [Small-CPU]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# BKeeper [Small-CPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __simulation_size="small"
     # constructing the files and directory structure
     H=1
@@ -572,6 +597,11 @@ EOF
     #-------------------------------------------------------------------------------
     # BKeeper [Large-CPU]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# BKeeper [Large-CPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __simulation_size="large"
     # constructing the files and directory structure
     H=1
@@ -660,6 +690,11 @@ EOF
     #-------------------------------------------------------------------------------
     # BKeeper [Small-GPU]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# BKeeper [Small-GPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __accelerator="gpu"
     __simulation_size="small"
     # constructing the files and directory structure
@@ -769,7 +804,11 @@ done
     #-------------------------------------------------------------------------------
     # BKeeper [Large-GPU]:
     #-------------------------------------------------------------------------------
-    # TODO: implement the large case which should be very similar to the small caes
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# BKeeper [Large-GPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __accelerator="gpu"
     __simulation_size="large"
     # constructing the files and directory structure
@@ -880,17 +919,15 @@ done
 
 
 
-
-
-
-
-
-
-
   *"Grid_DWF_run_gpu"*)
     #-------------------------------------------------------------------------------
-    # BKeeper [Small-GPU]:
+    # Grid_DWF_run_gpu [Small-GPU]:
     #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Grid_DWF_run_gpu [Small-GPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __accelerator="gpu"
     __simulation_size="small"
 
@@ -1012,9 +1049,13 @@ done
       M=$(expr $M + 1)
     done
     #-------------------------------------------------------------------------------
-    # BKeeper [Large-GPU]:
+    # Grid_DWF_run_gpu [Large-GPU]:
     #-------------------------------------------------------------------------------
-    # TODO: implement the large case which should be very similar to the small caes
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Grid_DWF_run_gpu [Large-GPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
     __accelerator="gpu"
     __simulation_size="large"
     # constructing the files and directory structure

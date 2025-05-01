@@ -42,6 +42,9 @@ case ${remote_hostname} in
   *"aac1.amd.com"*)
     add_connect_strg="-X -i ~/.ssh/id_rsa -p 7005"
   ;;
+  *"login.vega.izum.si"*)
+    add_connect_strg="-X -i ~/.ssh/id_ed255"
+  ;;
 esac
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 user_remote_host=${username}"@"${remote_hostname}
