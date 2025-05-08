@@ -137,7 +137,9 @@ build_dir="build"
 # DWF grid supported
 grid_DWF_Telos="Grid-DWF-Telos"
 grid_DWF_Telos_dir=${sourcecode_dir}/${grid_DWF_Telos}/"Grid"
-grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
+#grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
+grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
+
 # UCL optimized version
 grid_UCL_ARC="Grid-UCL-ARC"
 grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
@@ -257,7 +259,7 @@ case $machine_name in
     module_list="module load UCX/1.8.0-GCCcore-9.3.0 OpenMPI/4.0.3-GCC-9.3.0 CUDA/11.0.2-GCC-9.3.0 GCC/9.3.0 Python/3.8.2-GCCcore-9.3.0 FFTW; module list;"
     ;;
   *"lumi"*)
-    module_list="module load cray-mpich cray-fftw cray-python; module list;"
+    module_list="module load cray-mpich cray-fftw cray-hdf5-parallel cray-python; module list;"
     ;;
   *"leonardo"*)
     module_list="module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"

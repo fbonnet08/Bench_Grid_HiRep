@@ -184,7 +184,7 @@ case ${remote_hostname} in
     module list;
     ;;
   *\"lumi.csc.fi\"*)
-    module load cray-mpich cray-fftw;
+    module load cray-mpich cray-fftw cray-hdf5-parallel cray-python;
     module list;
     ;;
   *\"login.leonardo.cineca.it\"*)
