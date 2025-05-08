@@ -135,7 +135,8 @@ HiRep_Cuda_dir=${sourcecode_dir}/HiRep-Cuda/HiRep
 #grid_dir=${sourcecode_dir}/Grid-Main/Grid
 build_dir="build"
 # DWF grid supported
-grid_DWF_Telos="Grid-DWF-Telos"
+#grid_DWF_Telos="Grid-DWF-Telos"
+grid_DWF_Telos="Grid-Telos"
 grid_DWF_Telos_dir=${sourcecode_dir}/${grid_DWF_Telos}/"Grid"
 #grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
 grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
