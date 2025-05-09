@@ -40,7 +40,8 @@ ProgressBar (){
 #-------------------------------------------------------------------------------
 __sourcecode_dir=${HOME}/SwanSea/SourceCodes
 __Bench_Grid_HiRep_dir=${__sourcecode_dir}/Bench_Grid_HiRep
-__LatticeRuns_dir=${__sourcecode_dir}/LatticeRuns/Clusters/Lumi/LatticeRuns
+__LatticeRuns_dir=${__sourcecode_dir}/LatticeRuns
+#/Clusters/Lumi/LatticeRuns
 __Batch_submission_log="Batch_submission.log"
 # Target Batch_submission.log
 __target_file="${__LatticeRuns_dir}/${__Batch_submission_log}"

@@ -165,7 +165,6 @@ if [[ $machine_name =~ "lumi" ]]; then
     --enable-su3fund \
     --enable-sp4fund \
     --enable-su3tis \
-    --enable-su4tis \
     --disable-all \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-std=c++17"
