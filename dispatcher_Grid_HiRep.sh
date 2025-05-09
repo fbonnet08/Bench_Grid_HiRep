@@ -175,12 +175,7 @@ case ${remote_hostname} in
     source /etc/profile.d/modules.sh;
     source /ceph/hpc/software/cvmfs_env.sh;
     module list;
-    module load UCX/1.8.0-GCCcore-9.3.0
-    module load OpenMPI/4.0.3-GCC-9.3.0
-    module load CUDA/11.0.2-GCC-9.3.0
-    module load GCC/9.3.0
-    module load Python/3.8.2-GCCcore-9.3.0
-    module load FFTW/3.3.8-gompi-2020a
+    module load NVHPC/24.1-CUDA-12.3.0 FFTW HDF5;
     module list;
     ;;
   *\"lumi.csc.fi\"*)
