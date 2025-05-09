@@ -3,6 +3,19 @@ module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore
 module_list="module load UCX/1.8.0-GCCcore-9.3.0 OpenMPI/4.0.3-GCC-9.3.0 CUDA/11.0.2-GCC-9.3.0 GCC/9.3.0 Python/3.8.2-GCCcore-9.3.0 FFTW/3.3.8-gompi-2020a; module list;"
 module_list="module load UCX/1.8.0-GCCcore-9.3.0 OpenMPI/4.0.3-GCC-9.3.0 CUDA/11.0.2-GCC-9.3.0 GCC/9.3.0 Python/3.8.2-GCCcore-9.3.0 FFTW; module list;"
 
+
+module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0;
+
+
+    module load NVHPC/24.1-CUDA-12.3.0 FFTW HDF5;
+
+
+
+
+
+
+
+
     module load UCX/1.8.0-GCCcore-9.3.0
     module load OpenMPI/4.0.3-GCC-9.3.0
     module load CUDA/11.0.2-GCC-9.3.0

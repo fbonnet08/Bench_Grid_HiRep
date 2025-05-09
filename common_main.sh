@@ -256,7 +256,8 @@ case $machine_name in
    module_list="module load CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
-    module_list="module load NVHPC/24.1-CUDA-12.3.0 FFTW HDF5; module list;"
+    #module_list="module load NVHPC/24.1-CUDA-12.3.0 FFTW HDF5; module list;"
+    module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0; module list;"
     ;;
   *"lumi"*)
     module_list="module load cray-mpich cray-fftw cray-hdf5-parallel cray-python; module list;"
