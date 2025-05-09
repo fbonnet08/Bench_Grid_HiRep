@@ -1,5 +1,10 @@
 
-
+    module load UCX/1.8.0-GCCcore-9.3.0;
+    module load OpenMPI/4.0.3-GCC-9.3.0;
+    module load CUDA/11.0.2-GCC-9.3.0;
+    module load GCC/9.3.0;
+    module load Python/3.8.2-GCCcore-9.3.0;
+    module load FFTW;
 
 
 # TODO: ------------------------------------------------------------------------
