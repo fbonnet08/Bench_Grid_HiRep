@@ -54,7 +54,8 @@ user_remote_host=${username}"@"${remote_hostname}
 $white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
 printf "\n"
 # Getting the remote home dir from the remote (brutal way of doing this)
-user_remote_home_dir=$(ssh -t ${add_connect_strg} "${user_remote_host}" "cd ~/; pwd -P")
+#user_remote_home_dir=$(ssh -t ${add_connect_strg} "${user_remote_host}" "cd ~/; pwd -P")
+user_remote_home_dir=$(ssh -t "${user_remote_host}" "cd ~/; pwd -P")
 $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_dir\n";$reset_colors;
 
 # Setting the external lib_dir
@@ -72,7 +73,8 @@ $white; printf "external_lib_dir       : ";$magenta; printf "$external_lib_dir\n
 $white; printf "Lattice run directory  : ";$cyan; printf "$LatticeRuns_dir\n";$reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-ssh -t ${add_connect_strg} "$user_remote_host" "
+#ssh -t ${add_connect_strg} "$user_remote_host" "
+ssh -t "$user_remote_host" "
 #colors
 red=\"tput setaf 1\"  ;green=\"tput setaf 2\"  ;yellow=\"tput setaf 3\"
 blue=\"tput setaf 4\" ;magenta=\"tput setaf 5\";cyan=\"tput setaf 6\"
