@@ -566,8 +566,7 @@ cat << EOF >> "$_batch_file_out"
 VOL=$_lattice_size_cpu
 MPI=$_mpi_distribution
 TRAJECTORIES=40 #100000
-MASS=0.10
-#MASS=100
+MASS=0.08
 NSTEPS=27
 SAVEFREQ=10
 BETA=6.9
@@ -575,8 +574,9 @@ TLEN=1
 DWF_MASS=1.8
 MOBIUS_B=1.5
 MOBIUS_C=0.5
-Ls=18
+Ls=8
 #STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+STARTTRAJ=\$(echo ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 EOF
 #-------------------------------------------------------------------------------
 # Launching mechanism
@@ -675,6 +675,7 @@ elif [[ $_machine_name = "tursa"           || \
         $_machine_name = "vega"            || \
         $_machine_name = "sunbird"         || \
         $_machine_name = "desktop-dpr4gpr" || \
+        $_machine_name = "MareNostrum"     || \
         $_machine_name = "leonardo"        ]]
 then
 cat << EOF >> "$_batch_file_out"

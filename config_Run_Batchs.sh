@@ -69,18 +69,17 @@ declare -a bkeeper_large_n_nodes_gpu=(1 4 8 16 32) # 12 6 16 24 32)
 # Used only for:
 # ./test_codes/cpu/testing_array.sh
 # ./test_codes/cpu/testing_nameMPIDistribution.sh
-declare -a grid_lattice_size_gpu=("32.32.32.64")
 # Used for:
 # ./creator_phys_controller_batch.sh
 declare -a grid_small_n_nodes_gpu=(1 2)
-declare -a grid_large_n_nodes_gpu=(1 4 8 16 32)
+declare -a grid_large_n_nodes_gpu=(4 8 16 32)
 declare -a grid_small_lattice_size_gpu=("8.8.8.8") #("24.24.24.32") #("8.8.8.8")   #
-declare -a grid_large_lattice_size_gpu=("16.16.16.32") #("32.32.32.64") #("16.16.16.32")   #
+declare -a grid_large_lattice_size_gpu=("24.24.24.32") #("32.32.32.64") #("16.16.16.32")   #
 
 # TODO: add the other possibilities if any
 # DWF fermions
-declare -a trajectories=(20) #(100000)
-declare -a mass=("0.10")
+declare -a trajectories=(10) #(100000)
+declare -a mass=("0.08")
 #MASS=100
 declare -a nsteps=(27)
 declare -a savefreq=(10)
@@ -89,7 +88,7 @@ declare -a tlen=(1)
 declare -a dwf_mass=("1.8")
 declare -a Mobius_b=("1.5")
 declare -a Mobius_c=("0.5")
-declare -a Ls=(18)
+declare -a Ls=(8)
 #-------------------------------------------------------------------------------
 # HiRep LLR HMC CPU:
 #-------------------------------------------------------------------------------
@@ -97,8 +96,8 @@ declare -a Ls=(18)
 #nodes=1, 2, 3, 4
 #Strong scaling, number of CPU cores per node = number of replicas;
 #total number of CPU cores = number of replicas * number of domains per replica, nodes=1, 2, 3, 4, 6, 8
-declare -a HiRep_LLR_HMC_weak_n_nodes=(1 2 3 4)
-declare -a HiRep_LLR_HMC_strong_n_nodes=(1 2 3 4 6 8)
+declare -a HiRep_LLR_HMC_weak_n_nodes=(1 2 4)
+declare -a HiRep_LLR_HMC_strong_n_nodes=(1 2 4 8 16 32)
 #TODO. continue from here ....
 #-------------------------------------------------------------------------------
 #End of the script

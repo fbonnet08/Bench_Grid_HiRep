@@ -30,7 +30,11 @@ source ../../Scripts/Batch_Scripts/Batch_util_methods.sh;
 source ../../config_system.sh
 source ../../config_Run_Batchs.sh
 #-------------------------------------------------------------------------------
-# Mapping of the mpi_distribution for file name conevention:
+# Moved declared array from config_Run_Batchs.sh:
+#-------------------------------------------------------------------------------
+declare -a grid_lattice_size_gpu=("32.32.32.64")
+#-------------------------------------------------------------------------------
+# Mapping of the mpi_distribution for file name convention:
 #-------------------------------------------------------------------------------
 H=1
 for i in $(seq 0 `expr ${#mpi_distribution[@]} - 1`)

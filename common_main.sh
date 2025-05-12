@@ -144,6 +144,10 @@ grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
 # UCL optimized version
 grid_UCL_ARC="Grid-UCL-ARC"
 grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
+
+sombrero_git_url="https://github.com/sa2c/SOMBRERO"
+bkeeper_git_url="https://github.com/RChrHill/BKeeper"
+
 #-------------------------------------------------------------------------------
 # The grid version that we are going to compile this time. May change this later
 #-------------------------------------------------------------------------------

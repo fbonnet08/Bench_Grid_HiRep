@@ -74,7 +74,7 @@ ls -al ${prefix_inc_dir}
 # TODO: ------------------------------------------------------------------------
 src_fldr="${sourcecode_dir}"/Sombrero
 
-Git_Clone_project "${src_fldr}" "https://github.com/sa2c/SOMBRERO"
+Git_Clone_project "${src_fldr}" "${sombrero_git_url}"
 
 pwd ;
 # TODO: ------------------------------------------------------------------------
@@ -109,7 +109,7 @@ printf "\n"
 # TODO: finish this bit
 # TODO: ------------------------------------------------------------------------
 src_fldr="${sourcecode_dir}"
-Git_Clone_project_BKeeper "${src_fldr}" "https://github.com/RChrHill/BKeeper"
+Git_Clone_project_BKeeper "${src_fldr}" "${bkeeper_git_url}"
 
 pwd ;
 # TODO: ------------------------------------------------------------------------
