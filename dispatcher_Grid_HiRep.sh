@@ -184,7 +184,7 @@ case ${remote_hostname} in
     source /etc/profile.d/modules.sh;
     source /ceph/hpc/software/cvmfs_env.sh;
     module list;
-    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0;
+    module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0 Python;
     module list;
     ;;
   *\"lumi.csc.fi\"*)
@@ -240,9 +240,9 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
-bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
-bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR_SP.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
 bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
 bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
