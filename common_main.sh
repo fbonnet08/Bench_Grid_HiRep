@@ -262,7 +262,7 @@ case $machine_name in
   *"vega"*)
     #module_list="module load NVHPC/24.1-CUDA-12.3.0 FFTW HDF5; module list;"
     #module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0 Python; module list;"
-    module_list="module load CUDA/12.1.1 GCC/11.3.0 UCX/1.12.1-GCCcore-11.3.0 OpenMPI/4.1.4-GCC-11.3.0 Python/3.10.4-GCCcore-11.3.0 FFTW/3.3.10-GCC-11.3.0; module list;"
+    module_list="module load CUDA/12.1.1 GCC/11.3.0 UCX/1.12.1-GCCcore-11.3.0 OpenMPI/4.1.4-GCC-11.3.0 Python/3.10.4-GCCcore-11.3.0 FFTW/3.3.10-GCC-11.3.0 OpenSSL/3; module list;"
     ;;
   *"lumi"*)
     module_list="module load cray-mpich cray-fftw cray-hdf5-parallel cray-python; module list;"
