@@ -222,7 +222,7 @@ case ${remote_hostname} in
     ;;
   *\"alogin1.bsc.es\"*)
     source /etc/profile.d/01-module.sh
-    module load gcc cuda ucx intel impi hdf5 fftw;
+    module load cuda/12.1 gcc/11.4.0  ucx/1.16.0 openmpi/4.1.5-ucx1.16-gcc mkl/2021.4.0 hdf5/1.14.1-2-gcc-ompi;
     module list;
     ;;
   *\"glogin1.bsc.es\"*)

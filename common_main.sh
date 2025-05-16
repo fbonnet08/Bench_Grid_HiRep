@@ -277,7 +277,7 @@ case $machine_name in
     module_list="module load rocm amdclang hdf5 fftw openmpi; module list;"
     ;;
   *"MareNostrum"*)
-    module_list="module load gcc cuda ucx intel impi hdf5 fftw; module list;"
+    module_list="module load cuda/12.1 gcc/11.4.0 ucx/1.16.0 openmpi/4.1.5-ucx1.16-gcc mkl/2021.4.0 hdf5/1.14.1-2-gcc-ompi;; module list;"
     ;;
 esac
 $white; printf "String --> module_list : "; $bold;

@@ -19,6 +19,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo "- $_batch_file_out Done. -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # srun --account={account_name} --partition={partition} --time=00:30:00 --nodes=1 --gres=gpu:4 --pty bash
+# salloc --account=ehpc191 --partition=acc --qos=acc_ehpc --time=01:00:00 -n 1 -c 64 --gres=gpu:1
 ##SBATCH --ntasks-per-socket=4
 ##SBATCH --mem=494000
 #export MPICH_GPU_SUPPORT_ENABLED=1
