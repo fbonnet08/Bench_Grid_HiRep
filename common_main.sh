@@ -114,16 +114,20 @@ Bench_Grid_HiRep_dir=${sourcecode_dir}/Bench_Grid_HiRep
 benchmark_input_dir=${Bench_Grid_HiRep_dir}/benchmarks
 batch_Scripts_dir=${Bench_Grid_HiRep_dir}/Scripts/Batch_Scripts
 LatticeRuns_dir=${sourcecode_dir}/LatticeRuns
-
 LeonardoInstallerWarpX_dir="${batch_Scripts_dir}"/LeonardoInstallerWarpX
 
-Hirep_LLR_SP_dir=${sourcecode_dir}/Hirep_LLR_SP
+# Directory structures
+Hirep_LLR_SP="Hirep_LLR_SP"
+Hirep_LLR_SP_dir=${sourcecode_dir}/${Hirep_LLR_SP}
 Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
 
-LLR_HiRep_heatbath_input_dir=${sourcecode_dir}/LLR_HiRep_heatbath_input
-# Les boule tar
-ball_llr_codes="${sourcecode_dir}/ball_HiRep-LLR-SP.tar.gz"
-ball_llr_input="${sourcecode_dir}/ball_LLR_HiRep_heatbath_input.tar.gz"
+# LLR directory and github structure
+LLR_HiRep_heatbath_input="LLR_HiRep_heatbath_input"
+LLR_HiRep_heatbath_input_dir=${sourcecode_dir}/${LLR_HiRep_heatbath_input}
+
+# The tar balls
+ball_llr_codes="${sourcecode_dir}/ball_HiRep-LLR-SP.tar"
+ball_llr_input="${sourcecode_dir}/ball_LLR_HiRep_heatbath_input.tar"
 # Some random directory in sourcecode_dir directory for sanity checks and test
 some_dir=${sourcecode_dir}/some_other_directory
 
@@ -138,16 +142,20 @@ build_dir="build"
 #grid_DWF_Telos="Grid-DWF-Telos"
 grid_DWF_Telos="Grid-Telos"
 grid_DWF_Telos_dir=${sourcecode_dir}/${grid_DWF_Telos}/"Grid"
-#grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
-grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
 
 # UCL optimized version
 grid_UCL_ARC="Grid-UCL-ARC"
+
+# GitHub and repos links for the codes
 grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
-
+#grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
+grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
+# Sombrero
 sombrero_git_url="https://github.com/sa2c/SOMBRERO"
+# BKeeper
 bkeeper_git_url="https://github.com/RChrHill/BKeeper"
-
+# LLR directory and github structure
+LLR_HiRep_heatbath_input_git_url="https://github.com/fzierler/LLR_HiRep_heatbath_input.git"
 #-------------------------------------------------------------------------------
 # The grid version that we are going to compile this time. May change this later
 #-------------------------------------------------------------------------------
@@ -184,25 +192,41 @@ target_Grid_DWF_run_gpu_small_batch_files="target_Grid_DWF_run_gpu_small_batch_f
 # [Large]
 target_Grid_DWF_run_gpu_large_batch_files="target_Grid_DWF_run_gpu_large_batch_files.txt"
 #-------------------------------------------------------------------------------
+# Grid_DWF[small-large]-[gpu]:
+#-------------------------------------------------------------------------------
+target_LLR_HiRep_HB_run_cpu_batch_files="target_LLR_HiRep_HB_run_cpu_batch_files.txt"
+#-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 $red  ; printf "Target files names     : ";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
-$white; printf "Grid_DWF               : ";printf "\n"; $reset_colors;
-$white; printf "Grid_DWF_run_gpu_small : ";$red;   printf "%s\n" $target_Grid_DWF_run_gpu_small_batch_files; $reset_colors;
-$white; printf "Grid_DWF_run_gpu_large : ";$green; printf "%s\n" $target_Grid_DWF_run_gpu_large_batch_files; $reset_colors;
-$white; printf "BKeeper                : ";printf "\n"; $reset_colors;
-$white; printf "BKeeper_run_cpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
-$white; printf "BKeeper_run_gpu_small  : ";$red;   printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;
-$white; printf "BKeeper_run_cpu_large  : ";$blue;  printf "%s\n" $target_BKeeper_run_cpu_large_batch_files; $reset_colors;
-$white; printf "BKeeper_run_gpu_large  : ";$green; printf "%s\n" $target_BKeeper_run_gpu_large_batch_files; $reset_colors;
-$white; printf "Sombrero               : ";printf "\n";$reset_colors;
-$white; printf "Sombrero_weak_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_weak_cpu_small_batch_files; $reset_colors;
-$white; printf "Sombrero_strg_cpu_small: ";$red;   printf "%s\n" $target_Sombrero_strg_cpu_small_batch_files; $reset_colors;
-$white; printf "Sombrero_weak_cpu_large: ";$blue;  printf "%s\n" $target_Sombrero_weak_cpu_large_batch_files; $reset_colors;
-$white; printf "Sombrero_strg_gpu_large: ";$green; printf "%s\n" $target_Sombrero_strg_cpu_large_batch_files; $reset_colors;
-$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;  printf "%s\n" "$0";                    $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF                 ";printf "\n"; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF_run_gpu_small : ";$magenta; printf "%s\n" $target_Grid_DWF_run_gpu_small_batch_files; $reset_colors;
+$white; printf "Grid_DWF_run_gpu_large : ";$cyan;    printf "%s\n" $target_Grid_DWF_run_gpu_large_batch_files; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "BKeeper                  ";printf "\n"; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "BKeeper_run_cpu_small  : ";$magenta; printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
+$white; printf "BKeeper_run_gpu_small  : ";$cyan;    printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;
+$white; printf "BKeeper_run_cpu_large  : ";$yellow;  printf "%s\n" $target_BKeeper_run_cpu_large_batch_files; $reset_colors;
+$white; printf "BKeeper_run_gpu_large  : ";$green;   printf "%s\n" $target_BKeeper_run_gpu_large_batch_files; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "Sombrero                 ";printf "\n";$reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "Sombrero_weak_cpu_small: ";$magenta; printf "%s\n" $target_Sombrero_weak_cpu_small_batch_files; $reset_colors;
+$white; printf "Sombrero_strg_cpu_small: ";$cyan;    printf "%s\n" $target_Sombrero_strg_cpu_small_batch_files; $reset_colors;
+$white; printf "Sombrero_weak_cpu_large: ";$yellow;  printf "%s\n" $target_Sombrero_weak_cpu_large_batch_files; $reset_colors;
+$white; printf "Sombrero_strg_gpu_large: ";$green;   printf "%s\n" $target_Sombrero_strg_cpu_large_batch_files; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "LLR-HiRep-SP/LLR_HB      ";printf "\n";$reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "LLR_HiRep_HB_run_cpu   : ";$magenta; printf "%s\n" $target_LLR_HiRep_HB_run_cpu_batch_files; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$cyan;  printf "<-- Shell          --->: ";$cyan;    printf "%s\n" "$0";                    $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
 #-------------------------------------------------------------------------------
 #[Build-Structure] Setting up the directory structure for the download
 basedir=${local_dir}/grid_bench_202410
@@ -304,7 +328,17 @@ $white; printf "HiRep_Cuda directory   : ";$green;   printf "%s\n" "$HiRep_Cuda_
 $white; printf "Sombrero directory     : ";$magenta; printf "%s\n" "$sombrero_dir";         $reset_colors;
 $white; printf "BKeeper directory      : ";$cyan;    printf "%s\n" "$bkeeper_dir";          $reset_colors;
 $white; printf "Lattice runs directory : ";$magenta; printf "%s\n" "$LatticeRuns_dir";      $reset_colors;
-$cyan;  printf "<-- extrn_lib Fldr --->: ";$cyan;    printf "%s\n" "$0";                    $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan;  printf "<-- Git repos      --->: ";$cyan;    printf "\n";                           $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; printf "grid_DWF_Telos_git     : ";$cyan;    printf "%s\n" "$grid_DWF_Telos_git_url"; $reset_colors;
+$white; printf "grid_UCL_ARC_git       : ";$cyan;    printf "%s\n" "$grid_UCL_ARC_git_url"; $reset_colors;
+$white; printf "sombrero_git           : ";$cyan;    printf "%s\n" "$sombrero_git_url";     $reset_colors;
+$white; printf "bkeeper_git            : ";$cyan;    printf "%s\n" "$bkeeper_git_url";      $reset_colors;
+$white; printf "LLR_HiRep_HB_input_git : ";$cyan;    printf "%s\n" "$LLR_HiRep_heatbath_input_git_url"; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan;  printf "<-- Shell          --->: ";$cyan;    printf "%s\n" "$0";                    $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # ##############################################################################
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -322,8 +356,11 @@ declare -a path_to_data_dir=(
               "$Hirep_LLR_SP_HMC_dir"
               "$HiRep_LLR_master_dir"
               "$HiRep_LLR_master_HMC_dir"
+              "$LLR_HiRep_heatbath_input_dir"
               "$HiRep_Cuda_dir"
               "$grid_dir"
+              "$grid_build_dir"
+              "$grid_DWF_Telos_dir"
               "$basedir"
               "$prefix"
               )

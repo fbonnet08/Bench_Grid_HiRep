@@ -48,9 +48,7 @@ fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-
 source ./common_main.sh $1;
-
 #-------------------------------------------------------------------------------
 # Checking if the libraries have been installed properly
 #-------------------------------------------------------------------------------
@@ -76,7 +74,7 @@ ls -al
 
 $green; printf "cleaning the project first   : "; $bold;
 $yellow; printf " ... \n"; $white; $reset_colors;
-make clean
+make cleanall
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
@@ -88,8 +86,8 @@ printf "\n"
 # Now compiling BKeeper
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving to HMC dir and compiling : "; $bold;
-$magenta; printf "${Hirep_LLR_SP_HMC_dir}\n"; $white; $reset_colors;
-cd ${Hirep_LLR_SP_HMC_dir}
+$magenta; printf "${Hirep_LLR_SP_dir}\n"; $white; $reset_colors;
+cd ${Hirep_LLR_SP_dir}
 ls -al
 make
 

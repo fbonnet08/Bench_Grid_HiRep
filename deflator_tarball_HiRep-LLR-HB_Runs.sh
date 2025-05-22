@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1 $2`
+ARGV=`basename -a $1`
 set -eu
 scrfipt_file_name=$(basename "$0")
 tput bold;
@@ -55,7 +55,7 @@ cd "${LatticeRuns_dir}"
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching HiRep tar ball creator:\n"; $white; $reset_colors;
+$green; printf "Launching HiRep tar ball deflator:\n"; $white; $reset_colors;
 
 
 

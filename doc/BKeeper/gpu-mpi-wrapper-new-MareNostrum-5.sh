@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 lrank=${OMPI_COMM_WORLD_LOCAL_RANK:-${SLURM_LOCALID}}
 lrank2=$(( lrank % 4 ))
+
+echo "lrank           --->: $lrank"
+echo "lrank2          --->: $lrank2"
+
 case $lrank2 in
         0)
         export CUDA_VISIBLE_DEVICES=0
@@ -26,28 +30,7 @@ case $lrank2 in
                 echo "ERROR: MPI local rank larger than expected! -> $lrank"
                 exit 1
 esac
-echo "numactl --physcpubind=$mycores $@ using CUDA $CUDA_VISIBLE_DEVICES"
+echo "UCX_NET_DEVICES --->: $UCX_NET_DEVICES"
+echo "numa command    --->: numactl --physcpubind=$mycores $@ using CUDA $CUDA_VISIBLE_DEVICES"
 
 numactl --physcpubind=$mycores $@
-
-:'
-#!/usr/bin/env bash
-lrank=$OMPI_COMM_WORLD_LOCAL_RANK
-numa1=$((lrank))
-netdev=mlx5_${lrank}:1
-
-echo "lrank        --->: $lrank"
-echo "numa1        --->: $numa1"
-echo "netdev       --->: $netdev"
-
-export CUDA_VISIBLE_DEVICES=$OMPI_COMM_WORLD_LOCAL_RANK
-export UCX_NET_DEVICES=${netdev}
-BINDING="--cpunodebind=0"
-
-echo "BINDING      --->: $BINDING"
-echo "numa command --->: numactl ${BINDING} $@"
-
-echo "$(hostname) - $lrank device=$CUDA_VISIBLE_DEVICES binding=$BINDING"
-
-numactl ${BINDING} "$@"
-'

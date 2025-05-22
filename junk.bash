@@ -1,4 +1,14 @@
 
+
+
+# TODO: tar cvf ball_HiRep-LLR-SP.tar -C /home/frederic/SwanSea/SourceCodes Hirep_LLR_SP ; pigz ./ball_HiRep-LLR-SP.tar
+
+#if [ "$dir_Hirep_LLR_SP_exists" == "yes" ]         ; then tar cf "$llr_codes" -C "${sourcecode_dir}" ./Hirep_LLR_SP | pigz > "$ball_llr_codes"; fi
+if [ "$dir_LLR_HiRep_heatbath_input_dir" == "yes" ]; then tar cf - "$llr_input" | pigz > "$ball_llr_input"; fi
+
+
+
+
 module_list="module load CUDA/12.3.0 OpenMPI/4.1.5-GCC-12.3.0 UCX/1.15.0-GCCcore-12.3.0 GCC/12.3.0 FFTW/3.3.10-GCC-12.3.0 Python; module list;"
 module_list="module load UCX/1.8.0-GCCcore-9.3.0 OpenMPI/4.0.3-GCC-9.3.0 CUDA/11.0.2-GCC-9.3.0 GCC/9.3.0 Python/3.8.2-GCCcore-9.3.0 FFTW/3.3.8-gompi-2020a; module list;"
 module_list="module load UCX/1.8.0-GCCcore-9.3.0 OpenMPI/4.0.3-GCC-9.3.0 CUDA/11.0.2-GCC-9.3.0 GCC/9.3.0 Python/3.8.2-GCCcore-9.3.0 FFTW; module list;"

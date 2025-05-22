@@ -748,15 +748,24 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
-          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
-          #ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
+
+          # ntasks_per_node=$(expr ${bkeeper_small_n_nodes_gpu[$i]} \* ${_core_count})
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
             "${bkeeper_small_n_nodes_gpu[$i]}"       \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
-            "$gpus_per_node"                         \
+            "$cpus_per_task"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
             "01:00:00"                               \
@@ -861,15 +870,24 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
-          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
+
           #ntasks_per_node=$(expr ${bkeeper_large_n_nodes_gpu[$i]} \* ${_core_count})
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
             "${bkeeper_large_n_nodes_gpu[$i]}"       \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
-            "$gpus_per_node"                         \
+            "$cpus_per_task"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
             "01:00:00"                               \

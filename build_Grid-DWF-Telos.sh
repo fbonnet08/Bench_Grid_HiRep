@@ -199,24 +199,24 @@ case $machine_name in
   *"lumi"*)
     #--with-fftw=$FFTW_DIR/.. \
     ../configure \
-        --prefix=${prefix} \
-        --enable-comms=mpi-auto \
-        --enable-unified=no \
-        --enable-shm=nvlink \
-        --enable-accelerator=hip \
-        --enable-gen-simd-width=64 \
-        --enable-simd=GPU \
-        --enable-accelerator-cshift \
-        --with-lime=${prefix} \
-        --with-gmp=${prefix} \
-        --with-mpfr=${prefix} \
-        --disable-fermion-reps \
-        --disable-gparity \
-        --enable-Sp \
-        CXX=hipcc MPICXX=mpicxx \
-        CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
-        LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp -lhipblas"
-        ;;
+    --prefix=${prefix} \
+    --enable-comms=mpi-auto \
+    --enable-unified=no \
+    --enable-shm=nvlink \
+    --enable-accelerator=hip \
+    --enable-gen-simd-width=64 \
+    --enable-simd=GPU \
+    --enable-accelerator-cshift \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
+    --disable-fermion-reps \
+    --disable-gparity \
+    --enable-Sp \
+    CXX=hipcc MPICXX=mpicxx \
+    CXXFLAGS="-fPIC --offload-arch=gfx90a -I/opt/rocm/include/ -std=c++17 -I/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/include" \
+    LDFLAGS="-L/opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1/lib -lmpi -L/opt/cray/pe/mpich/8.1.23/gtl/lib -lmpi_gtl_hsa -lamdhip64 -fopenmp -lhipblas"
+    ;;
   *"leonardo"*)
     ../configure \
     --prefix=${prefix} \
@@ -305,7 +305,7 @@ case $machine_name in
     --enable-Sp \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_90,code=sm_90 -std=c++17 -cudart shared --diag-suppress 177,550,611"
     ;;
 esac
 

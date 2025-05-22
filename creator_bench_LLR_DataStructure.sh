@@ -33,9 +33,12 @@ fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-__external_lib_dir=$1
+__project_account=$1
+__external_lib_dir=$2
 # Overall config file
 source ./common_main.sh "$__external_lib_dir";
+# System config file to get information from the node
+source ./config_system.sh "$__project_account" "$machine_name";
 # The Batch content creators methods
 source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #-------------------------------------------------------------------------------
@@ -49,6 +52,7 @@ _some_dir="${some_dir}"
 #-------------------------------------------------------------------------------
 # Now compressing the codes
 #-------------------------------------------------------------------------------
+
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 for i in $(seq 0 $sleep_time)
 do
@@ -57,13 +61,13 @@ done
 printf "\n"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Screening the directory and moving to it: "; $bold;
+$green; printf "Moving to LatticeRuns  : "; $bold;
 $magenta; printf "${LatticeRuns_dir}\n"; $white; $reset_colors;
 cd "${LatticeRuns_dir}"
 ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Launching tar ball creator      :\n"; $white; $reset_colors;
+$green; printf "Checking directories   :\n"; $white; $reset_colors;
 
 directory_exists "${llr_codes}"; dir_Hirep_LLR_SP_exists="$directory_exists";
 directory_exists "${llr_input}"; dir_LLR_HiRep_heatbath_input_dir="$directory_exists";
@@ -74,15 +78,38 @@ ls "$llr_codes"
 $cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_input}";$white; $reset_colors;
 ls "$llr_input"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_codes}";$white; $reset_colors;
-if [ "$dir_Hirep_LLR_SP_exists" == "yes" ]         ; then tar cf - "$llr_codes" | pigz > "$ball_llr_codes"; fi
-$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_input}";$white; $reset_colors;
-if [ "$dir_LLR_HiRep_heatbath_input_dir" == "yes" ]; then tar cf - "$llr_input" | pigz > "$ball_llr_input"; fi
+$green; printf "Checking input file    :\n"; $white; $reset_colors;
+file_exists "${llr_input}/input/${machine_name}.csv"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_codes}";$white; $reset_colors;
-ls -al "$ball_llr_codes"
-$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_input}";$white; $reset_colors;
-ls -al "$ball_llr_input"
+$green; printf "Generating LLR-Rep     :\n"; $white; $reset_colors;
+
+# TODO drive the code from here.
+# TODO:
+#  python3 main.py
+#       --input_params_csv MareNostrum.csv
+#       --machine MareNostrum
+#       --partition gp
+#       --account ehpc191
+#       --modules "gcc/12.3.0 openmpi/4.1.5-gcc"
+#       --run_index 1
+#       --path_llr_exec "\${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB"
+#       --output_run_dir "${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB"
+# TODO: output/Run001_LLR_04x020_056
+# TODO: bash -s < ./setup_llr_repeat.sh
+
+python3 \
+  "${llr_input}"/main.py \
+  --input_params_csv "${llr_input}/input/${machine_name}.csv" \
+  --machine "${machine_name}" \
+  --partition gp \
+  --account ehpc191 \
+  --modules "${module_list}" \
+  --run_index 1 \
+  --path_llr_exec "\${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB" \
+  --output_run_dir "${LatticeRuns_dir}/Hirep_LLR_SP/LLR_HB"
+
+#  --output_run_dir "${HOME}/EuroHPC/MareNostrum/SwanSea/SourceCodes/LatticeRuns/Hirep_LLR_SP/LLR_HB"
+
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #-------------------------------------------------------------------------------
 #End of the script

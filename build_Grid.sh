@@ -305,7 +305,7 @@ case $machine_name in
     --enable-Sp \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
-    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_90,code=sm_90 -std=c++17 -cudart shared --diag-suppress 177,550,611"
     ;;
 esac
 

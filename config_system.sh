@@ -45,7 +45,7 @@ case $__machine_name in
   *"leonardo"*)
     target_partition_gpu="boost_usr_prod";       target_partition_cpu="dcgp_usr_prod";
     gpus_per_node=4;                             qos="normal";
-    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
+    max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=112;
     ;;
   *"mi300"*)
     target_partition_gpu="LocalQ";               target_partition_cpu="LocalQ";
@@ -60,7 +60,8 @@ case $__machine_name in
   *"MareNostrum"*)
     target_partition_gpu="acc";                  target_partition_cpu="gp";
     qos_gpu="acc_ehpc";                          qos_cpu="gp_ehpc";
-    gpus_per_node=4;                             qos="acc_ehpc"; # default to gpu qos
+    qos="acc_ehpc"; # default to gpu qos
+    gpus_per_node=4;
     max_cores_per_node_gpu=80;                   max_cores_per_node_cpu=112;
     ;;
 esac
@@ -103,7 +104,7 @@ get_system_config_local_nvidia (){
 
 get_system_config_clusters_nvidia_Sunbird (){
   # Default node setup
-  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  _max_gpu_count=4  # Max number of GPUs
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(echo "$_core_count/4"|bc);
@@ -145,7 +146,7 @@ get_system_config_clusters_nvidia_Sunbird (){
 
 get_system_config_clusters_nvidia_Tursa (){
   # Default node setup
-  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  _max_gpu_count=4  # Max number of GPUs
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(echo "$_core_count/4"|bc);
@@ -187,7 +188,7 @@ get_system_config_clusters_nvidia_Tursa (){
 
 get_system_config_clusters_nvidia_Vega-GPU (){
   # Default node setup
-  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  _max_gpu_count=4  # Max number of GPUs
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(echo "$_core_count*2"|bc);
@@ -230,7 +231,7 @@ get_system_config_clusters_nvidia_Vega-GPU (){
 
 get_system_config_clusters_nvidia_MareNostrum (){
   # Default node setup
-  _max_gpu_count=4  # Max number of GPUs on a Leonardo node
+  _max_gpu_count=4  # Max number of GPUs
   # CPU stuff
   _core_count=$(grep -c ^processor /proc/cpuinfo)
   _core_count=$(echo "$_core_count/4"|bc);
