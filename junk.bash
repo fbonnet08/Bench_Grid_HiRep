@@ -1,5 +1,8 @@
 
 
+bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
+
+
 
 # TODO: tar cvf ball_HiRep-LLR-SP.tar -C /home/frederic/SwanSea/SourceCodes Hirep_LLR_SP ; pigz ./ball_HiRep-LLR-SP.tar
 
