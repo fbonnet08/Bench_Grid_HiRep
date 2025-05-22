@@ -85,9 +85,9 @@ printf "\n"
 
 # Now compiling BKeeper
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$green; printf "Moving to HMC dir and compiling : "; $bold;
-$magenta; printf "${Hirep_LLR_SP_dir}\n"; $white; $reset_colors;
-cd ${Hirep_LLR_SP_dir}
+$green; printf "Moving to LLR_HB and compiling : "; $bold;
+$magenta; printf "${Hirep_LLR_SP_HB_dir}\n"; $white; $reset_colors;
+cd ${Hirep_LLR_SP_HB_dir}
 ls -al
 make
 

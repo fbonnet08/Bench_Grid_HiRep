@@ -119,6 +119,7 @@ LeonardoInstallerWarpX_dir="${batch_Scripts_dir}"/LeonardoInstallerWarpX
 # Directory structures
 Hirep_LLR_SP="Hirep_LLR_SP"
 Hirep_LLR_SP_dir=${sourcecode_dir}/${Hirep_LLR_SP}
+Hirep_LLR_SP_HB_dir=${Hirep_LLR_SP_dir}/LLR_HB
 Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
 
 # LLR directory and github structure
