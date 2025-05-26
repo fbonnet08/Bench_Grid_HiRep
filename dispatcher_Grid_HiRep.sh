@@ -79,7 +79,40 @@ case ${remote_hostname} in
     rm ~/.ssh/known_hosts;
   ;;
 esac
-# Deploying the software remotely via ssh
+# Setting the external lib_dir
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$green; printf "Creating LLR structure :\n"; $white; $reset_colors;
+
+bash -s < ./creator_bench_LLR_DataStructure.sh "$project_account" "$remote_hostname" "$user_remote_home_dir" "SwanSea/SourceCodes/external_lib";
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan;  printf "Created tar ball      : "; $yellow; printf "%s\n" "${lib_dir}.gz";$white; $reset_colors;
+sourcecode_local_dir=${HOME}/SwanSea/SourceCodes
+ball_llr_codes="${sourcecode_local_dir}/ball_HiRep-LLR-SP.tar"
+ball_llr_input="${sourcecode_local_dir}/ball_LLR_HiRep_heatbath_input.tar"
+ball_llr_LatticeRuns="${sourcecode_local_dir}/ball_LatticeRuns_Hirep_LLR_SP.tar"
+
+n_ball_tar=0
+if [ -f "${ball_llr_codes}.gz"       ]; then n_ball_tar=$(expr $n_ball_tar + 1); fi
+if [ -f "${ball_llr_input}.gz"       ]; then n_ball_tar=$(expr $n_ball_tar + 1); fi
+if [ -f "${ball_llr_LatticeRuns}.gz" ]; then n_ball_tar=$(expr $n_ball_tar + 1); fi
+
+$cyan; printf "Number of tar balls   : "; $yellow; printf "%i\n" "${n_ball_tar}";$white; $reset_colors;
+
+if [ "$n_ball_tar" -ne 3 ];
+then
+  bash -s < ./creator_tarball_HiRep-LLR-HB_Runs.sh "${lib_dir}";
+  $cyan; printf "Uploading tar balls ->: "; $yellow; printf "%i\n" "${remote_hostname}";
+  $white; $reset_colors;
+
+  #TODO: need to create the uploader to remote machine
+
+fi
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+# Bench_Grid_HiRep.git
+Bench_Grid_HiRep_git_url="https://github.com/fbonnet08/Bench_Grid_HiRep.git"
+# Setting the external lib_dir
 #ssh -t "$user_remote_host" "
 ssh -t ${add_connect_string} "$user_remote_host" "
 #colors
@@ -91,9 +124,9 @@ _username=${username}
 _project_account=${project_account}
 _remote_hostname=${remote_hostname}
 
-echo           \"Enter Username  (ssh)  : \$_username\";
-echo           \"Project Account (ssh)  : \$_project_account\";
-echo           \"Remote hostname (ssh)  : \$_remote_hostname\";
+echo    \"Enter Username  (ssh)  : \$_username\";
+echo    \"Project Account (ssh)  : \$_project_account\";
+echo    \"Remote hostname (ssh)  : \$_remote_hostname\";
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d ${source_dir} ]
@@ -125,7 +158,7 @@ then
 else
   \$white; printf \"Project                : \"; \$bold;
   \$magenta; printf \'%s\'\"\$src_fldr\"; \$red; printf \" does not exist, we will clone from GitHub.\n\"; \$white; \$reset_colors;
-  git clone https://github.com/fbonnet08/Bench_Grid_HiRep.git
+  git clone ${Bench_Grid_HiRep_git_url}
 fi
 
 cd \$src_fldr;
@@ -241,7 +274,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 #bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Hirep_LLR-SP_HB.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR-SP_HB.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
 
@@ -257,8 +290,7 @@ bash -s < ./build_Hirep_LLR-SP_HB.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_strong;
-#bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib; -->: Here it will be: Grid_DWF_run_gpu
-#bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
 "
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}

@@ -1,7 +1,95 @@
 
+# Directory check
+parent_dir="/path/to/parent"
+substring="target_substring"
+
+for dir in "$parent_dir"/*/; do
+  if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
+    echo "Found matching directory: $dir"
+    found=true
+    break
+  fi
+done
+
+if [[ $found ]]; then
+  echo "Directory with substring '$substring' exists."
+else
+  echo "No matching directory found."
+fi
+
+
+
+
+
+
+
+# Validate token length
+if [ ${#__GitHub_Token} -ne 40 ]; then
+    $red; echo "Error: GitHub token must be exactly 40 characters long"; $reset_colors
+    exit 1
+fi
+
+# Check token prefix
+if [[ ! $__GitHub_Token =~ ^ghp_ ]]; then
+    $red; echo "Error: GitHub token must start with 'ghp_'"; $reset_colors
+    exit 1
+fi
+
+# Display token characters
+echo "Validating GitHub token:"
+for (( i=0; i<${#__GitHub_Token}; i++ )); do
+    if [ $((i % 4)) -eq 0 ]; then
+        $cyan
+    elif [ $((i % 4)) -eq 1 ]; then
+        $green
+    elif [ $((i % 4)) -eq 2 ]; then
+        $yellow
+    else
+        $blue
+    fi
+    echo -n "${__GitHub_Token:$i:1}"
+    if [ $((i % 4)) -eq 3 ]; then
+        echo -n " "
+    fi
+done
+$reset_colors
+echo -e "\n"
+
+
+
+
+# TODO: move this to the launcher_bench_HiRep.sh with the find command.
+# TODO: $> ls -1 "${llr_LatticeRuns}/LLR_HB" > "${llr_LatticeRuns}/${target_LLR_HiRep_HB_run_cpu_batch_files}"
+
+
+grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
+
+# Checking the argument list
+if [ $# -ne 1 ]; then
+  $white; printf "No username specified  : "; $bold;
+  $red;printf " Specify your GitHub username   ---> \n"; $green;printf "${HOME}";
+  $white; $reset_colors;
+  __GitHub_user_name="fbonnet08"
+else
+  $white; printf "Directory specified    : "; $bold;
+  $blue; printf '%s'"${1}"; $red;printf " will be the working target dir ...\n";
+  $white; $reset_colors;
+  __GitHub_user_name=$1
+fi
+
+
+bash -s < ./launcher_bench_Grid.sh            SwanSea/SourceCodes/external_lib; -->: Here it will be: Grid_DWF_run_gpu
+
 
 bash -s < ./build_HiRep-LLR-master.sh          SwanSea/SourceCodes/external_lib;
 
+
+echo " ---->: ${llr_input}"
+echo " ---->: ${__machine_name}"
+echo " ---->: ${__module_list}"
+echo " ---->: ${LatticeRuns_dir}"
+echo " ---->: ${target_partition_cpu}"
+echo " ---->: ${__user_remote_home_dir}"
 
 
 # TODO: tar cvf ball_HiRep-LLR-SP.tar -C /home/frederic/SwanSea/SourceCodes Hirep_LLR_SP ; pigz ./ball_HiRep-LLR-SP.tar

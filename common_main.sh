@@ -121,6 +121,7 @@ Hirep_LLR_SP="Hirep_LLR_SP"
 Hirep_LLR_SP_dir=${sourcecode_dir}/${Hirep_LLR_SP}
 Hirep_LLR_SP_HB_dir=${Hirep_LLR_SP_dir}/LLR_HB
 Hirep_LLR_SP_HMC_dir=${Hirep_LLR_SP_dir}/HMC
+LatticeRuns_Hirep_LLR_SP_dir=${LatticeRuns_dir}/${Hirep_LLR_SP}
 
 # LLR directory and github structure
 LLR_HiRep_heatbath_input="LLR_HiRep_heatbath_input"
@@ -129,6 +130,7 @@ LLR_HiRep_heatbath_input_dir=${sourcecode_dir}/${LLR_HiRep_heatbath_input}
 # The tar balls
 ball_llr_codes="${sourcecode_dir}/ball_HiRep-LLR-SP.tar"
 ball_llr_input="${sourcecode_dir}/ball_LLR_HiRep_heatbath_input.tar"
+ball_llr_LatticeRuns="${sourcecode_dir}/ball_LatticeRuns_Hirep_LLR_SP.tar"
 # Some random directory in sourcecode_dir directory for sanity checks and test
 some_dir=${sourcecode_dir}/some_other_directory
 
@@ -143,18 +145,21 @@ build_dir="build"
 #grid_DWF_Telos="Grid-DWF-Telos"
 grid_DWF_Telos="Grid-Telos"
 grid_DWF_Telos_dir=${sourcecode_dir}/${grid_DWF_Telos}/"Grid"
-
 # UCL optimized version
 grid_UCL_ARC="Grid-UCL-ARC"
-
+#
 # GitHub and repos links for the codes
+#
+GitHub_Token_File="Personal_GitHub_Token.sh"
+GitHub_Token_File_dir="/mnt/c/cygwin64/home/frede/GitHub"
 grid_UCL_ARC_git_url="https://github.com/UCL-ARC/Grid.git"
-#grid_DWF_Telos_git_url="https://github.com/telos-collaboration/Grid.git"
 grid_DWF_Telos_git_url="https://github.com/fbonnet08/Grid.git"
 # Sombrero
 sombrero_git_url="https://github.com/sa2c/SOMBRERO"
 # BKeeper
 bkeeper_git_url="https://github.com/RChrHill/BKeeper"
+# Hirep_LLr_SP
+Hirep_LLR_SP_git_url="github.com/fzierler/Hirep_LLR_SP.git"
 # LLR directory and github structure
 LLR_HiRep_heatbath_input_git_url="https://github.com/fzierler/LLR_HiRep_heatbath_input.git"
 #-------------------------------------------------------------------------------
@@ -334,8 +339,9 @@ $cyan;  printf "<-- Git repos      --->: ";$cyan;    printf "\n";               
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $white; printf "grid_DWF_Telos_git     : ";$cyan;    printf "%s\n" "$grid_DWF_Telos_git_url"; $reset_colors;
 $white; printf "grid_UCL_ARC_git       : ";$cyan;    printf "%s\n" "$grid_UCL_ARC_git_url"; $reset_colors;
-$white; printf "sombrero_git           : ";$cyan;    printf "%s\n" "$sombrero_git_url";     $reset_colors;
-$white; printf "bkeeper_git            : ";$cyan;    printf "%s\n" "$bkeeper_git_url";      $reset_colors;
+$white; printf "Sombrero_git           : ";$cyan;    printf "%s\n" "$sombrero_git_url";     $reset_colors;
+$white; printf "BKeeper_git            : ";$cyan;    printf "%s\n" "$bkeeper_git_url";      $reset_colors;
+$white; printf "Hirep_LLR_SP_git       : ";$cyan;    printf "%s\n" "$Hirep_LLR_SP_git_url"; $reset_colors;
 $white; printf "LLR_HiRep_HB_input_git : ";$cyan;    printf "%s\n" "$LLR_HiRep_heatbath_input_git_url"; $reset_colors;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan;  printf "<-- Shell          --->: ";$cyan;    printf "%s\n" "$0";                    $reset_colors;

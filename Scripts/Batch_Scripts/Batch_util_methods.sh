@@ -156,6 +156,8 @@ then
   cd "$grid_dir"
   git pull
   cd ..
+
+
 else
   $white; printf "Project                : "; $bold;
   $magenta; printf '%s'"$_src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n";
@@ -164,6 +166,103 @@ else
   Batch_util_create_path "${_src_fldr}"
   cd "$_src_fldr"
   git clone "$_repo"
+fi
+}
+#-------------------------------------------------------------------------------
+# Cloning method from a given repository
+#-------------------------------------------------------------------------------
+Git_Clone_project_with_GitHub_Token (){
+_src_fldr=$1
+_repo=$2
+_GitHub_Token=$3
+_subdir=$4
+#-------------------------------------------------------------------------------
+if [ -d "$_src_fldr" ]
+then
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+
+  parent_dir="${_src_fldr}"
+  substring="$_subdir"
+
+  echo "echo --->: $parent_dir"
+  echo "echo --->: $substring"
+
+  found=0
+  for dir in "$parent_dir"/*/; do
+    if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
+      echo "Found matching directory: $dir"
+      found=1
+      break
+    fi
+  done
+
+  if [ "$found" -eq 1 ]; then
+    echo "Directory with substring '$substring' exists."
+    cd "$substring"
+    git pull
+    cd ..
+  fi
+
+else
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n";
+  $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  Batch_util_create_path "${_src_fldr}"
+  cd "$_src_fldr"
+  #git clone "$_repo"
+  git clone "https://${_GitHub_Token}@${_repo}" "${_src_fldr}"
+
+fi
+}
+#-------------------------------------------------------------------------------
+# Cloning method from a given repository
+#-------------------------------------------------------------------------------
+Git_Clone_project_to_TargetDir (){
+_src_fldr=$1
+_repo=$2
+_subdir=$3
+#-------------------------------------------------------------------------------
+if [ -d "$_src_fldr" ]
+then
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+
+  parent_dir="${_src_fldr}"
+  substring="$_subdir"
+
+  echo "echo --->: $parent_dir"
+  echo "echo --->: $substring"
+
+  found=0
+  for dir in "$parent_dir"/*/; do
+    if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
+      echo "Found matching directory: $dir"
+      found=1
+      break
+    fi
+  done
+
+  if [ "$found" -eq 1 ]; then
+    echo "Directory with substring '$substring' exists."
+    cd "$substring"
+    git pull
+    cd ..
+  fi
+
+else
+  $white; printf "Project                : "; $bold;
+  $magenta; printf '%s'"$_src_fldr"; $red; printf " does not exist, we will clone from GitHub.\n";
+  $white; $reset_colors;
+  # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
+  Batch_util_create_path "${_src_fldr}"
+  cd "$_src_fldr"
+  #git clone "$_repo"
+  git clone "$_repo" "${_src_fldr}"
+
 fi
 }
 #-------------------------------------------------------------------------------

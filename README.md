@@ -33,12 +33,39 @@ Requirements
 * Windows: The built in Visual Studio Tool Chain (clang)
 * Make, CMake, and CUDA-toolkit (12.x preferably)
 * Windows: Visual Studio 2019 community version
-* Python:
+* Python-3.12.8+:
     - psycopg2 (PostGreSQL access)
     - psycopg[binaries]
     - pyodbc (SQL access)
     - tqdm
     - selenium (automated testing on websites)
+ 
+GitHub access and password protected repos.
+------------
+Some repository require GitHub authentication password. This is done via a Git Token
+multifactor authentification mechanism.
+
+In the file ```common_main.sh``` in the root of the application two variables 
+have been set to provide the name of the file where the Token can be isolated in
+a secure place and the path to that file on the local host:
+
+```aiignore
+    GitHub_Token_File="Personal_GitHub_Token.sh"
+    GitHub_Token_File_dir="{path to GitHub_Token_File}"
+```
+
+In file ```Personal_GitHub_Token.sh``` all is required is the following:
+```aiignore
+    #!/usr/bin/bash
+    # Global variables
+    #-------------------------------------------------------------------------------
+    # Setting the github token value away from the project. 
+    #-------------------------------------------------------------------------------
+    __GitHub_Token="insert GitHub token here"
+```
+
+The GitHub Token is usually starting with ```ghp_``` and contains ```40``` characters
+(as of May 2025).
 
 How to use it
 -------------
