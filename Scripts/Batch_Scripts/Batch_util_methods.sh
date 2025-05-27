@@ -47,7 +47,7 @@ declare -a target_batch_dirs_array=()
 M=0
 while read line
 do
-    file_exists "${line}"
+    directory_exists "${line}"
 
     target_batch_dirs_array+=($(echo "$line"));
 
@@ -82,7 +82,7 @@ do
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
     # Submitting the batch script to the slurm queue.
     cd "${target_batch_dirs_array[i]}"
-    pwd
+    #pwd
     bash -s < "${target_batch_file_array[i]}" #>> "${LatticeRuns_dir}"/"Batch_submission.log" &
   elif [ "$file_exists" = 'no' ]
   then
