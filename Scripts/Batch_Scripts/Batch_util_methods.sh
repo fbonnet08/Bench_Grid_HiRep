@@ -4,7 +4,8 @@
 #-------------------------------------------------------------------------------
 Bash_LLR_submit_target_file_list_to_queue (){
 _target_file=$1
-_max_number_submitted_batch_scripts=$2 #variable passed but not used maybe later
+_target_dirs=$2
+_max_number_submitted_batch_scripts=$3 #variable passed but not used maybe later
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 # Check if target file exists first
@@ -37,9 +38,26 @@ do
 
     N=$(expr $N + 1)
 done < "$_target_file"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; printf "Reading in target file: "; $bold;
+$yellow; printf "${_target_dirs}\n"; $white; $reset_colors;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo ""
+declare -a target_batch_dirs_array=()
+M=0
+while read line
+do
+    file_exists "${line}"
+
+    target_batch_dirs_array+=($(echo "$line"));
+
+    M=$(expr $M + 1)
+done < "$_target_dirs"
 
 $cyan; printf "Read in from target   : "; $bold;
 $yellow; printf "${N}"; $cyan; printf " batch scripts to be submitted.\n"; $white; $reset_colors;
+$cyan; printf "Read in from target   : "; $bold;
+$yellow; printf "${M}"; $cyan; printf " batch scripts to be submitted.\n"; $white; $reset_colors;
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Now looping through the target batch file array:\n";
@@ -56,12 +74,14 @@ do
   $cyan; printf "\n"; $white; $reset_colors;
 
   file_exists "${target_batch_file_array[i]}"
+  directory_exists "${target_batch_dirs_array[i]}"
 
   if [ "$file_exists" = 'yes' ]
   then
     printf "                       : "; $bold;
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
     # Submitting the batch script to the slurm queue.
+    cd "${target_batch_dirs_array[i]}"
     bash -s < "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
   elif [ "$file_exists" = 'no' ]
   then
