@@ -45,7 +45,7 @@ source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #llr_codes="${sourcecode_dir}/Hirep_LLR_SP"
 llr_codes="${Hirep_LLR_SP_dir}"
 llr_input="${LLR_HiRep_heatbath_input_dir}"
-llr_LatticeRuns="${LatticeRuns_Hirep_LLR_SP_dir}" # TODO: put the LatticeRunS LatticeRuns/Hirep_LLR_SP
+llr_LatticeRuns="${LatticeRuns_Hirep_LLR_SP_dir}"
 #-------------------------------------------------------------------------------
 # Now compressing the codes
 #-------------------------------------------------------------------------------

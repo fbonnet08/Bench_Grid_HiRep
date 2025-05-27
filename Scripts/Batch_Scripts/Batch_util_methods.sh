@@ -106,14 +106,14 @@ if [ -f "${_input_filename}" ]
     $white; $reset_colors;
     file_exists="yes"
     printf "      file_exists ---->: "; $bold;
-    $green; printf "$file_exists.\n"; $reset_colors;
+    $green; printf "$file_exists\n"; $reset_colors;
   else
     $white; printf "File                   : "; $bold;
     $yellow; printf '%s'"${_input_filename}"; $red;printf " --->: does not exist.\n";
     $white; $reset_colors;
     file_exists="no"
     printf "      file_exists ---->: "; $bold;
-    $red; printf "$file_exists.\n"; $reset_colors;
+    $red; printf "$file_exists\n"; $reset_colors;
 fi
 }
 #-------------------------------------------------------------------------------
@@ -130,14 +130,14 @@ if [ -d "${_input_directory}" ]
     $white; $reset_colors;
     directory_exists="yes"
     printf " directory_exists ---->: "; $bold;
-    $green; printf "$directory_exists.\n"; $reset_colors;
+    $green; printf "$directory_exists\n"; $reset_colors;
   else
     $white; printf "Directory              : "; $bold;
     $yellow; printf '%s'"${_input_directory}"; $red;printf " --->: does not exist.\n";
     $white; $reset_colors;
     directory_exists="no"
     printf " directory_exists ---->: "; $bold;
-    $red; printf "$directory_exists.\n"; $reset_colors;
+    $red; printf "$directory_exists\n"; $reset_colors;
 fi
 }
 #-------------------------------------------------------------------------------
@@ -177,17 +177,27 @@ _repo=$2
 _GitHub_Token=$3
 _subdir=$4
 #-------------------------------------------------------------------------------
-if [ -d "$_src_fldr" ]
-then
-  $white; printf "Project                : "; $bold;
+  $white; printf "Source folder          : "; $bold;
   $magenta; printf '%s'"$_src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+  $white; printf "Project                : "; $bold;
+  $yellow; printf '%s'"$_subdir"; $green; printf "\n";
   $white; $reset_colors;
 
   parent_dir="${_src_fldr}"
   substring="$_subdir"
 
-  echo "echo --->: $parent_dir"
-  echo "echo --->: $substring"
+  $white; printf "Parent directory       : "; $bold;
+  $yellow; printf '%s'"$parent_dir"; $green; printf "\n";
+  $white; $reset_colors;
+  $white; printf "Substring              : "; $bold;
+  $yellow; printf '%s'"$substring"; $green; printf "\n";
+  $white; $reset_colors;
+#-------------------------------------------------------------------------------
+if [ -d "$_src_fldr" ]
+then
+
+  pwd
 
   found=0
   for dir in "$parent_dir"/*/; do
@@ -200,9 +210,12 @@ then
 
   if [ "$found" -eq 1 ]; then
     echo "Directory with substring '$substring' exists."
-    cd "$substring"
-    git pull
-    cd ..
+    pwd
+    cd "${parent_dir}/${substring}"
+    pwd
+    #git pull
+    git pull "https://${_GitHub_Token}@${_repo}"
+    cd "${_src_fldr}"
   fi
 
 else
@@ -211,7 +224,7 @@ else
   $white; $reset_colors;
   # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
   Batch_util_create_path "${_src_fldr}"
-  cd "$_src_fldr"
+  #cd "$_src_fldr"
   #git clone "$_repo"
   git clone "https://${_GitHub_Token}@${_repo}" "${_src_fldr}"
 
@@ -225,17 +238,30 @@ _src_fldr=$1
 _repo=$2
 _subdir=$3
 #-------------------------------------------------------------------------------
-if [ -d "$_src_fldr" ]
-then
-  $white; printf "Project                : "; $bold;
+  $white; printf "Source folder          : "; $bold;
   $magenta; printf '%s'"$_src_fldr"; $green; printf " exist, we will update it with a pull.\n";
+  $white; $reset_colors;
+  $white; printf "Project                : "; $bold;
+  $cyan; printf '%s'"$_subdir"; $green; printf "\n";
+  $white; $reset_colors;
+  $white; printf "Repository             : "; $bold;
+  $yellow; printf '%s'"$_repo"; $green; printf "\n";
   $white; $reset_colors;
 
   parent_dir="${_src_fldr}"
   substring="$_subdir"
 
-  echo "echo --->: $parent_dir"
-  echo "echo --->: $substring"
+  $white; printf "Parent directory       : "; $bold;
+  $yellow; printf '%s'"$parent_dir"; $green; printf "\n";
+  $white; $reset_colors;
+  $white; printf "Substring              : "; $bold;
+  $red; printf '%s'"$substring"; $green; printf "\n";
+  $white; $reset_colors;
+#-------------------------------------------------------------------------------
+if [ -d "${_src_fldr}/${substring}" ]
+then
+
+  pwd
 
   found=0
   for dir in "$parent_dir"/*/; do
@@ -248,9 +274,11 @@ then
 
   if [ "$found" -eq 1 ]; then
     echo "Directory with substring '$substring' exists."
-    cd "$substring"
+    pwd
+    cd "${parent_dir}/${substring}"
+    pwd
     git pull
-    cd ..
+    cd "${_src_fldr}"
   fi
 
 else
@@ -259,9 +287,9 @@ else
   $white; $reset_colors;
   # Creating src_fldr method located in ./Scripts/Batch_Scripts/Batch_util_methods.sh
   Batch_util_create_path "${_src_fldr}"
-  cd "$_src_fldr"
+  #cd "$_src_fldr"
   #git clone "$_repo"
-  git clone "$_repo" "${_src_fldr}"
+  git clone "$_repo"
 
 fi
 }

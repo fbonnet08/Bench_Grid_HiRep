@@ -43,7 +43,7 @@ case ${remote_hostname} in
     add_connect_string="-X -i ~/.ssh/id_rsa -p 7005"
   ;;
   *"login.vega.izum.si"*)
-    add_connect_string="-X -i ~/.ssh/id_ed255"
+    add_connect_string="-i ~/.ssh/id_ed255"
   ;;
   *"login.leonardo.cineca.it"*)
     rm ~/.ssh/known_hosts;
@@ -83,10 +83,14 @@ esac
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Creating LLR structure :\n"; $white; $reset_colors;
 
-bash -s < ./creator_bench_LLR_DataStructure.sh "$project_account" "$remote_hostname" "$user_remote_home_dir" "SwanSea/SourceCodes/external_lib";
+bash -s < ./creator_bench_LLR_DataStructure.sh "$project_account"                \
+                                               "$remote_hostname"                \
+                                               "$user_remote_home_dir"           \
+                                               "SwanSea/SourceCodes/external_lib";
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan;  printf "Created tar ball      : "; $yellow; printf "%s\n" "${lib_dir}.gz";$white; $reset_colors;
+$cyan;  printf "Created tar ball      : "; $yellow; printf "%s\n" "${lib_dir}.gz";
+$white; $reset_colors;
 sourcecode_local_dir=${HOME}/SwanSea/SourceCodes
 ball_llr_codes="${sourcecode_local_dir}/ball_HiRep-LLR-SP.tar"
 ball_llr_input="${sourcecode_local_dir}/ball_LLR_HiRep_heatbath_input.tar"
@@ -97,15 +101,19 @@ if [ -f "${ball_llr_codes}.gz"       ]; then n_ball_tar=$(expr $n_ball_tar + 1);
 if [ -f "${ball_llr_input}.gz"       ]; then n_ball_tar=$(expr $n_ball_tar + 1); fi
 if [ -f "${ball_llr_LatticeRuns}.gz" ]; then n_ball_tar=$(expr $n_ball_tar + 1); fi
 
-$cyan; printf "Number of tar balls   : "; $yellow; printf "%i\n" "${n_ball_tar}";$white; $reset_colors;
+$cyan; printf "Number of tar balls   : "; $yellow; printf "%i\n" "${n_ball_tar}";
+$white; $reset_colors;
 
 if [ "$n_ball_tar" -ne 3 ];
 then
   bash -s < ./creator_tarball_HiRep-LLR-HB_Runs.sh "${lib_dir}";
-  $cyan; printf "Uploading tar balls ->: "; $yellow; printf "%i\n" "${remote_hostname}";
+  $cyan; printf "Uploading tar balls ->: "; $yellow; printf "%s\n" "${remote_hostname}";
   $white; $reset_colors;
 
   #TODO: need to create the uploader to remote machine
+  scp ${add_connect_string} \
+  "${ball_llr_codes}.gz" "${ball_llr_input}.gz" "${ball_llr_LatticeRuns}.gz" \
+  "${user_remote_host}:${source_dir}"
 
 fi
 
@@ -290,7 +298,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_strong;
-#bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
+bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
 "
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}

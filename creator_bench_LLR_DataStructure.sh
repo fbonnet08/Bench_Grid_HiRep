@@ -5,7 +5,7 @@ scrfipt_file_name=$(basename "$0")
 tput bold;
 echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
 echo "!                                                                       !"
-echo "!     Code to launch BKeeper benchmarker                                !"
+echo "!     Code to create bench_LLR_DataStructure                            !"
 echo "!     $scrfipt_file_name                                            !"
 echo "!     [Author]: Frederic Bonnet November 2024                           !"
 echo "!     [usage]: creator_bench_LLR_DataStructure.sh   {Input list}        !"
@@ -80,6 +80,7 @@ case $__machine_name in
    __module_list="CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
+    __qos="normal"
     __module_list="CUDA/12.1.1 GCC/11.3.0 UCX/1.12.1-GCCcore-11.3.0 OpenMPI/4.1.4-GCC-11.3.0 Python/3.10.4-GCCcore-11.3.0 FFTW/3.3.10-GCC-11.3.0 OpenSSL/3; module list;"
     ;;
   *"lumi"*)
@@ -95,6 +96,7 @@ case $__machine_name in
     __module_list="rocm amdclang hdf5 fftw openmpi; module list;"
     ;;
   *"MareNostrum"*)
+    __qos="gp_ehpc"
     __module_list="cuda/12.1 gcc/11.4.0 ucx/1.16.0 openmpi/4.1.5-ucx1.16-gcc mkl/2021.4.0 hdf5/1.14.1-2-gcc-ompi; module list;"
     ;;
 esac
@@ -125,8 +127,8 @@ printf "\n"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Moving to LatticeRuns  : "; $bold;
 $magenta; printf "${LatticeRuns_dir}\n"; $white; $reset_colors;
-cd "${LatticeRuns_dir}"
-ls -al
+#cd "${LatticeRuns_dir}"
+#ls -al
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Checking directories   :\n"; $white; $reset_colors;
@@ -135,29 +137,42 @@ directory_exists "${llr_codes}"; dir_Hirep_LLR_SP_exists="$directory_exists";
 directory_exists "${llr_input}"; dir_LLR_HiRep_heatbath_input_exists="$directory_exists";
 directory_exists "${_some_dir}"; dir_some_other_directory_exists=$directory_exists;
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ "$dir_Hirep_LLR_SP_exists" == "yes" ]
 then
   $cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_codes}";$white; $reset_colors;
+  pwd
   ls "$llr_codes"
-  cd "$llr_codes"
-  git pull
-  cd ..
+  #cd "$llr_codes"
+  pwd
+  #git pull
+  source ${GitHub_Token_File_dir}/${GitHub_Token_File}
+  Git_Clone_project_with_GitHub_Token "${sourcecode_dir}"       \
+                                      "${Hirep_LLR_SP_git_url}" \
+                                      "${__GitHub_Token}"       \
+                                      "$Hirep_LLR_SP";
+
+  pwd
+  #cd ..
 elif [ "$dir_Hirep_LLR_SP_exists" == "no" ]
 then
+  $cyan; printf "Cloning the project    : "; $yellow; printf "%s\n" "${Hirep_LLR_SP_git_url}";
+  $white; $reset_colors;
   $cyan; printf "Try to retrieve from   : "; $yellow; printf "%s\n" "${llr_codes}";$white; $reset_colors;
-  source ${GitHub_Token_File_dir}/${GitHub_Token_File}
 
   echo "__GitHub_Token      -->: ${__GitHub_Token}"
   echo "GitHub Hirep_LLR_SP -->: ${Hirep_LLR_SP_git_url}"
 
   #git clone "https://${__GitHub_Token}@${Hirep_LLR_SP_git_url}" "${sourcecode_dir}"
-
+  source ${GitHub_Token_File_dir}/${GitHub_Token_File}
   Git_Clone_project_with_GitHub_Token "${sourcecode_dir}"       \
                                       "${Hirep_LLR_SP_git_url}" \
                                       "${__GitHub_Token}"       \
                                       "$Hirep_LLR_SP";
+  pwd
 fi
 
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ "$dir_LLR_HiRep_heatbath_input_exists" == "yes" ]
 then
   $cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_input}";$white; $reset_colors;
@@ -208,8 +223,9 @@ $white; printf "machine name           : ";$red;     printf "%s\n" "${__machine_
 $white; printf "input_params_csv       : ";$magenta; printf "%s\n" "${llr_input}/input/${__machine_name}.csv";
 $white; printf "module list            : ";$green;   printf "%s\n" "${__module_list}";          $reset_colors;
 $white; printf "Partition              : ";$cyan;    printf "%s\n" "${target_partition_cpu}";   $reset_colors;
-path_llr_exec="${\${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB}"
-path_to_run_dir="${LatticeRuns_dir}/Hirep_LLR_SP/LLR_HB"
+path_llr_exec="\${HOME}/${SwanSea_SourceCodes}/${Hirep_LLR_SP}/LLR_HB"
+path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
+$white; printf "qos                    : ";$cyan;    printf "%s\n" "${__qos}";                  $reset_colors;
 $white; printf "account                : ";$cyan;    printf "%s\n" "${__project_account}";      $reset_colors;
 $white; printf "run_index              : ";$cyan;    printf "%i\n" "1";                         $reset_colors;
 $white; printf "path_llr_exec          : ";$cyan;    printf "%s\n" "$path_llr_exec";            $reset_colors;
@@ -224,16 +240,50 @@ $white; printf "#----------------------- ";printf "\n"; $reset_colors;
 #: '
 if [ "$dir_LLR_HiRep_heatbath_input_exists" == "yes" ]
 then
-  python3 \
-    "${llr_input}"/main.py \
-    --machine "${__machine_name}" \
-    --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
-    --modules "${__module_list}" \
-    --partition "${target_partition_cpu}" \
-    --account "${__project_account}" \
-    --run_index 1 \
-    --path_llr_exec "\${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB" \
-    --output_run_dir "${LatticeRuns_dir}/Hirep_LLR_SP/LLR_HB"
+  case $__machine_name in
+    *"Precision-3571"*)
+      ;;
+    *"DESKTOP-GPI5ERK"*)
+      ;;
+    *"desktop-dpr4gpr"*)
+      ;;
+    *"tursa"*)
+      ;;
+    *"sunbird"*)
+      ;;
+    *"vega"*)
+      python3 \
+        "${llr_input}"/main.py \
+        --machine "${__machine_name}" \
+        --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
+        --modules "${__module_list}" \
+        --partition "${target_partition_cpu}" \
+        --run_index 1 \
+        --path_llr_exec "${path_llr_exec}" \
+        --output_run_dir "${path_to_run_dir}"
+      ;;
+    *"lumi"*)
+      ;;
+    *"leonardo"*)
+      ;;
+    *"mi300"*)
+      ;;
+    *"mi210"*)
+      ;;
+    *"MareNostrum"*)
+      python3 \
+        "${llr_input}"/main.py \
+        --machine "${__machine_name}" \
+        --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
+        --modules "${__module_list}" \
+        --partition "${target_partition_cpu}" \
+        --qos "${__qos}" \
+        --account "${__project_account}" \
+        --run_index 1 \
+        --path_llr_exec "${path_llr_exec}" \
+        --output_run_dir "${path_to_run_dir}"
+      ;;
+  esac
 fi
 #'
 #  --output_run_dir "${HOME}/EuroHPC/MareNostrum/SwanSea/SourceCodes/LatticeRuns/Hirep_LLR_SP/LLR_HB"
@@ -244,7 +294,7 @@ echo
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan; echo `date`; $blue;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-echo "-                  creator_bench_LLR_DataStructure.sh Done.       -      -"
+echo "-                  creator_bench_LLR_DataStructure.sh Done.             -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $white; $reset_colors;
 #exit

@@ -1,4 +1,36 @@
 
+      cat "${target_directories_LLR_HiRep_HB_run_cpu}" | while read run_dir; do
+          ls "$run_dir"
+      done
+
+
+      find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/*/" \
+              -maxdepth 1 -type f -name "setup_llr_repeat.sh" -exec basename {} \;   \
+              > "${target_directories_LLR_HiRep_HB_run_cpu}"
+
+
+
+: '
+python3 \
+  main.py \
+  --input_params_csv MareNostrum.csv \
+  --machine MareNostrum \
+  --partition gp \
+  --account ehpc191 \
+  --modules "gcc/12.3.0 openmpi/4.1.5-gcc" \
+  --run_index 1 \
+  --path_llr_exec "\${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB" \
+  --output_run_dir "${HOME}/SwanSea/SourceCodes/Hirep_LLR_SP/LLR_HB"
+
+'
+
+
+
+  echo "echo --->: $parent_dir"
+  echo "echo --->: $substring"
+
+
+
 # Directory check
 parent_dir="/path/to/parent"
 substring="target_substring"

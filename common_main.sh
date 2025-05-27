@@ -105,8 +105,8 @@ else
 fi
 #-------------------------------------------------------------------------------
 #[Path-structure] Setting up the directory structure for the download
-
-sourcecode_dir=${HOME}/SwanSea/SourceCodes
+SwanSea_SourceCodes="SwanSea/SourceCodes"
+sourcecode_dir=${HOME}/${SwanSea_SourceCodes}
 Batch_util_create_path "${sourcecode_dir}"
 sombrero_dir=${sourcecode_dir}/Sombrero/SOMBRERO
 bkeeper_dir=${sourcecode_dir}/BKeeper
@@ -200,6 +200,7 @@ target_Grid_DWF_run_gpu_large_batch_files="target_Grid_DWF_run_gpu_large_batch_f
 #-------------------------------------------------------------------------------
 # Grid_DWF[small-large]-[gpu]:
 #-------------------------------------------------------------------------------
+target_LLR_HiRep_HB_run_cpu_directories="target_LLR_HiRep_HB_run_cpu_directories.txt"
 target_LLR_HiRep_HB_run_cpu_batch_files="target_LLR_HiRep_HB_run_cpu_batch_files.txt"
 #-------------------------------------------------------------------------------
 $green; $bold;
