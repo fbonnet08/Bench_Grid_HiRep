@@ -120,8 +120,8 @@ case "$__batch_action" in
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------
       # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-      Batch_submit_target_file_list_to_queue "${target_directories_LLR_HiRep_HB_run_cpu}"  \
-                                              "${max_number_submitted_batch_scripts}"
+      Bash_LLR_submit_target_file_list_to_queue "${target_directories_LLR_HiRep_HB_run_cpu}"  \
+                                                "${max_number_submitted_batch_scripts}"
       printf "${target_directories_LLR_HiRep_HB_run_cpu} <--::--> ${target_directories_LLR_HiRep_HB_run_cpu}\n"
       #-------------------------------------------------------------------------
     ;;
