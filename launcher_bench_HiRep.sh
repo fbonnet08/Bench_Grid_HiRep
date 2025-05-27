@@ -114,15 +114,22 @@ case "$__batch_action" in
       # First look for directory in LLR_HB directory.
       target_directories_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
       find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
-              -type f -name "setup_llr_repeat.sh"   \
+              -maxdepth 1 -type d -name "Run_*"   \
               > "${target_directories_LLR_HiRep_HB_run_cpu}"
+      # Second getting the bash files in LLR_HB directory.
+      target_bash_files_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
+      find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
+              -type f -name "setup_llr_repeat.sh"   \
+              > "${target_bash_files_LLR_HiRep_HB_run_cpu}"
+
+
       #-------------------------------------------------------------------------
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------
       # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
-      Bash_LLR_submit_target_file_list_to_queue "${target_directories_LLR_HiRep_HB_run_cpu}"  \
+      Bash_LLR_submit_target_file_list_to_queue "${target_bash_files_LLR_HiRep_HB_run_cpu}"  \
                                                 "${max_number_submitted_batch_scripts}"
-      printf "${target_directories_LLR_HiRep_HB_run_cpu} <--::--> ${target_directories_LLR_HiRep_HB_run_cpu}\n"
+      printf "${target_bash_files_LLR_HiRep_HB_run_cpu} <--::--> ${target_directories_LLR_HiRep_HB_run_cpu}\n"
       #-------------------------------------------------------------------------
     ;;
 esac
