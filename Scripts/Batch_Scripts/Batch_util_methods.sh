@@ -73,8 +73,8 @@ do
   $cyan; printf "#------>: File #--->: "; $red;     printf "${target_batch_file_array[i]}";
   $cyan; printf "\n"; $white; $reset_colors;
 
-  file_exists "${target_batch_file_array[i]}"
   directory_exists "${target_batch_dirs_array[i]}"
+  file_exists "${target_batch_file_array[i]}"
 
   if [ "$file_exists" = 'yes' ]
   then
@@ -82,7 +82,8 @@ do
     $white; printf "YES ---> sbatch submitting to the queue....\n"; $reset_colors;
     # Submitting the batch script to the slurm queue.
     cd "${target_batch_dirs_array[i]}"
-    bash -s < "${target_batch_file_array[i]}" >> "${LatticeRuns_dir}"/"Batch_submission.log" &
+    pwd
+    bash -s < "${target_batch_file_array[i]}" #>> "${LatticeRuns_dir}"/"Batch_submission.log" &
   elif [ "$file_exists" = 'no' ]
   then
     printf "                       : "; $bold;
