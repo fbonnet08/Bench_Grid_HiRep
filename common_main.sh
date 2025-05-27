@@ -201,7 +201,7 @@ target_Grid_DWF_run_gpu_large_batch_files="target_Grid_DWF_run_gpu_large_batch_f
 # Grid_DWF[small-large]-[gpu]:
 #-------------------------------------------------------------------------------
 target_LLR_HiRep_HB_run_cpu_directories="target_LLR_HiRep_HB_run_cpu_directories.txt"
-target_LLR_HiRep_HB_run_cpu_batch_files="target_LLR_HiRep_HB_run_cpu_batch_files.txt"
+target_LLR_HiRep_HB_run_cpu_batch_files="target_LLR_HiRep_HB_run_cpu_bash_files.txt"
 #-------------------------------------------------------------------------------
 $green; $bold;
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
