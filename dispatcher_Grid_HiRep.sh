@@ -110,11 +110,9 @@ then
   $cyan; printf "Uploading tar balls ->: "; $yellow; printf "%s\n" "${remote_hostname}";
   $white; $reset_colors;
 
-  #TODO: need to create the uploader to remote machine
   scp ${add_connect_string} \
   "${ball_llr_codes}.gz" "${ball_llr_input}.gz" "${ball_llr_LatticeRuns}.gz" \
   "${user_remote_host}:${source_dir}"
-
 fi
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
@@ -282,23 +280,25 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 #bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Hirep_LLR-SP_HB.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_dependencies.sh              SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Grid.sh                      SwanSea/SourceCodes/external_lib;
-#bash -s < ./install_Grid.sh                    SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_Grid-DWF-Telos.sh            SwanSea/SourceCodes/external_lib;
-#bash -s < ./install_Grid-DWF-Telos.sh          SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid.sh                       SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid.sh                     SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Grid-DWF-Telos.sh             SwanSea/SourceCodes/external_lib;
+#bash -s < ./install_Grid-DWF-Telos.sh           SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_SombreroBKeeper.sh           SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_SombreroBKeeper.sh            SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./launcher_bench_BKeeper.sh           SwanSea/SourceCodes/external_lib BKeeper_run_gpu
 #bash -s < ./launcher_bench_Grid-DWF-Telos.sh    SwanSea/SourceCodes/external_lib Grid_DWF_run_gpu
 
-#bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_weak;
-#bash -s < ./launcher_bench_Sombrero.sh        SwanSea/SourceCodes/external_lib Sombrero_strong;
-bash -s < ./launcher_bench_HiRep.sh           SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
+#bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_weak;
+#bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_strong;
+
+bash -s < ./deflator_tarball_HiRep-LLR-HB_Runs.sh  SwanSea/SourceCodes/external_lib
+bash -s < ./launcher_bench_HiRep.sh              SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
 "
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}

@@ -104,6 +104,11 @@ else
   machine_name="Other-Linux-Distribution"
 fi
 #-------------------------------------------------------------------------------
+#[Path-structure] Project maintenance data structure
+euroHPC_call="EHPC-BEN-2025B03-046"
+previous_runs_dir="PreviousRuns"
+logged_runs_dir=${HOME}/${euroHPC_call}/${previous_runs_dir}
+#-------------------------------------------------------------------------------
 #[Path-structure] Setting up the directory structure for the download
 SwanSea_SourceCodes="SwanSea/SourceCodes"
 sourcecode_dir=${HOME}/${SwanSea_SourceCodes}
@@ -130,7 +135,8 @@ LLR_HiRep_heatbath_input_dir=${sourcecode_dir}/${LLR_HiRep_heatbath_input}
 # The tar balls
 ball_llr_codes="${sourcecode_dir}/ball_HiRep-LLR-SP.tar"
 ball_llr_input="${sourcecode_dir}/ball_LLR_HiRep_heatbath_input.tar"
-ball_llr_LatticeRuns="${sourcecode_dir}/ball_LatticeRuns_Hirep_LLR_SP.tar"
+ball_llr_LatticeRuns_name="ball_LatticeRuns_Hirep_LLR_SP.tar"
+ball_llr_LatticeRuns="${sourcecode_dir}/${ball_llr_LatticeRuns_name}"
 # Some random directory in sourcecode_dir directory for sanity checks and test
 some_dir=${sourcecode_dir}/some_other_directory
 
