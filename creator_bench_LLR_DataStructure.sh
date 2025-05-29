@@ -97,7 +97,7 @@ case $__machine_name in
     ;;
   *"MareNostrum"*)
     __qos="gp_ehpc"
-    __module_list="cuda/12.1 gcc/11.4.0 ucx/1.16.0 openmpi/4.1.5-ucx1.16-gcc mkl/2021.4.0 hdf5/1.14.1-2-gcc-ompi; module list;"
+    __module_list="gcc/12.3.0 openmpi/4.1.5-gcc; module list;"
     ;;
 esac
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"

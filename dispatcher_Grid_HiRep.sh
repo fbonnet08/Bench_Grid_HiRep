@@ -266,7 +266,9 @@ case ${remote_hostname} in
     module list;
     ;;
   *\"glogin1.bsc.es\"*)
-
+    source /etc/profile.d/01-module.sh
+    module load gcc/12.3.0 openmpi/4.1.5-gcc;
+    module list;
     ;;
 esac
 \$green; printf \"done.\n\"; \$reset_colors;

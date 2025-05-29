@@ -32,7 +32,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
+#sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
 # GPU-Node
 #sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
 # # CPU-Node comon file system with the gpu node
-#sh ./dispatcher_Grid_HiRep.sh  swan127136  not_required  glogin1.bsc.es
+sh ./dispatcher_Grid_HiRep.sh  swan127136  not_required  glogin1.bsc.es
 #-------------------------------------------------------------------------------
 # [Leonardo]: Authentication  procedure.
 #-------------------------------------------------------------------------------
