@@ -62,8 +62,10 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Launching HiRep tar ball deflator:\n"; $white; $reset_colors;
 
 #Checking if the tar ball exists
-$white; printf "Tarball name           : ";$red;     printf "%s\n" "${ball_llr_LatticeRuns_name}.gz"; $reset_colors;
-$white; printf "Path to tarball        : ";$red;     printf "%s\n" "${ball_llr_LatticeRuns}.gz"; $reset_colors;
+$white; printf "Tarball name           : ";$red; printf "%s\n" "${ball_llr_LatticeRuns_name}.gz";
+$reset_colors;
+$white; printf "Path to tarball        : ";$red; printf "%s\n" "${ball_llr_LatticeRuns}.gz";
+$reset_colors;
 
 file_exists "${ball_llr_LatticeRuns}.gz"
 
@@ -89,9 +91,11 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d "$move_runs_from" ] && [ -d "${move_runs_to}" ]
 then
-  $white; printf "Moving directories     : ";$cyan;    printf "%s\n" "$move_runs_from"; $reset_colors;
+  $white; printf "Moving directories     : ";$cyan;  printf "%s\n" "$move_runs_from";
+  $reset_colors;
   directory_exists "${move_runs_from}"; dir_move_runs_from_exists="$directory_exists";
-  $white; printf "Target and source dir  : ";$green; printf "%s\n" "exist, moving directory ..."; $reset_colors;
+  $white; printf "Target and source dir  : ";$green; printf "%s\n" "exist, moving directory ...";
+  $reset_colors;
   mv "$move_runs_from" "${move_runs_to}"
 else
   $white; printf "Nothing to move        : ";$cyan;    printf "%s\n" "$move_runs_from"; $reset_colors;
@@ -103,7 +107,7 @@ fi
 
 cd "${LatticeRuns_dir}"
 cp "${ball_llr_LatticeRuns}.gz" .
-tar xvfz "${ball_llr_LatticeRuns_name}.gz"
+tar xfz "${ball_llr_LatticeRuns_name}.gz"
 cd "${sourcecode_dir}"
 ls -al
 pwd
