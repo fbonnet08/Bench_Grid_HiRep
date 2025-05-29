@@ -62,7 +62,7 @@ $white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_d
 # Setting the external lib_dir
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_dir="SwanSea/SourceCodes"
-lib_dir="$src_dir"/"external_lib";
+lib_dir="${src_dir}/external_lib";
 lat_run_dir="$src_dir"/"LatticeRuns";
 #external_lib_dir=$(echo $user_remote_home_dir$sptr$lib_dir | tr -d ' ')
 chopped=$(echo "${user_remote_home_dir}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
@@ -86,7 +86,7 @@ $green; printf "Creating LLR structure :\n"; $white; $reset_colors;
 bash -s < ./creator_bench_LLR_DataStructure.sh "$project_account"                \
                                                "$remote_hostname"                \
                                                "$user_remote_home_dir"           \
-                                               "SwanSea/SourceCodes/external_lib";
+                                               "$lib_dir";
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan;  printf "Created tar ball      : "; $yellow; printf "%s\n" "${lib_dir}.gz";
@@ -204,6 +204,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
 cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh creator_bench_*.sh ${external_lib_dir}
 cp -rv clean_all_builds.sh config_*.sh ./Scripts ${external_lib_dir}
+cp -v  creator_tarball_*.sh  deflator_tarball_*.sh ${external_lib_dir}
 cp -v kill_*.sh ${LatticeRuns_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
