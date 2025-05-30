@@ -109,6 +109,11 @@ euroHPC_call="EHPC-BEN-2025B03-046"
 previous_runs_dir="PreviousRuns"
 logged_runs_dir=${HOME}/${euroHPC_call}/${previous_runs_dir}
 #-------------------------------------------------------------------------------
+#[Path-structure] Data paths
+data_name="data"
+data_dir="${HOME}/${data_name}"
+DWF_ensembles_GRID_dir="${data_dir}/DWF_ensembles_GRID/nf2_fund_sp4"
+#-------------------------------------------------------------------------------
 #[Path-structure] Setting up the directory structure for the download
 SwanSea_SourceCodes="SwanSea/SourceCodes"
 sourcecode_dir=${HOME}/${SwanSea_SourceCodes}
@@ -377,6 +382,8 @@ declare -a path_to_data_dir=(
               "$grid_DWF_Telos_dir"
               "$basedir"
               "$prefix"
+              "$data_dir"
+              "$DWF_ensembles_GRID_dir"
               )
 # getting the length of the strings
 max_string_array=()

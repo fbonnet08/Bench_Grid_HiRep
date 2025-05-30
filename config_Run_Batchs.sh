@@ -83,12 +83,18 @@ declare -a mass=("0.08")
 #MASS=100
 declare -a nsteps=(27)
 declare -a savefreq=(10)
-declare -a beta=("6.9")
+declare -a beta=("6.9") # "7.4")
 declare -a tlen=(1)
 declare -a dwf_mass=("1.8")
 declare -a Mobius_b=("1.5")
 declare -a Mobius_c=("0.5")
 declare -a Ls=(8)
+
+# DWF-Telos fermions
+declare -a beta_telos=("6.9" "7.4")
+declare -a mass_telos=("0.08" "0.10")
+declare -a grid_dwf_telos_lattice_size_gpu=("24.24.24.32" "48.48.48.48") #("32.32.32.64") #("16.16.16.32")   #
+
 #-------------------------------------------------------------------------------
 # HiRep LLR HMC CPU:
 #-------------------------------------------------------------------------------

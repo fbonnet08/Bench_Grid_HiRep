@@ -121,8 +121,6 @@ case "$__batch_action" in
       find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
               -type f -name "setup_llr_repeat.sh"   \
               > "${target_bash_files_LLR_HiRep_HB_run_cpu}"
-
-
       #-------------------------------------------------------------------------
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------

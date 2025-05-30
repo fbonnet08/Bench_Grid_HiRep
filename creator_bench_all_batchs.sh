@@ -25,10 +25,11 @@ __external_lib_dir=$2   #SwanSea/SourceCodes/external_lib
 #-------------------------------------------------------------------------------
 # [Bench] Creating the case batch file
 #-------------------------------------------------------------------------------
-bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_weak;
-bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_strong;
-bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
-bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Grid_DWF_run_gpu;
+#bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_weak;
+#bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Sombrero_strong;
+#bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" BKeeper_run_gpu;
+#bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Grid_DWF_run_gpu;
+bash -s < ./creator_bench_controller_batch.sh "$__project_account" "$__external_lib_dir" Grid_DWF_Telos_run_gpu;
 
 #bash -s < ./creator_phys_controller_batch.sh  "$__project_account" "$__external_lib_dir" Grid_DWF_run_gpu;
 

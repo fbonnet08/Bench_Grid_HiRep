@@ -281,7 +281,7 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-#bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
+bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
 
@@ -300,8 +300,8 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_strong;
 
-bash -s < ./deflator_tarball_HiRep-LLR-HB_Runs.sh  SwanSea/SourceCodes/external_lib
-bash -s < ./launcher_bench_HiRep.sh              SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
+#bash -s < ./deflator_tarball_HiRep-LLR-HB_Runs.sh  SwanSea/SourceCodes/external_lib
+#bash -s < ./launcher_bench_HiRep.sh              SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
 "
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;
 #scp -r ./dependencies_Grid.sh ./Scripts ${user_remote_host}:${external_lib_dir}
