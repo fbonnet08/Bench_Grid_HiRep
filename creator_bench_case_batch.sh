@@ -42,14 +42,15 @@ __batch_file_out=${batch_Scripts_dir}/"Run_${__batch_action}.sh"
 #-------------------------------------------------------------------------------
 # Function defined in ./config_batch_action.sh
 case $__batch_action in
-  *"Sombrero_weak"*)        config_Batch_Sombrero_weak_cpu    ;;
-  *"Sombrero_strong"*)      config_Batch_Sombrero_strong_cpu  ;;
-  *"BKeeper_run_cpu"*)      config_Batch_BKeeper_run_cpu      ;;
-  *"BKeeper_run_gpu"*)      config_Batch_BKeeper_run_gpu      ;;
-  *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
-  *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
-  *"BKeeper_compile"*)      config_Batch_BKeeper_compile_cpu  ;;
-  *"Grid_DWF_run_gpu"*)     config_Batch_Grid_DWF_run_gpu     ;;
+  *"Sombrero_weak"*)          config_Batch_Sombrero_weak_cpu      ;;
+  *"Sombrero_strong"*)        config_Batch_Sombrero_strong_cpu    ;;
+  *"BKeeper_run_cpu"*)        config_Batch_BKeeper_run_cpu        ;;
+  *"BKeeper_run_gpu"*)        config_Batch_BKeeper_run_gpu        ;;
+  *"HiRep-LLR-master-cpu"*)   config_Batch_HiRep-LLR-master_cpu   ;;
+  *"HiRep-LLR-master-gpu"*)   config_Batch_HiRep-LLR-master_gpu   ;;
+  *"BKeeper_compile"*)        config_Batch_BKeeper_compile_cpu    ;;
+  *"Grid_DWF_run_gpu"*)       config_Batch_Grid_DWF_run_gpu       ;;
+  *"Grid_DWF_Telos_run_gpu"*) config_Batch_Grid_DWF_Telos_run_gpu ;;
   *)
     echo
     $red; printf "The batch action is either incorrect or missing: \n";
@@ -145,6 +146,9 @@ case "$__batch_action" in
       #TODO: insert the method for the gpu batch script creation
       ;;
   *"Grid_DWF_run_gpu"*)
+      #TODO: insert the method for the gpu batch script creation
+      ;;
+  *"Grid_DWF_Telos_run_gpu"*)
       #TODO: insert the method for the gpu batch script creation
       ;;
 esac
