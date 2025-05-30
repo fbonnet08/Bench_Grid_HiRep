@@ -38,22 +38,28 @@ source ./Scripts/Batch_Scripts/Batch_body_methods.sh
 # Batch file out constructor variable
 __batch_file_out=${batch_Scripts_dir}/"Run_${__batch_action}.sh"
 #-------------------------------------------------------------------------------
-# Getting the slurm values for the batch job
+# Getting the slurm values for the batch job initialized
 #-------------------------------------------------------------------------------
 case $__batch_action in
-  *"Sombrero_weak"*)        config_Batch_Sombrero_weak_cpu    ;;
-  *"Sombrero_strong"*)      config_Batch_Sombrero_strong_cpu  ;;
-  *"BKeeper_run_cpu"*)      config_Batch_BKeeper_run_cpu      ;; # backup default value in case the following fails
-  *"BKeeper_run_gpu"*)      config_Batch_BKeeper_run_gpu      ;; # to avoid incomplete fields and blank variable
-  *"HiRep-LLR-master-cpu"*) config_Batch_HiRep-LLR-master_cpu ;;
-  *"HiRep-LLR-master-gpu"*) config_Batch_HiRep-LLR-master_gpu ;;
-  *"BKeeper_compile"*)      bash -s < ./creator_bench_case_batch.sh "$__project_account" "$__external_lib_dir" "$__batch_action"; ;;
-  *"Grid_DWF_run_gpu"*)     config_Batch_Grid_DWF_run_gpu     ;;
+  *"Sombrero_weak"*)          config_Batch_Sombrero_weak_cpu      ;;
+  *"Sombrero_strong"*)        config_Batch_Sombrero_strong_cpu    ;;
+  *"BKeeper_run_cpu"*)        config_Batch_BKeeper_run_cpu        ;;
+  *"BKeeper_run_gpu"*)        config_Batch_BKeeper_run_gpu        ;;
+  *"HiRep-LLR-master-cpu"*)   config_Batch_HiRep-LLR-master_cpu   ;;
+  *"HiRep-LLR-master-gpu"*)   config_Batch_HiRep-LLR-master_gpu   ;;
+  *"BKeeper_compile"*)
+    bash -s < ./creator_bench_case_batch.sh \
+                      "$__project_account"  \
+                      "$__external_lib_dir" \
+                      "$__batch_action";
+    ;;
+  *"Grid_DWF_run_gpu"*)       config_Batch_Grid_DWF_run_gpu       ;;
+  *"Grid_DWF_Telos_run_gpu"*) config_Batch_Grid_DWF_Telos_run_gpu ;;
   *)
     echo
     $red; printf "The batch action is either incorrect or missing: \n";
     $yellow; printf "[BKeeper_compile, BKeeper_run, Sombrero_weak, Sombrero_strong,";
-             printf " HiRep-LLR-master-cpu]\n";
+             printf " HiRep-LLR-master-cpu, HiRep-LLR-master-gpu, Grid_DWF_run_gpu, Grid_DWF_Telos_run_gpu]\n";
     $cyan; printf "[try: bash -s < ./creator_bench_case_batch.sh SwanSea/SourceCodes/external_lib BKeeper_compile]\n";
     $white; $reset_colors;
     read -p "Would you like to continue (yes/no): " continue;
