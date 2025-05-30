@@ -47,12 +47,10 @@ case $__batch_action in
   *"BKeeper_run_gpu"*)        config_Batch_BKeeper_run_gpu        ;;
   *"HiRep-LLR-master-cpu"*)   config_Batch_HiRep-LLR-master_cpu   ;;
   *"HiRep-LLR-master-gpu"*)   config_Batch_HiRep-LLR-master_gpu   ;;
-  *"BKeeper_compile"*)
-    bash -s < ./creator_bench_case_batch.sh \
-                      "$__project_account"  \
-                      "$__external_lib_dir" \
-                      "$__batch_action";
-    ;;
+  *"BKeeper_compile"*) bash -s < ./creator_bench_case_batch.sh \
+                                         "$__project_account"  \
+                                         "$__external_lib_dir" \
+                                         "$__batch_action";       ;;
   *"Grid_DWF_run_gpu"*)       config_Batch_Grid_DWF_run_gpu       ;;
   *"Grid_DWF_Telos_run_gpu"*) config_Batch_Grid_DWF_Telos_run_gpu ;;
   *)
@@ -1300,12 +1298,12 @@ EOF
           # Constructing the rest of the batch file body
           #-------------------------------------------------------------------------
 
-          Batch_body_Run_Grid_DWF_gpu                                                         \
-            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                           \
+          Batch_body_Run_Grid_DWF_Telos_gpu                                                   \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
             "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
             "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
             "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
-            "${module_list}" "${sourcecode_dir}"
+            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}"
 
         fi
 

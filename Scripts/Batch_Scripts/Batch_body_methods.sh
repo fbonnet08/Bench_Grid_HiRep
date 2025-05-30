@@ -46,6 +46,7 @@ Batch_body_Run_Grid_DWF_Telos_gpu(){
   _path_to_run=${11}
   _module_list=${12}
   _sourcecode_dir=${13}
+  _DWF_ensembles_GRID_dir=${14}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -92,6 +93,7 @@ machine_name="$_machine_name"
 sourcecode_dir=$_sourcecode_dir
 Bench_Grid_HiRep_dir=\$sourcecode_dir/Bench_Grid_HiRep
 benchmark_input_dir=$_benchmark_input_dir
+DWF_ensembles_GRID_dir=$_DWF_ensembles_GRID_dir
 
 # Application paths
 grid_dwf_telos_dir=$_grid_dwf_telos_dir
@@ -413,7 +415,7 @@ MOBIUS_B=1.5
 MOBIUS_C=0.5
 Ls=8
 #STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
-STARTTRAJ=\$(echo ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+STARTTRAJ=\$(echo \$DWF_ensembles_GRID_dir/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 EOF
 #-------------------------------------------------------------------------------
 # Launching mechanism
