@@ -1189,9 +1189,6 @@ done
 
       ;;
   *"Grid_DWF_Telos_run_gpu"*)
-
-
-
     #-------------------------------------------------------------------------------
     # First fill in the DWF_ensembles_GRID_array
     #-------------------------------------------------------------------------------
@@ -1239,29 +1236,57 @@ do
   parent_dir="${DWF_ensembles_GRID_dir}"
   substring="${DWF_ensembles_GRID_array[$idir]}"
 
-  echo "echo --->: $parent_dir"
-  echo "echo --->: $substring"
-
+  #echo "echo --->: $parent_dir"
+  #echo "echo --->: $substring"
+  $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+  $white; printf "Parent directory       : "; $bold; $yellow; printf '%s'"${parent_dir}"; printf "\n"; $white; $reset_colors;
+  $white; printf "Substring              : "; $bold; $cyan; printf '%s'"${substring}";  printf "\n"; $white; $reset_colors;
 
   found=0
   for dir in "$parent_dir"/*/; do
     if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
-      echo "Found matching directory: $dir"
+      #echo "Found matching directory: $dir"
+      $white; printf "Found matching dir     : "; $bold; $yellow; printf '%s'"${dir}"; printf "\n"; $white; $reset_colors;
       found=1
       break
     fi
   done
 
   if [ "$found" -eq 1 ]; then
-    echo "Directory with substring '$substring' exists."
-
-
+    #---------------------------------------------------------------------------
+    # Extracting the parameters from the configuration files
+    #---------------------------------------------------------------------------
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Extract and convert 6p9 to 6.9
+    beta_telos_segment=$(echo "$substring" | grep -oP 'b\K\d+p\d+' | sed 's/p/./')
+    # Extract and convert LNt32L24 to 24.24.24.32
+    lattice_segment=$(echo "$substring" | grep -oP 'LNt\d+L\d+' | sed -E 's/LNt([0-9]+)L([0-9]+)/\2.\2.\2.\1/')
+    # Extract and convert m0p08 to 0.08
+    mass_segment=$(echo "$substring" | grep -oP 'm\K\d+p\d+' | sed 's/p/./')
+    # Extract and convert Ls8 to Ls=8
+    Ls_segment=$(echo "$substring" | grep -oP 'Ls\d+' | sed 's/Ls//')
+    #---------------------------------------------------------------------------
+    # Extracted data from the substring
+    $white; printf "6p9                    : "; $bold; $yellow; printf '%s'"${beta_telos_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "m0p08                  : "; $bold; $yellow; printf '%s'"${mass_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "LNt32L24               : "; $bold; $yellow; printf '%s'"${lattice_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Ls8                    : "; $bold; $yellow; printf '%s'"${Ls_segment}"; printf "\n"; $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Starting the looping structure
+    #---------------------------------------------------------------------------
     #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     #do
     #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
-    for j in $(seq 0 `expr ${#grid_small_lattice_size_gpu[@]} - 1`)
-    do
-      lattice=$(printf "lat%s" "${grid_small_lattice_size_gpu[$j]}";)
+    #for j in $(seq 0 `expr ${#grid_dwf_telos_lattice_size_gpu[@]} - 1`)
+    #do
+      #lattice=$(printf "lat%s" "${grid_dwf_telos_lattice_size_gpu[$j]}";)
+
+      lattice=$(printf "lat%s" "${lattice_segment}";)
 
       for i in $(seq 0 `expr ${#grid_small_n_nodes_gpu[@]} - 1`)
       do
@@ -1289,7 +1314,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           index=$(printf "%03d" "$i")
           n_nodes=$(printf "nodes%03d" "${grid_small_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
-          __batch_file_construct=$(printf "Run_${substring}_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_construct=$(printf "Run_${substring}_${__batch_action}_${lattice}_${beta_telos_segment}_${mass_segment}_${Ls_segment}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
@@ -1314,7 +1339,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
             "$gpus_per_node"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
-            "01:00:00"                               \
+            "10:00:00"                               \
             "$qos"
 
           # Writing the header to files
@@ -1322,12 +1347,13 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
 $(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
 $(
           case $__batch_action in
-            *"Sombrero_weak"*)        echo "#---> this is a ${__batch_file_construct} job run"  ;;
-            *"Sombrero_strong"*)      echo "#---> this is a ${__batch_file_construct} job run"  ;;
-            *"BKeeper"*)              echo "#---> this is a ${__batch_file_construct} job run"  ;;
-            *"HiRep-LLR-master-cpu"*) echo "#---> this is a HiRep-LLR-master-cpu job run"       ;;
-            *"HiRep-LLR-master-gpu"*) echo "#---> this is a HiRep-LLR-master-gpu job run"       ;;
-            *"Grid_DWF_run_gpu"*)     echo "#---> this is a Grid_DWF_run_gpu job run"           ;;
+            *"Sombrero_weak"*)          echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"Sombrero_strong"*)        echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"BKeeper"*)                echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"HiRep-LLR-master-cpu"*)   echo "#---> this is a HiRep-LLR-master-cpu job run"      ;;
+            *"HiRep-LLR-master-gpu"*)   echo "#---> this is a HiRep-LLR-master-gpu job run"      ;;
+            *"Grid_DWF_run_gpu"*)       echo "#---> this is a Grid_DWF_run_gpu job run"          ;;
+            *"Grid_DWF_Telos_run_gpu"*) echo "#---> this is a Grid_DWF_Telos_run_gpu job run"    ;;
           esac
     )
 EOF
@@ -1337,10 +1363,12 @@ EOF
           Batch_body_Run_Grid_DWF_Telos_gpu                                                   \
             "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
             "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
-            "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
+            "${lattice_segment}" "${_mpi_distr}"  "${__simulation_size}"  \
             "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
-            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}" "${substring}"
+            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}" "${substring}"   \
+            "${beta_telos_segment}" "${mass_segment}" "${Ls_segment}"
 
+          #"${grid_dwf_telos_lattice_size_gpu[$j]}"
         fi
 
       done
@@ -1351,36 +1379,21 @@ done
         #L=$(expr $L + 1)
       #done
       H=$(expr $H + 1)
-    done
+    done # [end-for-loop] ${#grid_small_n_nodes_gpu[@]}
     #  T=$(expr $T + 1)
     #done
       M=$(expr $M + 1)
-    done
+    #done # [end-for-loop] grid_dwf_telos_lattice_size_gpu[@]}
 
 
   else
-    echo "No matching directory found."
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $red; printf " does not exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
   fi
 
-
-
-
-
-
-
 done
-
-
-
-
-
-
-
-
-
-
-
-
 
       ;;
   *"HiRep-LLR-master-cpu"*)

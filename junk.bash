@@ -1,4 +1,9 @@
 
+    echo "6p9 -> $beta_telos_segment"
+    echo "m0p08 -> $mass_segment"
+    echo "LNt32L24 -> $lattice_segment"
+    echo "Ls8 -> $Ls_segment"
+
 
 STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 

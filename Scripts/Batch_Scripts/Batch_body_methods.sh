@@ -30,7 +30,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 EOF
 }
 ################################################################################
-# Run Grid_DWF_run_gpu
+# Run Grid_DWF_Telos_gpu
 ################################################################################
 Batch_body_Run_Grid_DWF_Telos_gpu(){
   _machine_name=$1
@@ -48,6 +48,9 @@ Batch_body_Run_Grid_DWF_Telos_gpu(){
   _sourcecode_dir=${13}
   _DWF_ensembles_GRID_dir=${14}
   _config_dir=${15}
+  _beta_telos=${16}
+  _mass=${17}
+  _Ls=${18}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -177,22 +180,11 @@ cat << EOF >> "$_batch_file_out"
 # OpenMP
 export OMP_NUM_THREADS=8
 # MPI
-#export OMPI_MCA_btl=^uct,openib
-#export OMPI_MCA_pml=ucx
-#export OMPI_MCA_osc="ucx".
-#export OMPI_MCA_io=romio321
-#export OMPI_MCA_btl_openib_allow_ib=true
-#export OMPI_MCA_btl_openib_device_type=infiniband
-#export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
 export OMPI_MCA_PML="ucx"
 export OMPI_MCA_osc="ucx"
 # UCX
 export UCX_TLS=self,sm,rc,ud
 #export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
-#export UCX_RNDV_THRESH=16384
-#export UCX_RNDV_SCHEME=put_zcopy
-#export UCX_IB_GPU_DIRECT_RDMA=yes
-#export UCX_MEMTYPE_CACHE=n
 # GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
@@ -403,18 +395,27 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Variable list for grid command line argument list
 #-------------------------------------------------------------------------------
-VOL=$_lattice_size_cpu
+# Computed on the benchmark batch creation
 MPI=$_mpi_distribution
-TRAJECTORIES=10 #100000
-MASS=0.08
+
+# Extracted from the configuration
+
+VOL=$_lattice_size_cpu
+BETA=$_beta_telos   # 6.9   beta
+MASS=$_mass         # 0.08  mass
+Ls=$_Ls             # 8     Domain wall Ls
+
+# Hardcoded variables
+
+TRAJECTORIES=10         #100000
 NSTEPS=27
 SAVEFREQ=10
-BETA=6.9
 TLEN=1
 DWF_MASS=1.8
 MOBIUS_B=1.5
 MOBIUS_C=0.5
-Ls=8
+
+# Extracting the checkpoint from the lattice data
 STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 EOF
 #-------------------------------------------------------------------------------
@@ -507,6 +508,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
   --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
+  # > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
    ################################################################################
    #-------------------------------------------------------------------------------
 EOF
@@ -547,7 +549,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ}
+# > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
 ################################################################################
 #  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
 #  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
@@ -1075,7 +1078,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
