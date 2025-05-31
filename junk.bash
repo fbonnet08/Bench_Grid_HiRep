@@ -1,4 +1,26 @@
 
+
+STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+
+
+  sourcecode_dir=
+  Hirep_LLR_SP=
+
+
+
+ls -al "${DWF_ensembles_GRID_dir}"
+
+DWF_ensembles_GRID_array+=((echo basename "${dir}"));
+
+echo "${DWF_ensembles_GRID_array[$idir]}"
+
+
+for iconfig in "${DWF_ensembles_GRID_array[@]}"
+do echo  "$iconfig"; done
+
+
+
+
       cat "${target_directories_LLR_HiRep_HB_run_cpu}" | while read run_dir; do
           ls "$run_dir"
       done

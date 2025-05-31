@@ -47,6 +47,7 @@ Batch_body_Run_Grid_DWF_Telos_gpu(){
   _module_list=${12}
   _sourcecode_dir=${13}
   _DWF_ensembles_GRID_dir=${14}
+  _config_dir=${15}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -414,8 +415,7 @@ DWF_MASS=1.8
 MOBIUS_B=1.5
 MOBIUS_C=0.5
 Ls=8
-#STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
-STARTTRAJ=\$(echo \$DWF_ensembles_GRID_dir/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 EOF
 #-------------------------------------------------------------------------------
 # Launching mechanism
@@ -543,12 +543,14 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
-  --cnfg_dir "./dwf_trials_verybigR1" \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ} > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
 ################################################################################
+#  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
+#  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
 #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "Precision-3571"  || \

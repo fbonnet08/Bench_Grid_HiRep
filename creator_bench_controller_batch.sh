@@ -1189,6 +1189,17 @@ done
 
       ;;
   *"Grid_DWF_Telos_run_gpu"*)
+
+
+
+    #-------------------------------------------------------------------------------
+    # First fill in the DWF_ensembles_GRID_array
+    #-------------------------------------------------------------------------------
+    DWF_ensembles_GRID_array=()
+    for dir in "${DWF_ensembles_GRID_dir}"/*;
+    do
+      DWF_ensembles_GRID_array+=("$(basename "$dir")")
+    done
     #-------------------------------------------------------------------------------
     # Grid_DWF_Telos_run_gpu [Small-GPU]:
     #-------------------------------------------------------------------------------
@@ -1219,6 +1230,32 @@ done
     L=1
     T=1
     M=1
+
+
+# Looping over the array
+for idir in $(seq 0 `expr ${#DWF_ensembles_GRID_array[@]} - 1`)
+do
+
+  parent_dir="${DWF_ensembles_GRID_dir}"
+  substring="${DWF_ensembles_GRID_array[$idir]}"
+
+  echo "echo --->: $parent_dir"
+  echo "echo --->: $substring"
+
+
+  found=0
+  for dir in "$parent_dir"/*/; do
+    if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
+      echo "Found matching directory: $dir"
+      found=1
+      break
+    fi
+  done
+
+  if [ "$found" -eq 1 ]; then
+    echo "Directory with substring '$substring' exists."
+
+
     #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
     #do
     #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
@@ -1252,7 +1289,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           index=$(printf "%03d" "$i")
           n_nodes=$(printf "nodes%03d" "${grid_small_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
-          __batch_file_construct=$(printf "Run_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_construct=$(printf "Run_${substring}_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
@@ -1271,7 +1308,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
-            "${grid_small_n_nodes_gpu[$i]}"       \
+            "${grid_small_n_nodes_gpu[$i]}"          \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
             "$gpus_per_node"                         \
@@ -1297,13 +1334,12 @@ EOF
           #-------------------------------------------------------------------------
           # Constructing the rest of the batch file body
           #-------------------------------------------------------------------------
-
           Batch_body_Run_Grid_DWF_Telos_gpu                                                   \
             "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
             "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
             "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
             "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
-            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}"
+            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}" "${substring}"
 
         fi
 
@@ -1322,6 +1358,9 @@ done
     done
 
 
+  else
+    echo "No matching directory found."
+  fi
 
 
 
@@ -1329,7 +1368,7 @@ done
 
 
 
-
+done
 
 
 
