@@ -442,13 +442,13 @@ elif [[ $_machine_name = "mi300" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-   # Launching mechanism
-   #-------------------------------------------------------------------------------
-   # run! #########################################################################
-   ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
-   device_mem=23000
-   shm=8192
-   #  --starttraj \${STARTTRAJ} \\
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
+device_mem=23000
+shm=8192
+#--starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
