@@ -468,6 +468,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
@@ -506,6 +508,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
@@ -549,6 +553,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
@@ -999,6 +1005,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "./dwf_trials_verybigR1" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
@@ -1038,6 +1046,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "./dwf_trials_verybigR1" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
@@ -1078,6 +1088,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
   --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
   --cnfg_dir "./dwf_trials_verybigR1" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
