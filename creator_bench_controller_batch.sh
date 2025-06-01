@@ -1314,8 +1314,8 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           index=$(printf "%03d" "$i")
           n_nodes=$(printf "nodes%03d" "${grid_small_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
-          #_${beta_telos_segment}_${mass_segment}_${Ls_segment}
-          __batch_file_construct=$(printf "Run_${substring}_${__batch_action}_${lattice}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          #_${beta_telos_segment}_${mass_segment}_${Ls_segment}_${lattice}
+          __batch_file_construct=$(printf "Run_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
 
