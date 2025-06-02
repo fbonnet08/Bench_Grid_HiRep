@@ -951,16 +951,45 @@ done
     __accelerator="gpu"
     __simulation_size="small"
 
-    for m in ${trajectories[@]}; do echo $m; done
+    # Values to be looped over
+    for m in ${beta[@]}; do echo $m; done
     for m in ${mass[@]}; do echo $m; done
+    for m in ${Ls[@]}; do echo $m; done
+    # Values not looped over and kept hardcoded for now.
+    for m in ${trajectories[@]}; do echo $m; done
     for m in ${nsteps[@]}; do echo $m; done
     for m in ${savefreq[@]}; do echo $m; done
-    for m in ${beta[@]}; do echo $m; done
     for m in ${tlen[@]}; do echo $m; done
     for m in ${dwf_mass[@]}; do echo $m; done
     for m in ${Mobius_b[@]}; do echo $m; done
     for m in ${Mobius_c[@]}; do echo $m; done
-    for m in ${Ls[@]}; do echo $m; done
+
+
+    # insert the loop structure here
+
+
+    #---------------------------------------------------------------------------
+    # Extracting the parameters from the configuration files
+    #---------------------------------------------------------------------------
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Get beta array values 6.9
+    beta_segment=${beta[0]}    #$(echo "$substring" | grep -oP 'b\K\d+p\d+' | sed 's/p/./')
+    # # Get mass array values 0.08
+    mass_segment=${mass[0]}    #$(echo "$substring" | grep -oP 'm\K\d+p\d+' | sed 's/p/./')
+    # Get Ls array values 8
+    Ls_segment=${Ls[0]}        #$(echo "$substring" | grep -oP 'Ls\d+' | sed 's/Ls//')
+    #---------------------------------------------------------------------------
+    # Extracted data from the substring
+    $white; printf "Beta                   : "; $bold; $yellow; printf '%s'"${beta_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Mass (ex: 0.08)        : "; $bold; $yellow; printf '%s'"${mass_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Ls (Domain Wall)       : "; $bold; $yellow; printf '%s'"${Ls_segment}"; printf "\n"; $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+
+
 
     # constructing the files and directory structure
     H=1
@@ -1019,13 +1048,13 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
-            "${grid_small_n_nodes_gpu[$i]}"       \
+            "${grid_small_n_nodes_gpu[$i]}"          \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
             "$gpus_per_node"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
-            "01:00:00"                               \
+            "10:00:00"                               \
             "$qos"
 
           # Writing the header to files
@@ -1047,14 +1076,14 @@ EOF
           #-------------------------------------------------------------------------
 
           Batch_body_Run_Grid_DWF_gpu                                                         \
-            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                           \
-            "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
-            "${grid_small_lattice_size_gpu[$j]}" "${_mpi_distr}"  "${__simulation_size}"      \
-            "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
-            "${module_list}" "${sourcecode_dir}"
-
-          # TODO: continue from here .... insert the DWF batch scripts delaration.
-
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
+            "${benchmark_input_dir}"                                                          \
+            "${__path_to_run}${sptr}${__batch_file_out}"                                      \
+            "${grid_small_lattice_size_gpu[$j]}"                                              \
+            "${_mpi_distr}"                                                                   \
+            "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
+            "${module_list}" "${sourcecode_dir}"                                              \
+            "${beta_segment}" "${mass_segment}" "${Ls_segment}"
 
         fi
 
@@ -1081,6 +1110,33 @@ done
     $white; $reset_colors;
     __accelerator="gpu"
     __simulation_size="large"
+
+
+    # insert the loop structure here
+
+    #---------------------------------------------------------------------------
+    # Extracting the parameters from the configuration files
+    #---------------------------------------------------------------------------
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Get beta array values 6.9
+    beta_segment=${beta[0]}    #$(echo "$substring" | grep -oP 'b\K\d+p\d+' | sed 's/p/./')
+    # # Get mass array values 0.08
+    mass_segment=${mass[0]}    #$(echo "$substring" | grep -oP 'm\K\d+p\d+' | sed 's/p/./')
+    # Get Ls array values 8
+    Ls_segment=${Ls[0]}        #$(echo "$substring" | grep -oP 'Ls\d+' | sed 's/Ls//')
+    #---------------------------------------------------------------------------
+    # Extracted data from the substring
+    $white; printf "Beta                   : "; $bold; $yellow; printf '%s'"${beta_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Mass (ex: 0.08)        : "; $bold; $yellow; printf '%s'"${mass_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Ls (Domain Wall)       : "; $bold; $yellow; printf '%s'"${Ls_segment}"; printf "\n"; $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+
+
+
     # constructing the files and directory structure
     H=1
     L=1
@@ -1139,13 +1195,13 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
           ntasks_per_node="$gpus_per_node"
           config_Batch_with_input_from_system_config \
-            "${grid_large_n_nodes_gpu[$i]}"       \
+            "${grid_large_n_nodes_gpu[$i]}"          \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
             "$gpus_per_node"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
-            "01:00:00"                               \
+            "10:00:00"                               \
             "$qos"
 
           # Writing the header to files
@@ -1164,15 +1220,15 @@ EOF
           #-------------------------------------------------------------------------
           # Constructing the rest of the batch file body
           #-------------------------------------------------------------------------
-          Batch_body_Run_Grid_DWF_gpu                                                          \
-            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}" "${benchmark_input_dir}"  \
+          Batch_body_Run_Grid_DWF_gpu                                                         \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
+            "${benchmark_input_dir}"                                                          \
             "${__path_to_run}${sptr}${__batch_file_out}"                                      \
             "${grid_large_lattice_size_gpu[$j]}"                                              \
             "${_mpi_distr}"                                                                   \
             "${__simulation_size}" "${__batch_file_construct}" "${prefix}" "${__path_to_run}" \
-            "${module_list}" "${sourcecode_dir}"
-
-          # TODO: continue from here .... insert the DWF batch scripts delaration.
+            "${module_list}" "${sourcecode_dir}"                                              \
+            "${beta_segment}" "${mass_segment}" "${Ls_segment}"
 
         fi
 

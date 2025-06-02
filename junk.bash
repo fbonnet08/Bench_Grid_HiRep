@@ -1,6 +1,20 @@
 
 
 
+export OMPI_MCA_btl=^uct,openib
+export OMPI_MCA_io=romio321
+export OMPI_MCA_btl_openib_allow_ib=true
+export OMPI_MCA_btl_openib_device_type=infiniband
+export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+
+export UCX_RNDV_THRESH=16384
+export UCX_RNDV_SCHEME=put_zcopy
+export UCX_IB_GPU_DIRECT_RDMA=yes
+export UCX_MEMTYPE_CACHE=n
+
+
+#STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+STARTTRAJ=\$(echo ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 
 
 

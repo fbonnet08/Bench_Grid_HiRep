@@ -49,8 +49,8 @@ Batch_body_Run_Grid_DWF_Telos_gpu(){
   _DWF_ensembles_GRID_dir=${14}
   _config_dir=${15}
   _beta_telos=${16}
-  _mass=${17}
-  _Ls=${18}
+  _mass_telos=${17}
+  _Ls_telos=${18}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -402,8 +402,8 @@ MPI=$_mpi_distribution
 
 VOL=$_lattice_size_cpu
 BETA=$_beta_telos   # 6.9   beta
-MASS=$_mass         # 0.08  mass
-Ls=$_Ls             # 8     Domain wall Ls
+MASS=$_mass_telos   # 0.08  mass
+Ls=$_Ls_telos       # 8     Domain wall Ls
 
 # Hardcoded variables
 
@@ -441,8 +441,8 @@ shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
   ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --beta \${BETA} \\
   --starttraj \${STARTTRAJ} \\
+  --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
   --dwf_mass \${DWF_MASS} \\
@@ -484,7 +484,7 @@ mpirun -np \${SLURM_NTASKS} \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -525,7 +525,7 @@ mpirun -np \${SLURM_NTASKS} \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -571,8 +571,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --bind-to none \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --beta \${BETA} \\
   --starttraj \${STARTTRAJ} \\
+  --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
   --dwf_mass \${DWF_MASS} \\
@@ -657,6 +657,9 @@ Batch_body_Run_Grid_DWF_gpu(){
   _path_to_run=${11}
   _module_list=${12}
   _sourcecode_dir=${13}
+  _beta=${14}
+  _mass=${15}
+  _Ls=${16}
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Start of the batch body
@@ -787,18 +790,9 @@ export OMP_NUM_THREADS=8
 # MPI
 export OMPI_MCA_PML="ucx"
 export OMPI_MCA_osc="ucx"
-#export OMPI_MCA_btl=^uct,openib
-#export OMPI_MCA_io=romio321
-#export OMPI_MCA_btl_openib_allow_ib=true
-#export OMPI_MCA_btl_openib_device_type=infiniband
-#export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
 # UCX
 export UCX_TLS=self,sm,rc,ud
 export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
-#export UCX_RNDV_THRESH=16384
-#export UCX_RNDV_SCHEME=put_zcopy
-#export UCX_IB_GPU_DIRECT_RDMA=yes
-#export UCX_MEMTYPE_CACHE=n
 # GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
@@ -1007,20 +1001,35 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Variable list for grid command line argument list
 #-------------------------------------------------------------------------------
-VOL=$_lattice_size_cpu
+# Computed on the benchmark batch creation
 MPI=$_mpi_distribution
-TRAJECTORIES=10 #100000
-MASS=0.08
+
+# Extracted from the configuration
+
+VOL=$_lattice_size_cpu
+BETA=$_beta         # 6.9   beta
+MASS=$_mass         # 0.08  mass
+Ls=$_Ls             # 8     Domain wall Ls
+
+# Hardcoded variables
+
+TRAJECTORIES=10         #100000
 NSTEPS=27
 SAVEFREQ=10
-BETA=6.9
 TLEN=1
 DWF_MASS=1.8
 MOBIUS_B=1.5
 MOBIUS_C=0.5
-Ls=8
-#STARTTRAJ=\$(ls -rt ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
-STARTTRAJ=\$(echo ./dwf_trials_verybigR1/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+
+# Extracting the checkpoint from the lattice data
+#STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+STARTTRAJ=0
+echo "#-------------------------------------------------------------------------------"
+printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
+echo "#-------------------------------------------------------------------------------"
+#ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
+echo "starting from hotstart no configurations to be read in."
+echo "#-------------------------------------------------------------------------------"
 EOF
 #-------------------------------------------------------------------------------
 # Launching mechanism
@@ -1037,9 +1046,9 @@ shm=8192
 ################################################################################
 #-------------------------------------------------------------------------------
 srun --cpu-bind=\${CPU_BIND} \\
-  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1057,7 +1066,8 @@ srun --cpu-bind=\${CPU_BIND} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ}
+# > ./hmc_\${SLURM_JOB_ID}.out
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
@@ -1079,9 +1089,9 @@ mpirun -np \${SLURM_NTASKS} \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1099,29 +1109,30 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
- ################################################################################
- #-------------------------------------------------------------------------------
+  --savefreq \${SAVEFREQ}
+# > ./hmc_\${SLURM_JOB_ID}.out
+################################################################################
+#-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "mi210" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
- # Launching mechanism
- #-------------------------------------------------------------------------------
- # run! #########################################################################
- ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
- device_mem=23000
- shm=8192
- #  --starttraj \${STARTTRAJ} \\
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
+device_mem=23000
+shm=8192
+#  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1139,9 +1150,10 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
- ################################################################################
- #-------------------------------------------------------------------------------
+  --savefreq \${SAVEFREQ}
+# > ./hmc_\${SLURM_JOB_ID}.out
+################################################################################
+#-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "tursa"           || \
         $_machine_name = "vega"            || \
@@ -1162,9 +1174,9 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj 0 \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1182,8 +1194,11 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ}
+# > ./hmc_\${SLURM_JOB_ID}.out
 ################################################################################
+#  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
+#  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
 #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "Precision-3571"  || \
