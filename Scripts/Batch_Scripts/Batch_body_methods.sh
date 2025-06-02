@@ -77,7 +77,7 @@ EOF
 elif [[ $_machine_name = "leonardo"    || \
         $_machine_name = "vega"        || \
         $_machine_name = "MareNostrum" || \
-        $_machine_name = "tursa"    ]];
+        $_machine_name = "tursa"       ]];
 then
 cat << EOF >> "$_batch_file_out"
 # Check some versions
@@ -184,7 +184,7 @@ export OMPI_MCA_PML="ucx"
 export OMPI_MCA_osc="ucx"
 # UCX
 export UCX_TLS=self,sm,rc,ud
-#export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
 # GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
@@ -435,7 +435,35 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
+#  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
 ################################################################################
+#-------------------------------------------------------------------------------
+srun --cpu-bind=\${CPU_BIND} \\
+  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  --StartingType CheckpointStart \\
+  --beta \${BETA} \\
+  --starttraj \${STARTTRAJ} \\
+  --tlen \${TLEN} \\
+  --grid \${VOL} \\
+  --dwf_mass \${DWF_MASS} \\
+  --mobius_b \${MOBIUS_B} \\
+  --mobius_c \${MOBIUS_C} \\
+  --Ls \${Ls} \\
+  --savefreq \${SAVEFREQ} \\
+  --fermionmass \${MASS} \\
+  --nsteps \${NSTEPS} \\
+  --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --accelerator-threads 8 \\
+  --Trajectories \${TRAJECTORIES} \\
+  --Thermalizations 10000 \\
+  --savefreq \${SAVEFREQ}
+# > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
+################################################################################
+#  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
+#  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
 #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "mi300" ]];
@@ -474,9 +502,10 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
-   ################################################################################
-   #-------------------------------------------------------------------------------
+  --savefreq \${SAVEFREQ}
+# > ./hmc_\${SLURM_JOB_ID}.out
+################################################################################
+#-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "mi210" ]];
 then
@@ -514,8 +543,8 @@ mpirun -np \${SLURM_NTASKS} \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
-  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
-  # > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
+  --savefreq \${SAVEFREQ}
+# > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
@@ -524,7 +553,6 @@ elif [[ $_machine_name = "tursa"           || \
         $_machine_name = "MareNostrum"     || \
         $_machine_name = "sunbird"         || \
         $_machine_name = "desktop-dpr4gpr" || \
-        $_machine_name = "MareNostrum"     || \
         $_machine_name = "leonardo"        ]]
 then
 cat << EOF >> "$_batch_file_out"
@@ -535,6 +563,8 @@ cat << EOF >> "$_batch_file_out"
 device_mem=23000
 shm=8192
 #  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+################################################################################
+#-------------------------------------------------------------------------------
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -576,12 +606,12 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-mpirun \$bkeeper_build_dir/BKeeper \\
-        --grid $_lattice_size_cpu \\
-        --mpi $_mpi_distribution \\
-        --accelerator-threads 8 \\
-        \$benchmark_input_dir/BKeeper/input_BKeeper.xml \\
-        > \$path_to_run/bkeeper_run_gpu.log &
+#  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+################################################################################
+#-------------------------------------------------------------------------------
+
+# TODO: need to implement the launching mecanism for these systems.
+
 ################################################################################
 #-------------------------------------------------------------------------------
 EOF
@@ -650,9 +680,10 @@ cat << EOF >> "$_batch_file_out"
 hipcc --version
 #which mpirun
 EOF
-elif [[ $_machine_name = "leonardo" || \
-        $_machine_name = "vega"     || \
-        $_machine_name = "tursa"    ]];
+elif [[ $_machine_name = "leonardo"    || \
+        $_machine_name = "vega"        || \
+        $_machine_name = "MareNostrum" || \
+        $_machine_name = "tursa"       ]];
 then
 cat << EOF >> "$_batch_file_out"
 # Check some versions
@@ -754,18 +785,16 @@ cat << EOF >> "$_batch_file_out"
 # OpenMP
 export OMP_NUM_THREADS=8
 # MPI
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
 #export OMPI_MCA_btl=^uct,openib
-#export OMPI_MCA_pml=ucx
-#export OMPI_MCA_osc="ucx".
 #export OMPI_MCA_io=romio321
 #export OMPI_MCA_btl_openib_allow_ib=true
 #export OMPI_MCA_btl_openib_device_type=infiniband
 #export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
-export OMPI_MCA_PML="ucx"
-export OMPI_MCA_osc="ucx"
 # UCX
 export UCX_TLS=self,sm,rc,ud
-#export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
 #export UCX_RNDV_THRESH=16384
 #export UCX_RNDV_SCHEME=put_zcopy
 #export UCX_IB_GPU_DIRECT_RDMA=yes
@@ -794,6 +823,31 @@ export UCX_RNDV_THRESH=16384
 export UCX_RNDV_SCHEME=put_zcopy
 export UCX_IB_GPU_DIRECT_RDMA=yes
 export UCX_MEMTYPE_CACHE=n
+# GRID
+export GRID_ALLOC_NCACHE_SMALL=16
+export GRID_ALLOC_NCACHE_LARGE=2
+export GRID_ALLOC_NCACHE_HUGE=0
+EOF
+elif [[ $_machine_name = "MareNostrum" ]]
+then
+cat << EOF >> "$_batch_file_out"
+# OpenMP
+export OMP_NUM_THREADS=8
+# MPI
+export OMPI_MCA_PML="ucx"
+export OMPI_MCA_osc="ucx"
+#export OMPI_MCA_btl=^uct,openib
+#export OMPI_MCA_io=romio321
+#export OMPI_MCA_btl_openib_allow_ib=true
+#export OMPI_MCA_btl_openib_device_type=infiniband
+#export OMPI_MCA_btl_openib_if_exclude=mlx5_1,mlx5_2,mlx5_3
+# UCX
+export UCX_TLS=self,sm,rc,ud
+export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+#export UCX_RNDV_THRESH=16384
+#export UCX_RNDV_SCHEME=put_zcopy
+#export UCX_IB_GPU_DIRECT_RDMA=yes
+#export UCX_MEMTYPE_CACHE=n
 # GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
@@ -936,6 +990,15 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Mi210.sh
 chmod a+x \${wrapper_script}
 EOF
+elif [[ $_machine_name = "MareNostrum" ]]
+then
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Wrapper scripts Getting the gpu select script
+#-------------------------------------------------------------------------------
+wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-MareNostrum-5.sh
+chmod a+x \${wrapper_script}
+EOF
 fi
 #-------------------------------------------------------------------------------
 # Variable list for grid command line argument list
@@ -973,19 +1036,44 @@ device_mem=23000
 shm=8192
 ################################################################################
 #-------------------------------------------------------------------------------
+srun --cpu-bind=\${CPU_BIND} \\
+  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  --StartingType HotStart \\
+  --starttraj 0 \\
+  --beta \${BETA} \\
+  --tlen \${TLEN} \\
+  --grid \${VOL} \\
+  --dwf_mass \${DWF_MASS} \\
+  --mobius_b \${MOBIUS_B} \\
+  --mobius_c \${MOBIUS_C} \\
+  --Ls \${Ls} \\
+  --savefreq \${SAVEFREQ} \\
+  --fermionmass \${MASS} \\
+  --nsteps \${NSTEPS} \\
+  --mpi \${MPI} \\
+  --shm \${shm} \\
+  --device-mem \${device_mem} \\
+  --cnfg_dir "./dwf_trials_verybigR1" \\
+  --accelerator-threads 8 \\
+  --Trajectories \${TRAJECTORIES} \\
+  --Thermalizations 10000 \\
+  --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
+################################################################################
+#-------------------------------------------------------------------------------
 EOF
-elif [[ $_machine_name = "mi300"           ||
-        $_machine_name = "desktop-dpr4gpr" ]];
+elif [[ $_machine_name = "mi300" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-   # Launching mechanism
-   #-------------------------------------------------------------------------------
-   # run! #########################################################################
-   ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
-   device_mem=23000
-   shm=8192
-   #  --starttraj \${STARTTRAJ} \\
+# Launching mechanism
+#-------------------------------------------------------------------------------
+# run! #########################################################################
+device_mem=23000
+shm=8192
+################################################################################
+#-------------------------------------------------------------------------------
+ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
+#  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -1012,21 +1100,20 @@ mpirun -np \${SLURM_NTASKS} \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
   --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
-   ################################################################################
-   #-------------------------------------------------------------------------------
+ ################################################################################
+ #-------------------------------------------------------------------------------
 EOF
-elif [[ $_machine_name = "mi210"           ||
-        $_machine_name = "desktop-dpr4gpr" ]];
+elif [[ $_machine_name = "mi210" ]];
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
-   # Launching mechanism
-   #-------------------------------------------------------------------------------
-   # run! #########################################################################
-   ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
-   device_mem=23000
-   shm=8192
-   #  --starttraj \${STARTTRAJ} \\
+ # Launching mechanism
+ #-------------------------------------------------------------------------------
+ # run! #########################################################################
+ ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
+ device_mem=23000
+ shm=8192
+ #  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -1053,11 +1140,12 @@ mpirun -np \${SLURM_NTASKS} \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
   --savefreq \${SAVEFREQ} > ./hmc_\${SLURM_JOB_ID}.out
-   ################################################################################
-   #-------------------------------------------------------------------------------
+ ################################################################################
+ #-------------------------------------------------------------------------------
 EOF
 elif [[ $_machine_name = "tursa"           || \
         $_machine_name = "vega"            || \
+        $_machine_name = "MareNostrum"     || \
         $_machine_name = "sunbird"         || \
         $_machine_name = "desktop-dpr4gpr" || \
         $_machine_name = "MareNostrum"     || \
@@ -1075,9 +1163,9 @@ mpirun -np \${SLURM_NTASKS} \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
-  --StartingType CheckpointStart \\
+  --StartingType HotStart \\
+  --starttraj 0 \\
   --beta \${BETA} \\
-  --starttraj \${STARTTRAJ} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
   --dwf_mass \${DWF_MASS} \\

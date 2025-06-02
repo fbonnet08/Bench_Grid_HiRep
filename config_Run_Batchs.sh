@@ -79,7 +79,7 @@ declare -a grid_large_lattice_size_gpu=("24.24.24.32") #("32.32.32.64") #("16.16
 # TODO: add the other possibilities if any
 # DWF fermions
 declare -a trajectories=(10) #(100000)
-declare -a mass=("0.08")
+declare -a mass=("0.08") # "0.10")
 #MASS=100
 declare -a nsteps=(27)
 declare -a savefreq=(10)
