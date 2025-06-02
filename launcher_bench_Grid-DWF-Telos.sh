@@ -60,7 +60,7 @@ $green; printf "Launching Grid_DWF benchmark dir:\n"; $white; $reset_colors;
 
 case "$__batch_action" in
   *"Grid_DWF_run_cpu"*)
-      ;;
+    ;;
   *"Grid_DWF_run_gpu"*)
       #sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
       #        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
@@ -107,7 +107,12 @@ case "$__batch_action" in
           ;;
         esac
       done
-      ;;
+    ;;
+  *"Grid_DWF_Telos_run_gpu"*)
+      # TODO: ----------------
+      # TODO: continue from here and insert the launcher for the Grid_DWF_Telos ....
+      # TODO: ----------------
+    ;;
 esac
 #-------------------------------------------------------------------------------
 #End of the script
