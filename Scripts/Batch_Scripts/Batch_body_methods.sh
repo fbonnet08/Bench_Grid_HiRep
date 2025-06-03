@@ -1022,12 +1022,10 @@ MOBIUS_B=1.5
 MOBIUS_C=0.5
 
 # Extracting the checkpoint from the lattice data
-#STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 STARTTRAJ=0
 echo "#-------------------------------------------------------------------------------"
 printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
-#ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
 echo "starting from hotstart no configurations to be read in."
 echo "#-------------------------------------------------------------------------------"
 EOF
@@ -1197,7 +1195,6 @@ mpirun -np \${SLURM_NTASKS} \\
   --savefreq \${SAVEFREQ}
 # > ./hmc_\${SLURM_JOB_ID}.out
 ################################################################################
-#  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
 #  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
 #-------------------------------------------------------------------------------
 EOF
