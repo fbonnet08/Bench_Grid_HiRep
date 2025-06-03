@@ -418,7 +418,7 @@ MOBIUS_C=0.5
 # Extracting the checkpoint from the lattice data
 STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
+printf "STARTTRAJ              : "; printf '%s'"\$STARTTRAJ"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
 ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
 echo "#-------------------------------------------------------------------------------"
@@ -476,7 +476,6 @@ cat << EOF >> "$_batch_file_out"
 ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
 device_mem=23000
 shm=8192
-#--starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -517,7 +516,6 @@ cat << EOF >> "$_batch_file_out"
 ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
 device_mem=23000
 shm=8192
-#  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -1024,7 +1022,7 @@ MOBIUS_C=0.5
 # Extracting the checkpoint from the lattice data
 STARTTRAJ=0
 echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
+printf "STARTTRAJ              : "; printf '%s'"\$STARTTRAJ"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
 echo "starting from hotstart no configurations to be read in."
 echo "#-------------------------------------------------------------------------------"
@@ -1081,7 +1079,6 @@ shm=8192
 ################################################################################
 #-------------------------------------------------------------------------------
 ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
-#  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
@@ -1122,7 +1119,6 @@ cat << EOF >> "$_batch_file_out"
 ROCOPTS=" --output-format pftrace --kernel-trace --memory-copy-trace --hsa-trace -d ./tracing"
 device_mem=23000
 shm=8192
-#  --starttraj \${STARTTRAJ} \\
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
