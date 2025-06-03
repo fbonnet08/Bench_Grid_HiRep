@@ -184,7 +184,7 @@ export OMPI_MCA_PML="ucx"
 export OMPI_MCA_osc="ucx"
 # UCX
 export UCX_TLS=self,sm,rc,ud
-export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
+#export UCX_TLS=gdr_copy,rc,rc_x,sm,cuda_copy,cuda_ipc
 # GRID
 export GRID_ALLOC_NCACHE_SMALL=16
 export GRID_ALLOC_NCACHE_LARGE=2
