@@ -441,7 +441,7 @@ shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
   ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -484,7 +484,7 @@ mpirun -np \${SLURM_NTASKS} \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -525,7 +525,7 @@ mpirun -np \${SLURM_NTASKS} \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -571,7 +571,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --bind-to none \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1046,7 +1046,7 @@ shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
   ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1089,7 +1089,7 @@ mpirun -np \${SLURM_NTASKS} \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1130,7 +1130,7 @@ mpirun -np \${SLURM_NTASKS} \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -1174,7 +1174,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --bind-to none \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType HotStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\

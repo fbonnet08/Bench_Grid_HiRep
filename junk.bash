@@ -1,5 +1,6 @@
 
-
+directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="${directory_exists}"
+if [ "$dir_path_to_run_dir_exists" == "no" ]; then Batch_util_create_path "${path_to_run_dir}"; fi
 
 export OMPI_MCA_btl=^uct,openib
 export OMPI_MCA_io=romio321

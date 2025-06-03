@@ -225,9 +225,23 @@ $white; printf "module list            : ";$green;   printf "%s\n" "${__module_l
 $white; printf "Partition              : ";$cyan;    printf "%s\n" "${target_partition_cpu}";   $reset_colors;
 path_llr_exec="\${HOME}/${SwanSea_SourceCodes}/${Hirep_LLR_SP}/LLR_HB"
 path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
+case $__machine_name in
+  *"Precision-3571"*)  ;;
+  *"DESKTOP-GPI5ERK"*) ;;
+  *"desktop-dpr4gpr"*) ;;
+  *"tursa"*)           ;;
+  *"sunbird"*)         ;;
+  *"vega"*)            ;;
+  *"lumi"*)            ;;
+  *"leonardo"*)        ;;
+  *"mi300"*)           ;;
+  *"mi210"*)           ;;
+  *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
+esac
+run_index=1
 $white; printf "qos                    : ";$cyan;    printf "%s\n" "${__qos}";                  $reset_colors;
 $white; printf "account                : ";$cyan;    printf "%s\n" "${__project_account}";      $reset_colors;
-$white; printf "run_index              : ";$cyan;    printf "%i\n" "1";                         $reset_colors;
+$white; printf "run_index              : ";$cyan;    printf "%i\n" "$run_index";                $reset_colors;
 $white; printf "path_llr_exec          : ";$cyan;    printf "%s\n" "$path_llr_exec";            $reset_colors;
 $white; printf "output_run_dir         : ";$cyan;    printf "%s\n" "${path_to_run_dir}";        $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
@@ -258,7 +272,7 @@ then
         --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
         --modules "${__module_list}" \
         --partition "${target_partition_cpu}" \
-        --run_index 1 \
+        --run_index "$run_index" \
         --path_llr_exec "${path_llr_exec}" \
         --output_run_dir "${path_to_run_dir}"
       ;;
@@ -279,7 +293,7 @@ then
         --partition "${target_partition_cpu}" \
         --qos "${__qos}" \
         --account "${__project_account}" \
-        --run_index 1 \
+        --run_index "$run_index" \
         --path_llr_exec "${path_llr_exec}" \
         --output_run_dir "${path_to_run_dir}"
       ;;

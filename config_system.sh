@@ -36,6 +36,7 @@ case $__machine_name in
     target_partition_gpu="gpu";                  target_partition_cpu="cpu";
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
+    cluster_data_disk=""
     ;;
   *"lumi"*)
     target_partition_gpu="standard-g";           target_partition_cpu="standard";
@@ -60,7 +61,7 @@ case $__machine_name in
   *"MareNostrum"*)
     target_partition_gpu="acc";                  target_partition_cpu="gp";
     qos_gpu="acc_ehpc";                          qos_cpu="gp_ehpc";
-    qos="acc_ehpc"; # default to gpu qos
+    qos="acc_ehpc";                              cluster_data_disk="/gpfs/projects/${__project_account}";
     gpus_per_node=4;
     max_cores_per_node_gpu=80;                   max_cores_per_node_cpu=112;
     ;;
