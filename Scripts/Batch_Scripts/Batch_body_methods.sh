@@ -401,9 +401,9 @@ MPI=$_mpi_distribution
 # Extracted from the configuration
 
 VOL=$_lattice_size_cpu
-BETA=$_beta_telos   # 6.9   beta
-MASS=$_mass_telos   # 0.08  mass
-Ls=$_Ls_telos       # 8     Domain wall Ls
+BETA=$_beta_telos         # 6.9   beta
+MASS=$_mass_telos         # 0.08  mass
+Ls=$_Ls_telos             # 8     Domain wall Ls
 
 # Hardcoded variables
 
@@ -418,7 +418,8 @@ MOBIUS_C=0.5
 # Extracting the checkpoint from the lattice data
 STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
+printf "STARTTRAJ              : "; printf '%s' "\${STARTTRAJ}"; printf "\n";
+printf "--cnfg_dir             : "; printf '%s' "${DWF_ensembles_GRID_dir}/${_config_dir}/"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
 ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
 echo "#-------------------------------------------------------------------------------"
@@ -497,7 +498,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --shm \${shm} \\
   --device-mem \${device_mem} \\
   --mpi \${MPI} \\
-  --cnfg_dir "\$DWF_ensembles_GRID_dir/${_config_dir}" \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
