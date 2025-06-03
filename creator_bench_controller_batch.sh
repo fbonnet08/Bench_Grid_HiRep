@@ -1135,8 +1135,6 @@ done
     $white; printf "Ls (Domain Wall)       : "; $bold; $yellow; printf '%s'"${Ls_segment}"; printf "\n"; $white; $reset_colors;
     $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
 
-
-
     # constructing the files and directory structure
     H=1
     L=1
@@ -1267,17 +1265,22 @@ done
     __accelerator="gpu"
     __simulation_size="small"
 
-    for m in ${trajectories[@]}; do echo $m; done
+    for m in ${beta_telos[@]}; do echo $m; done
     for m in ${mass_telos[@]}; do echo $m; done
+    for m in ${Ls[@]}; do echo $m; done
+
+    for m in ${trajectories[@]}; do echo $m; done
     for m in ${nsteps[@]}; do echo $m; done
     for m in ${savefreq[@]}; do echo $m; done
-    for m in ${beta_telos[@]}; do echo $m; done
     for m in ${tlen[@]}; do echo $m; done
     for m in ${dwf_mass[@]}; do echo $m; done
     for m in ${Mobius_b[@]}; do echo $m; done
     for m in ${Mobius_c[@]}; do echo $m; done
-    for m in ${Ls[@]}; do echo $m; done
     for m in ${grid_dwf_telos_lattice_size_gpu[@]}; do echo $m; done
+    # Number of numbers to looped over and executed for the [Small-GPU] case
+    printf "#----------------------------------------------------------------\n";
+    for m in ${grid_small_n_nodes_gpu[@]}; do echo $m; done
+    printf "#----------------------------------------------------------------\n";
 
     ls -al "${DWF_ensembles_GRID_dir}"
 
@@ -1454,6 +1457,211 @@ done
   fi
 
 done
+    #-------------------------------------------------------------------------------
+    # Grid_DWF_Telos_run_gpu [Large-GPU]:
+    #-------------------------------------------------------------------------------
+    $yellow;
+    printf "#----------------------------------------------------------------\n";
+    printf "# Grid_DWF_Telos_run_gpu [Large-GPU]:\n"
+    printf "#----------------------------------------------------------------\n";
+    $white; $reset_colors;
+    __accelerator="gpu"
+    __simulation_size="large"
+
+
+    for m in ${beta_telos[@]}; do echo $m; done
+    for m in ${mass_telos[@]}; do echo $m; done
+    for m in ${Ls[@]}; do echo $m; done
+
+    for m in ${trajectories[@]}; do echo $m; done
+    for m in ${nsteps[@]}; do echo $m; done
+    for m in ${savefreq[@]}; do echo $m; done
+    for m in ${tlen[@]}; do echo $m; done
+    for m in ${dwf_mass[@]}; do echo $m; done
+    for m in ${Mobius_b[@]}; do echo $m; done
+    for m in ${Mobius_c[@]}; do echo $m; done
+    for m in ${grid_dwf_telos_lattice_size_gpu[@]}; do echo $m; done
+    # Number of numbers to looped over and executed for the [Small-GPU] case
+    printf "#----------------------------------------------------------------\n";
+    for m in ${grid_large_n_nodes_gpu[@]}; do echo $m; done
+    printf "#----------------------------------------------------------------\n";
+
+    ls -al "${DWF_ensembles_GRID_dir}"
+
+    # constructing the files and directory structure
+    H=1
+    L=1
+    T=1
+    M=1
+
+
+# Looping over the array
+for idir in $(seq 0 `expr ${#DWF_ensembles_GRID_array[@]} - 1`)
+do
+
+  parent_dir="${DWF_ensembles_GRID_dir}"
+  substring="${DWF_ensembles_GRID_array[$idir]}"
+
+  #echo "echo --->: $parent_dir"
+  #echo "echo --->: $substring"
+  $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+  $white; printf "Parent directory       : "; $bold; $yellow; printf '%s'"${parent_dir}"; printf "\n"; $white; $reset_colors;
+  $white; printf "Substring              : "; $bold; $cyan; printf '%s'"${substring}";  printf "\n"; $white; $reset_colors;
+
+  found=0
+  for dir in "$parent_dir"/*/; do
+    if [[ -d "$dir" && "$dir" == *"$substring"* ]]; then
+      #echo "Found matching directory: $dir"
+      $white; printf "Found matching dir     : "; $bold; $yellow; printf '%s'"${dir}"; printf "\n"; $white; $reset_colors;
+      found=1
+      break
+    fi
+  done
+
+  if [ "$found" -eq 1 ]; then
+    #---------------------------------------------------------------------------
+    # Extracting the parameters from the configuration files
+    #---------------------------------------------------------------------------
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Extract and convert 6p9 to 6.9
+    beta_telos_segment=$(echo "$substring" | grep -oP 'b\K\d+p\d+' | sed 's/p/./')
+    # Extract and convert LNt32L24 to 24.24.24.32
+    lattice_segment=$(echo "$substring" | grep -oP 'LNt\d+L\d+' | sed -E 's/LNt([0-9]+)L([0-9]+)/\2.\2.\2.\1/')
+    # Extract and convert m0p08 to 0.08
+    mass_segment=$(echo "$substring" | grep -oP 'm\K\d+p\d+' | sed 's/p/./')
+    # Extract and convert Ls8 to Ls=8
+    Ls_segment=$(echo "$substring" | grep -oP 'Ls\d+' | sed 's/Ls//')
+    #---------------------------------------------------------------------------
+    # Extracted data from the substring
+    $white; printf "6p9                    : "; $bold; $yellow; printf '%s'"${beta_telos_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "m0p08                  : "; $bold; $yellow; printf '%s'"${mass_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "LNt32L24               : "; $bold; $yellow; printf '%s'"${lattice_segment}"; printf "\n"; $white; $reset_colors;
+    $white; printf "Ls8                    : "; $bold; $yellow; printf '%s'"${Ls_segment}"; printf "\n"; $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+    #---------------------------------------------------------------------------
+    # Starting the looping structure
+    #---------------------------------------------------------------------------
+    #for k in $(seq 0 `expr ${#ntasks_per_node[@]} - 1`)
+    #do
+    #  ntpn=$(printf "ntpn%03d" "${ntasks_per_node[$k]}";)
+    #for j in $(seq 0 `expr ${#grid_dwf_telos_lattice_size_gpu[@]} - 1`)
+    #do
+      #lattice=$(printf "lat%s" "${grid_dwf_telos_lattice_size_gpu[$j]}";)
+
+      lattice=$(printf "lat%s" "${lattice_segment}";)
+
+      for i in $(seq 0 `expr ${#grid_large_n_nodes_gpu[@]} - 1`)
+      do
+        # Generate all unique 4-number combinations
+        nodes_x_gpus_per_node=$(echo "${grid_large_n_nodes_gpu[$i]}*$gpus_per_node"|bc);
+
+# Combinatorics loop over MPI distributions
+K=1
+_mpi_distr=""
+for ((ix = 1; ix <= gpus_per_node; ix++)); do
+  for ((iy = 1; iy <= gpus_per_node; iy++)); do
+    for ((iz = 1; iz <= gpus_per_node; iz++)); do
+      for ((it = 1; it <= gpus_per_node; it++)); do
+        # Calculate the product of the four numbers
+        product=$((ix * iy * iz * it))
+        #echo "product --->: $product"
+        # Check if the product is equals to number of nodes nodes
+        if ((product == nodes_x_gpus_per_node)); then
+          _mpi_distr="${ix}.${iy}.${iz}.${it}"
+          #echo "_mpi_distr --->: $_mpi_distr"
+          K=$(expr $K + 1)
+          mpi_distr=$(printf "mpi%s" "${_mpi_distr}"| sed -E 's/([0-9]+)/0\1/g' | sed 's/\./\-/g')
+
+          cnt=$(printf "%03d" "$H")
+          index=$(printf "%03d" "$i")
+          n_nodes=$(printf "nodes%03d" "${grid_large_n_nodes_gpu[$i]}";)
+          __mpi_distr_FileTag=$(printf "${mpi_distr}")
+          #_${beta_telos_segment}_${mass_segment}_${Ls_segment}_${lattice}
+          __batch_file_construct=$(printf "Run_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
+          __batch_file_out=$(printf "${__batch_file_construct}.sh")
+          __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
+
+          $cyan;printf "                       : $n_nodes, $__batch_file_out, $__path_to_run\n"; $reset_colors
+
+          # TODO: continue from here: first check the file convention is correct.
+          # Creating the path in question
+          Batch_util_create_path "${__path_to_run}"
+          # Now creating the Batch file: __batch_file_out in __path_to_run
+          $white; printf "                       : ";
+          $yellow; printf "Creating the Batch script from the methods: "; $bold;
+          $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Here need to invoke the configuration method config_Batch_with_input_from_system_config
+          #ntasks_per_node=$(expr ${grid_large_n_nodes_gpu[$i]} \* ${_core_count})
+          #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
+          ntasks_per_node="$gpus_per_node"
+          config_Batch_with_input_from_system_config \
+            "${grid_large_n_nodes_gpu[$i]}"          \
+            "${_core_count}"                         \
+            "$ntasks_per_node"                       \
+            "$gpus_per_node"                         \
+            "$target_partition_gpu"                  \
+            "${__batch_file_construct}"              \
+            "10:00:00"                               \
+            "$qos"
+
+          # Writing the header to files
+          cat << EOF > "${__path_to_run}${sptr}${__batch_file_out}"
+$(Batch_header ${__path_to_run} ${__accelerator} ${__project_account} ${gpus_per_node} ${__accelerator} ${__simulation_size} ${machine_name} ${_nodes} ${_ntask} ${_ntasks_per_node} ${_cpus_per_task} ${_partition} ${_job_name} ${_time} ${_qos})
+$(
+          case $__batch_action in
+            *"Sombrero_weak"*)          echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"Sombrero_strong"*)        echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"BKeeper"*)                echo "#---> this is a ${__batch_file_construct} job run" ;;
+            *"HiRep-LLR-master-cpu"*)   echo "#---> this is a HiRep-LLR-master-cpu job run"      ;;
+            *"HiRep-LLR-master-gpu"*)   echo "#---> this is a HiRep-LLR-master-gpu job run"      ;;
+            *"Grid_DWF_run_gpu"*)       echo "#---> this is a Grid_DWF_run_gpu job run"          ;;
+            *"Grid_DWF_Telos_run_gpu"*) echo "#---> this is a Grid_DWF_Telos_run_gpu job run"    ;;
+          esac
+    )
+EOF
+          #-------------------------------------------------------------------------
+          # Constructing the rest of the batch file body
+          #-------------------------------------------------------------------------
+          Batch_body_Run_Grid_DWF_Telos_gpu                                                   \
+            "${machine_name}" "${grid_DWF_Telos_dir}" "${LatticeRuns_dir}"                    \
+            "${benchmark_input_dir}" "${__path_to_run}${sptr}${__batch_file_out}"             \
+            "${lattice_segment}" "${_mpi_distr}"  "${__simulation_size}"  \
+            "${__batch_file_construct}" "${prefix}" "${__path_to_run}"                        \
+            "${module_list}" "${sourcecode_dir}" "${DWF_ensembles_GRID_dir}" "${substring}"   \
+            "${beta_telos_segment}" "${mass_segment}" "${Ls_segment}"
+
+          #"${grid_dwf_telos_lattice_size_gpu[$j]}"
+        fi
+
+      done
+    done
+  done
+done
+        # incrementing the counter
+        #L=$(expr $L + 1)
+      #done
+      H=$(expr $H + 1)
+    done # [end-for-loop] ${#grid_large_n_nodes_gpu[@]}
+    #  T=$(expr $T + 1)
+    #done
+      M=$(expr $M + 1)
+    #done # [end-for-loop] grid_dwf_telos_lattice_size_gpu[@]}
+
+
+  else
+    $white; printf "Directory substring    : "; $bold;
+    $magenta; printf '%s'"${substring}"; $red; printf " does not exist.\n";
+    $white; $reset_colors;
+    $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
+  fi
+
+done
+
 
       ;;
   *"HiRep-LLR-master-cpu"*)
