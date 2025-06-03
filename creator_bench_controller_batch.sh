@@ -971,8 +971,8 @@ done
     #---------------------------------------------------------------------------
     # Extracting the parameters from the configuration files
     #---------------------------------------------------------------------------
-    $white; printf "Directory substring    : "; $bold;
-    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; printf "Simulation size        : "; $bold;
+    $magenta; printf '%s'"${__simulation_size}"; $green; printf "\n";
     $white; $reset_colors;
     $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
     #---------------------------------------------------------------------------
@@ -1117,8 +1117,8 @@ done
     #---------------------------------------------------------------------------
     # Extracting the parameters from the configuration files
     #---------------------------------------------------------------------------
-    $white; printf "Directory substring    : "; $bold;
-    $magenta; printf '%s'"${substring}"; $green; printf " exist.\n";
+    $white; printf "Simulation Size        : "; $bold;
+    $magenta; printf '%s'"${__simulation_size}"; $green; printf "\n";
     $white; $reset_colors;
     $yellow; printf "                       ------------------------------------------\n"; $white; $reset_colors;
     #---------------------------------------------------------------------------
