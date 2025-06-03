@@ -455,7 +455,7 @@ srun --cpu-bind=\${CPU_BIND} \\
   --shm \$shm \\
   --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --cnfg_dir "\$DWF_ensembles_GRID_dir/$_config_dir" \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -583,7 +583,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --shm \$shm \\
   --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --cnfg_dir "\$DWF_ensembles_GRID_dir/${_config_dir}/" \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}/" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
