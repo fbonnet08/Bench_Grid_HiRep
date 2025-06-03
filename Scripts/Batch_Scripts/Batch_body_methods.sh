@@ -418,7 +418,7 @@ MOBIUS_C=0.5
 # Extracting the checkpoint from the lattice data
 STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s'"\$STARTTRAJ"; printf "\n";
+printf "STARTTRAJ              : "; printf '%s'"\${STARTTRAJ}"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
 ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
 echo "#-------------------------------------------------------------------------------"
@@ -441,7 +441,7 @@ shm=8192
 srun --cpu-bind=\${CPU_BIND} \\
   ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --starttraj \$STARTTRAJ \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -452,17 +452,17 @@ srun --cpu-bind=\${CPU_BIND} \\
   --savefreq \${SAVEFREQ} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
+  --shm \$shm \\
+  --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --shm \${shm} \\
-  --device-mem \${device_mem} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --cnfg_dir "\$DWF_ensembles_GRID_dir/$_config_dir" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
   --savefreq \${SAVEFREQ}
 # > \${DWF_ensembles_GRID_dir}/${_config_dir}/hmc_\${SLURM_JOB_ID}.out
 ################################################################################
-#  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\ # ./dwf_trials_verybigR1
+#  --cnfg_dir "\$DWF_ensembles_GRID_dir/\$_config_dir" \\ # ./dwf_trials_verybigR1
 #  --savefreq \${SAVEFREQ} > ./dwf_trials_verybigR1/hmc_\${SLURM_JOB_ID}.out
 #-------------------------------------------------------------------------------
 EOF
@@ -483,7 +483,7 @@ mpirun -np \${SLURM_NTASKS} \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj \$STARTTRAJ \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -494,10 +494,10 @@ mpirun -np \${SLURM_NTASKS} \\
   --savefreq \${SAVEFREQ} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
-  --mpi \${MPI} \\
   --shm \${shm} \\
   --device-mem \${device_mem} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --mpi \${MPI} \\
+  --cnfg_dir "\$DWF_ensembles_GRID_dir/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -523,7 +523,7 @@ mpirun -np \${SLURM_NTASKS} \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj \$STARTTRAJ \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -537,7 +537,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --mpi \${MPI} \\
   --shm \${shm} \\
   --device-mem \${device_mem} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --cnfg_dir "\${DWF_ensembles_GRID_dir}/\$_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -569,7 +569,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --bind-to none \\
   "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
   --StartingType CheckpointStart \\
-  --starttraj \$STARTTRAJ \\
+  --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -580,10 +580,10 @@ mpirun -np \${SLURM_NTASKS} \\
   --savefreq \${SAVEFREQ} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
+  --shm \$shm \\
+  --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --shm \${shm} \\
-  --device-mem \${device_mem} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --cnfg_dir "\$DWF_ensembles_GRID_dir/${_config_dir}/" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
