@@ -112,12 +112,15 @@ case "$__batch_action" in
     *"Bench_LLR_HB_run_cpu"*)
       pwd
       # First look for directory in LLR_HB directory.
-      target_directories_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
+      #target_directories_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
+      path_to_run_dir="${cluster_data_disk}/LatticeRuns"
+      target_directories_LLR_HiRep_HB_run_cpu="${path_to_run_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
       find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
               -maxdepth 1 -type d -name "Run_*"   \
               > "${target_directories_LLR_HiRep_HB_run_cpu}"
       # Second getting the bash files in LLR_HB directory.
-      target_bash_files_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
+      #target_bash_files_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
+      target_bash_files_LLR_HiRep_HB_run_cpu="${path_to_run_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
       find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
               -type f -name "setup_llr_repeat.sh"   \
               > "${target_bash_files_LLR_HiRep_HB_run_cpu}"
