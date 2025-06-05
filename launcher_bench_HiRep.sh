@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1 $2`
+ARGV=`basename -a $1 $2 $3`
 set -eu
 scrfipt_file_name=$(basename "$0")
 tput bold;
@@ -33,10 +33,13 @@ fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-__external_lib_dir=$1
-__batch_action=$2
+__project_account=$1
+__external_lib_dir=$2
+__batch_action=$3
 # Overall config file
 source ./common_main.sh "$__external_lib_dir";
+# System config file to get information from the node
+source ./config_system.sh "$__project_account" "$machine_name";
 # The Batch content creators methods
 source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #-------------------------------------------------------------------------------
@@ -115,15 +118,21 @@ case "$__batch_action" in
       #target_directories_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
       path_to_run_dir="${cluster_data_disk}/LatticeRuns"
       target_directories_LLR_HiRep_HB_run_cpu="${path_to_run_dir}"/"${target_LLR_HiRep_HB_run_cpu_directories}"
-      find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
+      #find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
+      #        -maxdepth 1 -type d -name "Run_*"   \
+      #        > "${target_directories_LLR_HiRep_HB_run_cpu}"
+      find "${path_to_run_dir}/${Hirep_LLR_SP}/LLR_HB/" \
               -maxdepth 1 -type d -name "Run_*"   \
               > "${target_directories_LLR_HiRep_HB_run_cpu}"
       # Second getting the bash files in LLR_HB directory.
       #target_bash_files_LLR_HiRep_HB_run_cpu="${LatticeRuns_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
       target_bash_files_LLR_HiRep_HB_run_cpu="${path_to_run_dir}"/"${target_LLR_HiRep_HB_run_cpu_batch_files}"
-      find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
+      find "${path_to_run_dir}/${Hirep_LLR_SP}/LLR_HB/" \
               -type f -name "setup_llr_repeat.sh"   \
               > "${target_bash_files_LLR_HiRep_HB_run_cpu}"
+      #find "${LatticeRuns_Hirep_LLR_SP_dir}/LLR_HB/" \
+      #        -type f -name "setup_llr_repeat.sh"   \
+      #        > "${target_bash_files_LLR_HiRep_HB_run_cpu}"
       #-------------------------------------------------------------------------
       # Method to launch batch jobs from a given target file
       #-------------------------------------------------------------------------
