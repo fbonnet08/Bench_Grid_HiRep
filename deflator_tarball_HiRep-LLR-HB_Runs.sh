@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGV=`basename -a $1`
+ARGV=`basename -a $1 $2`
 set -eu
 scrfipt_file_name=$(basename "$0")
 tput bold;
@@ -33,9 +33,12 @@ fi
 #-------------------------------------------------------------------------------
 # Getting the common code setup and variables, #setting up the environment properly.
 #-------------------------------------------------------------------------------
-__external_lib_dir=$1
+__project_account=$1
+__external_lib_dir=$2
 # Overall config file
 source ./common_main.sh "$__external_lib_dir";
+# System config file to get information from the node
+source ./config_system.sh "$__project_account" "$machine_name";
 # The Batch content creators methods
 source ./Scripts/Batch_Scripts/Batch_util_methods.sh;
 #-------------------------------------------------------------------------------
