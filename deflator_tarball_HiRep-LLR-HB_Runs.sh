@@ -79,8 +79,12 @@ directory_exists "${move_runs_from}"; dir_move_runs_from_exists="$directory_exis
 if [ "$dir_move_runs_from_exists" == "yes" ]; then ls -al "${move_runs_from}"; fi
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-move_runs_to="${logged_runs_dir}/${LLR_HiRep_heatbath_input}_${timestamp}"
+#move_runs_to="${logged_runs_dir}/${LLR_HiRep_heatbath_input}_${timestamp}"
+# ${cluster_data_disk}                 declared in config_system.sh
+# ${euroHPC_call}/${previous_runs_dir} declared in common_main.sh
+move_runs_to="${cluster_data_disk}/${euroHPC_call}/${previous_runs_dir}/${LLR_HiRep_heatbath_input}_${timestamp}"
 $white; printf "Moving previous runs to: ";$cyan;    printf "%s\n" "$move_runs_to"; $reset_colors;
+
 # Checking if directory exists or not
 directory_exists "${move_runs_to}"; dir_move_runs_to_exists="$directory_exists";
 # If the directory does not exist create it.
