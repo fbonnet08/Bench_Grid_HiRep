@@ -104,8 +104,6 @@ fi
 #-------------------------------------------------------------------------------
 # Secondly deflating the tar ball to target directory
 #-------------------------------------------------------------------------------
-# moving to the latticerun directory
-cd "${LatticeRuns_dir}"
 
 # Checking if the target directory exists
 path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
@@ -126,6 +124,9 @@ esac
 directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_exists";
 # If the directory does not exist create it.
 if [ "$dir_path_to_run_dir_exists" == "no" ]; then Batch_util_create_path "${path_to_run_dir}"; fi
+
+# moving to the latticerun directory
+cd "${LatticeRuns_dir}"
 
 # Check again then deflate tarball to target directory
 directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_exists";
