@@ -104,10 +104,43 @@ fi
 #-------------------------------------------------------------------------------
 # Secondly deflating the tar ball to target directory
 #-------------------------------------------------------------------------------
-
+# moving to the latticerun directory
 cd "${LatticeRuns_dir}"
-cp "${ball_llr_LatticeRuns}.gz" .
-tar xfz "${ball_llr_LatticeRuns_name}.gz"
+
+# Checking if the target directory exists
+path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
+case $__machine_name in
+  *"Precision-3571"*)  ;;
+  *"DESKTOP-GPI5ERK"*) ;;
+  *"desktop-dpr4gpr"*) ;;
+  *"tursa"*)           ;;
+  *"sunbird"*)         ;;
+  *"vega"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
+  *"lumi"*)            ;;
+  *"leonardo"*)        ;;
+  *"mi300"*)           ;;
+  *"mi210"*)           ;;
+  *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
+esac
+# If target dir does not exiist create it
+directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_exists";
+# If the directory does not exist create it.
+if [ "$dir_path_to_run_dir_exists" == "no" ]; then Batch_util_create_path "${path_to_run_dir}"; fi
+
+# Check again then deflate tarball to target directory
+directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_exists";
+if [ "$dir_path_to_run_dir_exists" == "yes" ]
+then
+  cp "${ball_llr_LatticeRuns}.gz" "${path_to_run_dir}"
+  $white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$path_to_run_dir"; $reset_colors;
+  cd "${path_to_run_dir}"
+  pwd
+  $white; printf "Deflating tarball      : ";$cyan;    printf "%s\n" "${ball_llr_LatticeRuns_name}.gz"; $reset_colors;
+  tar xfz "${ball_llr_LatticeRuns_name}.gz"
+fi
+
+# moving back to the source directory
+$white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$sourcecode_dir"; $reset_colors;
 cd "${sourcecode_dir}"
 ls -al
 pwd

@@ -231,12 +231,12 @@ case $__machine_name in
   *"desktop-dpr4gpr"*) ;;
   *"tursa"*)           ;;
   *"sunbird"*)         ;;
-  *"vega"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
+  *"vega"*)            ;; #path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
   *"lumi"*)            ;;
   *"leonardo"*)        ;;
   *"mi300"*)           ;;
   *"mi210"*)           ;;
-  *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
+  *"MareNostrum"*)     ;; #path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
 esac
 run_index=1
 $white; printf "qos                    : ";$cyan;    printf "%s\n" "${__qos}";                  $reset_colors;
