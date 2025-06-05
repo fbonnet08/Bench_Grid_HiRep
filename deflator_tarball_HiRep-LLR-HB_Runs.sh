@@ -107,7 +107,7 @@ fi
 
 # Checking if the target directory exists
 path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
-case $__machine_name in
+case $machine_name in
   *"Precision-3571"*)  ;;
   *"DESKTOP-GPI5ERK"*) ;;
   *"desktop-dpr4gpr"*) ;;
