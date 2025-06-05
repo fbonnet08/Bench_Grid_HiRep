@@ -231,7 +231,7 @@ case $__machine_name in
   *"desktop-dpr4gpr"*) ;;
   *"tursa"*)           ;;
   *"sunbird"*)         ;;
-  *"vega"*)            ;;
+  *"vega"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns/${Hirep_LLR_SP}/LLR_HB" ;;
   *"lumi"*)            ;;
   *"leonardo"*)        ;;
   *"mi300"*)           ;;
