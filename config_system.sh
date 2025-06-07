@@ -42,11 +42,13 @@ case $__machine_name in
     target_partition_gpu="standard-g";           target_partition_cpu="standard";
     gpus_per_node=8;                             qos="normal";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
+    cluster_data_disk="/scratch/${__project_account}";
     ;;
   *"leonardo"*)
     target_partition_gpu="boost_usr_prod";       target_partition_cpu="dcgp_usr_prod";
     gpus_per_node=4;                             qos="normal";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=112;
+    cluster_data_disk="/leonardo_work/${__project_account}"; # ${WORK}=/leonardo_work/EUHPC_B22_046
     ;;
   *"mi300"*)
     target_partition_gpu="LocalQ";               target_partition_cpu="LocalQ";
@@ -61,9 +63,10 @@ case $__machine_name in
   *"MareNostrum"*)
     target_partition_gpu="acc";                  target_partition_cpu="gp";
     qos_gpu="acc_ehpc";                          qos_cpu="gp_ehpc";
-    qos="acc_ehpc";                              cluster_data_disk="/gpfs/projects/${__project_account}";
+    qos="acc_ehpc";
     gpus_per_node=4;
     max_cores_per_node_gpu=80;                   max_cores_per_node_cpu=112;
+    cluster_data_disk="/gpfs/projects/${__project_account}";
     ;;
 esac
 
