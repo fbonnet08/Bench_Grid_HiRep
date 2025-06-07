@@ -36,7 +36,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
+#sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Tursa]
 #-------------------------------------------------------------------------------
@@ -62,6 +62,7 @@ sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
 # Code block comment for now as the main focus is going to be LUMI for just now
 
 # Booster [GPU]: EUHPC_B17_015     EUHPC_B22_046
+#sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B22_046  login.leonardo.cineca.it
 # DCPG    [CPU]: EUHPC_B17_015_0   EUHPC_B22_046_0
 #sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
 
@@ -72,7 +73,7 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B22_046  login.leonardo.cineca.it
+sh ./dispatcher_Grid_HiRep.sh  fbonnet0   EUHPC_B22_046_0  login.leonardo.cineca.it
 '
 #-------------------------------------------------------------------------------
 #End of the script

@@ -205,7 +205,6 @@ $green; printf "Checking input file    :\n"; $white; $reset_colors;
 file_exists "${llr_input}/input/${machine_name}.csv"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Generating LLR-Rep     :\n"; $white; $reset_colors;
-
 # TODO drive the code from here.
 # TODO:
 #  python3 main.py
@@ -299,6 +298,16 @@ then
         --output_run_dir "${path_to_run_dir}"
       ;;
     *"leonardo"*)
+      python3 \
+        "${llr_input}"/main.py \
+        --machine "${__machine_name}" \
+        --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
+        --modules "${__module_list}" \
+        --partition "${target_partition_cpu}" \
+        --account "${__project_account}" \
+        --run_index "$run_index" \
+        --path_llr_exec "${path_llr_exec}" \
+        --output_run_dir "${path_to_run_dir}"
       ;;
     *"mi300"*)
       ;;
