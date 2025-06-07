@@ -37,7 +37,6 @@ __project_account=$1
 __remote_hostname=$2
 __user_remote_home_dir=$3
 __external_lib_dir=$4
-
 # Overall config file
 source ./common_main.sh "$__external_lib_dir";
 #-------------------------------------------------------------------------------
@@ -55,6 +54,8 @@ case ${__remote_hostname} in
   *"alogin1.bsc.es"*)           __machine_name="MareNostrum" ;;
   *"glogin1.bsc.es"*)           __machine_name="MareNostrum" ;;
 esac
+# System config file to get information from the node
+source ./config_system.sh "$__project_account" "$__machine_name";
 #-------------------------------------------------------------------------------
 # Overriding the __module_list due to remote creation prior to deployment
 #-------------------------------------------------------------------------------
@@ -65,38 +66,47 @@ case $__machine_name in
     $white; printf "Laptop no module load  : no module load"; $bold
     # grid_dir is already set above but setting to new value here for laptop
     #grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
+    __qos="${qos}";
     __module_list="#---> no modules on Precision-3571;module list;"
     ;;
   *"DESKTOP-GPI5ERK"*)
+    __qos="${qos}";
     __module_list="#---> no modules on ${__machine_name}; module list;"
     ;;
   *"desktop-dpr4gpr"*)
+    __qos="${qos}";
     __module_list="#---> no modules on ${__machine_name}; module list;"
     ;;
   *"tursa"*)
     __module_list="cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
   *"sunbird"*)
+    __qos="${qos}";
    __module_list="CUDA/11.7 compiler/gnu/11/3.0 mpi/openmpi/1.10.6; module list;"
     ;;
   *"vega"*)
-    __qos="normal"
+    __qos="${qos}";
     __module_list="CUDA/12.1.1 GCC/11.3.0 UCX/1.12.1-GCCcore-11.3.0 OpenMPI/4.1.4-GCC-11.3.0 Python/3.10.4-GCCcore-11.3.0 FFTW/3.3.10-GCC-11.3.0 OpenSSL/3; module list;"
     ;;
   *"lumi"*)
+    __qos="${qos}"; # Coming from config_system.sh call
     __module_list="cray-mpich cray-fftw cray-hdf5-parallel cray-python; module list;"
     ;;
   *"leonardo"*)
+    __qos="${qos}";
     __module_list="cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5; module list;"
     ;;
   *"mi300"*)
+    __qos="${qos}";
     __module_list="rocm amdclang hdf5 fftw openmpi; module list;"
     ;;
   *"mi210"*)
+    __qos="${qos}";
     __module_list="rocm amdclang hdf5 fftw openmpi; module list;"
     ;;
   *"MareNostrum"*)
-    __qos="gp_ehpc"
+    __qos="${qos_cpu}";
+    #__qos="gp_ehpc"
     __module_list="gcc/12.3.0 openmpi/4.1.5-gcc; module list;"
     ;;
 esac
