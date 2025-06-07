@@ -46,7 +46,7 @@ case ${remote_hostname} in
     add_connect_string="-i ~/.ssh/id_ed255"
   ;;
   *"login.leonardo.cineca.it"*)
-    rm ~/.ssh/known_hosts;
+    if [ -f ~/.ssh/known_hosts ]; then rm ~/.ssh/known_hosts; fi
     add_connect_string="-v"
   ;;
 esac
