@@ -121,8 +121,8 @@ case $machine_name in
   *"tursa"*)           ;;
   *"sunbird"*)         ;;
   *"vega"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
-  *"lumi"*)            ;;
-  *"leonardo"*)        ;;
+  *"lumi"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
+  *"leonardo"*)    path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
   *"mi300"*)           ;;
   *"mi210"*)           ;;
   *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
