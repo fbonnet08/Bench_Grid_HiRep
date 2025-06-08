@@ -24,7 +24,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Precision-3571]
 #-------------------------------------------------------------------------------
-#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  frederic     notneeded  137.44.5.215" &
+#xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  frederic  not_required  137.44.5.215" &
 #-------------------------------------------------------------------------------
 # [Sunbird] [scw1813, scw1019] TODO: Sunbird has issues with max_string_array
 #-------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb  notneeded login.vega.izum.si" &
+xterm -bg black -fg white -cr red -geometry 120x70  -e "sh ./dispatcher_Grid_hiRep.sh  eufredericb  not_required login.vega.izum.si" &
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
