@@ -32,7 +32,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
+#sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-sh ./dispatcher_Grid_HiRep.sh  fbonnet0   EUHPC_B22_046_0  login.leonardo.cineca.it
+sh ./dispatcher_Grid_HiRep.sh  fbonnet0   EUHPC_B22_046  login.leonardo.cineca.it
 #'
 #-------------------------------------------------------------------------------
 #End of the script
