@@ -93,7 +93,7 @@ cd ${batch_Scripts_dir}
 echo "machine name                ----> $machine_name"
 echo "module list                 ----> $module_list"
 echo "batch action                ----> $__batch_action"
-echo "batch file basinc construct ----> $__batch_file_out"
+echo "batch file basic construct  ----> $__batch_file_out"
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Creating batch file for batch action: ";
