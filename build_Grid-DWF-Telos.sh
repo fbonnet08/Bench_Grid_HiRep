@@ -135,19 +135,18 @@ case $machine_name in
   *"tursa"*)
     ../configure \
     --prefix=${prefix} \
-    --enable-doxygen-doc \
     --enable-comms=mpi \
-    --enable-simd=GPU \
     --enable-shm=nvlink \
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
-    --disable-gparity \
-    --disable-fermion-reps \
-    --enable-Sp \
-    --enable-Nc=4 \
+    --enable-simd=GPU \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --disable-fermion-reps \
+    --disable-gparity \
+    --enable-Sp \
+    --enable-Nc=4 \
     --disable-unified \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas " \
@@ -156,19 +155,18 @@ case $machine_name in
   *"sunbird"*)
     ../configure \
     --prefix=${prefix} \
-    --enable-doxygen-doc \
     --enable-comms=mpi \
-    --enable-simd=GPU \
     --enable-shm=nvlink \
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
+    --enable-simd=GPU \
+    --with-lime=${prefix} \
+    --with-gmp=${prefix} \
+    --with-mpfr=${prefix} \
     --disable-gparity \
     --disable-fermion-reps \
     --enable-Sp \
     --enable-Nc=4 \
-    --with-lime=${prefix} \
-    --with-gmp=${prefix} \
-    --with-mpfr=${prefix} \
     --disable-unified \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas " \
@@ -177,20 +175,18 @@ case $machine_name in
   *"vega"*)
     ../configure \
     --prefix=${prefix} \
-    --enable-doxygen-doc \
     --enable-comms=mpi \
-    --enable-simd=GPU \
     --enable-shm=nvlink \
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
-    --disable-gparity \
-    --disable-zmobius \
-    --disable-fermion-reps \
-    --enable-Sp \
-    --enable-Nc=4 \
+    --enable-simd=GPU \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --disable-fermion-reps \
+    --disable-gparity \
+    --enable-Sp \
+    --enable-Nc=4 \
     --disable-unified \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas " \
@@ -200,16 +196,16 @@ case $machine_name in
     #--with-fftw=$FFTW_DIR/.. \
     ../configure \
     --prefix=${prefix} \
-    --enable-comms=mpi-auto \
+    --enable-comms=mpi \
     --enable-unified=no \
     --enable-shm=nvlink \
     --enable-accelerator=hip \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
-    --enable-accelerator-cshift \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --enable-accelerator-cshift \
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
@@ -220,16 +216,16 @@ case $machine_name in
   *"leonardo"*)
     ../configure \
     --prefix=${prefix} \
-    --enable-comms=mpi-auto \
+    --enable-comms=mpi \
     --enable-unified=no \
     --enable-shm=nvlink \
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
-    --enable-accelerator-cshift \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --enable-accelerator-cshift \
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
@@ -248,11 +244,11 @@ case $machine_name in
     --enable-accelerator=hip \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
-    --enable-accelerator-cshift \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
     --with-fftw=/opt/rocmplus-6.3.3/fftw \
+    --enable-accelerator-cshift \
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
@@ -273,11 +269,11 @@ case $machine_name in
     --enable-accelerator=hip \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
-    --enable-accelerator-cshift \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
     --with-fftw=/opt/rocmplus-6.3.3/fftw \
+    --enable-accelerator-cshift \
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
@@ -296,10 +292,10 @@ case $machine_name in
     --enable-accelerator=cuda \
     --enable-gen-simd-width=64 \
     --enable-simd=GPU \
-    --enable-accelerator-cshift \
     --with-lime=${prefix} \
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
+    --enable-accelerator-cshift \
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \

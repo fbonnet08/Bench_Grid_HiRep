@@ -336,7 +336,7 @@ MOBIUS_C=0.5
 STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
 echo "#-------------------------------------------------------------------------------"
 printf "STARTTRAJ              : "; printf '%s' "\${STARTTRAJ}"; printf "\n";
-printf "cnfg_dir               : "; printf '%s' "${DWF_ensembles_GRID_dir}/${_config_dir}/"; printf "\n";
+printf "cnfg_dir               : "; printf '%s' "\${DWF_ensembles_GRID_dir}/${_config_dir}/"; printf "\n";
 echo "#-------------------------------------------------------------------------------"
 ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
 echo "#-------------------------------------------------------------------------------"
