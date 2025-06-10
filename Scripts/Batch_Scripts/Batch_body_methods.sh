@@ -306,6 +306,42 @@ path_to_run=$_path_to_run
 job_name=$_batch_file_construct
 EOF
 #-------------------------------------------------------------------------------
+# Variable list for grid command line argument list
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Variable list for grid command line argument list
+#-------------------------------------------------------------------------------
+# Computed on the benchmark batch creation
+MPI=$_mpi_distribution
+
+# Extracted from the configuration
+
+VOL=$_lattice_size_cpu
+BETA=$_beta_telos         # 6.9   beta
+MASS=$_mass_telos         # 0.08  mass
+Ls=$_Ls_telos             # 8     Domain wall Ls
+
+# Hardcoded variables
+
+TRAJECTORIES=10         #100000
+NSTEPS=27
+SAVEFREQ=10
+TLEN=1
+DWF_MASS=1.8
+MOBIUS_B=1.5
+MOBIUS_C=0.5
+
+# Extracting the checkpoint from the lattice data
+STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
+echo "#-------------------------------------------------------------------------------"
+printf "STARTTRAJ              : "; printf '%s' "\${STARTTRAJ}"; printf "\n";
+printf "cnfg_dir               : "; printf '%s' "${DWF_ensembles_GRID_dir}/${_config_dir}/"; printf "\n";
+echo "#-------------------------------------------------------------------------------"
+ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
+echo "#-------------------------------------------------------------------------------"
+EOF
+#-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -315,7 +351,6 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
-#wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Lumi.sh
 CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
 CPU_BIND="\${CPU_BIND},7e0000,7e000000"
 CPU_BIND="\${CPU_BIND},7e,7e00"
@@ -348,8 +383,7 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
 chmod a+x \${wrapper_script}
 EOF
-elif [[ $_machine_name = "tursa"           || \
-        $_machine_name = "desktop-dpr4gpr" ]]
+elif [[ $_machine_name = "tursa" ]]
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
@@ -389,42 +423,6 @@ chmod a+x \${wrapper_script}
 EOF
 fi
 #-------------------------------------------------------------------------------
-# Variable list for grid command line argument list
-#-------------------------------------------------------------------------------
-cat << EOF >> "$_batch_file_out"
-#-------------------------------------------------------------------------------
-# Variable list for grid command line argument list
-#-------------------------------------------------------------------------------
-# Computed on the benchmark batch creation
-MPI=$_mpi_distribution
-
-# Extracted from the configuration
-
-VOL=$_lattice_size_cpu
-BETA=$_beta_telos         # 6.9   beta
-MASS=$_mass_telos         # 0.08  mass
-Ls=$_Ls_telos             # 8     Domain wall Ls
-
-# Hardcoded variables
-
-TRAJECTORIES=10         #100000
-NSTEPS=27
-SAVEFREQ=10
-TLEN=1
-DWF_MASS=1.8
-MOBIUS_B=1.5
-MOBIUS_C=0.5
-
-# Extracting the checkpoint from the lattice data
-STARTTRAJ=\$(ls -rt \${DWF_ensembles_GRID_dir}/${_config_dir}/ckpoint_EODWF_lat.*[^k] | tail -1 | sed -E 's/.*[^0-9]([0-9]+)$/\1/')
-echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s' "\${STARTTRAJ}"; printf "\n";
-printf "cnfg_dir               : "; printf '%s' "${DWF_ensembles_GRID_dir}/${_config_dir}/"; printf "\n";
-echo "#-------------------------------------------------------------------------------"
-ls -la "\${DWF_ensembles_GRID_dir}/${_config_dir}"
-echo "#-------------------------------------------------------------------------------"
-EOF
-#-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -436,11 +434,10 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-#  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
 ################################################################################
 #-------------------------------------------------------------------------------
 srun --cpu-bind=\${CPU_BIND} \\
-  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
   --starttraj \${STARTTRAJ} \\
   --beta \${BETA} \\
@@ -456,7 +453,7 @@ srun --cpu-bind=\${CPU_BIND} \\
   --shm \$shm \\
   --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --cnfg_dir "${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -498,7 +495,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --shm \${shm} \\
   --device-mem \${device_mem} \\
   --mpi \${MPI} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}" \\
+  --cnfg_dir "${DWF_ensembles_GRID_dir}/${_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -535,10 +532,10 @@ mpirun -np \${SLURM_NTASKS} \\
   --savefreq \${SAVEFREQ} \\
   --fermionmass \${MASS} \\
   --nsteps \${NSTEPS} \\
-  --mpi \${MPI} \\
   --shm \${shm} \\
   --device-mem \${device_mem} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/\$_config_dir}" \\
+  --mpi \${MPI} \\
+  --cnfg_dir "${DWF_ensembles_GRID_dir}/$_config_dir}" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -561,16 +558,15 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-#  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
 ################################################################################
 #-------------------------------------------------------------------------------
 mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  "\$wrapper_script" "${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
-  --starttraj \${STARTTRAJ} \\
+  --starttraj ${STARTTRAJ} \\
   --beta \${BETA} \\
   --tlen \${TLEN} \\
   --grid \${VOL} \\
@@ -584,7 +580,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --shm \$shm \\
   --device-mem \$device_mem \\
   --mpi \${MPI} \\
-  --cnfg_dir "\${DWF_ensembles_GRID_dir}/${_config_dir}/" \\
+  --cnfg_dir "${DWF_ensembles_GRID_dir}/${_config_dir}/" \\
   --accelerator-threads 8 \\
   --Trajectories \${TRAJECTORIES} \\
   --Thermalizations 10000 \\
@@ -605,7 +601,6 @@ cat << EOF >> "$_batch_file_out"
 # run! #########################################################################
 device_mem=23000
 shm=8192
-#  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
 ################################################################################
 #-------------------------------------------------------------------------------
 
@@ -911,6 +906,41 @@ path_to_run=$_path_to_run
 job_name=$_batch_file_construct
 EOF
 #-------------------------------------------------------------------------------
+# Variable list for grid command line argument list
+#-------------------------------------------------------------------------------
+cat << EOF >> "$_batch_file_out"
+#-------------------------------------------------------------------------------
+# Variable list for grid command line argument list
+#-------------------------------------------------------------------------------
+# Computed on the benchmark batch creation
+MPI=$_mpi_distribution
+
+# Extracted from the configuration
+
+VOL=$_lattice_size_cpu
+BETA=$_beta         # 6.9   beta
+MASS=$_mass         # 0.08  mass
+Ls=$_Ls             # 8     Domain wall Ls
+
+# Hardcoded variables
+
+TRAJECTORIES=10         #100000
+NSTEPS=27
+SAVEFREQ=10
+TLEN=1
+DWF_MASS=1.8
+MOBIUS_B=1.5
+MOBIUS_C=0.5
+
+# Extracting the checkpoint from the lattice data
+STARTTRAJ=0
+echo "#-------------------------------------------------------------------------------"
+printf "STARTTRAJ              : "; printf '%s'"\$STARTTRAJ"; printf "\n";
+echo "#-------------------------------------------------------------------------------"
+echo "starting from hot start no configurations to be read in."
+echo "#-------------------------------------------------------------------------------"
+EOF
+#-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -920,7 +950,6 @@ cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
 # Wrapper scripts Getting the gpu select script
 #-------------------------------------------------------------------------------
-#wrapper_script=${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Lumi.sh
 CPU_BIND="mask_cpu:7e000000000000,7e00000000000000"
 CPU_BIND="\${CPU_BIND},7e0000,7e000000"
 CPU_BIND="\${CPU_BIND},7e,7e00"
@@ -953,8 +982,7 @@ cat << EOF >> "$_batch_file_out"
 wrapper_script=\${Bench_Grid_HiRep_dir}/doc/BKeeper/gpu-mpi-wrapper-new-Vega.sh
 chmod a+x \${wrapper_script}
 EOF
-elif [[ $_machine_name = "tursa"           || \
-        $_machine_name = "desktop-dpr4gpr" ]]
+elif [[ $_machine_name = "tursa" ]]
 then
 cat << EOF >> "$_batch_file_out"
 #-------------------------------------------------------------------------------
@@ -994,41 +1022,6 @@ chmod a+x \${wrapper_script}
 EOF
 fi
 #-------------------------------------------------------------------------------
-# Variable list for grid command line argument list
-#-------------------------------------------------------------------------------
-cat << EOF >> "$_batch_file_out"
-#-------------------------------------------------------------------------------
-# Variable list for grid command line argument list
-#-------------------------------------------------------------------------------
-# Computed on the benchmark batch creation
-MPI=$_mpi_distribution
-
-# Extracted from the configuration
-
-VOL=$_lattice_size_cpu
-BETA=$_beta         # 6.9   beta
-MASS=$_mass         # 0.08  mass
-Ls=$_Ls             # 8     Domain wall Ls
-
-# Hardcoded variables
-
-TRAJECTORIES=10         #100000
-NSTEPS=27
-SAVEFREQ=10
-TLEN=1
-DWF_MASS=1.8
-MOBIUS_B=1.5
-MOBIUS_C=0.5
-
-# Extracting the checkpoint from the lattice data
-STARTTRAJ=0
-echo "#-------------------------------------------------------------------------------"
-printf "STARTTRAJ              : "; printf '%s'"\$STARTTRAJ"; printf "\n";
-echo "#-------------------------------------------------------------------------------"
-echo "starting from hotstart no configurations to be read in."
-echo "#-------------------------------------------------------------------------------"
-EOF
-#-------------------------------------------------------------------------------
 # Launching mechanism
 #-------------------------------------------------------------------------------
 if [[ $_machine_name = "lumi" ]];
@@ -1043,7 +1036,7 @@ shm=8192
 ################################################################################
 #-------------------------------------------------------------------------------
 srun --cpu-bind=\${CPU_BIND} \\
-  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  ./select_gpu "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
@@ -1085,7 +1078,7 @@ mpirun -np \${SLURM_NTASKS} \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
    rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
@@ -1125,7 +1118,7 @@ mpirun -np \${SLURM_NTASKS} \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
   rocprofv3 \${ROCOPTS} --output-file ./rocprofv3_\${SLURM_JOB_ID}.csv -- \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\
@@ -1169,7 +1162,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/Mobius2p1f  \\
+  "\$wrapper_script" "\${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
   --StartingType HotStart \\
   --starttraj \$STARTTRAJ \\
   --beta \${BETA} \\

@@ -11,7 +11,9 @@ eval "$(ssh-agent)"
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
-scp -r fbonnet0@login.leonardo.cineca.it:/leonardo_work/EUHPC_B22_046_0/LatticeRuns/Hirep_LLR_SP_07Jun25.tar.gz \
-                                          /mnt/d/EHPC-BEN-2025B03-046/LatticeRuns/Clusters/Leonardo/LatticeRuns
+scp -r fbonnet0@login.leonardo.cineca.it:/leonardo/home/userexternal/fbonnet0/SwanSea/SourceCodes/Grid-Telos/Grid/build/config.log \
+                                          /mnt/c/Users/frede/Desktop/config_leonardo.log
+
+
 
 #~/Downloads/Globus-Downloads/
