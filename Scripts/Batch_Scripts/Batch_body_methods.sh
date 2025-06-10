@@ -564,7 +564,7 @@ mpirun -np \${SLURM_NTASKS} \\
   --map-by numa \\
   -x LD_LIBRARY_PATH \\
   --bind-to none \\
-  "\$wrapper_script" "${grid_dwf_telos_build_dir}"/HMC/MobiusSp2f  \\
+  "\$wrapper_script" "\$grid_dwf_telos_build_dir"/HMC/MobiusSp2f  \\
   --StartingType CheckpointStart \\
   --starttraj ${STARTTRAJ} \\
   --beta \${BETA} \\
