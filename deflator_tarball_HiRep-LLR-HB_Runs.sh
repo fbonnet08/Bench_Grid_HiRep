@@ -98,21 +98,20 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 if [ -d "$move_runs_from" ] && [ -d "${move_runs_to}" ]
 then
-  $white; printf "Moving directories     : ";$cyan;  printf "%s\n" "$move_runs_from";
+  $white; printf "Moving directories     : ";$cyan; printf "%s\n" "$move_runs_from";
   $reset_colors;
   directory_exists "${move_runs_from}"; dir_move_runs_from_exists="$directory_exists";
   $white; printf "Target and source dir  : ";$green; printf "%s\n" "exist, moving directory ...";
   $reset_colors;
   mv "$move_runs_from" "${move_runs_to}"
 else
-  $white; printf "Nothing to move        : ";$cyan;    printf "%s\n" "$move_runs_from"; $reset_colors;
-  $white; printf "                       : ";$red;     printf "%s\n" "does not exists"; $reset_colors;
+  $white; printf "Nothing to move        : ";$cyan; printf "%s\n" "$move_runs_from"; $reset_colors;
+  $white; printf "                       : ";$red;  printf "%s\n" "does not exists"; $reset_colors;
 fi
 #-------------------------------------------------------------------------------
-# Secondly deflating the tar ball to target directory
+# Setting the path to run directory
 #-------------------------------------------------------------------------------
-
-# Checking if the target directory exists
+# Checking if the target directory exists May be removed later as not really needed
 path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
 case $machine_name in
   *"Precision-3571"*)  ;;
@@ -127,6 +126,9 @@ case $machine_name in
   *"mi210"*)           ;;
   *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
 esac
+#-------------------------------------------------------------------------------
+# Secondly deflating the tar ball to target directory
+#-------------------------------------------------------------------------------
 # If target dir does not exiist create it
 directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_exists";
 # If the directory does not exist create it.
@@ -140,15 +142,18 @@ directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_ex
 if [ "$dir_path_to_run_dir_exists" == "yes" ]
 then
   cp "${ball_llr_LatticeRuns}.gz" "${path_to_run_dir}"
-  $white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$path_to_run_dir"; $reset_colors;
+  $white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$path_to_run_dir";
+  $reset_colors;
   cd "${path_to_run_dir}"
   pwd
-  $white; printf "Deflating tarball      : ";$cyan;    printf "%s\n" "${ball_llr_LatticeRuns_name}.gz"; $reset_colors;
+  $white; printf "Deflating tarball      : ";$cyan;    printf "%s\n" "${ball_llr_LatticeRuns_name}.gz";
+  $reset_colors;
   tar xfz "${ball_llr_LatticeRuns_name}.gz"
 fi
 
 # moving back to the source directory
-$white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$sourcecode_dir"; $reset_colors;
+$white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$sourcecode_dir";
+$reset_colors;
 cd "${sourcecode_dir}"
 ls -al
 pwd
