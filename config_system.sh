@@ -26,6 +26,7 @@ case $__machine_name in
     target_partition_gpu="gpu";                  target_partition_cpu="cpu";
     gpus_per_node=4;                             qos="standard";
     max_cores_per_node_gpu=128;                  max_cores_per_node_cpu=256;
+    cluster_data_disk="\${HOME}"
     ;;
   *"sunbird"*)
     target_partition_gpu="accel_ai";             target_partition_cpu="cpu";
