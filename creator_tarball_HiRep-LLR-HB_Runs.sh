@@ -69,38 +69,46 @@ directory_exists "${llr_codes}"; dir_Hirep_LLR_SP_exists="$directory_exists";
 directory_exists "${llr_input}"; dir_LLR_HiRep_heatbath_input_dir="$directory_exists";
 directory_exists "${llr_LatticeRuns}"; dir_llr_LatticeRuns_dir=$directory_exists;
 
-$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_codes}";$white; $reset_colors;
-ls "$llr_codes"
-$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_input}";$white; $reset_colors;
-ls "$llr_input"
-$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_LatticeRuns}/LLR_HB";$white; $reset_colors;
-ls "${llr_LatticeRuns}/LLR_HB"
-
+$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_codes}";
+$white; $reset_colors;
+if [ "$dir_Hirep_LLR_SP_exists" == "yes" ]; then ls "$llr_codes"; fi;
+$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_input}";
+$white; $reset_colors;
+if [ "$dir_LLR_HiRep_heatbath_input_dir" == "yes" ]; then ls "$llr_input"; fi;
+$cyan; printf "Directory content      : "; $yellow; printf "%s\n" "${llr_LatticeRuns}/LLR_HB";
+$white; $reset_colors;
+if [ "$dir_llr_LatticeRuns_dir" == "yes" ];then ls "${llr_LatticeRuns}/LLR_HB"; fi;
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_codes}";$white; $reset_colors;
+$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_codes}";
+$white; $reset_colors;
 if [ "$dir_Hirep_LLR_SP_exists" == "yes" ];
 then
   tar cf "$ball_llr_codes" -C "${sourcecode_dir}" ./${Hirep_LLR_SP};
   pigz --force "$ball_llr_codes";
 fi
-$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_input}";$white; $reset_colors;
+$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_input}";
+$white; $reset_colors;
 if [ "$dir_LLR_HiRep_heatbath_input_dir" == "yes" ];
 then
   tar cf "$ball_llr_input" -C "${sourcecode_dir}" ./${LLR_HiRep_heatbath_input};
   pigz --force "$ball_llr_input";
 fi
-$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_LatticeRuns}";$white; $reset_colors;
+$cyan; printf "Creating tar ball      : "; $red; printf "%s\n" "${ball_llr_LatticeRuns}";
+$white; $reset_colors;
 if [ "$dir_llr_LatticeRuns_dir" == "yes" ];
 then
   tar cf "$ball_llr_LatticeRuns" -C "${LatticeRuns_dir}" ./${Hirep_LLR_SP};
   pigz --force "$ball_llr_LatticeRuns";
 fi
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_codes}.gz";$white; $reset_colors;
+$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_codes}.gz";
+$white; $reset_colors;
 file_exists "${ball_llr_codes}.gz"
-$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_input}.gz";$white; $reset_colors;
+$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_input}.gz";
+$white; $reset_colors;
 file_exists "${ball_llr_input}.gz"
-$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_LatticeRuns}.gz";$white; $reset_colors;
+$cyan; printf "Created tar ball       : "; $yellow; printf "%s\n" "${ball_llr_LatticeRuns}.gz";
+$white; $reset_colors;
 file_exists "${ball_llr_LatticeRuns}.gz"
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #-------------------------------------------------------------------------------
