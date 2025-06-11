@@ -313,11 +313,11 @@ cat << EOF >> "$_batch_file_out"
 # Variable list for grid command line argument list
 #-------------------------------------------------------------------------------
 # Computed on the benchmark batch creation
-MPI=\"$_mpi_distribution\"
+MPI="$_mpi_distribution"
 
 # Extracted from the configuration
 
-VOL=\"$_lattice_size_cpu\"
+VOL="$_lattice_size_cpu"
 BETA=$_beta_telos         # 6.9   beta
 MASS=$_mass_telos         # 0.08  mass
 Ls=$_Ls_telos             # 8     Domain wall Ls
@@ -913,11 +913,11 @@ cat << EOF >> "$_batch_file_out"
 # Variable list for grid command line argument list
 #-------------------------------------------------------------------------------
 # Computed on the benchmark batch creation
-MPI=\"$_mpi_distribution\"
+MPI="$_mpi_distribution"
 
 # Extracted from the configuration
 
-VOL=\"$_lattice_size_cpu\"
+VOL="$_lattice_size_cpu"
 BETA=$_beta         # 6.9   beta
 MASS=$_mass         # 0.08  mass
 Ls=$_Ls             # 8     Domain wall Ls
