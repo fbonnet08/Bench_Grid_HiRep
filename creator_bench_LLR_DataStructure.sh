@@ -45,6 +45,7 @@ source ./common_main.sh "$__external_lib_dir";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 __machine_name="${machine_name}"
 case ${__remote_hostname} in
+  *"tursa.dirac.ed.ac.uk"*)     __machine_name="tursa"       ;;
   *"login.vega.izum.si"*)       __machine_name="vega"        ;;
   *"sunbird.swansea.ac.uk"*)    __machine_name="sunbird"     ;;
   *"lumi.csc.fi"*)              __machine_name="lumi"        ;;
@@ -78,6 +79,7 @@ case $__machine_name in
     __module_list="#---> no modules on ${__machine_name}; module list;"
     ;;
   *"tursa"*)
+    __qos="${qos}";
     __module_list="cuda/12.3 openmpi/4.1.5-cuda12.3 ucx/1.15.0-cuda12.3 gcc/9.3.0; module list;"
     ;;
   *"sunbird"*)
