@@ -32,7 +32,7 @@ sptr="/"
 #-------------------------------------------------------------------------------
 # [Vega]
 #-------------------------------------------------------------------------------
-sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
+#sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
 #-------------------------------------------------------------------------------
 # [Lumi]
 #-------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ sh ./dispatcher_Grid_HiRep.sh  eufredericb  not_required  login.vega.izum.si
 # DCPG    [CPU]: EUHPC_B17_015_0   EUHPC_B22_046_0
 #sh ./dispatcher_Grid_HiRep.sh  fbonnet0  EUHPC_B17_015_0  login.leonardo.cineca.it
 
-: '
+#: '
 step ca bootstrap --ca-url=https://sshproxy.hpc.cineca.it --fingerprint 2ae1543202304d3f434bdc1a2c92eff2cd2b02110206ef06317e70c1c1735ecd
 step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 eval "$(ssh-agent)"
@@ -74,7 +74,7 @@ step ssh login 'fbonnet08@gmail.com' --provisioner cineca-hpc
 step ssh list --raw 'fbonnet08@gmail.com' | step ssh inspect
 
 sh ./dispatcher_Grid_HiRep.sh  fbonnet0   EUHPC_B22_046  login.leonardo.cineca.it
-'
+#'
 #-------------------------------------------------------------------------------
 #End of the script
 echo
