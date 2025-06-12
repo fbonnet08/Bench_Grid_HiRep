@@ -209,7 +209,14 @@ target_Grid_DWF_run_gpu_small_batch_files="target_Grid_DWF_run_gpu_small_batch_f
 # [Large]
 target_Grid_DWF_run_gpu_large_batch_files="target_Grid_DWF_run_gpu_large_batch_files.txt"
 #-------------------------------------------------------------------------------
-# Grid_DWF[small-large]-[gpu]:
+# Grid_DWF_telos[small-large]-[gpu]:
+#-------------------------------------------------------------------------------
+# [Small]
+target_Grid_DWF_Telos_run_gpu_small_batch_files="target_Grid_DWF_Telos_run_gpu_small_batch_files.txt"
+# [Large]
+target_Grid_DWF_Telos_run_gpu_large_batch_files="target_Grid_DWF_Telos_run_gpu_large_batch_files.txt"
+#-------------------------------------------------------------------------------
+# LLR_HiRep_HB[cpu]:
 #-------------------------------------------------------------------------------
 target_LLR_HiRep_HB_run_cpu_directories="target_LLR_HiRep_HB_run_cpu_directories.txt"
 target_LLR_HiRep_HB_run_cpu_batch_files="target_LLR_HiRep_HB_run_cpu_bash_files.txt"
@@ -220,26 +227,31 @@ $red  ; printf "Target files names     : ";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
-$white; printf "Grid_DWF                 ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF_run_gpu         ";printf "\n"; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
 $white; printf "Grid_DWF_run_gpu_small : ";$magenta; printf "%s\n" $target_Grid_DWF_run_gpu_small_batch_files; $reset_colors;
 $white; printf "Grid_DWF_run_gpu_large : ";$cyan;    printf "%s\n" $target_Grid_DWF_run_gpu_large_batch_files; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
-$white; printf "BKeeper                  ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF_Telos_run_gpu   ";printf "\n"; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "Grid_DWF_Telos_g_small : ";$magenta; printf "%s\n" $target_Grid_DWF_Telos_run_gpu_small_batch_files; $reset_colors;
+$white; printf "Grid_DWF_Telos_g_large : ";$cyan;    printf "%s\n" $target_Grid_DWF_Telos_run_gpu_large_batch_files; $reset_colors;
+$white; printf "#----------------------- ";printf "\n"; $reset_colors;
+$white; printf "BKeeper[cpu-gpu]         ";printf "\n"; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
 $white; printf "BKeeper_run_cpu_small  : ";$magenta; printf "%s\n" $target_BKeeper_run_cpu_small_batch_files; $reset_colors;
 $white; printf "BKeeper_run_gpu_small  : ";$cyan;    printf "%s\n" $target_BKeeper_run_gpu_small_batch_files; $reset_colors;
 $white; printf "BKeeper_run_cpu_large  : ";$yellow;  printf "%s\n" $target_BKeeper_run_cpu_large_batch_files; $reset_colors;
 $white; printf "BKeeper_run_gpu_large  : ";$green;   printf "%s\n" $target_BKeeper_run_gpu_large_batch_files; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
-$white; printf "Sombrero                 ";printf "\n";$reset_colors;
+$white; printf "Sombrero[cpu]            ";printf "\n";$reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
 $white; printf "Sombrero_weak_cpu_small: ";$magenta; printf "%s\n" $target_Sombrero_weak_cpu_small_batch_files; $reset_colors;
 $white; printf "Sombrero_strg_cpu_small: ";$cyan;    printf "%s\n" $target_Sombrero_strg_cpu_small_batch_files; $reset_colors;
 $white; printf "Sombrero_weak_cpu_large: ";$yellow;  printf "%s\n" $target_Sombrero_weak_cpu_large_batch_files; $reset_colors;
 $white; printf "Sombrero_strg_gpu_large: ";$green;   printf "%s\n" $target_Sombrero_strg_cpu_large_batch_files; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
-$white; printf "LLR-HiRep-SP/LLR_HB      ";printf "\n";$reset_colors;
+$white; printf "LLR-HiRep-SP/LLR_HB[cpu] ";printf "\n";$reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;
 $white; printf "LLR_HiRep_HB_run_cpu   : ";$magenta; printf "%s\n" $target_LLR_HiRep_HB_run_cpu_batch_files; $reset_colors;
 $white; printf "#----------------------- ";printf "\n"; $reset_colors;

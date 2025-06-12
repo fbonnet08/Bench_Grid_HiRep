@@ -109,9 +109,48 @@ case "$__batch_action" in
       done
     ;;
   *"Grid_DWF_Telos_run_gpu"*)
-      # TODO: ----------------
-      # TODO: continue from here and insert the launcher for the Grid_DWF_Telos ....
-      # TODO: ----------------
+      #sbatch $batch_Scripts_dir/Run_BKeeper_run_gpu.sh \
+      #        > $LatticeRuns_dir/out_launcher_run_BKeeper_run_gpu.log &
+      # TODO: need to fix the simulation size and pass it into the argument list?
+      declare -a simulations_type_array=("small" "large")
+
+      # Initializing the file names to an initial value: empty
+      target_file_Grid_DWF_Telos_gpu_small="empty"
+      target_file_Grid_DWF_Telos_gpu_large="empty"
+      for k in $(seq 0 `expr ${#simulations_type_array[@]} - 1`)
+      do
+        printf "simulations_type_array[$k]} ----> ${simulations_type_array[k]} ----> "
+
+        simulation_size=${simulations_type_array[k]}
+        case $simulation_size in
+          *"small"*)
+            target_file_Grid_DWF_Telos_gpu_small="${LatticeRuns_dir}"/"${target_Grid_DWF_Telos_run_gpu_small_batch_files}"
+            find "${LatticeRuns_dir}/" -type f -name "*Run_Grid_DWF_Telos_run_gpu*node*small.sh" \
+                  > "$target_file_Grid_DWF_Telos_gpu_small"
+            #-------------------------------------------------------------------
+            # Method to launch batch jobs from a given target file
+            #-------------------------------------------------------------------
+            # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+            Batch_submit_target_file_list_to_queue "${target_file_Grid_DWF_Telos_gpu_small}"      \
+                                                    "${max_number_submitted_batch_scripts}"
+            printf "${target_file_Grid_DWF_Telos_gpu_small} <--::--> ${target_file_Grid_DWF_Telos_gpu_large}\n"
+            #-------------------------------------------------------------------
+          ;;
+          *"large"*)
+            target_file_Grid_DWF_Telos_gpu_large="${LatticeRuns_dir}"/"${target_Grid_DWF_Telos_run_gpu_large_batch_files}"
+            find "${LatticeRuns_dir}/" -type f -name "*Run_Grid_DWF_Telos_run_gpu*node*large.sh" \
+                  > "$target_file_Grid_DWF_Telos_gpu_large"
+            #-------------------------------------------------------------------
+            # Method to launch batch jobs from a given target file
+            #-------------------------------------------------------------------
+            # Submitting method in:./Scripts/Batch_Scripts/Batch_util_methods.sh;
+            Batch_submit_target_file_list_to_queue "${target_file_Grid_DWF_Telos_gpu_large}"      \
+                                                    "${max_number_submitted_batch_scripts}"
+            printf "${target_file_Grid_DWF_Telos_gpu_small} <--::--> ${target_file_Grid_DWF_Telos_gpu_large}\n"
+            #-------------------------------------------------------------------
+          ;;
+        esac
+      done
     ;;
 esac
 #-------------------------------------------------------------------------------
