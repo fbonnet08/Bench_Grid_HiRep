@@ -27,6 +27,11 @@
 #set -eu
 module load cuda/12.2 nvhpc/23.11 fftw/3.3.10--openmpi--4.1.6--gcc--12.2.0 hdf5;
 module list;
+
+# Check some versions
+ucx_info -v
+nvcc --version
+which mpirun
 #-------------------------------------------------------------------------------
 # Run the make procedure
 #-------------------------------------------------------------------------------
@@ -43,9 +48,9 @@ pwd
 if [[ $machine_name =~ "Precision-3571"  ||
       $machine_name =~ "DESKTOP-GPI5ERK" ||
       $machine_name =~ "desktop-dpr4gpr" ]]; then
-    make -k -j16 > Grid_Telos_"$SLURM_NTASKS".log;
-    make install;
+    make -k -j 16 > Grid_Telos_"$SLURM_NTASKS".log;
+    make -k install;
 else
-    make -k -j32 > Grid_Telos_"$SLURM_NTASKS".log;
-    make install;
+    make -k -j 32 > Grid_Telos_"$SLURM_NTASKS".log;
+    make -k install;
 fi
