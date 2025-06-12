@@ -1,4 +1,19 @@
 #!/usr/bin/bash
+tput bold;
+echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
+echo "!                                                                       !"
+echo "!     Code to configure Grid-Telos                                      !"
+echo "!     $scrfipt_file_name                                            !"
+echo "!     [Author]: Frederic Bonnet November 2024                           !"
+echo "!     [usage]: getConfigure-Grid-Telos.sh                               !"
+echo "!     [example]: getConfigure-Grid-Telos.sh                             !"
+echo "!                                                                       !"
+echo "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !"
+tput sgr0;
+#colors
+red="tput setaf 1"  ;green="tput setaf 2"  ;yellow="tput setaf 3"
+blue="tput setaf 4" ;magenta="tput setaf 5";cyan="tput setaf 6"
+white="tput setaf 7";bold=""               ;reset_colors="tput sgr0"
 ##########################
 # MAresNostrum setup
 ##########################
@@ -24,6 +39,19 @@ prefix="/home/swan/swan127136/SwanSea/SourceCodes/external_lib/prefix_grid_20241
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
+    --enable-Nc=4 \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
     CXXFLAGS="-ccbin mpicxx -gencode arch=compute_90,code=sm_90 -std=c++17 -cudart shared --diag-suppress 177,550,611"
+
+#-------------------------------------------------------------------------------
+#End of the script
+echo
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$cyan; echo `date`; $blue;
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo "-                  getConfigure-Grid-Telos.sh Done.                     -"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+$white; $reset_colors;
+#exit
+#-------------------------------------------------------------------------------

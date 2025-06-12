@@ -229,6 +229,7 @@ case $machine_name in
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
+    --enable-Nc=4 \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
     CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
@@ -252,6 +253,7 @@ case $machine_name in
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
+    --enable-Nc=4 \
     CXX=hipcc MPICXX=mpicxx \
     CXXFLAGS="-fPIC --offload-arch=gfx942 -I/opt/rocm-6.3.3/include/ -std=c++17" \
     LDFLAGS="-lmpi -lamdhip64 -fopenmp -lhipblas"
@@ -299,6 +301,7 @@ case $machine_name in
     --disable-fermion-reps \
     --disable-gparity \
     --enable-Sp \
+    --enable-Nc=4 \
     CXX=nvcc \
     LDFLAGS="-cudart shared -lcublas" \
     CXXFLAGS="-ccbin mpicxx -gencode arch=compute_90,code=sm_90 -std=c++17 -cudart shared --diag-suppress 177,550,611"

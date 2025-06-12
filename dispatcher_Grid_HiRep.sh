@@ -220,6 +220,7 @@ cp -v common_main.sh build_*.sh install_*.sh launcher_*.sh creator_bench_*.sh ${
 cp -rv clean_all_builds.sh config_*.sh ./Scripts ${external_lib_dir}
 cp -v  creator_tarball_*.sh  deflator_tarball_*.sh ${external_lib_dir}
 cp -v kill_*.sh ${LatticeRuns_dir}
+cp -v getConfigure-*.sh ${external_lib_dir}
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Now moving to the directory external_dir directory
