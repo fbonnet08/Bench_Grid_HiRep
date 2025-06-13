@@ -1427,7 +1427,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
             "${grid_small_n_nodes_gpu[$i]}"          \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
-            "$gpus_per_node"                         \
+            "$cpus_per_task"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
             "10:00:00"                               \
@@ -1641,7 +1641,7 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
             "${grid_large_n_nodes_gpu[$i]}"          \
             "${_core_count}"                         \
             "$ntasks_per_node"                       \
-            "$gpus_per_node"                         \
+            "$cpus_per_task"                         \
             "$target_partition_gpu"                  \
             "${__batch_file_construct}"              \
             "10:00:00"                               \
