@@ -1,4 +1,8 @@
 
+
+path_job=$(scontrol show job 16669139|grep StdErr| cut -d'=' -f2); cat  $path_job
+
+
 directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="${directory_exists}"
 if [ "$dir_path_to_run_dir_exists" == "no" ]; then Batch_util_create_path "${path_to_run_dir}"; fi
 

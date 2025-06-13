@@ -5,7 +5,7 @@
 #SBATCH --time=02:00:00
 #SBATCH --partition=acc
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4    # nodes * ntasks
+#SBATCH --ntasks-per-node=20    # nodes * ntasks
 ## GPU only
 #SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:1
