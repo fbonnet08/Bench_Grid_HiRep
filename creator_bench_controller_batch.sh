@@ -1043,6 +1043,15 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
 
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
+
           # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           #ntasks_per_node=$(expr ${grid_small_n_nodes_gpu[$i]} \* ${_core_count})
           #ntasks_per_node=${ntasks_per_node[$k]} #$(expr ${sombrero_small_weak_n_nodes[$i]} \* ${_core_count})
@@ -1187,6 +1196,15 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $white; printf "                       : ";
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
 
           # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           #ntasks_per_node=$(expr ${grid_large_n_nodes_gpu[$i]} \* ${_core_count})
@@ -1376,7 +1394,8 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           index=$(printf "%03d" "$i")
           n_nodes=$(printf "nodes%03d" "${grid_small_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
-          #_${beta_telos_segment}_${mass_segment}_${Ls_segment}_${lattice}
+          #_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}
+          #_${beta_telos_segment}_${mass_segment}_${lattice}_${Ls_segment}
           __batch_file_construct=$(printf "Run_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
@@ -1390,6 +1409,15 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $white; printf "                       : ";
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
 
           # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           #ntasks_per_node=$(expr ${grid_small_n_nodes_gpu[$i]} \* ${_core_count})
@@ -1580,7 +1608,8 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           index=$(printf "%03d" "$i")
           n_nodes=$(printf "nodes%03d" "${grid_large_n_nodes_gpu[$i]}";)
           __mpi_distr_FileTag=$(printf "${mpi_distr}")
-          #_${beta_telos_segment}_${mass_segment}_${Ls_segment}_${lattice}
+          #_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}
+          #_${beta_telos_segment}_${mass_segment}_${lattice}_${Ls_segment}
           __batch_file_construct=$(printf "Run_${__batch_action}_${substring}_${n_nodes}_${__mpi_distr_FileTag}_${__simulation_size}")
           __batch_file_out=$(printf "${__batch_file_construct}.sh")
           __path_to_run=$(printf "${LatticeRuns_dir}/${__batch_action}/${__simulation_size}/${__batch_file_construct}")
@@ -1594,6 +1623,15 @@ for ((ix = 1; ix <= gpus_per_node; ix++)); do
           $white; printf "                       : ";
           $yellow; printf "Creating the Batch script from the methods: "; $bold;
           $cyan; printf "$__batch_file_out\n"; $white; $reset_colors;
+
+          # Specifying the number of cpus_per_task which can be machine dependent
+          # Defaulting to the number of gpu on the node MareNostrum is a special case with 20
+          cpus_per_task=${gpus_per_node}
+          if [[ $machine_name = "MareNostrum" ]]
+          then
+            #cpus_per_task=$(expr ${gpus_per_node} \* 20)
+            cpus_per_task=$(expr 1 \* 20)
+          fi
 
           # Here need to invoke the configuration method config_Batch_with_input_from_system_config
           #ntasks_per_node=$(expr ${grid_large_n_nodes_gpu[$i]} \* ${_core_count})
