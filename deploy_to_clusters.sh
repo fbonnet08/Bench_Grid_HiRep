@@ -37,6 +37,7 @@ sptr="/"
 # [Lumi]
 #-------------------------------------------------------------------------------
 #sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001614  lumi.csc.fi
+sh ./dispatcher_Grid_HiRep.sh  bonnetfr  project_465001976  lumi.csc.fi
 #-------------------------------------------------------------------------------
 # [Tursa]
 #-------------------------------------------------------------------------------
@@ -53,7 +54,7 @@ sptr="/"
 # [MareNostrum-5]: Authentication  procedure.
 #-------------------------------------------------------------------------------
 # GPU-Node
-sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
+#sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  alogin1.bsc.es
 # # CPU-Node comon file system with the gpu node
 #sh ./dispatcher_Grid_HiRep.sh  swan127136  ehpc191  glogin1.bsc.es
 #-------------------------------------------------------------------------------

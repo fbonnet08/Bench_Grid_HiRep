@@ -110,10 +110,16 @@ if __name__ == "__main__":
     # Windows Local machine
     if c.get_system() == "Windows":
         #DATA_PATH         = os.path.join('E:', 'data')    # , 'LC_MS'
-        DATA_PATH         = os.path.join('E:','LatticeRuns','Clusters')
-        DATAPROCINTERCOM  = os.path.join('E:', 'DataProcInterCom')
-        TBLECNTS_DIR      = os.path.join('E:', 'DataProcInterCom', 'TableCounts')
-        SQL_FULLPATH_DIR  = os.path.join('E:', 'SQLFiles_sql')
+        DATA_PATH         = os.path.join('E:', 'EHPC-BEN-2025B03-046', 'LatticeRuns','Clusters')
+        DATAPROCINTERCOM  = os.path.join('E:', 'EHPC-BEN-2025B03-046', 'DataProcInterCom')
+        TBLECNTS_DIR      = os.path.join('E:', 'EHPC-BEN-2025B03-046', 'DataProcInterCom', 'TableCounts')
+        SQL_FULLPATH_DIR  = os.path.join('E:', 'EHPC-BEN-2025B03-046', 'SQLFiles_sql')
+
+        #DATA_PATH         = os.path.join('E:', 'LatticeRuns','Clusters')
+        #DATAPROCINTERCOM  = os.path.join('E:', 'DataProcInterCom')
+        #TBLECNTS_DIR      = os.path.join('E:', 'DataProcInterCom', 'TableCounts')
+        #SQL_FULLPATH_DIR  = os.path.join('E:', 'SQLFiles_sql')
+
         #DATA_PATH         = os.path.join('C:', os.path.sep, 'Users', 'Frederic', 'OneDrive', 'UVPD-Perpignan', 'SourceCodes', 'SmallData')
         #DATAPROCINTERCOM  = os.path.join('C:', os.path.sep, 'Users', 'Frederic', 'OneDrive', 'UVPD-Perpignan', 'SourceCodes', 'SmallData','DataProcInterCom')
         #TBLECNTS_DIR      = os.path.join('C:', os.path.sep, 'Users', 'Frederic', 'OneDrive', 'UVPD-Perpignan', 'SourceCodes', 'SmallData','DataProcInterCom', 'TableCounts')
@@ -444,7 +450,7 @@ if __name__ == "__main__":
             # -------------------------------------------------------------------
             # [Machine-list]
             # -------------------------------------------------------------------
-            machine_name_bkeeper_small_lst = ["Lumi", "Vega", "Leonardo", "Mi300"]
+            machine_name_bkeeper_small_lst = ["Lumi", "Vega", "Leonardo", "MareNostrum"] #, "Mi300"
             # -------------------------------------------------------------------
             # [Machine-loop]
             # -------------------------------------------------------------------
@@ -452,7 +458,7 @@ if __name__ == "__main__":
                 m.printMesgStr("Machine name  <---------------:", c.getBlue(), msg_start)
                 m.printMesgStr("Machine name  --------------->:", c.getMagenta(), machine)
                 #machine_name = "Lumi"
-                DATA_PATH = os.path.join('E:','LatticeRuns','Clusters',machine,'LatticeRuns')
+                DATA_PATH = os.path.join('E:', 'EHPC-BEN-2025B03-046', 'LatticeRuns','Clusters',machine,'LatticeRuns')
                 # ---------------------------------------------------------------
                 # ---------------------------------------------------------------
                 rc = bencher.driver_BenchRes_BKeeper(batch_transformer,
@@ -482,7 +488,7 @@ if __name__ == "__main__":
             # -------------------------------------------------------------------
             # [Machine-list]
             # -------------------------------------------------------------------
-            machine_name_bkeeper_large_lst = ["Lumi", "Vega", "Mi300"]
+            machine_name_bkeeper_large_lst = ["Lumi", "Vega", "Leonardo", "MareNostrum" ] #"Mi300"]
             # -------------------------------------------------------------------
             # [Machine-loop]
             # -------------------------------------------------------------------
@@ -490,7 +496,7 @@ if __name__ == "__main__":
                 m.printMesgStr("Machine name  <---------------:", c.getBlue(), msg_start)
                 m.printMesgStr("Machine name  --------------->:", c.getMagenta(), machine)
                 #machine_name = "Lumi"
-                DATA_PATH = os.path.join('E:','LatticeRuns','Clusters',machine,'LatticeRuns')
+                DATA_PATH = os.path.join('E:','EHPC-BEN-2025B03-046', 'LatticeRuns','Clusters',machine,'LatticeRuns')
                 # ---------------------------------------------------------------
                 # ---------------------------------------------------------------
                 rc = bencher.driver_BenchRes_BKeeper(batch_transformer,

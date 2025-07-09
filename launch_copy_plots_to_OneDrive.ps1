@@ -1,8 +1,8 @@
 Import-Module BitsTransfer
 ################################################################################
-$f_copy_from = 'C:\cygwin64\home\Frederic\SwanSea\SourceCodes\Bench_Grid_HiRep\Plots'  #"C:\Users\Frederic\Desktop\cuda_12.3.2_546.12_windows.exe"
+$f_copy_from = 'C:\cygwin64\home\frede\SwanSea\SourceCodes\Bench_Grid_HiRep\Plots'  #"C:\Users\Frederic\Desktop\cuda_12.3.2_546.12_windows.exe"
 ################################ QNAP-T431P ####################################
-$f_copy_to   = 'C:\Users\Frederic\OneDrive - Swansea University\Bench_Grid_HiRep\Plots'
+$f_copy_to   = 'C:\Users\frede\OneDrive - Swansea University\Bench_Grid_HiRep\Plots\EHPC-BEN-2025B03-046'
 ################################################################################
 # Getting the data from the copymounting the drives
 Write-Host "Launching file copying script --->  rid_HiRep.py ..."
