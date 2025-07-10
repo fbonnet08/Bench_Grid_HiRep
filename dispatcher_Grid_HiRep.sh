@@ -244,7 +244,7 @@ case ${remote_hostname} in
     module list;
     ;;
   *\"lumi.csc.fi\"*)
-    module load cray-mpich cray-fftw cray-hdf5-parallel cray-python;
+    module load cray-mpich cray-fftw cray-hdf5-parallel cray-python gcc/12.2.0;
     module list;
     ;;
   *\"login.leonardo.cineca.it\"*)

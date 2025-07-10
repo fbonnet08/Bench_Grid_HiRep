@@ -92,7 +92,7 @@ case $__machine_name in
     ;;
   *"lumi"*)
     __qos="${qos}"; # Coming from config_system.sh call
-    __module_list="cray-mpich cray-fftw cray-hdf5-parallel cray-python; module list;"
+    __module_list="cray-mpich cray-fftw cray-hdf5-parallel cray-python gcc/12.2.0; module list;"
     ;;
   *"leonardo"*)
     __qos="${qos}";
