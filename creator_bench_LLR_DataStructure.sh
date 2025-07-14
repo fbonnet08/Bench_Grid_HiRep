@@ -268,6 +268,17 @@ if [ "$dir_LLR_HiRep_heatbath_input_exists" == "yes" ]
 then
   case $__machine_name in
     *"Precision-3571"*)
+      python3 \
+        "${llr_input}"/main.py \
+        --machine "${__machine_name}" \
+        --input_params_csv "${llr_input}/input/${__machine_name}.csv" \
+        --modules "${__module_list}" \
+        --partition "${target_partition_cpu}" \
+        --qos "${__qos}" \
+        --account "${__project_account}" \
+        --run_index "$run_index" \
+        --path_llr_exec "${path_llr_exec}" \
+        --output_run_dir "${path_to_run_dir}"
       ;;
     *"DESKTOP-GPI5ERK"*)
       ;;
