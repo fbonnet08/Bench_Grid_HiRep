@@ -50,20 +50,22 @@ case ${remote_hostname} in
     add_connect_string="-v"
   ;;
 esac
-echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-user_remote_host=${username}"@"${remote_hostname}
-$white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
-printf "\n"
-# Getting the remote home dir from the remote (brutal way of doing this)
-user_remote_home_dir=$(ssh -t ${add_connect_string} "${user_remote_host}" "cd ~/; pwd -P")
-#user_remote_home_dir=$(ssh -t "${user_remote_host}" "cd ~/; pwd -P")
-$white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_dir\n";$reset_colors;
-
 # Setting the external lib_dir
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 src_dir="SwanSea/SourceCodes"
 lib_dir="${src_dir}/external_lib";
 lat_run_dir="$src_dir"/"LatticeRuns";
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+user_remote_host=${username}"@"${remote_hostname}
+$white; printf "user@hostname          : ";$blue;   printf "$user_remote_host\n";$reset_colors;
+printf "\n"
+# Getting the remote home dir from the remote (brutal way of doing this)
+user_remote_home_dir=$(ssh -t ${add_connect_string} "${user_remote_host}" "mkdir -p ~/${lat_run_dir}; cd ~/; pwd -P")
+#user_remote_home_dir=$(ssh -t "${user_remote_host}" "cd ~/; pwd -P")
+$white; printf "user remote home dir   : ";$magenta; printf "$user_remote_home_dir\n";$reset_colors;
+
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 #external_lib_dir=$(echo $user_remote_home_dir$sptr$lib_dir | tr -d ' ')
 chopped=$(echo "${user_remote_home_dir}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 source_dir=$chopped$sptr$src_dir
