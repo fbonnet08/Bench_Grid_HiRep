@@ -45,15 +45,16 @@ source ./common_main.sh "$__external_lib_dir";
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 __machine_name="${machine_name}"
 case ${__remote_hostname} in
-  *"tursa.dirac.ed.ac.uk"*)     __machine_name="tursa"       ;;
-  *"login.vega.izum.si"*)       __machine_name="vega"        ;;
-  *"sunbird.swansea.ac.uk"*)    __machine_name="sunbird"     ;;
-  *"lumi.csc.fi"*)              __machine_name="lumi"        ;;
-  *"login.leonardo.cineca.it"*) __machine_name="leonardo"    ;;
-  *"aac6.amd.com"*)             __machine_name="mi300"       ;;
-  *"aac1.amd.com"*)             __machine_name="mi210"       ;;
-  *"alogin1.bsc.es"*)           __machine_name="MareNostrum" ;;
-  *"glogin1.bsc.es"*)           __machine_name="MareNostrum" ;;
+  *"10.44.5.20"*)               __machine_name="Precision-3571" ;;
+  *"tursa.dirac.ed.ac.uk"*)     __machine_name="tursa"          ;;
+  *"login.vega.izum.si"*)       __machine_name="vega"           ;;
+  *"sunbird.swansea.ac.uk"*)    __machine_name="sunbird"        ;;
+  *"lumi.csc.fi"*)              __machine_name="lumi"           ;;
+  *"login.leonardo.cineca.it"*) __machine_name="leonardo"       ;;
+  *"aac6.amd.com"*)             __machine_name="mi300"          ;;
+  *"aac1.amd.com"*)             __machine_name="mi210"          ;;
+  *"alogin1.bsc.es"*)           __machine_name="MareNostrum"    ;;
+  *"glogin1.bsc.es"*)           __machine_name="MareNostrum"    ;;
 esac
 # System config file to get information from the node
 source ./config_system.sh "$__project_account" "$__machine_name";

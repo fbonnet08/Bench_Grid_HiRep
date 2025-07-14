@@ -296,11 +296,11 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
+#bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
 
-bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib;
+#bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_Grid.sh                       SwanSea/SourceCodes/external_lib;
 #bash -s < ./install_Grid.sh                     SwanSea/SourceCodes/external_lib;
@@ -316,7 +316,7 @@ bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib
 #bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_weak;
 #bash -s < ./launcher_bench_Sombrero.sh          SwanSea/SourceCodes/external_lib Sombrero_strong;
 
-#bash -s < ./deflator_tarball_HiRep-LLR-HB_Runs.sh  \$_project_account SwanSea/SourceCodes/external_lib
+bash -s < ./deflator_tarball_HiRep-LLR-HB_Runs.sh  \$_project_account SwanSea/SourceCodes/external_lib
 #bash -s < ./launcher_bench_HiRep.sh                \$_project_account SwanSea/SourceCodes/external_lib Bench_LLR_HB_run_cpu;
 "
 #TODO: bash -s < ./profile_grid.sh SwanSea/SourceCodes/external_lib;

@@ -114,17 +114,17 @@ fi
 # Checking if the target directory exists May be removed later as not really needed
 path_to_run_dir="${LatticeRuns_dir}/${Hirep_LLR_SP}/LLR_HB"
 case $machine_name in
-  *"Precision-3571"*)  ;;
+  *"Precision-3571"*)  path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
   *"DESKTOP-GPI5ERK"*) ;;
   *"desktop-dpr4gpr"*) ;;
   *"tursa"*)           ;;
   *"sunbird"*)         ;;
-  *"vega"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
-  *"lumi"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
-  *"leonardo"*)    path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
+  *"vega"*)            path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
+  *"lumi"*)            path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
+  *"leonardo"*)        path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
   *"mi300"*)           ;;
   *"mi210"*)           ;;
-  *"MareNostrum"*) path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;; #/${Hirep_LLR_SP}/LLR_HB
+  *"MareNostrum"*)     path_to_run_dir="${cluster_data_disk}/LatticeRuns" ;;
 esac
 #-------------------------------------------------------------------------------
 # Secondly deflating the tar ball to target directory

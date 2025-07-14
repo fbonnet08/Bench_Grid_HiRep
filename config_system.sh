@@ -11,6 +11,7 @@ case $__machine_name in
     target_partition_gpu="Precision-3571-local"; target_partition_cpu="Precision-3571-local";
     gpus_per_node=1;                             qos="normal";
     max_cores_per_node_gpu=16;                   max_cores_per_node_cpu=16;
+    cluster_data_disk="/scratch/${__project_account}";
     ;;
   *"DESKTOP-GPI5ERK"*)
     target_partition_gpu="DESKTOP-GPI5ERK";      target_partition_cpu="DESKTOP-GPI5ERK";
