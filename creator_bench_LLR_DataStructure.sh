@@ -65,7 +65,7 @@ echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 __module_list="#no modules on UNKNOWN machine maybe Saturn!; module list;"
 case $__machine_name in
   *"Precision-3571"*)
-    $white; printf "Laptop no module load  : no module load"; $bold
+    $white; printf "Laptop no module load  : no module load\n"; $bold
     # grid_dir is already set above but setting to new value here for laptop
     #grid_dir=${sourcecode_dir}/JetBrainGateway/Grid-Main/Grid;
     __qos="${qos}";
