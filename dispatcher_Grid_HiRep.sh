@@ -85,12 +85,10 @@ esac
 # Setting the external lib_dir
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $green; printf "Creating LLR structure :\n"; $white; $reset_colors;
-
 bash -s < ./creator_bench_LLR_DataStructure.sh "$project_account"                \
                                                "$remote_hostname"                \
                                                "$user_remote_home_dir"           \
                                                "$lib_dir";
-
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 $cyan;  printf "Created tar ball      : "; $yellow; printf "%s\n" "${lib_dir}.gz";
 $white; $reset_colors;
@@ -124,7 +122,6 @@ then
   "${ball_llr_codes}.gz" "${ball_llr_input}.gz" "${ball_llr_LatticeRuns}.gz" \
   "${user_remote_host}:${source_dir}"
 fi
-
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 # Bench_Grid_HiRep.git
 Bench_Grid_HiRep_git_url="https://github.com/fbonnet08/Bench_Grid_HiRep.git"
@@ -298,16 +295,16 @@ CURRENT_DIR=\$(echo \`pwd\`)
 
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
-#bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
+bash -s < ./creator_bench_all_batchs.sh        \$_project_account SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Hirep_LLR-SP_HB.sh            SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib;
+bash -s < ./build_dependencies.sh               SwanSea/SourceCodes/external_lib;
 
-#bash -s < ./build_Grid.sh                       SwanSea/SourceCodes/external_lib;
-#bash -s < ./install_Grid.sh                     SwanSea/SourceCodes/external_lib;
-#bash -s < ./build_Grid-DWF-Telos.sh             SwanSea/SourceCodes/external_lib;
-#bash -s < ./install_Grid-DWF-Telos.sh           SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid.sh                       SwanSea/SourceCodes/external_lib;
+bash -s < ./install_Grid.sh                     SwanSea/SourceCodes/external_lib;
+bash -s < ./build_Grid-DWF-Telos.sh             SwanSea/SourceCodes/external_lib;
+bash -s < ./install_Grid-DWF-Telos.sh           SwanSea/SourceCodes/external_lib;
 
 #bash -s < ./build_SombreroBKeeper.sh            SwanSea/SourceCodes/external_lib;
 

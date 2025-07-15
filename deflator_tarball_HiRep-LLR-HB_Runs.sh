@@ -142,17 +142,17 @@ directory_exists "${path_to_run_dir}"; dir_path_to_run_dir_exists="$directory_ex
 if [ "$dir_path_to_run_dir_exists" == "yes" ]
 then
   cp "${ball_llr_LatticeRuns}.gz" "${path_to_run_dir}"
-  $white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$path_to_run_dir";
+  $white; printf "Moving to directory    : ";$cyan; printf "%s\n" "$path_to_run_dir";
   $reset_colors;
   cd "${path_to_run_dir}"
   pwd
-  $white; printf "Deflating tarball      : ";$cyan;    printf "%s\n" "${ball_llr_LatticeRuns_name}.gz";
+  $green; printf "Deflating tarball      : ";$cyan; printf "%s\n" "${ball_llr_LatticeRuns_name}.gz";
   $reset_colors;
   tar xfz "${ball_llr_LatticeRuns_name}.gz"
 fi
 
 # moving back to the source directory
-$white; printf "Moving to directory    : ";$cyan;    printf "%s\n" "$sourcecode_dir";
+$white; printf "Moving to directory    : ";$cyan; printf "%s\n" "$sourcecode_dir";
 $reset_colors;
 cd "${sourcecode_dir}"
 ls -al
