@@ -96,7 +96,12 @@ case $machine_name in
     --with-gmp=${prefix} \
     --with-mpfr=${prefix} \
     --with-openssl=/usr/lib/x86_64-linux-gnu/ \
-    --disable-unified
+    --disable-unified \
+    --enable-Sp \
+    --enable-Nc=4 \
+    CXX=nvcc \
+    LDFLAGS="-cudart shared -lcublas " \
+    CXXFLAGS="-ccbin mpicxx -gencode arch=compute_80,code=sm_80 -std=c++17 -cudart shared --diag-suppress 177,550,611"
     # \
     #--enable-simd=GPU \
     #--enable-accelerator=cuda \
